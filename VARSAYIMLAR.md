@@ -116,7 +116,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Taslak `sema/iliskiler_v1.json` dosyasıdır (21 ilişki, LLM taslağı). Kullanıcı onayına kadar hiçbir kod tarafından kullanılmaz.
 - **Dosyalar:** `cekirdek/iliski_semasi.py`, `sema/`, `araclar/sema_onayla.py`.
 - **Geri alma:** onay kaydını silmek ya da şema sürümünü artırmak.
-- **Felsefi:** EVET (şema onayı). **Durum:** ONAYSIZ, taslak kullanıcı onayında.
+- **Felsefi:** EVET (şema onayı). **Durum:** ONAYLI (2026-10-23) → `KARARLAR.md` K-006.
 
 ## V-014: Bilgi tabanının kabul/ret davranışı
 - **Bölüm:** KODLAMA_PROMPTU §2.3 (LLM çıktısı karantinada), §5 (uymayan kayıt reddedilir, nedeni deftere yazılır, kaynaksız kayıt girmez).
@@ -138,7 +138,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   5. Cevaplar ayrı dosyada durur. Eğitimin cevabı (uygunluk için "doğruluk") okuyup okuyamayacağı A3'te ayrıca sorulacak.
 - **Uygulanan (şimdilik):** yalnızca `NotImplementedError` iskeleti.
 - **Dosyalar:** `degerlendirme/uretec.py`.
-- **Felsefi:** EVET (kâhin, veri olarak dil). **Durum:** ONAYSIZ, kullanıcıya soruldu.
+- **Felsefi:** EVET (kâhin, veri olarak dil). **Durum:** ONAYLI (2026-10-23) → `KARARLAR.md` K-007.
 
 ## V-016: Kelime çantası kısa yol kuralı
 - **Bölüm:** sistem.md §10 ("kelime çantası kısa yol dedektörünün çözdüğü örnekler Treg'e, verisi test bölmelerinden ayrı") ve KODLAMA_PROMPTU §6 ("şansı +%5'ten fazla geçerse üretim durur"). İkisi farklı şey söylüyor. "Şans"ın tanımı yok.
@@ -146,4 +146,63 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - İkisini birleştirmek: dedektörün çözdüğü örnekler ayrı bir "Treg kümesine" ayrılır (§10). Kalan ana kümede dedektörün doğruluğu şans + %5'i geçerse üretim durur (prompt §6).
   - Şans = en sık cevabın oranı.
   - Dedektör = yalnızca olgulardaki ilişki adlarının sayısını (ve kişi kimliklerini) kullanan, yapıya bakmayan, standart kütüphaneyle yazılmış Naive Bayes sınıflayıcısı. Ayrı bir bölmede eğitilir, başka bir bölmede ölçülür.
-- **Felsefi:** EVET (veri, kısa yol). **Durum:** ONAYSIZ, kullanıcıya soruldu.
+- **Felsefi:** EVET (veri, kısa yol). **Durum:** ONAYLI (2026-10-23) → `KARARLAR.md` K-008.
+
+## V-017: Bölüm biçimi, zincir ve dikkat dağıtıcı kuralları, üreteç parametreleri
+- **Bölüm:** sistem.md §10, §11; K-007. Sayılar ve ayrıntılar şartnamede yok.
+- **Uygulanan:**
+  - **Ağaç:** kök çift. `uretec_nesil_sayisi` (4) nesil. Her çiftin çocuk sayısı `uretec_cocuk_en_az`–`uretec_cocuk_en_cok` (2–4) arasında rastgele. Son nesil dışındaki her çocuk ağaç dışından gelen karşı tipte biriyle evlenir. Akraba evliliği ve üvey kardeş yok. Ağaç her bölümde yeniden kurulur.
+  - **Zincir:** olgu ilişkileriyle (doğrudan bağlar) kişi tekrarlamayan k adımlı rastgele yürüyüş. Sorgu (ilk, son). Cevap, iki uç arasındaki gerçek ilişkidir. Gerçek ilişki 21 ilişkiden biri değilse aday atılır. Olgular yürüyüş yönünde yazılır.
+  - **k tanımı:** olgu grafiğinde sorgu uçları arasındaki en kısa yol tam k olmalıdır. Bu, üreteçte denetlenir.
+  - **Dikkat dağıtıcılar:** ağacın başka doğrudan bağlarından `dikkat_dagitici_olgu_sayisi` (4) olgu. Zincire kısa yol açan seçim yeniden çekilir.
+  - **Kişi kimlikleri:** her bölümde rastgele karıştırılır. Olguların sırası karıştırılır.
+  - **Bölüm dosyasında** bölme adı, k ve cevap YOK. Bunlar ayrı cevap kaydındadır.
+  - **Deneme sınırı:** `uretec_deneme_siniri`. Aşılırsa üretim durur, sessizce küçültülmez.
+  - **Tohum:** `uretec_tohum`.
+  - **Bölmeler:** eğitim (k=2–3), uzunluk testi (k=4–10), zincir-bozuk, yön ters, ilişki yeniden adlandırma. Zincir-bozuk bölümde bir zincir olgusu silinir, yerine bir dikkat dağıtıcı eklenir (olgu sayısı aynı kalsın diye) ve cevap "yok"tur. Yeniden adlandırma bölmesinde ilişki adları `yeniden_ad_uzunlugu` harfli anlamsız adlarla tutarlı biçimde değiştirilir ve bölmeye yeniden adlandırılmış şema eşlik eder.
+- **Dosyalar:** `degerlendirme/dunya.py`, `degerlendirme/uretec.py`, `config.json`, `sema/bolum_v1.schema.json`, `sema/cevap_v1.schema.json`.
+- **Geri alma:** config değerleri ve modül.
+- **Felsefi:** hayır (K-007 içinde ayrıntı). **Durum:** ONAYSIZ.
+
+## V-018: Kelime çantası dedektörünün ayrıntıları
+- **Bölüm:** K-008. Sayılar yok.
+- **Uygulanan:**
+  - **Özellikler:** olgulardaki ilişki adı sayıları ile olgu ve sorgudaki kişi kimlikleri. Yapıya bakılmaz.
+  - **Model:** çok terimli Naive Bayes, Laplace düzeltmesi `dedektor_laplace` (1). Eşitlikte sözlük sırasıyla karar verilir.
+  - **Akış:**
+    1. Her bölme için önce `dedektor_egitim_sayisi` bölüm yalnız dedektörü eğitmek için üretilir. Bu bölümler ne ana kümeye ne Treg kümesine girer.
+    2. Sonraki adaylardan dedektörün doğru bildikleri Treg kümesine, diğerleri ana kümeye gider.
+    3. Ana küme dolunca, ana kümenin ilk yarısında sıfırdan eğitilen yeni bir dedektör ikinci yarıda ölçülür. Doğruluk > şans + `kisa_yol_sans_payi` ise üretim durur.
+  - **Zincir-bozuk:** bu bölmede Treg ayrımı yapılmaz. Kapı, bozuk bölümler ile bunların bozulmamış eşlerinin karışımında ölçülür, çünkü tek başına bütün cevaplar "yok"tur.
+- **Dosyalar:** `degerlendirme/kisa_yol.py`.
+- **Felsefi:** hayır (K-008 içinde ayrıntı). **Durum:** ONAYSIZ.
+
+## V-019: Gizli yapısal tanımların içeriği
+- **Bölüm:** K-007. İlişkilerin yapısal tanımları kâhin verisidir. Şartnamede yok, akrabalık bilgisinden yazıldı (LLM taslağı).
+- **Uygulanan:** `degerlendirme/veri/tanimlar_v1.json`. Testler her üretilen ağaçta şunları denetler:
+  - aynı iki kişi arasında en fazla bir ilişki olması,
+  - ilişkinin tersinin onaylı şemadaki ters adaylarından biri olması,
+  - işlevsel ilişkilerin tekliği.
+  Böylece tanımlar ile onaylı şema birbirini sınar.
+- **Geri alma:** yeni sürüm (`tanimlar_v2.json`).
+- **Felsefi:** EVET (kâhin doğruluğu). **Durum:** ONAYSIZ, kullanıcının okumasına sunulacak.
+
+## V-020: "Önsel-ters" bölmesinin tanımı
+- **Bölüm:** sistem.md §10 "önsel-ters". Ne demek olduğu tanımlı değil.
+- **Seçenekler:** (a) test cevap dağılımı eğitimdekinin tersi (eğitimde nadir olan cevaplar testte sık), (b) gerçek hayatta alışılmadık ama tutarlı aileler (ör. çok kuşaklı aynı yaş), (c) başka.
+- **Öneri:** (a).
+- **Uygulanan:** `NotImplementedError`.
+- **Felsefi:** EVET (değerlendirme bölmesi). **Durum:** ONAYSIZ, sorulacak.
+
+## V-021: Kilitli kümelerle kesişim denetimi
+- **Bölüm:** KODLAMA_PROMPTU §5 (Kilitli kümeler: hash her koşuda doğrulanır, kesişirse hat durur).
+- **Uygulanan:**
+  - `kilit/kilitli_kumeler.json` kaydı küme dosyalarının hash'ini tutar.
+  - Üretilen her bölümün özeti kilitli kümelerdeki özetlerle karşılaştırılır, kesişirse üretim durur.
+  - Kesişim birebir aynı bölüm (aynı hash) üzerinden aranır. Kimlikleri farklı ama yapıca aynı (izomorf) bölümler yakalanmaz. Bu sınırlıdır ve raporlanır.
+  - Altın/kalibrasyon kümesinin kendisi henüz YOK. Boyutu ve oluşturulma yolu kullanıcıya sorulacak (bilinen boşluk, KODLAMA_PROMPTU §10).
+- **Dosyalar:** `degerlendirme/kilitli_kumeler.py`.
+- **Felsefi:** hayır (mekanizma), küme içeriği EVET. **Durum:** ONAYSIZ.
+
+## V-011 eki: tip listesi
+- JSON Schema `type` alanı liste de olabilir (ör. `["string", "null"]`). Cevap kaydındaki "yok" cevabı için eklendi.

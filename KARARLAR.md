@@ -26,3 +26,15 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
 - **Karar:** Kullanıcı, A0 bağımsız incelemesini beklemeden A1'e başlanmasını istedi. İnceleme istemi (`inceleme/A0_istemi.md`) hazır durur ve sonra koşturulabilir.
 - **Onaylayan:** kullanıcı.
 - **Etkisi:** KODLAMA_PROMPTU §4 "Bağımsız inceleme" adımı A0 için ertelendi.
+
+## K-006 (2026-10-23): İlişki şeması sürüm 1 onaylandı (V-013'ten)
+- **Karar:** `sema/iliskiler_v1.json` (21 ilişki, okuma "(A, r, B) = B, A'nın r'sidir") kullanıcı tarafından onaylandı ve `kilit/sema_onayi.json` ile hash kilidine alındı. Dosyadaki "TASLAK" notu, onaylanan baytları değiştirmemek için olduğu gibi bırakıldı.
+- **Onaylayan:** kullanıcı. Hata çıkarsa yeni sürüm (`iliskiler_v2.json`) ve yeni onayla düzeltilir.
+
+## K-007 (2026-10-23): Üreteç tasarımı onaylandı (V-015'ten)
+- **Karar:** V-015'teki öneri: üreteç `degerlendirme/` altında, soyut ağaç (tamsayı kişi, iki tip, yukarı/aşağı/eş bağı), ilişkilerin yapısal tanımları gizli veri dosyasında, olgular yalnız doğrudan bağlar, ağacın geri kalanı dikkat dağıtıcı, A1'de isim yok, cevaplar ayrı dosyada.
+- **Onaylayan:** kullanıcı.
+
+## K-008 (2026-10-23): Kelime çantası kuralı onaylandı (V-016'dan)
+- **Karar:** dedektörün çözdüğü örnekler ayrı "Treg kümesine" ayrılır (sistem.md §10). Kalan ana kümede kelime çantası sınıflayıcısının doğruluğu şans + %5'i geçerse üretim durur (KODLAMA_PROMPTU §6). Şans = en sık cevabın oranı. Dedektör: yapıya bakmayan, yalnız ilişki adı sayıları ve kişi kimlikleri kullanan Naive Bayes; ayrı bölmede eğitilir, başka bölmede ölçülür.
+- **Onaylayan:** kullanıcı.
