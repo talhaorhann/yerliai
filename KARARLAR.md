@@ -62,3 +62,11 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
   - Kayıt: `kaynak=LLM, onaylayan=kullanıcı, bagimsiz_insan_cevabi=false` (`degerlendirme/altin/kullanici_cevaplari_1.json`, sha256 306ee0a0c54d3d6972695ae8a0c8c14e8dff12e2d6ef084884a9fd345a5c45ff).
   - Bağımsızlık kısıtı `ONKAYIT.md`'ye eklendi.
 - **Onaylayan:** kullanıcı.
+
+## K-014 (2026-10-23): A2 vektör temsili onaylandı (V-024'ten)
+- **Karar:** d = 256, öğeler ±1 tamsayı. Bağlama tamsayıyla tam dairesel evrişimdir. Kayıt vektörü v = 16·R[r] + P_s⊛E[s] + P_o⊛E[o]. Kosinüs benzerliği tamsayı nokta çarpımından hesaplanır. Vektörler (tohum, tür, ad) hash'inden üretilir.
+- **Onaylayan:** kullanıcı.
+
+## K-015 (2026-10-23): PyTorch hızlı yolu A5 öncesine ertelendi
+- **Karar:** Ağ izni şimdilik yok (V-025). A2 yalnız saf Python tamsayı referans yoluyla kapanır. PyTorch hızlı yolu ve referansla bit-eşitlik testi A5 (H1) öncesine bırakılır. Bu sırada hız iddiası yazılmaz.
+- **Onaylayan:** kullanıcı.

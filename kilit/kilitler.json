@@ -2,7 +2,7 @@
   "algoritma": "sha256",
   "dosyalar": {
     "ONKAYIT.md": "84502692eb39236877dcdf517c3bc01a075d1b8b37e693168739fe36c57f56dd",
-    "config.json": "cc7bb6398b0c80a264f2e76102fd224bbebaa5fae21623fe137eae4edaa2ba0a",
+    "config.json": "7a07c62b4e540698f366b66536dce170a22832b8df255d9ef5b8ef4df1d34d8a",
     "degerlendirme/altin/kullanici_cevaplari_1.json": "306ee0a0c54d3d6972695ae8a0c8c14e8dff12e2d6ef084884a9fd345a5c45ff",
     "degerlendirme/veri/tanimlar_v1.json": "8f62d7ecf2ff39624f86bda8a5a3f48773afbd5e7a1084fd6a2ce058e96064e4",
     "testler/__init__.py": "85bf82b388ec555748bf51e7c7f49f7d1896ad8c38f1480d781b4f854873cca9",
@@ -19,6 +19,7 @@
     "testler/test_a1_sema_dogrulayici.py": "028cf001646c57f6914397a1431fe6a8cb6ff82abeba707f26a8bc69da0d3cf2",
     "testler/test_a1_uretec.py": "4b55bc39766856224ed329385eacd7dcbd59fb795c3b1f48ec432ce0cf30ea1f",
     "testler/test_a1_uretec_iskelet.py": "a136e78dedf1f360e47bd7a05f49b24a98310d0f45bdd4c0ce4083802ef2cf51",
+    "testler/test_a2_vektor.py": "85bfd784a5dd0545029e5bc2475a82e244beeae953d94ceb176ee15a00d344d4",
     "testler/yardimci.py": "3abd3a5fcb495d53e6b692a7cd095cabb7401e83a425aa9dcd0f18ce3e887b68",
     "testler/yardimci_uzun_kosu.py": "0b43bf29ff8a16564668b6c3e5823c749082347dab534716c62e1e201ee74a6d"
   }

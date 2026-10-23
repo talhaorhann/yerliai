@@ -256,10 +256,21 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Çözme: v'den P_s'nin tersiyle özne geri bulunmalı (küçük kod kitabında en yakın komşu).
   - Yarı-diklik: rastgele çiftlerde |kosinüs| < 5/√d (d=256 için 0,3125).
   - Halka/olgu değişince vektör değişmeli, ilgisiz olgu değişince değişmemeli.
-- **Felsefi:** EVET (eşleşme). **Durum:** ONAYSIZ, kullanıcıya soruldu. Onaya kadar A2 kodu yazılmaz.
+- **Felsefi:** EVET (eşleşme). **Durum:** ONAYLI (2026-10-23) → `KARARLAR.md` K-014.
 
 ## V-025: torch'un kurulum yolu
 - **Bölüm:** K-012, KODLAMA_PROMPTU §5 (lisansı belirsiz olanı kullanma), §8 (kurulum).
 - **Durum:** Bu bulut ortamının ağ politikası `download.pytorch.org`'u engelliyor (403). PyPI'daki Linux torch tekerleği lisansı doğrulanmamış NVIDIA paketlerini zorunlu bağımlılık olarak çekiyor.
 - **Öneri:** Kullanıcı ortam ayarlarında `download.pytorch.org`'a izin verir, CPU tekerleği hash'iyle sabitlenir. O zamana kadar A2 referans yolu (saf Python) torch'suz yazılabilir, hızlı yol bekler.
-- **Felsefi:** hayır (lisans kuralı gereği). **Durum:** ONAYSIZ.
+- **Felsefi:** hayır (lisans kuralı gereği). **Durum:** Kullanıcı (2026-10-23): ağ izni şimdilik yok, hızlı yol A5 öncesine (K-015).
+
+## V-026: A2 kabul eşikleri ve vektör tohumu
+- **Bölüm:** K-014 (V-024 test listesi). Çözme ve ölçek testleri için şartnamede sayı yok.
+- **Uygulanan:**
+  - **Vektör üretimi:** `vektor_tohum` (config). Bitler SHAKE-256("tohum|tür|ad") çıktısından alınır, 1 biti +1, 0 biti −1 olur. Python'un `hash()` işlevi kullanılmaz (süreçten sürece değişir).
+  - **Yarı-diklik (K-014'te onaylı):** 100 rastgele varlık vektörünün bütün çiftlerinde |kosinüs| < 5/√d. Bu, 5 standart sapmaya karşılık gelir.
+  - **Denge:** her vektörde |Σöğe| < 5√d (5 standart sapma).
+  - **Ölçek:** ||P⊛E||² / ||16·R||² oranı [0,5; 2] aralığında (aynı büyüklük mertebesi). Ölçülen değer 0,93.
+  - **Çözme:** sabit tohumla 60 kayıt, 100 varlık ve 21 anlamsız ilişki adı üzerinde özne, nesne ve ilişki %100 geri bulunur. Önden ölçümde doğru ile en yakın yanlış aday arasındaki en küçük fark 2,2 kattı, %100 sınırının arkasında bu pay var.
+- **Dosyalar:** `config.json`, `testler/test_a2_vektor.py`.
+- **Felsefi:** hayır. **Durum:** ONAYSIZ.

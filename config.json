@@ -25,6 +25,8 @@
     "altin_normal_sayisi": {"deger": 40, "kaynak": "V-023"},
     "altin_bozuk_sayisi": {"deger": 10, "kaynak": "V-023"},
     "altin_dikkat_dagitici": {"deger": 2, "kaynak": "V-023"},
+    "vektor_boyutu": {"deger": 256, "kaynak": "K-014"},
+    "vektor_tohum": {"deger": 2026, "kaynak": "V-026"},
     "kilitli_veri_dosyalari": {"deger": ["degerlendirme/veri/tanimlar_v1.json", "ONKAYIT.md", "degerlendirme/altin/kullanici_cevaplari_1.json"], "kaynak": "V-008"}
   },
   "bayraklar": {

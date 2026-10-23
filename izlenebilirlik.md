@@ -26,3 +26,6 @@
 | sistem.md §10, §11 (üreteç mutasyonları) | `araclar/mutasyon_a1.py` | `testler/test_a1_uretec.py` |
 | sistem.md §17, K-011 (altın küme; V-023) | `degerlendirme/altin.py`, `degerlendirme/altin/altin_bolumler.jsonl`, `kilit/kilitli_kumeler.json` | `testler/test_a1_altin.py` |
 | sistem.md §10, K-010 (önsel-ters; V-022) | `degerlendirme/uretec.py` | `testler/test_a1_uretec_iskelet.py` |
+| sistem.md §1, §3 (HRR/VSA vektörleri; K-014, V-026) | `cekirdek/vektor.py` | `testler/test_a2_vektor.py` |
+| KODLAMA_PROMPTU §5 (tensör şekilleri, SEKILLER) | `cekirdek/sekiller.py` | `testler/test_a2_vektor.py` |
+| KODLAMA_PROMPTU §6 (Mutasyon sınaması, A2) | `araclar/mutasyon_a2.py` | `testler/test_a2_vektor.py` |

@@ -66,10 +66,26 @@
 - Kesişim yalnız birebir aynı bölümü yakalar.
 - İsim/parafraz Türkçe aşamasında.
 
-## A2: vektörler (HRR/VSA) (dal `asama-2`)
+## A2: vektörler (HRR/VSA) (dal `asama-2`, etiket `asama-2`)
 
-**Durum:** BAŞLAMADI (kod yok). Temsil önerisi (V-024) kullanıcı onayında. torch bu ortamda kurulamadı (V-025: `download.pytorch.org` ağ politikasıyla engelli).
+**Durum:** KAPANDI, yalnız saf Python tamsayı referans yoluyla (K-015). PyTorch hızlı yolu ve bit-eşitlik testi A5 öncesine ertelendi, çünkü ağ izni yok (V-025).
 
-**Yapılan:**
-- K-012: numpy ve torch izinli. `config.json` `izinli_ek_paketler` güncellendi.
-- Lisanslar resmî dosyalardan doğrulandı (`LISANSLAR.md`). Sabit sürümler: `gereksinimler.txt`, `BAGIMLILIKLAR.md`.
+**Çalışan (testle gösterilmiş):**
+- `cekirdek/vektor.py` (K-014):
+  - d=256, ±1 tamsayı vektörler, SHAKE-256'dan durumsuz üretim. Farklı `PYTHONHASHSEED` ile ayrı süreçte aynı vektör çıkıyor.
+  - Tamsayıyla tam dairesel evrişim. Elle hesaplanmış örnekler, değişme, birleşme ve dağılma özellikleri tutuyor.
+  - Kayıt vektörü v = 16·R + P_s⊛E[s] + P_o⊛E[o]. Bileşen ölçek oranı [0,5; 2] içinde.
+  - Kosinüs benzerliği tek son bölmeyle hesaplanıyor. cos(a,a) = 1.0 tam.
+  - Çözme: 60 kayıtta özne, nesne ve ilişki %100 geri bulunuyor (100 varlık, 21 anlamsız ilişki).
+  - Yarı-diklik: 100 vektörde bütün çiftlerde |cos| < 5/√d.
+  - Rol bağı asimetrik. İlgisiz kayıt değişince diğer satırlar sabit kalıyor.
+- `cekirdek/sekiller.py`: SEKILLER tablosu (boyut, kayit, aday) ve şekil denetimi (7/11/13 boyları, boş ve tek öğe).
+
+**Ölçüm (hız iddiası değil):** referans yolda 64 kayıt vektörü 0,52 sn (8,1 ms/kayıt), 64×64 kosinüs matrisi 0,23 sn. Hızlı yol olmadan A3'teki 300–500 hücrelik popülasyon yavaş olacak. Bu, PyTorch erişiminin A3–A5 arasında gerekeceği anlamına geliyor.
+
+**Mutasyon:** A2'de 11/11 yakalandı (`python3 araclar/mutasyon_a2.py`). A0/A1 kodu ve testleri bu aşamada değişmedi, o mutasyonlar yeniden koşturulmadı.
+
+**Eksik:**
+- PyTorch hızlı yol (toplu int64) ve referansla bit-eşitlik testi (K-015).
+- GPU yolu (K-012: ayrı aşama).
+- Reseptör vektörleri ve gradyan (sistem.md §3, §7): A3 ve sonrası.
