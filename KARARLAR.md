@@ -122,3 +122,15 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
 ## K-022 (2026-10-23): PyTorch CPU sürümü kurulumu
 - **Karar:** torch 2.14.1+cpu (`download.pytorch.org/whl/cpu`) ve CPU bağımlılıkları hash'leriyle sabitlenir (`gereksinimler.txt`). GPU (CUDA) sürümü gerekirse ayrıca konuşulur. Hızlı yol referansla bit düzeyinde aynı olmalıdır (K-015).
 - **Onaylayan:** kullanıcı (ağ izni verildi).
+
+## K-023 (2026-10-23): H1 ön kaydı (ÖK-002)
+- **Karar:** `ONKAYIT.md` ÖK-002 metni H1'in ön kaydıdır ve kilitlenir. Kapı: kapıya giren her bölmede (uzunluk, yön ters, önsel-ters, zincir-bozuk) ve her tohumda (7–11) doğruluk %100, tolerans yok. DNA yalnız eğitim bölmesinde geliştirilir, test bölmeleri kilitli DNA ile bir kez koşar. Yeniden adlandırma bölmesi H2'ye kalır. Müdahale puanı raporlanır, kapıya girmez; "sınanamadı" ayrı sayılır (K-021).
+- **Onaylayan:** kullanıcı.
+
+## K-024 (2026-10-23): H1 DNA'sını bağımsız danışman yazar
+- **Karar:** Akrabalık DNA'sını gizli tanımları (`degerlendirme/veri/tanimlar_v1.json`) görmemiş bağımsız bir danışman yazar. Danışmana yalnız onaylı ilişki listesi (adlar, cinsiyet, ters ilişki bilgisi, okuma yönü, dünya varsayımları, DNA biçimi) tek dosya olarak verilir: `DANISMAN_ICIN_ILISKI_LISTESI.md`. Kuralları kullanıcı getirir ve onaylar. Kayıt: kaynak=LLM (bağımsız danışman), onaylayan=kullanıcı.
+- **Onaylayan:** kullanıcı.
+
+## K-025 (2026-10-23): DNA'da isteğe bağlı "farklı kişi" şartı
+- **Karar:** DNA biçimine (sürüm 2) isteğe bağlı bir şart eklenir: bir hücrede belirtilen değişken çiftleri farklı varlıklara bağlanmalıdır. Şartı olmayan hücreler önceki gibi çalışır (değişkenler aynı varlığa bağlanabilir). Gerekçe: şart yokken çekirdek r1(1,2), r2(2,1) olgularından r3(1,1) yazdı (denendi).
+- **Onaylayan:** kullanıcı.
