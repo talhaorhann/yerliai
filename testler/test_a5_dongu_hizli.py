@@ -32,6 +32,13 @@ ONCEKI = {
 }
 
 
+def ilk_fark(a, b):
+    """Büyük dizilerde unittest'in fark çıktısı (difflib) dakikalar sürüyor; ilk farklı konum yeterli."""
+    if len(a) != len(b):
+        return f"uzunluk {len(a)} ile {len(b)}"
+    return next((f"ilk farklı konum {i}" for i, (x, y) in enumerate(zip(a, b)) if x != y), None)
+
+
 class DonguHizliYolTesti(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -81,7 +88,7 @@ class DonguHizliYolTesti(unittest.TestCase):
         for ad in ONCEKI:
             with self.subTest(senaryo=ad):
                 r, h = self.referans[ad], self.hizli[ad]
-                self.assertEqual(h.vektorler, r.vektorler)
+                self.assertIsNone(ilk_fark(h.vektorler, r.vektorler))
                 self.assertEqual(repr(h.sonuc), repr(r.sonuc))
                 self.assertEqual(repr(h.mudahale), repr(r.mudahale))
 
