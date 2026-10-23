@@ -1,0 +1,15 @@
+{
+  "surum": "1",
+  "degerler": {
+    "hash_algoritmasi": {"deger": "sha256", "kaynak": "V-007"},
+    "olay_sema_surumu": {"deger": "1", "kaynak": "KODLAMA_PROMPTU §5"},
+    "kaynaklar": {"deger": ["kullanıcı", "çekirdek", "LLM", "KeNet", "Wikidata", "üreteç"], "kaynak": "KODLAMA_PROMPTU §5"},
+    "izinli_ek_paketler": {"deger": [], "kaynak": "V-005"},
+    "yasak_cekirdek_modulleri": {"deger": ["socket", "ssl", "http", "urllib", "ftplib", "smtplib", "poplib", "imaplib", "xmlrpc", "asyncio", "subprocess", "multiprocessing", "webbrowser", "ctypes"], "kaynak": "V-005"}
+  },
+  "bayraklar": {
+    "deneysel": {"deger": false, "kaynak": "KODLAMA_PROMPTU §5"},
+    "kahin": {"deger": false, "kaynak": "KODLAMA_PROMPTU §5"},
+    "api_yedegi": {"deger": false, "kaynak": "KODLAMA_PROMPTU §5"}
+  }
+}

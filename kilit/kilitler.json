@@ -1,0 +1,15 @@
+{
+  "algoritma": "sha256",
+  "dosyalar": {
+    "config.json": "fa8ae455bfebf1cc3eb9e3526d76abd7738c62335608647a004bcf548403f593",
+    "testler/__init__.py": "85bf82b388ec555748bf51e7c7f49f7d1896ad8c38f1480d781b4f854873cca9",
+    "testler/test_a0_atomik.py": "77ad6cefdaf61406d0f731fdab039b0993f6df0f39b59f402194def8953f1d81",
+    "testler/test_a0_ayar.py": "13f797cc46f7b18d577558b46b39d5e94e4c12bd198cb5f429f55d92bd57e416",
+    "testler/test_a0_kilit.py": "a801246de6798d7101f2c7112ca268ba25bebdd3cde809aace59cea3a0d7bbc6",
+    "testler/test_a0_olay_gunlugu.py": "1d7a5de0bb26aa0904454cbe932e2a1e6c97e0be4e2f48ee5f8f81be99ef494a",
+    "testler/test_a0_yapi.py": "1a1d499511807706168a653abc044e3b0d5374c73a8021393b1ce3c178bef589",
+    "testler/test_a0_yasak_kaliplar.py": "38994eab5a4c567a51153530b4c9dd4d293deb4987a6c6cac3b948f2afb4fcbb",
+    "testler/yardimci.py": "3abd3a5fcb495d53e6b692a7cd095cabb7401e83a425aa9dcd0f18ce3e887b68",
+    "testler/yardimci_uzun_kosu.py": "0b43bf29ff8a16564668b6c3e5823c749082347dab534716c62e1e201ee74a6d"
+  }
+}
