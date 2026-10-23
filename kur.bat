@@ -1,6 +1,11 @@
 @echo off
-rem KODLAMA_PROMPTU §8: tek kurulum betigi. A0da dis paket yok, yalniz Python 3.10+ denetlenir ve testler kosar (V-003).
+rem KODLAMA_PROMPTU §8: tek kurulum betigi. Python 3.13 denetlenir, .venv kurulur, paketler hash denetimiyle
+rem yuklenir (K-022, V-041), sonra tum testler .venv icindeki yorumlayiciyla kosar. Windowsta DOGRULANMADI.
 cd /d "%~dp0"
-python -c "import sys; sys.exit(0 if sys.version_info >= (3, 10) else \"Python 3.10 ya da ustu gerekli\")" || exit /b 1
-python araclar\kostur.py
+python -c "import sys; sys.exit(0 if sys.version_info[:2] == (3, 13) else \"Python 3.13 gerekli (V-041)\")" || exit /b 1
+if not exist .venv\Scripts\python.exe (
+    python -m venv .venv || exit /b 1
+)
+.venv\Scripts\python -m pip install --require-hashes --only-binary=:all: -r gereksinimler.txt || exit /b 1
+.venv\Scripts\python araclar\kostur.py
 exit /b %ERRORLEVEL%

@@ -4,7 +4,7 @@
 
 | Paket | Sürüm | Hash (sha256, PyPI) | Gerekçe | Kullanan | Durum |
 |---|---|---|---|---|---|
-| Python (yorumlayıcı) | ≥3.10 (geliştirme: 3.13) | - | standart kütüphane, `sys.stdlib_module_names` | tümü | V-003 ONAYSIZ |
+| Python (yorumlayıcı) | kurulum 3.13 (hash'li tekerlekler cp313); kod ≥3.10 | - | standart kütüphane, `sys.stdlib_module_names` | tümü | V-003, V-041 ONAYSIZ |
 | numpy | 2.5.3 | linux x86_64 cp313 `a5fa86b80fd24bcd1aff83ad23be44ea323de3f787be8f8b15d4a65621e25321`; win_amd64 cp313 `71cad2b2a7451ab79d8f5e71b453485b6775963d5cf794179144a7463fe6e8ec` | sistem.md (PyTorch/NumPy), K-012 | henüz kullanan yok | ONAYLI (K-012), bu ortamda kurulu |
 | torch | 2.14.1+cpu | linux x86_64 cp313 `331fa474e26e428e2e6af1143b2fdab19cee492d7d21897b8899ce1c14755662`; win_amd64 cp313 `4eec5a4fadd7a18f9c75b97fdb374fbb579ce4b1604bf66eeb14dc2201d54def` (ikisi de `download.pytorch.org/whl/cpu` dizin sayfasındaki sha256) | sistem.md (Python/PyTorch), hızlı (toplu) yol, K-012, K-022 | `cekirdek/vektor_hizli.py` | ONAYLI (K-022) |
 | filelock | 4.2.4 | `301241438c57936ef93f4243a94f2559022268bfcf9b375a9a72eb0f8db8358e` | torch bağımlılığı | torch | ONAYLI (K-022) |

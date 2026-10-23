@@ -436,3 +436,12 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - **Bit-eşitlik denetimi:** kayan noktalı çıktılar `float.hex` ile karşılaştırılır (prompt §5: bit düzeyinde eşitlikte kayan nokta `==` kullanılmaz).
   - Hızlı yol şimdilik çekirdek döngüsüne bağlı değildir; döngü referans yolu kullanır. Bağlama A5'te, ölçümle birlikte yapılacak.
 - **Felsefi:** hayır (referansla aynı sonucu veren hızlandırma). **Durum:** ONAYSIZ.
+
+## V-041: Kurulum için Python 3.13 ve `.venv`
+- **Bölüm:** KODLAMA_PROMPTU §8 (tek kurulum betiği), §5 (sabit sürüm ve hash), K-022. V-003'teki "≥3.10" alt sınırını kurulum için daraltır.
+- **Durum:** `gereksinimler.txt` içindeki numpy, torch ve MarkupSafe hash'leri yalnız cp313 tekerlekleri (Linux x86_64, Windows amd64) için. Başka Python sürümünde `--require-hashes` kurulumu reddeder. A5 testleri torch ister ve atlanan test kabul edilmediği için torch'suz koşu kırmızıdır.
+- **Seçenekler:** (a) kurulum için Python 3.13 zorunlu, paketler proje içindeki `.venv`'e; (b) başka Python sürümlerinin tekerlek hash'lerini de eklemek (her biri ayrıca doğrulanmalı).
+- **Uygulanan:** (a). `kur.sh` / `kur.bat`: 3.13 denetimi → `.venv` yoksa kurulur → `pip install --require-hashes --only-binary=:all: -r gereksinimler.txt` → testler `.venv` yorumlayıcısıyla. Tam takım artık `.venv/bin/python araclar/kostur.py` ile koşar; sistem `python3` torch içermiyorsa A5 testleri kırmızı olur.
+- **Doğrulama:** `kur.sh` bu ortamda (Linux) boş bir kopyada koşturuldu. `kur.bat` Windows olmadığı için DOĞRULANMADI.
+- **Geri alma:** başka sürümlerin hash'lerini `gereksinimler.txt`'ye ekleyip sürüm denetimini gevşetmek.
+- **Felsefi:** hayır. **Durum:** ONAYSIZ.

@@ -164,3 +164,24 @@
 - Hücre susturma ve uygunluk (§8, H3).
 - Geçişlilik denetimi (şemada bilgi yok).
 - Müdahale puanının CLUTRR kalibrasyon kümesinde doğrulukla ilişkisi (r > 0,8 hedefi; CLUTRR aşaması).
+
+## A5: H1 deneyi (dal `asama-5`, sürüyor)
+
+**Durum:** 1. adım (PyTorch hızlı yolu) bitti. H1 deneyinin kendisi başlamadı.
+
+**Çalışan (testle gösterilmiş):**
+- torch 2.14.1+cpu ve bağımlılıkları `gereksinimler.txt`'de hash'le sabit (K-022). Lisans `LISANSLAR.md`'de, kaynakla karşılaştırılarak doğrulandı.
+- `cekirdek/vektor_hizli.py` (V-040): toplu evrişim (int64 dairesel matris), kayıt matrisi, kosinüs ve afinite matrisleri. Referans yolla `float.hex` düzeyinde aynı (`testler/test_a5_hizli_yol.py`, 14 test).
+- Bulgu: `torch.sqrt` (float64, CPU) bu derlemede doğru yuvarlanmıyor (√36912709632'de 1 ulp). Kök `math.sqrt` ile alınıyor.
+- Taşma denetimi çarpımlardan önce yapılıyor (2^53 sınırı, int64 sarması dahil).
+- Kurulum: `sh kur.sh` → Python 3.13 denetimi, `.venv`, hash denetimli kurulum, testler (V-041). Boş kopyada doğrulandı. `kur.bat` DOĞRULANMADI.
+- Ölçüm (`araclar/hiz_olc.py`, hız iddiası değil): 64 kayıt matrisi referans 0,622 sn / hızlı 0,020 sn; 64×64 kosinüs 0,200 / 0,002 sn; bit-eşit.
+
+**Mutasyon:** ilk koşuda 12 mutasyondan 10'u yakalandı, 2'si kaçtı (benzerlikte int64 denetimi, eksen sayısı denetimi): testi yoktu, eklendi. Son koşu aşağıda.
+
+**Eksik:**
+- Hızlı yol çekirdek döngüsüne bağlı değil (döngü referans yolu kullanıyor).
+- Altın küme 2. parça cevapları (kullanıcıda).
+- H1 ön kaydı (`ONKAYIT.md`, veriye bakmadan).
+- Akrabalık için elle doğru DNA (nasıl yazılacağı kullanıcıya sorulacak).
+- GPU (CUDA) sürümü: gerekirse konuşulacak (K-022).

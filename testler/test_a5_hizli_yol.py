@@ -69,6 +69,8 @@ class EvrisimTesti(unittest.TestCase):
             H.evrisim_toplu(torch.ones(D, dtype=torch.int64), torch.ones(7, D + 1, dtype=torch.int64))
         with self.assertRaises(SekilHatasi):
             H.evrisim_toplu(torch.ones(D, dtype=torch.int64), torch.ones(7, 11, D, dtype=torch.int64))
+        with self.assertRaises(SekilHatasi):  # fazla eksen; son iki eksenin boyu tek başına doğru görünür
+            H.evrisim_toplu(torch.ones(D, dtype=torch.int64), torch.ones(7, D, D, dtype=torch.int64))
 
 
 class KayitMatrisiTesti(unittest.TestCase):
@@ -95,6 +97,15 @@ class BenzerlikTesti(unittest.TestCase):
         self.assertEqual(tuple(H.benzerlik_matrisi_hizli(torch.zeros(0, D, dtype=torch.int64), b).shape), (0, 11))
         with self.assertRaises(ValueError):
             H.benzerlik_matrisi_hizli(torch.zeros(1, D, dtype=torch.int64), b)
+
+    def test_yalniz_int64_ve_dogru_sekil(self):
+        b = H.kayit_matrisi_hizli(KK, uclular(11, 7))
+        with self.assertRaises(SekilHatasi):
+            H.benzerlik_matrisi_hizli(b.to(torch.float64), b.to(torch.float64))
+        with self.assertRaises(SekilHatasi):
+            H.benzerlik_matrisi_hizli(b, b.to(torch.float64))
+        with self.assertRaises(SekilHatasi):
+            H.benzerlik_matrisi_hizli(b.unsqueeze(0), b)
 
 
 class DogruKokTesti(unittest.TestCase):

@@ -1,5 +1,6 @@
 # DURUM: nerede kaldık
 
-- A4 kapandı (`asama-4`). Sırada A5 (H1 deneyi).
-- Kullanıcıda: altın küme 2. parça; PyTorch ağ izni; H1 için elle DNA yolu kararı.
-- Tek komutla tüm testler: `python3 araclar/kostur.py`
+- A5 sürüyor (`asama-5`). 1. adım bitti: PyTorch CPU hızlı yolu, referansla bit düzeyinde aynı.
+- Kullanıcıda: altın küme 2. parça; H1 için elle DNA yolu kararı.
+- İlk kurulum ve testler: `sh kur.sh` (Windows: `kur.bat`, doğrulanmadı).
+- Sonraki koşular: `.venv/bin/python araclar/kostur.py` (torch gerekir; V-041).
