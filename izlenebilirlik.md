@@ -14,3 +14,9 @@
 | KODLAMA_PROMPTU §2 (Çekirdek–LLM ayrımı, kâhin yalıtımı) | `cekirdek/__init__.py`, `tercuman/__init__.py`, `degerlendirme/__init__.py`, `karsilastirma/__init__.py` | `testler/test_a0_yasak_kaliplar.py` |
 | KODLAMA_PROMPTU §3 (izlenebilirlik, başlık atfı) | `izlenebilirlik.md` | `testler/test_a0_yapi.py` |
 | KODLAMA_PROMPTU §4 (A0 iskeleti) | `kur.sh`, `kur.bat` | `testler/test_a0_yapi.py` |
+| KODLAMA_PROMPTU §5 (Şema ve veri; V-011) | `cekirdek/altyapi/sema_dogrulayici.py`, `sema/uclu_kaydi_v1.schema.json` | `testler/test_a1_sema_dogrulayici.py` |
+| sistem.md §14 (şema onayı; V-013) | `cekirdek/iliski_semasi.py`, `araclar/sema_onayla.py`, `sema/iliski_semasi_v1.schema.json`, `sema/iliskiler_v1.json` | `testler/test_a1_iliski_semasi.py` |
+| sistem.md §1, §14 (bilgi tabanı; V-012, V-014) | `cekirdek/bilgi_tabani.py` | `testler/test_a1_bilgi_tabani.py` |
+| KODLAMA_PROMPTU §2.4 (dil veridir) | `sema/iliskiler_v1.json` | `testler/test_a1_dil_veridir.py` |
+| sistem.md §10, §11 (üreteç; V-015, V-016 onay bekliyor) | `degerlendirme/uretec.py` | `testler/test_a1_uretec_iskelet.py` |
+| KODLAMA_PROMPTU §6 (Mutasyon sınaması, A1) | `araclar/mutasyon_a1.py` | `testler/test_a0_yasak_kaliplar.py` |

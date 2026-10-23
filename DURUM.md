@@ -1,5 +1,5 @@
 # DURUM: nerede kaldık
 
-- Aşama: A0 (klasör iskeleti, config, rapor/kayıt altyapısı), dal `asama-0`.
+- Aşama: A1 (bilgi tabanı + sentetik soy ağacı üreteci), dal `asama-1`. Üreteç onay bekliyor.
 - Uzun koşu yok.
 - Tek komutla tüm testler: `python3 araclar/kostur.py`

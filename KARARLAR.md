@@ -21,3 +21,8 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
 - **Gerekçe:** aynı girdi ve tohum çekirdekte bit düzeyinde aynı çıktıyı vermeli (KODLAMA_PROMPTU §5, sistem.md §16).
 - **Onaylayan:** kullanıcı.
 - **Etkisi:** `cekirdek/altyapi/olay_gunlugu.py` (zaman alanı yok, sıra numarası var; değişiklik gerekmedi). A1'den itibaren tüm çekirdek veri kayıtları.
+
+## K-005 (2026-10-23): A1'e bağımsız inceleme beklenmeden geçildi
+- **Karar:** Kullanıcı, A0 bağımsız incelemesini beklemeden A1'e başlanmasını istedi. İnceleme istemi (`inceleme/A0_istemi.md`) hazır durur ve sonra koşturulabilir.
+- **Onaylayan:** kullanıcı.
+- **Etkisi:** KODLAMA_PROMPTU §4 "Bağımsız inceleme" adımı A0 için ertelendi.

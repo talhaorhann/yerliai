@@ -86,3 +86,64 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 - **Dosyalar:** `cekirdek/altyapi/atomik.py`.
 - **Geri alma:** modülü değiştirmek.
 - **Felsefi:** hayır. **Durum:** ONAYSIZ.
+
+---
+
+# A1 varsayımları
+
+## V-011: JSON Schema doğrulayıcısı (standart kütüphaneyle alt küme)
+- **Bölüm:** KODLAMA_PROMPTU §5 (Şema ve veri: sürümlü JSON Schema, `additionalProperties:false`). V-005 nedeniyle `jsonschema` paketi kullanılamıyor.
+- **Seçenekler:** (a) `jsonschema` paketi (onay gerekir), (b) standart kütüphaneyle küçük bir alt küme yazmak.
+- **Öneri ve uygulanan:** (b). Desteklenen anahtarlar: `$schema, $id, title, description, type, properties, required, additionalProperties, enum, const, pattern, minLength, maxLength, minimum, maximum, items, minItems, maxItems, uniqueItems`. Bilinmeyen anahtar içeren şema reddedilir, sessizce atlanmaz. Her `object` şemasında `additionalProperties:false` zorunludur. `true/false` sayı sayılmaz.
+- **Dosyalar:** `cekirdek/altyapi/sema_dogrulayici.py`.
+- **Geri alma:** onaylı bir pakete geçmek.
+- **Felsefi:** hayır. **Durum:** ONAYSIZ.
+
+## V-012: Üçlü kaydının alanları (sürüm 1)
+- **Bölüm:** sistem.md §1 (sembolik üçlü), §2 (kayıt alanları); KODLAMA_PROMPTU §5 (şema sürümü, kaynak, hash, zaman, güven); K-004 (zaman = adım). Ek A P1 (tamsayı varlık kimliği) bağlamdır.
+- **Uygulanan:** alanlar `sema_surumu, ozne, iliski, nesne, kaynak, guven, adim, ozet`. Varlıklar 0 ya da daha büyük tamsayı. `guven` [0,1] aralığında olmalı, dışındaki değer düzeltilmez, reddedilir. Kutup/kip/zaman (olumsuzluk, soru vb.) alanları Türkçe aşamasında şema sürümü artırılarak eklenecek, değerleri o gün sorulacak.
+- **Dosyalar:** `sema/uclu_kaydi_v1.schema.json`, `cekirdek/bilgi_tabani.py`.
+- **Geri alma:** şema sürümünü artırmak.
+- **Felsefi:** hayır. **Durum:** ONAYSIZ.
+
+## V-013: İlişki şeması dosyasının biçimi, okuma yönü ve onay kilidi
+- **Bölüm:** sistem.md §14 (LLM taslak ~20–30 ilişki, kullanıcı bir kez onaylar; ters/simetrik/dışlayıcı işaretleri), KODLAMA_PROMPTU §2.6, §6. Ek A: ters/simetrik tablo, dışlayıcı çiftler, işlevsellik.
+- **Uygulanan:**
+  - Biçim: `sema/iliski_semasi_v1.schema.json`. Her ilişki şu alanları taşır: `ad`, `ters` (aday listesi, çünkü örneğin "baba"nın tersi karşı tarafın cinsiyetine göre "oğul" ya da "kız"dır), `simetrik`, `islevsel` (bir kişinin en fazla bir tane olabilir). Ayrıca `dislayici_gruplar` listesi.
+  - Şema dosyasında ilişkinin TANIMI (ör. "babanın annesi") yer almaz, çünkü tanımlar gizli kuraldır (kâhin) ve çekirdek bu dosyayı okur.
+  - Okuma yönü: `(A, r, B)` = "B, A'nın r'sidir". Örnek: `(A, baba, B)` = B, A'nın babasıdır. Bu, sistem.md §3 örneğiyle (baba ∧ baba → dede) tutarlıdır.
+  - Onay: `kilit/sema_onayi.json` dosyası, şema dosyasının hash'ini ve bir K-kararını taşır. Hash tutmazsa ya da onay yoksa şema yüklenmez ve hat durur.
+  - Taslak `sema/iliskiler_v1.json` dosyasıdır (21 ilişki, LLM taslağı). Kullanıcı onayına kadar hiçbir kod tarafından kullanılmaz.
+- **Dosyalar:** `cekirdek/iliski_semasi.py`, `sema/`, `araclar/sema_onayla.py`.
+- **Geri alma:** onay kaydını silmek ya da şema sürümünü artırmak.
+- **Felsefi:** EVET (şema onayı). **Durum:** ONAYSIZ, taslak kullanıcı onayında.
+
+## V-014: Bilgi tabanının kabul/ret davranışı
+- **Bölüm:** KODLAMA_PROMPTU §2.3 (LLM çıktısı karantinada), §5 (uymayan kayıt reddedilir, nedeni deftere yazılır, kaynaksız kayıt girmez).
+- **Uygulanan:**
+  - Şemaya uymayan, ilişkisi onaylı şemada olmayan ya da hash'i tutmayan kayıt reddedilir ve `KAYIT_REDDEDILDI` olayı yazılır.
+  - `kaynak=LLM` olan kayıt ana tabana girmez, karantinaya alınır ve `KARANTINAYA_ALINDI` olayı yazılır.
+  - Yalnızca birebir aynı kayıt (aynı hash) "yineleme" diye reddedilir. Farklı kaynaktan ya da farklı adımda gelen aynı üçlü ayrı kayıttır. Bunların bağımsız destek sayılıp sayılmayacağı A4'te (defter, kök-ayrık destek) çözülecek, bilgi tabanı güven birleştirmez.
+- **Dosyalar:** `cekirdek/bilgi_tabani.py`.
+- **Geri alma:** modül.
+- **Felsefi:** kısmen (güven/çift sayım A4'e bırakıldı, burada birleştirme yok). **Durum:** ONAYSIZ.
+
+## V-015: Sentetik soy ağacı üretecinin tasarımı
+- **Bölüm:** sistem.md §11 ("gizli kurallar; yalnız son cevabı bilir" + parafraz), §10 (bölmeler; eğitim k=2–3, test k=4–10), §9 (ilgisiz bilgi), Ek A P7 (kural alt kümesi, ilişki adı permütasyonu, ad havuzu). Ağacın nasıl üretileceği, olguların ve sorguların ne olacağı ve cevabın kimde duracağı şartnamede yok.
+- **Öneri:**
+  1. Üreteç `degerlendirme/` altında durur, çünkü gizli kuralları bilen tek yer kâhindir. Kodda akrabalık sözcüğü yoktur. Ağaç soyut yapıdır: kişi (tamsayı), iki "tip" (0/1), yukarı/aşağı/yan bağ.
+  2. Her ilişkinin yapısal tanımı (ör. "yukarı(tip 1), yukarı(tip 0)") gizli bir veri dosyasındadır (`degerlendirme/veri/`). Çekirdek bu dosyayı göremez. Cevap, iki kişi arasındaki gerçek ağaç yolunun hangi tanıma uyduğudur. Hiçbir tanıma uymuyorsa örnek üretilmez.
+  3. Bölüme verilen olgular yalnızca doğrudan bağlardır (anne, baba, oğul, kız, eş, erkek/kız kardeş). Sorgu k halkalı bir yolun iki ucudur. Ağacın geri kalanı dikkat dağıtıcı olgu olarak verilir.
+  4. A1'de isim ve metin yok, yalnızca tamsayı kimlik var. Parafraz ve ad havuzu Türkçe aşamasına kalır.
+  5. Cevaplar ayrı dosyada durur. Eğitimin cevabı (uygunluk için "doğruluk") okuyup okuyamayacağı A3'te ayrıca sorulacak.
+- **Uygulanan (şimdilik):** yalnızca `NotImplementedError` iskeleti.
+- **Dosyalar:** `degerlendirme/uretec.py`.
+- **Felsefi:** EVET (kâhin, veri olarak dil). **Durum:** ONAYSIZ, kullanıcıya soruldu.
+
+## V-016: Kelime çantası kısa yol kuralı
+- **Bölüm:** sistem.md §10 ("kelime çantası kısa yol dedektörünün çözdüğü örnekler Treg'e, verisi test bölmelerinden ayrı") ve KODLAMA_PROMPTU §6 ("şansı +%5'ten fazla geçerse üretim durur"). İkisi farklı şey söylüyor. "Şans"ın tanımı yok.
+- **Öneri:**
+  - İkisini birleştirmek: dedektörün çözdüğü örnekler ayrı bir "Treg kümesine" ayrılır (§10). Kalan ana kümede dedektörün doğruluğu şans + %5'i geçerse üretim durur (prompt §6).
+  - Şans = en sık cevabın oranı.
+  - Dedektör = yalnızca olgulardaki ilişki adlarının sayısını (ve kişi kimliklerini) kullanan, yapıya bakmayan, standart kütüphaneyle yazılmış Naive Bayes sınıflayıcısı. Ayrı bir bölmede eğitilir, başka bir bölmede ölçülür.
+- **Felsefi:** EVET (veri, kısa yol). **Durum:** ONAYSIZ, kullanıcıya soruldu.

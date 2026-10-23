@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iliski_semasi_v1",
+  "title": "İlişki şeması dosyası, sürüm 1 (V-013)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["sema_surumu", "okuma", "iliskiler", "dislayici_gruplar"],
+  "properties": {
+    "sema_surumu": {"const": "1"},
+    "okuma": {"type": "string", "minLength": 1},
+    "iliskiler": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ad", "ters", "simetrik", "islevsel"],
+        "properties": {
+          "ad": {"type": "string", "pattern": "^[a-zçğıöşü_]+$", "minLength": 1},
+          "ters": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-zçğıöşü_]+$"}},
+          "simetrik": {"type": "boolean"},
+          "islevsel": {"type": "boolean"}
+        }
+      }
+    },
+    "dislayici_gruplar": {
+      "type": "array",
+      "items": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-zçğıöşü_]+$"}}
+    }
+  }
+}
