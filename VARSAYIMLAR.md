@@ -479,3 +479,11 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Bölüm dosyalarının özetleri üretecin manifestiyle karşılaştırılır; uyuşmazsa koşu durur.
 - **Doğrulama:** `testler/test_a5_h1.py`, `testler/test_a5_istatistik.py`.
 - **Felsefi:** hayır (ön kaydın uygulanışı). **Durum:** ONAYSIZ.
+
+## V-045: Üretecin aday sınırı 20000 → 100000
+- **Bölüm:** V-017 (üreteç parametreleri), ÖK-002 §4 (tohumlar 7–11 sabit).
+- **Durum:** H1 bölümleri üretilirken tohum 8'de önsel-ters bölmesi 20000 adayda 400 bölümün 356'sını doldurdu ve üreteç durdu (doğru davranış: sessizce küçültmez).
+- **Seçenekler:** (a) aday sınırını yükseltmek; (b) tohum 8'i atlayıp başka tohum seçmek. (b) veriye bakıp tohum seçmek olur, ön kayda aykırı.
+- **Uygulanan:** (a), `aday_siniri` = 100000. Sınır yalnız durdurucudur: sınıra takılmayan bir üretimin çıktısı değişmez. Doğrulandı: tohum 7 manifestinin (`ozet.json`) özeti değişiklikten önce ve sonra aynı.
+- **Geri alma:** değeri 20000'e döndürmek (tohum 8 yine durur).
+- **Felsefi:** hayır. **Durum:** ONAYSIZ.

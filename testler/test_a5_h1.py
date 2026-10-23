@@ -196,5 +196,44 @@ class DosyaKosusuTesti(Ortam):
             self.kos_(cikis)
 
 
+class AltinTesti(Ortam):
+    """Altın küme ayrı satırdır, kapıya girmez; her parça kendi kaynak etiketiyle raporlanır (ÖK-001, ÖK-002 §4)."""
+    SECENEKLER = ["quax", "vonk", "frumb", "Bilgi yetmez"]
+
+    def soru(self, parca, no, b):
+        return {"parca": parca, "no": no, "bolum": b, "secenekler": self.SECENEKLER, "etiketler": {}}
+
+    def uretec(self, parca, no, b, harf):
+        return {"parca": parca, "no": no, "bolum_ozeti": b["ozet"], "cevap": None, "dogru_harf": harf}
+
+    def test_harf_cevirisi(self):
+        self.assertEqual(h1.altin_harfi("quax", self.SECENEKLER), "A")
+        self.assertEqual(h1.altin_harfi(None, self.SECENEKLER), "D")
+        self.assertIsNone(h1.altin_harfi("zindle", self.SECENEKLER))
+
+    def test_parca_ozeti_ve_etiket(self):
+        a, b = bolum(ZINCIR, (1, 3)), bolum(BOZUK, (1, 6))
+        sorular = [self.soru(1, 1, a), self.soru(1, 2, b), self.soru(1, 3, a), self.soru(2, 1, a)]
+        uretec = [self.uretec(1, 1, a, "A"), self.uretec(1, 2, b, "D"), self.uretec(1, 3, a, "A"),
+                  self.uretec(2, 1, a, "A")]
+        kullanici = {1: {"kaynak": "LLM", "onaylayan": "kullanıcı", "bagimsiz_insan_cevabi": False,
+                         "cevaplar": {"1": "A", "2": "B", "3": "?"}}}
+        satirlar = [h1.altin_satiri(s, self.kos(s["bolum"]), kullanici, u) for s, u in zip(sorular, uretec)]
+        self.assertEqual([s["cekirdek_harfi"] for s in satirlar], ["A", "D", "A", "A"])
+        ozet = h1.altin_ozeti(satirlar, kullanici)
+        p1, p2 = ozet["1"], ozet["2"]
+        self.assertEqual((p1["n"], p1["kullanici_cevapli"], p1["kullaniciyla_ayni"], p1["emin_degil"]), (3, 2, 1, 1))
+        self.assertEqual(p1["uretecle_ayni"], 3)
+        self.assertIn("kaynak=LLM, onaylayan=kullanıcı", p1["etiket"])
+        self.assertIn("bağımsız insan cevabı değil", p1["etiket"])
+        self.assertEqual((p2["n"], p2["kullanici_cevapli"], p2["kullaniciyla_ayni"]), (1, 0, 0))
+        self.assertIn("cevap yok", p2["etiket"])
+
+    def test_bolum_ozeti_uyusmazsa_durur(self):
+        a, b = bolum(ZINCIR, (1, 3)), bolum(BOZUK, (1, 6))
+        with self.assertRaises(h1.H1Hatasi):
+            h1.altin_satiri(self.soru(1, 1, a), self.kos(a), {}, self.uretec(1, 1, b, "A"))
+
+
 if __name__ == "__main__":
     unittest.main()

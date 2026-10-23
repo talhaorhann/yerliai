@@ -14,6 +14,9 @@ HIZ = "cekirdek/vektor_hizli.py"
 REF = "cekirdek/vektor.py"
 ESL = "cekirdek/eslesme.py"
 HAV = "cekirdek/havuz.py"
+DNA = "cekirdek/dna.py"
+H1 = "degerlendirme/h1.py"
+IST = "degerlendirme/istatistik.py"
 
 MUTASYONLAR = [
     ("dairesel matris yönü ters", HIZ, "p[(sira.unsqueeze(0) - sira.unsqueeze(1)) % d]",
@@ -47,6 +50,33 @@ MUTASYONLAR = [
      "for h, k in zip(hucre.halkalar, reversed(b.kayitlar)))"),
     # Not: döngünün tabloyu eşleşmeye vermemesi eşdeğer mutanttır (her hücre aynı tabloyu kendisi kurar, sonuç aynı);
     # yalnız hızı etkiler, bu yüzden listede yok.
+    # K-025, V-043: farklı kişi şartı
+    ("farklı şartı uygulanmıyor", ESL, "    if any(degiskenler[a] == degiskenler[b] for a, b in hucre.farkli):",
+     "    if False:"),
+    ("farklı şartı ters", ESL, "degiskenler[a] == degiskenler[b] for a, b", "degiskenler[a] != degiskenler[b] for a, b"),
+    ("farklı DNA'dan okunmuyor", DNA, 'farkli = tuple(tuple(cift) for cift in h.get("farkli", ()))', "farkli = ()"),
+    ("farklı değişken denetimi yok", DNA, "if a == b or not {a, b} <= govde:", "if False:"),
+    # V-044: H1 koşturucusu ve istatistik
+    ("zincir-bozukta bilmiyorum yanlış", H1, "    dogru = verilen == beklenen\n",
+     "    dogru = verilen == beklenen and beklenen is not None\n"),
+    ("bilmiyorum sınıfı yok", H1, "        elif verilen is None:", "        elif False:"),
+    ("cevap kaydı özeti denetlenmiyor", H1, '    if satir["bolum_ozeti"] != cevap_kaydi["bolum_ozeti"]:', "    if False:"),
+    ("kapıda hata sayılmıyor", H1, '            if s["yanlis"]:', "            if False:"),
+    ("kapıda bölüm sayısı denetlenmiyor", H1, '            if s["n"] != beklenen_sayi:', "            if False:"),
+    ("kapıda eksik tohum geçiyor", H1, '                nedenler.append(f"{anahtar}: koşulmamış")\n', ""),
+    ("ön kayıt eki aranmıyor", H1, "    ek = metin.split(EK_BASLIGI, 1)[1]", "    ek = metin"),
+    ("manifest denetimi yok", H1, '        if _ozet(baytlar, algoritma) != manifest["dosyalar"].get(goreli):', "        if False:"),
+    ("ara kayıt denetimi yok", H1,
+     '        if i >= len(bolumler) or (s["bolum_ozeti"], s["bolme"], s["tohum"]) != (bolumler[i]["ozet"], bolme, tohum):',
+     "        if False:"),
+    ("emin değil cevaplı sayılıyor", H1, "kullaniciyla_ayni=None if k in (None, EMIN_DEGIL) else harf == k",
+     "kullaniciyla_ayni=None if k is None else harf == k"),
+    ("bağımsızlık etiketi yok", H1,
+     '    return etiket + ("" if kayit.get("bagimsiz_insan_cevabi") else " (bağımsız insan cevabı değil, ÖK-001)")',
+     "    return etiket"),
+    ("Clopper–Pearson tek yanlı", IST, "    yari = (1 - guven) / KUYRUK\n    alt = 0.0", "    yari = 1 - guven\n    alt = 0.0"),
+    ("yarılama yönü ters", IST, "if (fonksiyon(orta) < hedef) == artan_mi:", "if (fonksiyon(orta) < hedef) != artan_mi:"),
+    ("bootstrap tohumsuz", IST, "    rng = random.Random(tohum)", "    rng = random.Random()"),
 ]
 
 

@@ -11,6 +11,7 @@ Kullanım (.venv/bin/python -m degerlendirme.h1 ...):
   ozetler <klasör> <dna>           ÖK-002 ekine yazılacak özetleri basar
   gelistir <klasör> <dna> <çıkış>  geliştirme bölmesini koşturur (ön kayıt gerekmez)
   kapi <klasör> <dna> <çıkış>      kapı bölmelerini koşturur ve kapı kararını verir (ön kayıt gerekir)
+  altin <dna> <çıkış>              altın küme, her parça kendi kaynak etiketiyle (ön kayıt gerekir)
 """
 import dataclasses
 import hashlib
@@ -34,6 +35,7 @@ from cekirdek.iliski_semasi import iliski_semasi_yukle
 from cekirdek.mudahale import PUANLI, mudahale_ozeti, mudahale_testi
 from cekirdek.plazma import cevapla
 from cekirdek.vektor_hizli import HizliKodKitabi
+from degerlendirme.altin import BILGI_YETMEZ, EMIN_DEGIL, HARFLER
 from degerlendirme.istatistik import bootstrap_araligi, clopper_pearson
 
 BOZUK_BOLME = "zincir_bozuk"  # sistem.md §10
@@ -220,6 +222,45 @@ def rapor_metni(ozet, kapi=None):
     return "\n".join(satirlar) + "\n"
 
 
+def altin_harfi(cevap, secenekler):
+    """Çekirdeğin cevabının seçenek harfi: "bilmiyorum" → "Bilgi yetmez"; seçeneklerde olmayan ilişki → None."""
+    hedef = BILGI_YETMEZ if cevap is None else cevap
+    return HARFLER[secenekler.index(hedef)] if hedef in secenekler else None
+
+
+def altin_satiri(soru, satir, kullanici, uretec_kaydi):
+    """Altın soru: çekirdeğin harfi, kullanıcının harfi (parçanın cevabı yoksa None), üretecin harfi (V-023)."""
+    if not soru["bolum"]["ozet"] == satir["bolum_ozeti"] == uretec_kaydi["bolum_ozeti"]:
+        raise H1Hatasi(f"altın soru {soru['parca']}/{soru['no']}: bölüm özetleri uyuşmuyor")
+    harf = altin_harfi(satir["cevap"], soru["secenekler"])
+    k = kullanici.get(soru["parca"], {}).get("cevaplar", {}).get(str(soru["no"]))
+    return dict(satir, parca=soru["parca"], no=soru["no"], cekirdek_harfi=harf, kullanici_harfi=k,
+                uretec_harfi=uretec_kaydi["dogru_harf"],
+                kullaniciyla_ayni=None if k in (None, EMIN_DEGIL) else harf == k,
+                uretecle_ayni=harf == uretec_kaydi["dogru_harf"])
+
+
+def _altin_etiketi(kayit):
+    """ÖK-001: her parça kendi kaynağıyla; bağımsız insan cevabı değilse açıkça yazılır."""
+    if kayit is None:
+        return "kullanıcı cevap yok"
+    etiket = f"kaynak={kayit['kaynak']}, onaylayan={kayit['onaylayan']}"
+    return etiket + ("" if kayit.get("bagimsiz_insan_cevabi") else " (bağımsız insan cevabı değil, ÖK-001)")
+
+
+def altin_ozeti(satirlar, kullanici):
+    parcalar = {}
+    for s in satirlar:
+        parcalar.setdefault(s["parca"], []).append(s)
+    return {str(p): {"etiket": _altin_etiketi(kullanici.get(p)), "n": len(g),
+                     "kullanici_cevapli": sum(1 for s in g if s["kullaniciyla_ayni"] is not None),
+                     "kullaniciyla_ayni": sum(1 for s in g if s["kullaniciyla_ayni"]),
+                     "emin_degil": sum(1 for s in g if s["kullanici_harfi"] == EMIN_DEGIL),
+                     "uretecle_ayni": sum(1 for s in g if s["uretecle_ayni"]),
+                     "secenek_disi": sum(1 for s in g if s["cekirdek_harfi"] is None)}
+            for p, g in sorted(parcalar.items())}
+
+
 # --- komut satırı ------------------------------------------------------------------------------------------------
 
 def _ortam(kok):
@@ -282,8 +323,46 @@ def _kos(kok, klasor, dna_yolu, cikis, kapi_mi):
     print(rapor_metni(ozet, kapi))
 
 
+def altin_rapor_metni(ozet):
+    satirlar = ["# H1 altın küme (kapıya girmez, ÖK-002 §4)", "", "LLM'siz çekirdek.", "",
+                "| Parça | Kaynak | N | Kullanıcı cevaplı | Kullanıcıyla aynı | Emin değil | Üreteçle aynı | "
+                "Seçenek dışı |", "|---|---|---|---|---|---|---|---|"]
+    for p, s in ozet.items():
+        satirlar.append(f"| {p} | {s['etiket']} | {s['n']} | {s['kullanici_cevapli']} | {s['kullaniciyla_ayni']} | "
+                        f"{s['emin_degil']} | {s['uretecle_ayni']} | {s['secenek_disi']} |")
+    return "\n".join(satirlar) + "\n"
+
+
+def _altin(kok, dna_yolu, cikis):
+    from degerlendirme.kilitli_kumeler import kilitli_ozetler
+    ayar, sema, gunluk = _ortam(kok)
+    on_kayit_denetle((kok / "ONKAYIT.md").read_text(encoding="utf-8"),  # DNA altın kümeye bakılarak düzeltilemez
+                     gerekli_ozetler(kok, None, dna_yolu, [], gunluk["algoritma"]))
+    klasor = kok / "degerlendirme" / "altin"
+    sorular = _jsonl_oku((klasor / "altin_sorular.jsonl").read_bytes())
+    uretec = _jsonl_oku((klasor / "uretec_cevaplari.jsonl").read_bytes())
+    kilitli = kilitli_ozetler(kok / "kilit" / "kilitli_kumeler.json", kok)
+    if any(s["bolum"]["ozet"] not in kilitli for s in sorular):
+        raise H1Hatasi("altın soru bölümü kilitli kümede yok")
+    kullanici = {}
+    for p in range(1, ayar.deger("altin_parca_sayisi") + 1):
+        yol = klasor / f"kullanici_cevaplari_{p}.json"
+        if yol.exists():
+            kullanici[p] = json.loads(yol.read_text(encoding="utf-8"))
+    hucreler = _dna(kok, dna_yolu, sema)
+    kk = HizliKodKitabi(ayar.deger("vektor_tohum"), ayar.deger("vektor_boyutu"))
+    prm = CekirdekParametreleri.ayardan(ayar)
+    satirlar = [altin_satiri(s, bolum_kos(s["bolum"], hucreler, sema, kk, prm, gunluk), kullanici, u)
+                for s, u in zip(sorular, uretec)]
+    ozet = altin_ozeti(satirlar, kullanici)
+    Path(cikis).mkdir(parents=True, exist_ok=True)
+    atomik_yaz(Path(cikis) / "altin_satirlari.jsonl", b"".join(kanonik_json(s) + b"\n" for s in satirlar))
+    atomik_yaz(Path(cikis) / "RAPOR_altin.md", altin_rapor_metni(ozet).encode("utf-8"))
+    print(altin_rapor_metni(ozet))
+
+
 KOMUTLAR = {"uret": ("klasor",), "ozetler": ("klasor", "dna"), "gelistir": ("klasor", "dna", "cikis"),
-            "kapi": ("klasor", "dna", "cikis")}
+            "kapi": ("klasor", "dna", "cikis"), "altin": ("dna", "cikis")}
 
 
 def main(arg):
@@ -299,6 +378,8 @@ def main(arg):
         ayar, _, gunluk = _ortam(kok)
         for ad, o in gerekli_ozetler(kok, d["klasor"], d["dna"], ayar.deger("h1_tohumlar"), gunluk["algoritma"]).items():
             print(f"- `{ad}`: `{o}`")
+    elif komut == "altin":
+        _altin(kok, d["dna"], d["cikis"])
     else:
         _kos(kok, d["klasor"], d["dna"], d["cikis"], komut == "kapi")
     return 0

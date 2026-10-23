@@ -16,7 +16,7 @@
     "egitim_k": {"deger": [2, 3], "kaynak": "sistem.md §10"},
     "test_k": {"deger": [4, 10], "kaynak": "sistem.md §10"},
     "ana_kume_sayisi": {"deger": 400, "kaynak": "V-017"},
-    "aday_siniri": {"deger": 20000, "kaynak": "V-017"},
+    "aday_siniri": {"deger": 100000, "kaynak": "V-045"},
     "dedektor_egitim_sayisi": {"deger": 400, "kaynak": "V-018"},
     "dedektor_laplace": {"deger": 1, "kaynak": "V-018"},
     "kisa_yol_sans_payi": {"deger": 0.05, "kaynak": "KODLAMA_PROMPTU §6"},
