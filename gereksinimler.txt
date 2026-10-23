@@ -1,0 +1,5 @@
+# KODLAMA_PROMPTU §5, K-012: sabit sürümler ve hash'ler (PyPI, 2026-10-23). Kurulum: pip install --require-hashes -r gereksinimler.txt
+numpy==2.5.3 \
+    --hash=sha256:a5fa86b80fd24bcd1aff83ad23be44ea323de3f787be8f8b15d4a65621e25321 \
+    --hash=sha256:71cad2b2a7451ab79d8f5e71b453485b6775963d5cf794179144a7463fe6e8ec
+# torch==2.14.1 (CPU): download.pytorch.org/whl/cpu erişimi açılınca hash'iyle eklenecek (BAGIMLILIKLAR.md).

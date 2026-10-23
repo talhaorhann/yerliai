@@ -58,8 +58,18 @@
 
 **Mutasyon:** A0 15/15, A1 30/30 yakalandı (`python3 araclar/mutasyon_a0.py`, `python3 araclar/mutasyon_a1.py`).
 
+**Altın küme 1. parça (2026-10-23):** cevaplar kaydedildi (kaynak=LLM, onaylayan=kullanıcı, K-013). Üreteçle 50/50 uyuştu. Bağımsızlık kısıtı ÖK-001'de.
+
 **Eksik:**
-- Altın küme kullanıcı cevapları (2 parça).
+- Altın küme 2. parça cevapları (A5'e kadar).
 - Kalibrasyon kümesi: ~500 örnek, CLUTRR aşamasında (sistem.md §9).
 - Kesişim yalnız birebir aynı bölümü yakalar.
 - İsim/parafraz Türkçe aşamasında.
+
+## A2: vektörler (HRR/VSA) (dal `asama-2`)
+
+**Durum:** BAŞLAMADI (kod yok). Temsil önerisi (V-024) kullanıcı onayında. torch bu ortamda kurulamadı (V-025: `download.pytorch.org` ağ politikasıyla engelli).
+
+**Yapılan:**
+- K-012: numpy ve torch izinli. `config.json` `izinli_ek_paketler` güncellendi.
+- Lisanslar resmî dosyalardan doğrulandı (`LISANSLAR.md`). Sabit sürümler: `gereksinimler.txt`, `BAGIMLILIKLAR.md`.

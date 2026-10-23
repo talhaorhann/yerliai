@@ -44,7 +44,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 - **Öneri ve uygulanan:** (a), en dar seçenek. A0 ve A1 için yeterli. Ayrıca çekirdekte şu standart kütüphane modülleri yasak: ağ (`socket, ssl, http, urllib, ftplib, smtplib, poplib, imaplib, xmlrpc, asyncio, webbrowser`), dış süreç ve paralellik (`subprocess, multiprocessing`), yerel kod (`ctypes`). Dinamik import (`__import__`, `importlib.import_module`) da yasak. Gerekçe: prompt §2.3 "ağ kodunu import edemez" ve §5 "paralellik sırası sabit". numpy/torch sorusu A2'den önce sorulacak.
 - **Dosyalar:** `config.json` (`izinli_ek_paketler`, `yasak_cekirdek_modulleri`), `testler/test_a0_yasak_kaliplar.py`.
 - **Geri alma:** listeyi değiştirmek (onay ister).
-- **Felsefi:** EVET (izin ve yalıtım). Şu anki değer en kısıtlayıcı olandır, bu yüzden hiçbir davranışı serbest bırakmıyor. **Durum:** ONAYSIZ. Kullanıcı (2026-10-23): A2'ye kadar bu kısıtlı hâliyle kalsın, A2 öncesi yeniden sorulacak.
+- **Felsefi:** EVET (izin ve yalıtım). Şu anki değer en kısıtlayıcı olandır, bu yüzden hiçbir davranışı serbest bırakmıyor. **Durum:** ONAYLI (2026-10-23) → `KARARLAR.md` K-012 (numpy ve torch izinli; ağ ve dış süreç yasağı aynen sürer).
 
 ## V-006: Zaman damgası ile determinizm çelişkisi
 - **Bölüm:** KODLAMA_PROMPTU §5. "Her kayda ... zaman damgası" deniyor, ama aynı bölüm "saat yok" ve "aynı girdi ve tohum aynı çıktı" da diyor. Bağımsızlık testi (sistem.md §16) bit düzeyinde eşitlik istiyor.
@@ -229,3 +229,37 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Soru bölümleri `degerlendirme/altin/altin_bolumler.jsonl` dosyasına yazılır ve hemen kilitli kümeye kaydedilir (`kilit/kilitli_kumeler.json`). Böylece eğitim üretimi altın kümeyle kesişirse durur.
   - Üretecin cevapları ayrı dosyadadır (`degerlendirme/altin/uretec_cevaplari.jsonl`). Kullanıcı bu dosyayı açmamalıdır.
 - **Felsefi:** kısmen (altın küme). **Durum:** ONAYSIZ.
+
+## V-008 eki (2026-10-23): onaylı veri dosyaları da kilitli
+- `config.json` içindeki `kilitli_veri_dosyalari` listesi de hash kilidindedir. Listede şunlar var: onaylı gizli tanımlar (K-009), `ONKAYIT.md` ve altın küme 1. parça cevapları (K-013). `araclar/kilitle.py` bu dosyaların yalnız hash'ini alır, içeriğini kullanmaz.
+
+---
+
+# A2 varsayımları
+
+## V-024: HRR/VSA vektör temsili (tamsayı, CPU)
+- **Bölüm:** sistem.md §1 (vektör ~128–384 boyut), §3 (kosinüs afinitesi, vektörleştirilmiş maskeli matmul), KODLAMA_PROMPTU §4 (A2 = HRR/VSA), K-012 (önce CPU/tamsayı, deterministik). Ek A O1 (bağlam): v = R[ilişki] + P_s⊛E[özne] + P_o⊛E[nesne], d~256. Ek A P1 (bağlam): vektör öğrenilmez, üçlüden yeniden kurulur.
+- **Boşluk:** d'nin kesin değeri, öğe türü, ⊛'ın tamsayıyla nasıl hesaplanacağı, vektörlerin nasıl üretileceği, bileşen ölçekleri.
+- **Öneri:**
+  1. d = 256.
+  2. Her öğe −1 ya da +1 tamsayı.
+  3. ⊛ = dairesel evrişim. Tamsayıyla tam hesaplanır, FFT ve yuvarlama yok, bu yüzden her makinede bit düzeyinde aynıdır.
+  4. v = 16·R[r] + P_s⊛E[s] + P_o⊛E[o]. ±1 vektörlerin evrişimi √d = 16 kat büyür; 16 çarpanı üç bileşenin büyüklüğünü eşitler.
+  5. E[varlık], R[ilişki], P_s, P_o: (tohum, tür, ad) üçlüsünün hash'iyle açıkça kurulan üreteçten. Küresel rastgelelik yok, ekleme sırası sonucu değiştirmez.
+  6. Benzerlik: kosinüs = tamsayı nokta çarpımı / √(normların çarpımı). Tek bölme, float64, CPU.
+  7. Referans: saf Python döngüleri. Hızlı yol: torch int64 toplu hesap. Aynı girdide bit-eşitlik testi. GPU yok.
+- **Önerilen kabul testleri:**
+  - Belirlenim.
+  - Referans = hızlı yol (bit-eşit).
+  - SEKILLER tablosu ve şekil denetimi (eksen boyları 7, 11, 13; boş ve tek öğe).
+  - Bileşen büyüklüklerinin eşitliği.
+  - Çözme: v'den P_s'nin tersiyle özne geri bulunmalı (küçük kod kitabında en yakın komşu).
+  - Yarı-diklik: rastgele çiftlerde |kosinüs| < 5/√d (d=256 için 0,3125).
+  - Halka/olgu değişince vektör değişmeli, ilgisiz olgu değişince değişmemeli.
+- **Felsefi:** EVET (eşleşme). **Durum:** ONAYSIZ, kullanıcıya soruldu. Onaya kadar A2 kodu yazılmaz.
+
+## V-025: torch'un kurulum yolu
+- **Bölüm:** K-012, KODLAMA_PROMPTU §5 (lisansı belirsiz olanı kullanma), §8 (kurulum).
+- **Durum:** Bu bulut ortamının ağ politikası `download.pytorch.org`'u engelliyor (403). PyPI'daki Linux torch tekerleği lisansı doğrulanmamış NVIDIA paketlerini zorunlu bağımlılık olarak çekiyor.
+- **Öneri:** Kullanıcı ortam ayarlarında `download.pytorch.org`'a izin verir, CPU tekerleği hash'iyle sabitlenir. O zamana kadar A2 referans yolu (saf Python) torch'suz yazılabilir, hızlı yol bekler.
+- **Felsefi:** hayır (lisans kuralı gereği). **Durum:** ONAYSIZ.

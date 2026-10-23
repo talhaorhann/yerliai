@@ -50,3 +50,15 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
 ## K-011 (2026-10-23): Altın küme yolu (V-021'den)
 - **Karar:** Üreteçten ayrı tohumla 100 soru hazırlanır, iki parça (50 + 50). Kullanıcı üretecin cevabını görmeden cevaplar. Biçim: her soruda A/B/C/D seçeneği. Altın kümede "beklenen" cevap kullanıcının cevabıdır, kodun çıktısı beklenen diye kaydedilmez. Kullanıcı ile üretecin uyuşmadığı sorular ayrıca incelenir.
 - **Onaylayan:** kullanıcı.
+
+## K-012 (2026-10-23): PyTorch ve NumPy çekirdekte izinli (V-005'ten)
+- **Karar:** Çekirdek PyTorch ve NumPy kullanabilir. Sürümler sabittir: torch==2.14.1, numpy==2.5.3. Lisanslar `LISANSLAR.md`'de, resmî dosyalardan doğrulanmıştır.
+- **Ek karar:** Çekirdek önce CPU/tamsayı yolunda deterministik yazılır. GPU ayrı aşamada, ayrı doğrulamayla açılır (KODLAMA_PROMPTU §10 bilinen boşluğun cevabı).
+- **Onaylayan:** kullanıcı.
+
+## K-013 (2026-10-23): Altın küme 1. parça cevaplarının kaynağı
+- **Karar:**
+  - 1. parça cevapları bir LLM'in ön cevabıdır. Kullanıcı gözden geçirip kabul etmiştir.
+  - Kayıt: `kaynak=LLM, onaylayan=kullanıcı, bagimsiz_insan_cevabi=false` (`degerlendirme/altin/kullanici_cevaplari_1.json`, sha256 306ee0a0c54d3d6972695ae8a0c8c14e8dff12e2d6ef084884a9fd345a5c45ff).
+  - Bağımsızlık kısıtı `ONKAYIT.md`'ye eklendi.
+- **Onaylayan:** kullanıcı.
