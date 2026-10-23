@@ -358,3 +358,47 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Her yazma `YAZMA`, her durma `DURMA` (neden ve tur) olayıdır. Zaman bilgisi tur numarasıdır (K-004).
   - Bütçe ve impasse çarpanı config'tedir: `eslesme_butcesi` (K-016), `impasse_esik_carpani` (K-017).
 - **Felsefi:** hayır (onaylı kuralın uygulanışı). **Durum:** ONAYSIZ.
+
+---
+
+# A4 varsayımları
+
+## V-035: A4 kapsamı ve defter altyapısı
+- **Bölüm:** KODLAMA_PROMPTU §4 (A4 = defter + müdahale testi), §2.1 (destek/çelişki defteri ve müdahale testi ayrı modül), §5 (Defter, Müdahale testi); sistem.md §9, §18 (kök-ayrık destek ve çelişki).
+- **Uygulanan:**
+  - **Defter sınıfı:** `cekirdek/defter.py`. Hash zincirli olay günlüğünün (A0) alt sınıfıdır ve çekirdeğin günlüğü odur. Dizini olaylardan kurulur, dosyadan yeniden açılınca yeniden oluşur.
+  - **Kaydedilen olaylar:** her ateşleme (θ'yı geçen her eşleşme, `ATESLEME`), yazma (`YAZMA`, kök kümesiyle), atma (`ATMA`), durma ve impasse.
+  - **Toplu yazım:** bir turun olayları sırası korunarak tek seferde yazılır (`ekle_toplu`, tek fsync, zincir aynı).
+  - **İz kuralı:** "Defterde izi olmayan sonuç yanıta giremez." Plazma yalnız defterde `YAZMA` izi olan çıkarımları ispat sayar. Bu yüzden `cevapla` artık defter ister. A3 testleri buna göre güncellendi; kilitli dosya değişikliği raporda bildirilir.
+  - **Destek:** bir üçlünün canlı ispatlarında kök kümeleri ayrık bileşen sayısı (K-018 ile aynı bileşen tanımı).
+  - **Bellekte günlük:** karşı-olgusal (müdahale) koşuları ana defteri kirletmesin diye dosyasız, bellekte günlüğe yazılır. Ana deftere yalnız sonuç özeti (`MUDAHALE`) gider.
+  - **Kapsam dışı:** geri çekme olayı. Henüz geri çekme yapan bir işlem yok; KB'den olgu geri çekme besleme aşamasında (A7) gelecek. Hücre susturma ve uygunluk (§8) H3'te.
+- **Felsefi:** hayır (prompt §5'in doğrudan uygulaması). **Durum:** ONAYSIZ.
+
+## V-036: Çelişkinin tanımı ve etkisi
+- **Bölüm:** KODLAMA_PROMPTU §5 ("çelişki bulunca iki kaydı da silme, çelişki düğümüne bağla, ortak destek kümesini kalıcı kaydet"), sistem.md §9 (c) ve §18, K-006 (şemadaki ters/simetrik/dışlayıcı/işlevsel işaretleri), K-018 (plazma çelişkiyi işaretler).
+- **Boşluk:** çelişkinin tam tanımı; "ortak destek kümesi"nin anlamı; çelişkinin cevaba ve puana etkisi.
+- **Öneri:**
+  1. Onaylı şemaya göre üç tür çelişki var:
+     - **dışlayıcı:** aynı (A,B) çiftinde aynı dışlayıcı gruptan iki farklı ilişki;
+     - **işlevsel:** işlevsel bir ilişkide aynı A için iki farklı B;
+     - **ters:** r(A,B) ve q(B,A) var ama q, r'nin ters adaylarından değil.
+     Denetim her tur sonunda canlı kayıtlar arasında yapılır; epitoplar da dahildir.
+  2. Hiçbir kayıt silinmez. Her çelişki bir kez `CELISKI` olayıyla kaydedilir: tür, iki kaydın kimliği ve ortak destek kümesi. Ortak destek kümesi, iki kaydın kök kümelerinin kesişimidir, yani iki tarafın da dayandığı epitoplar; şüpheli olgular bunlardır.
+  3. Cevap K-018'deki gibi verilir, değişmez. Çelişki cevabın köken alt grafındaki bir kayda dokunuyorsa müdahale puanının tutarlılık (c) bileşeni 0 olur.
+- **Felsefi:** EVET (güven, tutarlılık). **Durum:** ONAYSIZ, onay listesinde (madde 1).
+
+## V-037: Müdahale testi ve müdahale puanı
+- **Bölüm:** sistem.md §9 (silme / tür uyumlu yedekle değiştirme, yalnız etkilenen köken alt grafı, ölçümler a/b/c), §8 (uygunluk = doğruluk × (ε + müdahale puanı); uygunluk H3'te), KODLAMA_PROMPTU §5 (yalnız çekirdeğin kendi zincirleri), §6 (ispat sadakati).
+- **Boşluk:** hangi epitoplara müdahale edileceği, "tür uyumlu yedek"in ne olduğu, a/b/c'nin sayıya nasıl çevrileceği ve nasıl birleşeceği, geçişliliğin nasıl sınanacağı.
+- **Öneri:**
+  - **(a) Silme:** cevabın ispatlarındaki her kök epitop tek tek silinir. Kök kümesinde o epitop olan kayıtlar düşer, diğerleri kalır; bu "yalnız etkilenen köken alt grafı"dır. Cevabın güveni plazmayla yeniden hesaplanır. a = güveni gerçekten düşüren silmelerin oranı.
+  - **(b) İlgisiz değişiklik:** sorgu yolundaki varlıklarla (cevabın köken ağacındaki epitopların varlıkları) kenar paylaşmayan her epitop, aynı ilişkili ama bölümde hiç olmayan yeni varlıklarla değiştirilir (tür uyumlu yedek). Ardından çekirdek bu olgularla yeniden çalışır. b = cevabın (ilişki ve güven) hiç değişmediği değişikliklerin oranı. İlgisiz epitop yoksa b = 1 olur ve "sınanamadı" diye işaretlenir.
+  - **(c) Tutarlılık:**
+    - Ters sorgu (B,A) cevaplanıyorsa cevabı ilk cevabın ters adaylarından biri olmalı.
+    - Cevabın köken alt grafına çelişki (V-036) dokunmamalı.
+    - İkisi de sağlanırsa c = 1, yoksa 0.
+    - Geçişlilik sınanmaz: şemada geçişlilik bilgisi yok, uydurmuyorum.
+  - **Müdahale puanı:** a × b × c, [0,1] aralığında. Cevap "bilmiyorum" ise puan yoktur.
+  - **Kurallar:** Etiket, kâhin, kalibrasyon ve LLM bu hesaba girmez. Karşı-olgusal koşular ana havuzu ve defteri değiştirmez.
+- **Felsefi:** EVET (kredi/uygunluk girdisi). **Durum:** ONAYSIZ, onay listesinde (madde 2).

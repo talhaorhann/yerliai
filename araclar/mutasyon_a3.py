@@ -49,7 +49,7 @@ MUTASYONLAR = [
     ("mezar taşı tutulmuyor", HAV, "        self._mezar[atilan.kimlik] = atilan\n", ""),
     ("noisy-OR yerine MAX", PLA, "return max(0.0, min(1.0, -math.expm1(sum(math.log1p(-g) for g in guvenler))))",
      "return max(guvenler)"),
-    ("ortak kökenli ispatlar ayrı sayılıyor", PLA, "            if kokler[i] & kokler[j]:", "            if False:"),
+    ("ortak kökenli ispatlar ayrı sayılıyor", PLA, "            if kok_kumeleri[i] & kok_kumeleri[j]:", "            if False:"),
     ("eşitlikte ilk cevap seçiliyor", PLA, "    if len(kazananlar) > 1:\n        return Cevap(None, None, ozet, celiski, ())\n",
      ""),
     ("çelişki işareti yok", PLA, "    celiski = len(birlesik) > 1", "    celiski = False"),

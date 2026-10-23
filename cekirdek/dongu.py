@@ -5,12 +5,16 @@ eşleşme, sonra tur bütçesi uygulanır; atılanlar günlüğe yazılır. Yazm
 sırasıyla yapılır. Durma: yeni kayıt yok (sorgu cevaplıysa ya da sorgu yoksa), tur sınırı, ya da ikinci
 impasse. İlk impasse'te bütün θ'lar bir kez `impasse_carpani` ile çarpılır ve tüm havuz yeniden denenir.
 τ ile durma kalibrasyon kümesi oluşana kadar kapalıdır (K-017).
+Günlük destek/çelişki defteridir (V-035): her ateşleme, yazma (kök kümesiyle) ve atma kayıtlıdır; bir turun
+olayları sırası korunarak tur sonunda tek seferde yazılır.
 """
 from dataclasses import dataclass
 
+from cekirdek.altyapi.olay_gunlugu import YEDEK_KULLANILDI
+from cekirdek.defter import ATESLEME, ATMA, YAZMA, Defter
 from cekirdek.eslesme import eslesmeler
 from cekirdek.havuz import HavuzDoluHatasi
-from cekirdek.plazma import cevapla
+from cekirdek.plazma import cevapla, kok_kumesi
 
 DURMA_YENI_YOK, DURMA_TUR_SINIRI, DURMA_IMPASSE = "yeni_kayit_yok", "tur_siniri", "impasse"
 KAYNAK = "çekirdek"  # KODLAMA_PROMPTU §5
@@ -44,53 +48,63 @@ def _skor(eslesme):
     return min(eslesme.afiniteler) * eslesme.guven
 
 
-def _tur_adaylari(hucreler, havuz, yeni, kk, prm, carpan, gunluk, tur):
+def _tur_adaylari(hucreler, havuz, yeni, kk, prm, carpan, olaylar, tur):
     adaylar = []
     for sira, hucre in enumerate(hucreler):
         es = sorted(eslesmeler(hucre, havuz, yeni, kk, carpan), key=lambda e: (-_skor(e), e.baglama.kayitlar))
+        for e in es:
+            olaylar.append((ATESLEME, KAYNAK, {"tur": tur, "hucre": hucre.kimlik, "kayitlar": list(e.baglama.kayitlar),
+                                               "uclu": list(e.uclu), "afiniteler": list(e.afiniteler),
+                                               "guven": e.guven}))
         if len(es) > prm.hucre_yazma_siniri:
-            gunluk.ekle("ESLESME_ATILDI", KAYNAK, {"tur": tur, "neden": "hucre_siniri", "hucre": hucre.kimlik,
-                                                    "sayi": len(es) - prm.hucre_yazma_siniri})
+            olaylar.append(("ESLESME_ATILDI", KAYNAK, {"tur": tur, "neden": "hucre_siniri", "hucre": hucre.kimlik,
+                                                        "sayi": len(es) - prm.hucre_yazma_siniri}))
         adaylar += [(sira, e) for e in es[:prm.hucre_yazma_siniri]]
     if len(adaylar) > prm.butce:
         adaylar.sort(key=lambda x: (-_skor(x[1]), x[0], x[1].baglama.kayitlar))
-        gunluk.ekle("ESLESME_ATILDI", KAYNAK, {"tur": tur, "neden": "butce", "sayi": len(adaylar) - prm.butce})
+        olaylar.append(("ESLESME_ATILDI", KAYNAK, {"tur": tur, "neden": "butce", "sayi": len(adaylar) - prm.butce}))
         adaylar = adaylar[:prm.butce]
     return sorted(adaylar, key=lambda x: (x[0], x[1].baglama.kayitlar))
 
 
-def _yaz(hucreler, havuz, adaylar, gunluk, tur):
+def _yaz(hucreler, havuz, adaylar, olaylar, tur):
     yazilanlar = []
     for sira, e in adaylar:
         try:
             k = havuz.cikarim_ekle(e.uclu, hucreler[sira].kimlik, e.baglama.kayitlar, e.guven)
         except HavuzDoluHatasi:
-            gunluk.yedek_kullanildi(KAYNAK, yer="cekirdek/dongu.py",
-                                    neden=f"tur {tur}: havuz dolu, {list(e.uclu)} yazılamadı")
+            olaylar.append((YEDEK_KULLANILDI, KAYNAK, {"yer": "cekirdek/dongu.py",
+                                                       "neden": f"tur {tur}: havuz dolu, {list(e.uclu)} yazılamadı"}))
             continue
         for a in havuz.atilanlari_al():
-            gunluk.ekle("ATMA", KAYNAK, {"tur": tur, "kimlik": a.kimlik, "uclu": list(a.uclu), "guven": a.guven})
+            olaylar.append((ATMA, KAYNAK, {"tur": tur, "kimlik": a.kimlik, "uclu": list(a.uclu), "guven": a.guven}))
         if k is not None:
             yazilanlar.append(k.kimlik)
-            gunluk.ekle("YAZMA", KAYNAK, {"tur": tur, "kimlik": k.kimlik, "uclu": list(k.uclu), "zincir": k.zincir,
-                                          "ebeveynler": list(k.ebeveynler), "guven": k.guven})
+            olaylar.append((YAZMA, KAYNAK, {"tur": tur, "kimlik": k.kimlik, "uclu": list(k.uclu), "zincir": k.zincir,
+                                            "ebeveynler": list(k.ebeveynler), "guven": k.guven,
+                                            "kokler": sorted(kok_kumesi(havuz, k.kimlik))}))
     return yazilanlar
 
 
 def calistir(hucreler, havuz, kk, prm, gunluk, sorgu=None):
+    """`gunluk` destek/çelişki defteri olmalıdır (V-035)."""
+    if not isinstance(gunluk, Defter):
+        raise TypeError("çekirdek döngüsü Defter ister (defterde izi olmayan sonuç yanıta giremez)")
     yeni = frozenset(k.kimlik for k in havuz.kayitlar())
     carpan, dusurme, tur, toplam = 1.0, 0, 0, 0
     while True:
         tur += 1
-        adaylar = _tur_adaylari(hucreler, havuz, yeni, kk, prm, carpan, gunluk, tur)
-        yazilanlar = _yaz(hucreler, havuz, adaylar, gunluk, tur)
+        olaylar = []
+        adaylar = _tur_adaylari(hucreler, havuz, yeni, kk, prm, carpan, olaylar, tur)
+        yazilanlar = _yaz(hucreler, havuz, adaylar, olaylar, tur)
+        gunluk.ekle_toplu(olaylar)
         toplam += len(yazilanlar)
         havuz.tur_ilerlet()
         canli = {k.kimlik for k in havuz.kayitlar()}
         yeni = frozenset(k for k in yazilanlar if k in canli)
         neden = None
         if not yeni:
-            if sorgu is None or cevapla(havuz, sorgu).iliski is not None:
+            if sorgu is None or cevapla(havuz, sorgu, gunluk).iliski is not None:
                 neden = DURMA_YENI_YOK
             elif dusurme == 0:
                 dusurme, carpan, yeni = 1, prm.impasse_carpani, frozenset(canli)

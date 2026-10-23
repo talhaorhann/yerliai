@@ -126,3 +126,15 @@
 - Yayın sahnesi, sitokin, Treg, öğrenme, kredi (yol haritasındaki aşamalarında).
 - Akrabalık için elle doğru DNA ve H1 deneyi A5'te.
 - τ ile durma kalibrasyon kümesi oluşunca açılacak.
+
+## A4: destek/çelişki defteri + müdahale testi (dal `asama-4`)
+
+**Durum:** YARIM. Defter altyapısı yazıldı (V-035). Çelişkinin tanımı ve etkisi (V-036) ile müdahale testi ve puanı (V-037) kullanıcı onayında.
+
+**Çalışan (testle gösterilmiş):**
+- `cekirdek/defter.py`: hash zincirli olay günlüğünün alt sınıfı. Dizini olaylardan kurulur, dosyadan yeniden açılınca yeniden oluşur. `yazildi_mi`, `canli_ispatlar`, kök-ayrık `destek` var.
+- Döngü her ateşlemeyi, yazmayı (kök kümesiyle) ve atmayı deftere yazıyor. Bir turun olayları tek seferde, sırası korunarak yazılıyor.
+- İz kuralı: plazma yalnız defterde YAZMA izi olan çıkarımı ispat sayıyor. Defteri atlayarak havuza yazılan kayıt cevaba giremiyor.
+- Olay günlüğü: dosyasız (bellekte) çalışabiliyor. Toplu yazım tek tek yazımla aynı baytları üretiyor. Toplu yazımda tek geçersiz olay varsa hiçbiri yazılmıyor.
+
+**Kilitli dosya değişikliği:** `testler/test_a3_cekirdek.py`'de yalnız `cevapla` çağrılarına koşunun defteri eklendi (iz kuralı). Beklentiler aynı.

@@ -20,8 +20,9 @@
     "testler/test_a1_uretec.py": "4b55bc39766856224ed329385eacd7dcbd59fb795c3b1f48ec432ce0cf30ea1f",
     "testler/test_a1_uretec_iskelet.py": "a136e78dedf1f360e47bd7a05f49b24a98310d0f45bdd4c0ce4083802ef2cf51",
     "testler/test_a2_vektor.py": "85bfd784a5dd0545029e5bc2475a82e244beeae953d94ceb176ee15a00d344d4",
-    "testler/test_a3_cekirdek.py": "5a4d1cc560643d3bf5efb448fc41b7d77429c94643c28986b99935bfc4b237f6",
+    "testler/test_a3_cekirdek.py": "47e309515101595683b56998f395fb29cb7c76db73bf7c9bd1d238816d4b6b46",
     "testler/test_a3_temel.py": "4c97053517b7ee937b645c8c2c7bce283c0ba85cb66440090e3d0150df20e280",
+    "testler/test_a4_defter.py": "cca5e7fb3155743ab02de4eac5a845c50089612c560e032d0d9c8b9209d58e25",
     "testler/yardimci.py": "3abd3a5fcb495d53e6b692a7cd095cabb7401e83a425aa9dcd0f18ce3e887b68",
     "testler/yardimci_uzun_kosu.py": "0b43bf29ff8a16564668b6c3e5823c749082347dab534716c62e1e201ee74a6d"
   }

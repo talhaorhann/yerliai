@@ -12,7 +12,8 @@ from pathlib import Path
 
 from cekirdek import vektor as V
 from cekirdek.altyapi.ayar import ayar_yukle
-from cekirdek.altyapi.olay_gunlugu import YEDEK_KULLANILDI, OlayGunlugu
+from cekirdek.altyapi.olay_gunlugu import YEDEK_KULLANILDI
+from cekirdek.defter import Defter
 from cekirdek.dna import dna_kur
 from cekirdek.dongu import DURMA_IMPASSE, DURMA_TUR_SINIRI, DURMA_YENI_YOK, CekirdekParametreleri, calistir
 from cekirdek.eslesme import afinite, alici, eslesmeler
@@ -48,7 +49,7 @@ class Ortam(unittest.TestCase):
         self._d.cleanup()
 
     def gunluk(self, ad="olaylar.jsonl"):
-        return OlayGunlugu(Path(self._d.name) / ad, algoritma=AYAR.deger("hash_algoritmasi"),
+        return Defter(Path(self._d.name) / ad, algoritma=AYAR.deger("hash_algoritmasi"),
                            sema_surumu=AYAR.deger("olay_sema_surumu"), izinli_kaynaklar=AYAR.deger("kaynaklar"))
 
     def hucreler(self, *veriler):
@@ -59,6 +60,12 @@ class Ortam(unittest.TestCase):
         for s, r, o, g in olgular:
             h.epitop_ekle(s, r, o, guven=g)
         return h
+
+    @staticmethod
+    def cevap(kos_sonucu, sorgu):
+        """Defter iz kuralı (V-035): plazma, koşunun kendi defterini ister."""
+        havuz, defter, _ = kos_sonucu
+        return cevapla(havuz, sorgu, defter)
 
     def kos(self, olgular, *dna, sorgu=None, prm=PRM, kapasite=None, gunluk_adi="olaylar.jsonl"):
         h = self.havuz(olgular, kapasite)
@@ -102,14 +109,14 @@ class DonguTesti(Ortam):
         self.assertEqual(s.durma_nedeni, DURMA_YENI_YOK)
         self.assertEqual(s.tur, 3)
         self.assertEqual(sorted(k.uclu for k in h.kayitlar() if k.katman == 1), [(1, "quax", 3), (1, "vonk", 4)])
-        c = cevapla(h, (1, 4))
+        c = cevapla(h, (1, 4), g)
         self.assertEqual(c.iliski, "vonk")
         self.assertFalse(c.celiski)
         self.assertGreater(c.guven, 0.8)
 
     def test_gerekce_epitoplara_iner(self):
-        h, _, _ = self.kos(DUNYA, BB_Q, QZ_V, sorgu=(1, 4))
-        c = cevapla(h, (1, 4))
+        h, g, _ = self.kos(DUNYA, BB_Q, QZ_V, sorgu=(1, 4))
+        c = cevapla(h, (1, 4), g)
         yapraklar = set()
 
         def gez(dugum):
@@ -128,14 +135,14 @@ class DonguTesti(Ortam):
 
     def test_impasse_esigi_bir_kez_dusurur(self):
         yuksek = hucre("h", [halka("blorp", "X", "Y", 1.0), halka("blorp", "Y", "Z", 1.0)], ("quax", "X", "Z"))
-        h, _, s = self.kos(DUNYA, yuksek, sorgu=(1, 3))
+        h, g, s = self.kos(DUNYA, yuksek, sorgu=(1, 3))
         self.assertEqual((s.durma_nedeni, s.esik_dusurme), (DURMA_YENI_YOK, 1))
-        self.assertEqual(cevapla(h, (1, 3)).iliski, "quax")
+        self.assertEqual(cevapla(h, (1, 3), g).iliski, "quax")
 
     def test_cevapsiz_ikinci_impassete_durur(self):
-        h, _, s = self.kos(DUNYA, BB_Q, sorgu=(1, 8))
+        h, g, s = self.kos(DUNYA, BB_Q, sorgu=(1, 8))
         self.assertEqual((s.durma_nedeni, s.esik_dusurme), (DURMA_IMPASSE, 1))
-        self.assertIsNone(cevapla(h, (1, 8)).iliski)
+        self.assertIsNone(cevapla(h, (1, 8), g).iliski)
 
     def test_sorgusuz_sabit_noktada_durur(self):
         _, _, s = self.kos(DUNYA, BB_Q, QZ_V)
@@ -183,27 +190,27 @@ class HavuzAtmaTesti(Ortam):
         h, g, s = self.kos(DUNYA, BB_Q, sorgu=(1, 3), kapasite=4)
         self.assertEqual([k for k in h.kayitlar() if k.katman == 1], [])
         self.assertGreaterEqual(g.sayac(YEDEK_KULLANILDI), 1)
-        self.assertIsNone(cevapla(h, (1, 3)).iliski)
+        self.assertIsNone(cevapla(h, (1, 3), g).iliski)
 
 
 class PlazmaTesti(Ortam):
     IKI_YOL = [(1, "blorp", 2, 0.6), (2, "blorp", 3, 0.6), (1, "blorp", 5, 0.7), (5, "blorp", 3, 0.7)]
 
     def test_bagimsiz_ispatlar_noisy_or(self):
-        h, _, _ = self.kos(self.IKI_YOL, BB_Q, sorgu=(1, 3))
+        h, g, _ = self.kos(self.IKI_YOL, BB_Q, sorgu=(1, 3))
         ispatlar = [k for k in h.kayitlar() if k.katman == 1 and k.uclu == (1, "quax", 3)]
         self.assertEqual(len(ispatlar), 2)
         self.assertEqual(sorted(k.guven for k in ispatlar), [0.6, 0.7])
-        c = cevapla(h, (1, 3))
+        c = cevapla(h, (1, 3), g)
         self.assertAlmostEqual(c.guven, 1 - (1 - 0.6) * (1 - 0.7), places=12)
 
     def test_ortak_kokenli_kopyalar_guveni_sisirmez(self):
         """10 aynı hücre aynı olgulardan 10 ispat yazar; kök kümeleri aynı olduğu için güven değişmez."""
-        tek = cevapla(self.kos(self.IKI_YOL[:2], BB_Q, sorgu=(1, 3), gunluk_adi="a.jsonl")[0], (1, 3))
+        tek = self.cevap(self.kos(self.IKI_YOL[:2], BB_Q, sorgu=(1, 3), gunluk_adi="a.jsonl"), (1, 3))
         kopyalar = [dict(BB_Q, kimlik=f"h_kopya{i}") for i in range(10)]
-        h10, _, _ = self.kos(self.IKI_YOL[:2], *kopyalar, sorgu=(1, 3), gunluk_adi="b.jsonl")
+        h10, g10, _ = self.kos(self.IKI_YOL[:2], *kopyalar, sorgu=(1, 3), gunluk_adi="b.jsonl")
         self.assertEqual(len([k for k in h10.kayitlar() if k.katman == 1]), 10)
-        self.assertEqual(cevapla(h10, (1, 3)).guven, tek.guven)
+        self.assertEqual(cevapla(h10, (1, 3), g10).guven, tek.guven)
 
     def test_noisy_or_ucler(self):
         self.assertEqual(noisy_or([]), 0.0)
@@ -213,18 +220,18 @@ class PlazmaTesti(Ortam):
             self.assertTrue(0 <= g <= 1)
 
     def test_ispat_yoksa_bilmiyorum(self):
-        h, _, _ = self.kos(DUNYA, BB_Q, sorgu=(1, 7))
-        c = cevapla(h, (1, 7))
+        h, g, _ = self.kos(DUNYA, BB_Q, sorgu=(1, 7))
+        c = cevapla(h, (1, 7), g)
         self.assertEqual((c.iliski, c.guven, c.gerekce), (None, None, ()))
 
     def test_esit_celiski_bilmiyorum_esitsiz_celiski_isaretli(self):
         bv = hucre("h_bv", [halka("blorp", "X", "Y"), halka("blorp", "Y", "Z")], ("vonk", "X", "Z"))
-        h, _, _ = self.kos(DUNYA, BB_Q, bv, sorgu=(1, 3), gunluk_adi="a.jsonl")
-        c = cevapla(h, (1, 3))
+        h, g, _ = self.kos(DUNYA, BB_Q, bv, sorgu=(1, 3), gunluk_adi="a.jsonl")
+        c = cevapla(h, (1, 3), g)
         self.assertEqual((c.iliski, c.celiski), (None, True))
         zayif = dict(bv, guvenilirlik=0.5)
-        h, _, _ = self.kos(DUNYA, BB_Q, zayif, sorgu=(1, 3), gunluk_adi="b.jsonl")
-        c = cevapla(h, (1, 3))
+        h, g, _ = self.kos(DUNYA, BB_Q, zayif, sorgu=(1, 3), gunluk_adi="b.jsonl")
+        c = cevapla(h, (1, 3), g)
         self.assertEqual((c.iliski, c.celiski), ("quax", True))
 
 
@@ -237,11 +244,11 @@ class GenelTest(Ortam):
         self.assertEqual((Path(self._d.name) / "a.jsonl").read_bytes(), (Path(self._d.name) / "b.jsonl").read_bytes())
 
     def test_girdiye_duyarli_ilgisize_duyarsiz(self):
-        tam = cevapla(self.kos(DUNYA, BB_Q, QZ_V, sorgu=(1, 4), gunluk_adi="a.jsonl")[0], (1, 4))
-        eksik = cevapla(self.kos([o for o in DUNYA if o[:3] != (2, "blorp", 3)], BB_Q, QZ_V, sorgu=(1, 4),
-                                 gunluk_adi="b.jsonl")[0], (1, 4))
-        ilgisiz = cevapla(self.kos(DUNYA[:3] + [(9, "frumb", 11, 1.0)], BB_Q, QZ_V, sorgu=(1, 4),
-                                   gunluk_adi="c.jsonl")[0], (1, 4))
+        tam = self.cevap(self.kos(DUNYA, BB_Q, QZ_V, sorgu=(1, 4), gunluk_adi="a.jsonl"), (1, 4))
+        eksik = self.cevap(self.kos([o for o in DUNYA if o[:3] != (2, "blorp", 3)], BB_Q, QZ_V, sorgu=(1, 4),
+                                 gunluk_adi="b.jsonl"), (1, 4))
+        ilgisiz = self.cevap(self.kos(DUNYA[:3] + [(9, "frumb", 11, 1.0)], BB_Q, QZ_V, sorgu=(1, 4),
+                                   gunluk_adi="c.jsonl"), (1, 4))
         self.assertEqual(tam.iliski, "vonk")
         self.assertIsNone(eksik.iliski)
         self.assertEqual((ilgisiz.iliski, ilgisiz.guven), (tam.iliski, tam.guven))
@@ -254,9 +261,9 @@ class GenelTest(Ortam):
             v = dict(hucre_verisi, halkalar=[dict(x, gen=es[x["gen"]]) for x in hucre_verisi["halkalar"]])
             v["sonuc"] = dict(v["sonuc"], gen=es[v["sonuc"]["gen"]])
             return v
-        asil = cevapla(self.kos(DUNYA, BB_Q, QZ_V, sorgu=(1, 4), gunluk_adi="a.jsonl")[0], (1, 4))
-        yeni = cevapla(self.kos([(s, es[r], o, g) for s, r, o, g in DUNYA], adla(BB_Q), adla(QZ_V), sorgu=(1, 4),
-                                gunluk_adi="b.jsonl")[0], (1, 4))
+        asil = self.cevap(self.kos(DUNYA, BB_Q, QZ_V, sorgu=(1, 4), gunluk_adi="a.jsonl"), (1, 4))
+        yeni = self.cevap(self.kos([(s, es[r], o, g) for s, r, o, g in DUNYA], adla(BB_Q), adla(QZ_V), sorgu=(1, 4),
+                                gunluk_adi="b.jsonl"), (1, 4))
         self.assertEqual(yeni.iliski, es[asil.iliski])
         self.assertTrue(math.isfinite(yeni.guven))
 

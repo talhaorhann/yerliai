@@ -3,7 +3,7 @@
 Sorgu (A, B) çıkarım katmanıyla eşleştirilir. Aynı ilişkiye giden ispatlar kök kümelerine (katman 0 ataları) göre
 bileşenlere ayrılır: kesişen kök kümeleri aynı bileşendir (ortak atalılar tek sayılır). Bileşen içi MAX, bileşenler
 arası noisy-OR (log1p/expm1, sızıntı 0). İspat yoksa ya da en yüksekte eşitlik varsa cevap "bilmiyorum" (None).
-Güven bir olasılık değildir.
+Yalnız defterde YAZMA izi olan çıkarımlar ispat sayılır (KODLAMA_PROMPTU §5, V-035). Güven bir olasılık değildir.
 """
 import math
 from dataclasses import dataclass
@@ -43,24 +43,28 @@ def noisy_or(guvenler):
     return max(0.0, min(1.0, -math.expm1(sum(math.log1p(-g) for g in guvenler))))
 
 
-def _bilesen_maksimumlari(havuz, ispatlar):
-    kokler = [kok_kumesi(havuz, k.kimlik) for k in ispatlar]
-    ebeveyn = list(range(len(ispatlar)))
+def bilesenler(kok_kumeleri):
+    """Kök kümesi kesişenler aynı bileşende (geçişli). Bileşenler, öğe sıralarının listesi olarak, sıralı döner."""
+    ebeveyn = list(range(len(kok_kumeleri)))
 
     def kok(i):
         while ebeveyn[i] != i:
             ebeveyn[i] = ebeveyn[ebeveyn[i]]
             i = ebeveyn[i]
         return i
-    for i in range(len(ispatlar)):
+    for i in range(len(kok_kumeleri)):
         for j in range(i):
-            if kokler[i] & kokler[j]:
+            if kok_kumeleri[i] & kok_kumeleri[j]:
                 ebeveyn[kok(i)] = kok(j)
-    maks = {}
-    for i, k in enumerate(ispatlar):
-        r = kok(i)
-        maks[r] = max(maks.get(r, k.guven), k.guven)
-    return [maks[r] for r in sorted(maks)]
+    gruplar = {}
+    for i in range(len(kok_kumeleri)):
+        gruplar.setdefault(kok(i), []).append(i)
+    return [gruplar[r] for r in sorted(gruplar)]
+
+
+def _bilesen_maksimumlari(havuz, ispatlar):
+    gruplar = bilesenler([kok_kumesi(havuz, k.kimlik) for k in ispatlar])
+    return [max(ispatlar[i].guven for i in grup) for grup in gruplar]
 
 
 def _agac(havuz, kimlik):
@@ -69,12 +73,12 @@ def _agac(havuz, kimlik):
             "ebeveynler": [_agac(havuz, e) for e in k.ebeveynler]}
 
 
-def cevapla(havuz, sorgu):
+def cevapla(havuz, sorgu, defter):
     a, b = sorgu
     ispatlar = {}
     for k in havuz.kayitlar():
         ozne, iliski, nesne = k.uclu
-        if k.katman == CIKARIM and (ozne, nesne) == (a, b):
+        if k.katman == CIKARIM and (ozne, nesne) == (a, b) and defter.yazildi_mi(k.kimlik):
             ispatlar.setdefault(iliski, []).append(k)
     if not ispatlar:
         return Cevap(None, None, (), False, ())

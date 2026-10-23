@@ -1,7 +1,8 @@
 """KODLAMA_PROMPTU §5 (Defter, Hata yutma yok): sadece-ekleme, sıra numaralı, hash zincirli olay günlüğü.
 
-Bu genel kayıt altyapısıdır. Destek/çelişki defteri (sistem.md §8–§9, Ek A) A4'te bunun üstüne kurulur.
-Duvar saati alanı yok; zaman bilgisi sıra numarasıdır (K-004).
+Bu genel kayıt altyapısıdır; destek/çelişki defteri (cekirdek/defter.py, V-035) bunun alt sınıfıdır.
+Duvar saati alanı yok; zaman bilgisi sıra numarasıdır (K-004). `yol=None` dosyasız (bellekte) günlüktür:
+karşı-olgusal koşular ana defteri kirletmesin diye (V-035). `ekle_toplu` olayları sırayla, tek fsync ile yazar.
 """
 import json
 import os
@@ -25,14 +26,19 @@ class ZincirHatasi(ValueError):
 
 class OlayGunlugu:
     def __init__(self, yol, algoritma, sema_surumu, izinli_kaynaklar):
-        self.yol = os.fspath(yol)
+        self.yol = None if yol is None else os.fspath(yol)
         self.algoritma = algoritma
         self.sema_surumu = sema_surumu
         self.izinli_kaynaklar = frozenset(izinli_kaynaklar)
         self._kayitlar = self._oku_ve_dogrula()
+        for kayit in self._kayitlar:
+            self._eklendi(kayit)
+
+    def _eklendi(self, kayit):
+        """Alt sınıfların dizin kurması için kanca (her eklenen ya da dosyadan okunan kayıtta çağrılır)."""
 
     def _oku_ve_dogrula(self):
-        if not os.path.exists(self.yol):
+        if self.yol is None or not os.path.exists(self.yol):
             return []
         with open(self.yol, "rb") as f:
             ham = f.read()
@@ -59,29 +65,41 @@ class OlayGunlugu:
         return ozet(kanonik_json({a: d for a, d in kayit.items() if a != "ozet"}), self.algoritma)
 
     def ekle(self, tur, kaynak, veri):
-        if not isinstance(tur, str) or not TUR_DESENI.match(tur):
-            raise KayitHatasi(f"olay türü büyük harfli ad olmalı: {tur!r}")
-        if kaynak not in self.izinli_kaynaklar:
-            raise KayitHatasi(f"kaynaksız ya da bilinmeyen kaynak: {kaynak!r}")
-        if not isinstance(veri, dict):
-            raise KayitHatasi("veri bir nesne olmalı")
-        kayit = {
-            "sema_surumu": self.sema_surumu,
-            "sira": len(self._kayitlar),
-            "tur": tur,
-            "kaynak": kaynak,
-            "veri": veri,
-            "onceki_ozet": self._kayitlar[-1]["ozet"] if self._kayitlar else ILK_ONCEKI_OZET,
-        }
-        kayit["ozet"] = self._ozet(kayit)
-        satir = kanonik_json(kayit) + b"\n"
-        kayit = json.loads(satir)  # çağıranın sözlüğünden bağımsız kopya
-        with open(self.yol, "ab") as f:
-            f.write(satir)
-            f.flush()
-            os.fsync(f.fileno())
-        self._kayitlar.append(kayit)
-        return kayit
+        return self.ekle_toplu([(tur, kaynak, veri)])[0]
+
+    def ekle_toplu(self, olaylar):
+        """(tür, kaynak, veri) olaylarını sırayla zincire ekler. Biri bile geçersizse hiçbiri yazılmaz."""
+        satirlar, yeniler = [], []
+        onceki = self._kayitlar[-1]["ozet"] if self._kayitlar else ILK_ONCEKI_OZET
+        for tur, kaynak, veri in olaylar:
+            if not isinstance(tur, str) or not TUR_DESENI.match(tur):
+                raise KayitHatasi(f"olay türü büyük harfli ad olmalı: {tur!r}")
+            if kaynak not in self.izinli_kaynaklar:
+                raise KayitHatasi(f"kaynaksız ya da bilinmeyen kaynak: {kaynak!r}")
+            if not isinstance(veri, dict):
+                raise KayitHatasi("veri bir nesne olmalı")
+            kayit = {
+                "sema_surumu": self.sema_surumu,
+                "sira": len(self._kayitlar) + len(yeniler),
+                "tur": tur,
+                "kaynak": kaynak,
+                "veri": veri,
+                "onceki_ozet": onceki,
+            }
+            kayit["ozet"] = self._ozet(kayit)
+            satir = kanonik_json(kayit) + b"\n"
+            satirlar.append(satir)
+            yeniler.append(json.loads(satir))  # çağıranın sözlüğünden bağımsız kopya
+            onceki = kayit["ozet"]
+        if self.yol is not None and satirlar:
+            with open(self.yol, "ab") as f:
+                f.write(b"".join(satirlar))
+                f.flush()
+                os.fsync(f.fileno())
+        for kayit in yeniler:
+            self._kayitlar.append(kayit)
+            self._eklendi(kayit)
+        return yeniler
 
     def yedek_kullanildi(self, kaynak, yer, neden):
         return self.ekle(YEDEK_KULLANILDI, kaynak, {"yer": yer, "neden": neden})

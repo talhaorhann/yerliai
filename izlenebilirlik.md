@@ -37,3 +37,4 @@
 | sistem.md §3, §5 (döngü, durma, impasse; K-016, K-017, V-034) | `cekirdek/dongu.py` | `testler/test_a3_cekirdek.py` |
 | sistem.md §6 (plazma, noisy-OR, gerekçe; K-018) | `cekirdek/plazma.py` | `testler/test_a3_cekirdek.py` |
 | sistem.md §2 (havuzdan atma, mezar taşı; K-019, V-033) | `cekirdek/havuz.py` | `testler/test_a3_cekirdek.py` |
+| KODLAMA_PROMPTU §5 (Defter), sistem.md §18 (V-035) | `cekirdek/defter.py`, `cekirdek/altyapi/olay_gunlugu.py`, `cekirdek/dongu.py`, `cekirdek/plazma.py` | `testler/test_a4_defter.py` |
