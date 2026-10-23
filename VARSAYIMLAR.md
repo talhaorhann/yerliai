@@ -44,7 +44,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 - **Öneri ve uygulanan:** (a), en dar seçenek. A0 ve A1 için yeterli. Ayrıca çekirdekte şu standart kütüphane modülleri yasak: ağ (`socket, ssl, http, urllib, ftplib, smtplib, poplib, imaplib, xmlrpc, asyncio, webbrowser`), dış süreç ve paralellik (`subprocess, multiprocessing`), yerel kod (`ctypes`). Dinamik import (`__import__`, `importlib.import_module`) da yasak. Gerekçe: prompt §2.3 "ağ kodunu import edemez" ve §5 "paralellik sırası sabit". numpy/torch sorusu A2'den önce sorulacak.
 - **Dosyalar:** `config.json` (`izinli_ek_paketler`, `yasak_cekirdek_modulleri`), `testler/test_a0_yasak_kaliplar.py`.
 - **Geri alma:** listeyi değiştirmek (onay ister).
-- **Felsefi:** EVET (izin ve yalıtım). Şu anki değer en kısıtlayıcı olandır, bu yüzden hiçbir davranışı serbest bırakmıyor. **Durum:** ONAYSIZ, A2 öncesi sorulacak.
+- **Felsefi:** EVET (izin ve yalıtım). Şu anki değer en kısıtlayıcı olandır, bu yüzden hiçbir davranışı serbest bırakmıyor. **Durum:** ONAYSIZ. Kullanıcı (2026-10-23): A2'ye kadar bu kısıtlı hâliyle kalsın, A2 öncesi yeniden sorulacak.
 
 ## V-006: Zaman damgası ile determinizm çelişkisi
 - **Bölüm:** KODLAMA_PROMPTU §5. "Her kayda ... zaman damgası" deniyor, ama aynı bölüm "saat yok" ve "aynı girdi ve tohum aynı çıktı" da diyor. Bağımsızlık testi (sistem.md §16) bit düzeyinde eşitlik istiyor.
@@ -53,7 +53,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 - **Uygulanan (A0):** (a). Olay günlüğünde zaman alanı yok, en dar ve geri alınabilir seçenek.
 - **Dosyalar:** `cekirdek/altyapi/olay_gunlugu.py`.
 - **Geri alma:** kayda alan eklemek. Bu, şema sürümünü artırır.
-- **Felsefi:** EVET (determinizm, bağımsızlık testi). **Durum:** ONAYSIZ, A1 başlamadan sorulacak (veri kayıtları buna bağlı).
+- **Felsefi:** EVET (determinizm, bağımsızlık testi). **Durum:** ONAYLI (2026-10-23) → `KARARLAR.md` K-004.
 
 ## V-007: Hash algoritması ve kanonik JSON
 - **Bölüm:** KODLAMA_PROMPTU §5 (hash, hash zinciri). Algoritma belirtilmemiş.

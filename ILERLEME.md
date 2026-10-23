@@ -2,7 +2,7 @@
 
 ## A0: klasör iskeleti, config, rapor/kayıt altyapısı (dal `asama-0`)
 
-**Durum:** testler yeşil, etiket `asama-0`. Bağımsız inceleme bekliyor.
+**Durum:** testler yeşil, etiket `asama-0` (yalnız yerel; uzak depoya etiket gönderimi 403 ile reddedildi, kullanıcı: bir şey yapma). Bağımsız inceleme bekliyor (`inceleme/A0_istemi.md`); inceleme bitmeden A1'e başlanmaz.
 
 **Çalışan (testle gösterilmiş):**
 - Klasörler: `cekirdek/` (+ `altyapi/`), `tercuman/`, `degerlendirme/`, `karsilastirma/`, `veri/`, `sema/`, `kilit/`, `araclar/`, `testler/`.

@@ -1,7 +1,7 @@
 """KODLAMA_PROMPTU §5 (Defter, Hata yutma yok): sadece-ekleme, sıra numaralı, hash zincirli olay günlüğü.
 
 Bu genel kayıt altyapısıdır. Destek/çelişki defteri (sistem.md §8–§9, Ek A) A4'te bunun üstüne kurulur.
-Zaman damgası alanı yok (VARSAYIM V-006).
+Duvar saati alanı yok; zaman bilgisi sıra numarasıdır (K-004).
 """
 import json
 import os
