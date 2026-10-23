@@ -27,6 +27,9 @@
     "altin_dikkat_dagitici": {"deger": 2, "kaynak": "V-023"},
     "vektor_boyutu": {"deger": 256, "kaynak": "K-014"},
     "vektor_tohum": {"deger": 2026, "kaynak": "V-026"},
+    "havuz_kapasitesi": {"deger": 64, "kaynak": "sistem.md §2"},
+    "tur_siniri": {"deger": 8, "kaynak": "sistem.md §5"},
+    "hucre_tur_yazma_siniri": {"deger": 8, "kaynak": "sistem.md §3"},
     "kilitli_veri_dosyalari": {"deger": ["degerlendirme/veri/tanimlar_v1.json", "ONKAYIT.md", "degerlendirme/altin/kullanici_cevaplari_1.json"], "kaynak": "V-008"}
   },
   "bayraklar": {

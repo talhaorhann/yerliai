@@ -89,3 +89,19 @@
 - PyTorch hızlı yol (toplu int64) ve referansla bit-eşitlik testi (K-015).
 - GPU yolu (K-012: ayrı aşama).
 - Reseptör vektörleri ve gradyan (sistem.md §3, §7): A3 ve sonrası.
+
+## A3: LLM'siz çekirdek (dal `asama-3`)
+
+**Durum:** YARIM. Şartnamenin doğrudan tarif ettiği parçalar yazıldı. Afinite/güven (V-028), durma (V-029), plazma (V-030) ve havuzdan atma (V-031) kullanıcı onayında.
+
+**Çalışan (testle gösterilmiş):**
+- `cekirdek/dna.py` + `sema/dna_v1.schema.json`: 1–3 halkalı DNA veri dosyası. Genler onaylı şemada olmalı, sonuç değişkenleri gövdede geçmeli.
+- `cekirdek/havuz.py`:
+  - İki katman, ilişki dizini, (üçlü, köken) tekilleştirmesi.
+  - Yaş = geçen tur.
+  - Epitoplar kapasiteyi aşarsa durur.
+  - Atma kuralı onaya kadar `NotImplementedError`.
+- `cekirdek/eslesme.py`: sembolik bağlama (değişken tutarlılığı, farklı kayıtlar, yarı-naif kural, yön).
+- Mutasyon: A3 temel 10/10.
+
+**Kapsam (V-027):** sitokin ve Treg H4'te, öğrenme H2'de, kredi H3'te, defter ve müdahale A4'te.

@@ -274,3 +274,69 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - **Çözme:** sabit tohumla 60 kayıt, 100 varlık ve 21 anlamsız ilişki adı üzerinde özne, nesne ve ilişki %100 geri bulunur. Önden ölçümde doğru ile en yakın yanlış aday arasındaki en küçük fark 2,2 kattı, %100 sınırının arkasında bu pay var.
 - **Dosyalar:** `config.json`, `testler/test_a2_vektor.py`.
 - **Felsefi:** hayır. **Durum:** ONAYSIZ.
+
+---
+
+# A3 varsayımları
+
+## V-027: A3 kapsamı
+- **Bölüm:** KODLAMA_PROMPTU §4 (A3 = LLM'siz çekirdek), sistem.md §13 (H1: çekirdek + elle doğru DNA; H2: klonal seçilim; H3: müdahale, bellek; H4: sitokin, Treg, ablasyonlar).
+- **Uygulanan:**
+  - A3'te: havuz (§2), hücre/DNA (§3), sembolik eşleşme + afinite + yazma (§3), döngü ve durma (§5'in durma kısmı), plazma hücresi (§6).
+  - A3'te yok: sitokin (§4) ve Treg (§5'in baskılama kısmı) H4'te. Öğrenme (§7) H2'de. Kredi (§8) H3'te. Defter ve müdahale testi (§9) A4'te.
+  - A3'te "taklit" sitokin/Treg kodu yazılmaz.
+  - A3 testleri anlamsız ilişki adlı ("blorp") elle yazılmış DNA ile yapılır. Akrabalık için elle doğru DNA H1'e (A5) aittir.
+- **Felsefi:** hayır (yol haritasından). **Durum:** ONAYSIZ.
+
+## V-028: Afinite, eşik ve güven formülü (eşleşme, güven)
+- **Bölüm:** sistem.md §3: "sembolik bağlama maskesi × kosinüs afinitesi > θ", "ilişki dizini", "hücre başına tur başına ≤8 yazma", "tur başına eşleşme bütçesi", "güven = min-t-norm(afiniteler) × hücre güvenilirliği". KODLAMA_PROMPTU §5: zincir içinde min-t-norm, güven [0,1]'e kırpılır.
+- **Boşluk:** afinitenin neyle neyin kosinüsü olduğu ve ölçeği; θ başlangıcı; ebeveyn kayıtların güveninin hesaba girip girmediği; hücre güvenilirliğinin başlangıcı; bütçe sayısı; 8'den fazla eşleşmede hangilerinin yazılacağı.
+- **Öneri:**
+  1. İlişki geni sert süzgeçtir. Halka yalnız aynı ilişkili kayıtlara bakar (ilişki dizini).
+  2. Afinite = kırp(kosinüs(alıcı, kayıt vektörü) · √3, 0, 1). Kayıt vektörü üç eşit büyüklükte bileşenden oluştuğu için (K-014) tam uyumda kosinüs ≈ 1/√3 olur; √3 çarpanı bunu ≈1'e getirir. Elle yazılan hücrede alıcı = 16·R[ilişki geni]. Öğrenme H2'de.
+  3. Halka ancak afinite > θ ise eşleşir. Elle yazılan hücrelerde başlangıç θ = 0,5. Ölçülen doğru-eşleşme afinitesi ≈1 ± 0,1, yani bol pay var. θ ileride kalibrasyon kümesinde seçilecek.
+  4. Güven = min(halka afiniteleri, eşleşen kayıtların güvenleri) × hücre güvenilirliği. Ebeveyn güveni de min'e girer; böylece zincir hiçbir halkasından daha güvenilir olamaz. Elle yazılan hücrenin güvenilirliği = 1.
+  5. Hücre bir turda 8'den fazla eşleşirse en yüksek afinite×güvenli 8'i yazılır. Eşitlikte kayıt kimliği sırası belirler.
+  6. Tur başına eşleşme bütçesi 1024. Aşılırsa en düşük afinite×güvenliler atılır (§3) ve atılan sayısı günlüğe yazılır.
+- **Felsefi:** EVET. **Durum:** ONAYSIZ, onay listesinde (madde 1).
+
+## V-029: Durma ve impasse
+- **Bölüm:** sistem.md §5: durma (a) yeni kayıt yok, (b) yanıt güveni > τ (τ = güven dağılımının yüzdeliği), (c) 8 tur; impasse'te bir kez eşik düşürülür. KODLAMA_PROMPTU §5: τ yalnız kilitli kalibrasyon kümesinde seçilir.
+- **Boşluk:** kalibrasyon kümesi yokken τ'nun değeri; eşiğin ne kadar düşürüleceği.
+- **Öneri:**
+  1. Kalibrasyon kümesi oluşana kadar (b) kapalıdır. Döngü (a) ya da (c) ile durur. τ'yu kafadan uydurmuyorum.
+  2. Impasse: sorgu için yanıt yok ve yeni kayıt da yoksa, bütün hücrelerin θ'sı bir kez yarıya iner, döngü sürer. İkinci impasse'te durur.
+  3. Tur sınırı 8 (§5), config'te.
+- **Felsefi:** EVET (durma). **Durum:** ONAYSIZ, onay listesinde (madde 2).
+
+## V-030: Plazma hücresi: ispat birleştirme ve cevap
+- **Bölüm:** sistem.md §6 (aynı sonuca giden ispatlar noisy-OR, gerekçe zinciri), KODLAMA_PROMPTU §5 (noisy-OR yalnız ortak atası olmayan ispatlar arasında, log1p/expm1) ve §10 (sızıntı terimi ve bağımsızlık tanımı bilinen boşluk). Ek A P5 (bağlam): kök kümelerine göre bileşen, bileşen içi MAX, bileşenler arası noisy-OR.
+- **Öneri:**
+  1. Sorgu (A, B) için çıkarım katmanında öznesi A, nesnesi B olan kayıtlar ispattır.
+  2. İki ispatın kök kümesi (katman 0'daki ata epitopları) kesişiyorsa aynı bileşendedir (geçişli). Bileşen içi MAX, bileşenler arası noisy-OR: 1 − Π(1 − g). Sızıntı terimi 0.
+  3. Cevap, birleşik güveni en yüksek ilişkidir. İspat yoksa ya da en yüksek güvende iki farklı ilişki eşitse cevap "bilmiyorum" olur.
+  4. Farklı ilişkilere giden ispatlar varsa sonuçta "çelişki var" diye işaretlenir. Çözümü A4'teki defterin işidir.
+  5. Gerekçe, köken DAG'ından epitoplara kadar ağaç olarak verilir. Güven olasılık diye sunulmaz.
+- **Felsefi:** EVET (güven, "bilmiyorum"). **Durum:** ONAYSIZ, onay listesinde (madde 2).
+
+## V-031: Havuzdan atma kuralı ve yayın sahnesi
+- **Bölüm:** sistem.md §2: "dolunca YALNIZ çıkarım katmanından en düşük güven × yaş kaydı atılır", "her turda en yüksek skorlu ~4 öğe yayın sahnesine çıkar".
+- **Boşluk:**
+  - "güven × yaş" harfiyen okunursa yeni yazılan kayıt (yaş 0) hemen atılır.
+  - Yayın sahnesinin skoru tanımsız. Eşleşmeyi nasıl etkilediği de belirtilmemiş.
+- **Öneri:**
+  1. Atma kuralı: çıkarım katmanında en düşük güvenli kayıt atılır. Eşitlikte en yaşlı, sonra en küçük kimlik. Yeni bir çarpan (γ) uydurulmaz.
+  2. Katman 0 tek başına kapasiteyi aşarsa bölüm reddedilir. Atılacak çıkarım kalmamışsa yeni çıkarım yazılmaz ve günlüğe "havuz dolu" diye kaydedilir.
+  3. Yayın sahnesi A3'te yoktur. Skoru sitokin, kredi ve sorgu uzaklığına (H3/H4) bağlı; onlarla birlikte gelir. Eşleşme bütün havuzda yarı-naif yapılır.
+- **Felsefi:** EVET (bellek). **Durum:** ONAYSIZ, onay listesinde (madde 3).
+
+## V-032: DNA dosya biçimi ve tur düzeni
+- **Bölüm:** sistem.md §3 (1–3 halka, değişkenli zincir, her halka ilişki geni + alıcı + θ), KODLAMA_PROMPTU §2.4 (dil veridir), §5 (şemalı veri).
+- **Uygulanan:**
+  - DNA bir JSON veri dosyasıdır (`sema/dna_v1.schema.json`). Her hücrede şunlar var: `kimlik`, 1–3 halka, `sonuc`, `guvenilirlik`.
+  - Her halka ve sonuç bir ilişki geni ve iki değişken adı taşır. Halkanın ayrıca θ'sı vardır. Alıcı vektörü dosyada tutulmaz; elle yazılan hücrede ilişki geninden kurulur (V-028).
+  - Sonuç değişkenleri gövdede geçmelidir. Genler onaylı şemada olmalıdır.
+  - Tur eşzamanlıdır: bütün hücreler turun başındaki havuza bakar, yazmalar tur sonunda kayıt sırasıyla yapılır.
+  - Yarı-naif kural: en az bir halka önceki turda yazılmış kayda bağlanır. İlk turda bütün epitoplar "yeni" sayılır.
+  - Aynı (üçlü, köken) iki kez yazılmaz (karma tablo, §3).
+- **Felsefi:** hayır (§3'ün doğrudan uygulaması). **Durum:** ONAYSIZ.

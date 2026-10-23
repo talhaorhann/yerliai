@@ -29,3 +29,7 @@
 | sistem.md §1, §3 (HRR/VSA vektörleri; K-014, V-026) | `cekirdek/vektor.py` | `testler/test_a2_vektor.py` |
 | KODLAMA_PROMPTU §5 (tensör şekilleri, SEKILLER) | `cekirdek/sekiller.py` | `testler/test_a2_vektor.py` |
 | KODLAMA_PROMPTU §6 (Mutasyon sınaması, A2) | `araclar/mutasyon_a2.py` | `testler/test_a2_vektor.py` |
+| sistem.md §3 (DNA; V-032) | `cekirdek/dna.py`, `sema/dna_v1.schema.json` | `testler/test_a3_temel.py` |
+| sistem.md §2 (havuz; V-031 atma onayda) | `cekirdek/havuz.py` | `testler/test_a3_temel.py` |
+| sistem.md §3 (sembolik yarı-naif eşleşme; V-032) | `cekirdek/eslesme.py` | `testler/test_a3_temel.py` |
+| KODLAMA_PROMPTU §6 (Mutasyon sınaması, A3) | `araclar/mutasyon_a3.py` | `testler/test_a3_temel.py` |
