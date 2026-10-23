@@ -167,7 +167,7 @@
 
 ## A5: H1 deneyi (dal `asama-5`, sürüyor)
 
-**Durum:** 1. adım (PyTorch hızlı yolu) bitti. H1 deneyinin kendisi başlamadı.
+**Durum:** 1. adım (PyTorch hızlı yolu) ve 2. adım (hızlı yolun çekirdek döngüsüne bağlanması) bitti. H1 ön kaydı taslak, kullanıcı onayı bekliyor. H1 deneyinin kendisi başlamadı.
 
 **Çalışan (testle gösterilmiş):**
 - torch 2.14.1+cpu ve bağımlılıkları `gereksinimler.txt`'de hash'le sabit (K-022). Lisans `LISANSLAR.md`'de, kaynakla karşılaştırılarak doğrulandı.
@@ -179,9 +179,21 @@
 
 **Mutasyon:** ilk koşuda 12 mutasyondan 10'u yakalandı, 2'si kaçtı (benzerlikte int64 denetimi, eksen sayısı denetimi): testi yoktu, eklendi. Son koşu: 12/12 yakalandı, taban 244/244.
 
+**2. adım, döngüye bağlama (V-042, testle gösterilmiş):**
+- Kod kitabı vektör hesabının giriş noktası (`kayit_vektoru`, `benzerlik_matrisi`). `KodKitabi` referans, `HizliKodKitabi` hızlı yol. Havuz, döngü ve müdahale verilen kod kitabının yolunu kullanır.
+- Afiniteler tur başında bir kez tablo olarak hesaplanır (`afinite_tablosu`).
+- `testler/test_a5_dongu_hizli.py` (10 test), senaryolar `testler/yardimci_senaryo.py`'de (atma, bütçe, hücre sınırı, impasse, çelişki, müdahale):
+  - defterin her olayı iki yolda kanonik JSON ile aynı;
+  - referans yolun izi, bağlamadan önceki koddan (797eeaa) alınan altın değerlerle aynı;
+  - hızlı koşuda saf Python evrişim ve kosinüs hiç çağrılmıyor (eşitlik tek başına hızlı yolun kullanıldığını göstermez).
+- Ölçüm (`araclar/hiz_olc.py`): 4 senaryo, 38 çıkarım: referans 0,999 sn, hızlı 0,216 sn; defter ve vektörler aynı. Profil: referans yolda sürenin büyük kısmı kayıt vektörünün saf Python evrişimiydi.
+- Mutasyon: 19/19 yakalandı (12 vektör + 7 bağlama), taban 254/254. Eşdeğer mutant: döngünün tabloyu eşleşmeye vermemesi (sonuç aynı, yalnız hız); listede yok.
+- Bulgu: büyük vektör listelerinde `assertEqual`'ın fark çıktısı (difflib) dakikalar sürüyor; bir mutant yakalandığı hâlde 600 sn sınırına takıldı. Test ilk farkı raporlayacak biçimde düzeltildi.
+
 **Eksik:**
-- Hızlı yol çekirdek döngüsüne bağlı değil (döngü referans yolu kullanıyor).
 - Altın küme 2. parça cevapları (kullanıcıda).
-- H1 ön kaydı (`ONKAYIT.md`, veriye bakmadan).
-- Akrabalık için elle doğru DNA (nasıl yazılacağı kullanıcıya sorulacak).
+- H1 ön kaydı: taslak `H1_ONKAYIT_TASLAGI.md`, onay bekliyor. Onaylanınca `ONKAYIT.md`'ye ÖK-002 olarak taşınıp kilitlenecek.
+- Akrabalık için elle doğru DNA: kimin yazacağı ve "farklı kişi" şartı kullanıcıya soruldu.
+- Bulgu (denendi): çekirdek iki ayrı değişkeni aynı kişiye bağlayabiliyor (r1(1,2), r2(2,1) → r3(1,1)).
+- H1 koşturucusu (`degerlendirme/` içinde, cevapları yalnız o okur) ve ek tohumlar yazılmadı.
 - GPU (CUDA) sürümü: gerekirse konuşulacak (K-022).
