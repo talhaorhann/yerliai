@@ -26,7 +26,8 @@
         "uzunluk",
         "zincir_bozuk",
         "yon_ters",
-        "yeniden_adlandirma"
+        "yeniden_adlandirma",
+        "onsel_ters"
       ]
     },
     "kume": {

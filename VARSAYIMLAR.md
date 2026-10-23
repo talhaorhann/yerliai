@@ -185,14 +185,14 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - işlevsel ilişkilerin tekliği.
   Böylece tanımlar ile onaylı şema birbirini sınar.
 - **Geri alma:** yeni sürüm (`tanimlar_v2.json`).
-- **Felsefi:** EVET (kâhin doğruluğu). **Durum:** ONAYSIZ, kullanıcının okumasına sunulacak.
+- **Felsefi:** EVET (kâhin doğruluğu). **Durum:** ONAYLI (2026-10-23) → `KARARLAR.md` K-009.
 
 ## V-020: "Önsel-ters" bölmesinin tanımı
 - **Bölüm:** sistem.md §10 "önsel-ters". Ne demek olduğu tanımlı değil.
 - **Seçenekler:** (a) test cevap dağılımı eğitimdekinin tersi (eğitimde nadir olan cevaplar testte sık), (b) gerçek hayatta alışılmadık ama tutarlı aileler (ör. çok kuşaklı aynı yaş), (c) başka.
 - **Öneri:** (a).
 - **Uygulanan:** `NotImplementedError`.
-- **Felsefi:** EVET (değerlendirme bölmesi). **Durum:** ONAYSIZ, sorulacak.
+- **Felsefi:** EVET (değerlendirme bölmesi). **Durum:** ONAYLI (2026-10-23) → `KARARLAR.md` K-010.
 
 ## V-021: Kilitli kümelerle kesişim denetimi
 - **Bölüm:** KODLAMA_PROMPTU §5 (Kilitli kümeler: hash her koşuda doğrulanır, kesişirse hat durur).
@@ -206,3 +206,26 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 
 ## V-011 eki: tip listesi
 - JSON Schema `type` alanı liste de olabilir (ör. `["string", "null"]`). Cevap kaydındaki "yok" cevabı için eklendi.
+
+## V-022: Önsel-ters bölmesinin uygulanışı (K-010)
+- **Bölüm:** K-010. Nasıl "ters" yapılacağı tanımlı değil.
+- **Uygulanan:**
+  - Bölümler eğitim gibi üretilir (k=2–3).
+  - Dedektör eğitim kümesi aynı zamanda doğal cevap dağılımı p(r) tahminidir. Laplace (+1) ile düzeltilir, böylece hiç görülmemiş cevap da tanımlı olur.
+  - Hedef dağılım q(r) ∝ 1/p(r). Bir aday p_en_az²/p(r)² olasılıkla kabul edilir. Bu reddetme örneklemesi sonuçta q dağılımını verir.
+  - Sonra K-008'deki Treg ayrımı ve kapı aynen uygulanır.
+- **Dosyalar:** `degerlendirme/uretec.py`.
+- **Felsefi:** hayır (K-010 içinde ayrıntı). **Durum:** ONAYSIZ.
+
+## V-023: Altın küme sorularının biçimi (K-011)
+- **Bölüm:** K-011, KODLAMA_PROMPTU §5 (altın küme elle izlenmiş küçük örnekler).
+- **Uygulanan:**
+  - Ayrı tohum `altin_tohum`. Parça başına `altin_normal_sayisi` (40) zincirli ve `altin_bozuk_sayisi` (10) zincir-bozuk soru.
+  - Elle izlemeyi kolaylaştırmak için k=2–3 ve `altin_dikkat_dagitici` (2) dikkat dağıtıcı kullanılır. Eğitimde bu sayı 4'tür.
+  - Kişiler soru içinde 1'den başlayarak numaralanır.
+  - Olgular "Kişi 1 → ilişki → Kişi 3" biçimindedir (okuma: Kişi 3, Kişi 1'in ilişkisidir). Türkçe çekim yok, çekim Türkçe aşamasına kaldı.
+  - Seçenekler: A, B, C ilişki adı, D "Bilgi yetmez". Zincirli soruda doğru cevap A–C arasında, öteki ikisi şemadan rastgele. Zincir-bozuk soruda A–C rastgele, doğru cevap D.
+  - Kullanıcı emin değilse "?" yazabilir.
+  - Soru bölümleri `degerlendirme/altin/altin_bolumler.jsonl` dosyasına yazılır ve hemen kilitli kümeye kaydedilir (`kilit/kilitli_kumeler.json`). Böylece eğitim üretimi altın kümeyle kesişirse durur.
+  - Üretecin cevapları ayrı dosyadadır (`degerlendirme/altin/uretec_cevaplari.jsonl`). Kullanıcı bu dosyayı açmamalıdır.
+- **Felsefi:** kısmen (altın küme). **Durum:** ONAYSIZ.

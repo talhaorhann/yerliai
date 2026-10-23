@@ -1,5 +1,6 @@
 # DURUM: nerede kaldık
 
-- Aşama: A1, dal `asama-1`. Kelime çantası kapısı geçti. Önsel-ters, gizli tanım okuması ve altın küme kullanıcıda.
-- Uzun koşu yok. Tam üretim ~11 sn: `python3 -m degerlendirme.uretec <klasör>`
+- A1 kapandı (`asama-1`). Sırada A2 (vektörler), V-005 onayı bekleniyor.
+- Kullanıcıda: altın küme soruları (`degerlendirme/altin/altin_soru_1.md`, `_2.md`).
+- Uzun koşu yok. Tam üretim ~27 sn: `python3 -m degerlendirme.uretec <klasör>`
 - Tek komutla tüm testler: `python3 araclar/kostur.py`

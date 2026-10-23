@@ -19,7 +19,13 @@
     "aday_siniri": {"deger": 20000, "kaynak": "V-017"},
     "dedektor_egitim_sayisi": {"deger": 400, "kaynak": "V-018"},
     "dedektor_laplace": {"deger": 1, "kaynak": "V-018"},
-    "kisa_yol_sans_payi": {"deger": 0.05, "kaynak": "KODLAMA_PROMPTU §6"}
+    "kisa_yol_sans_payi": {"deger": 0.05, "kaynak": "KODLAMA_PROMPTU §6"},
+    "altin_tohum": {"deger": 1001, "kaynak": "V-023"},
+    "altin_parca_sayisi": {"deger": 2, "kaynak": "K-011"},
+    "altin_normal_sayisi": {"deger": 40, "kaynak": "V-023"},
+    "altin_bozuk_sayisi": {"deger": 10, "kaynak": "V-023"},
+    "altin_dikkat_dagitici": {"deger": 2, "kaynak": "V-023"},
+    "kilitli_veri_dosyalari": {"deger": ["degerlendirme/veri/tanimlar_v1.json"], "kaynak": "K-009"}
   },
   "bayraklar": {
     "deneysel": {"deger": false, "kaynak": "KODLAMA_PROMPTU §5"},

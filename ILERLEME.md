@@ -23,40 +23,43 @@
 - Ağ kapalı temiz ortamda kurulum denemesi ve `kur.bat` (Windows): DOĞRULANMADI.
 - Aşama öncesi/sonrası test sayısı karşılaştırması: A0 sıfırdan başladı (önce 0, şimdi 57 test).
 
-## A1: bilgi tabanı + sentetik soy ağacı üreteci (dal `asama-1`)
+## A1: bilgi tabanı + sentetik soy ağacı üreteci (dal `asama-1`, etiket `asama-1`)
 
-**Durum:** Kelime çantası kapısı (ilk kabul ölçütü) beş bölmenin hepsinde geçti. Açık kalan: önsel-ters bölmesi (V-020), gizli tanımların kullanıcı okuması (V-019), altın/kalibrasyon kümesi (kullanıcıdan). Bu yüzden etiket atılmadı.
+**Durum:** KAPANDI. Kelime çantası kapısı altı bölmenin hepsinde geçti. Altın küme soruları hazır ve kilitli; kullanıcının cevapları bekleniyor (A1 kapısı değil, K-011).
 
 **Çalışan (testle gösterilmiş):**
 - Şema doğrulayıcı, onay kilitli ilişki şeması (K-006), bilgi tabanı (ret/karantina/günlük).
-- `degerlendirme/dunya.py`: soyut soy ağacı ve gizli yapısal tanımlar. Her ağaçta tanımların onaylı şemayla tutarlı olduğu sınanır: tek ilişki, ters, işlevsellik, simetri.
-- `degerlendirme/uretec.py`: bölmeler eğitim (k=2–3), uzunluk (k=4–10), zincir-bozuk, yön ters ve yeniden adlandırma.
-  - Bölüm dosyasında cevap ve bölme adı yok. Cevaplar `kahin/` klasöründe.
+- `degerlendirme/dunya.py`: soyut soy ağacı ve onaylı gizli tanımlar (K-009, hash kilitli). Her ağaçta tanımların şemayla tutarlılığı sınanır.
+- `degerlendirme/uretec.py`: bölmeler eğitim, uzunluk, zincir-bozuk, yön ters, yeniden adlandırma ve önsel-ters (K-010). Önsel-ters'te cevap dağılımının ters döndüğü Spearman testiyle gösterildi.
+  - Cevaplar `kahin/` klasöründe.
   - Kimlikler ve olgu sırası karıştırılıyor.
-  - Olgu grafiğinde en kısa yol tam k.
-- `degerlendirme/kisa_yol.py`: Naive Bayes dedektörü, Treg ayrımı ve kapı. Dikkat dağıtıcısız ham veride dedektör kısa yolu yakalıyor (0,27 > şans 0,15), yani değersiz değil.
-- `degerlendirme/kilitli_kumeler.py`: hash denetimi ve kesişim durdurucusu.
-- Tam üretim: `python3 -m degerlendirme.uretec <klasör>` (~11 sn). İki koşu birebir aynı çıktı veriyor.
+  - En kısa yol tam k.
+- `degerlendirme/kisa_yol.py`: dedektör, Treg ayrımı ve kapı. Dedektör ham veride kısa yolu yakalıyor.
+- `degerlendirme/altin.py`: 2 × 50 altın soru (40 zincirli + 10 zincir-bozuk), A/B/C/D seçenekli.
+  - Kayıtlı ve kilitli (`kilit/kilitli_kumeler.json`). Eğitim üretimi bu kümeyle kesişirse durur.
+  - Kullanıcı cevabı ayrıştırıcısı ve karşılaştırıcısı hazır.
+- Tam üretim: `python3 -m degerlendirme.uretec <klasör>` (~27 sn), deterministik.
 
-**Kapı sonuçları (config boyutu, ana küme 400, ölçüm ikinci yarı 200):**
+**Kapı sonuçları (config boyutu):**
 
-| Bölme | Dedektör doğruluğu | Şans | Sınır (şans + 0,05) |
+| Bölme | Dedektör doğruluğu | Şans | Sınır |
 |---|---|---|---|
 | eğitim | 0,135 | 0,140 | 0,190 |
 | uzunluk | 0,105 | 0,150 | 0,200 |
-| zincir-bozuk (karışım) | 0,4525 | 0,500 | 0,550 |
+| zincir-bozuk (karışım) | 0,453 | 0,500 | 0,550 |
 | yön ters | 0,085 | 0,125 | 0,175 |
 | yeniden adlandırma | 0,105 | 0,160 | 0,210 |
+| önsel-ters | 0,295 | 0,295 | 0,345 |
 
 **Kilitli dosya değişiklikleri (bildirim):**
-- `config.json`'a K-007/K-008 için yalnız yeni anahtarlar eklendi, eski değerler aynı.
-- `testler/test_a1_uretec_iskelet.py` yeniden yazıldı, artık yalnız önsel-ters iskeletini sınıyor (üreteç artık var).
+- `config.json`'a üreteç (K-007/K-008), altın küme (K-011) ve kilitli veri listesi (K-009) için yalnız yeni anahtarlar eklendi.
+- `testler/test_a1_uretec_iskelet.py` artık önsel-ters testi.
+- `testler/test_a1_uretec.py`'den eski "önsel-ters yazılmadı" testi çıkarıldı. Yerine üç önsel-ters testi geldi. Toplam test sayısı arttı: 134 → 147.
 
-**Mutasyon:** A0 15/15, A1 25/25 yakalandı.
+**Mutasyon:** A0 15/15, A1 30/30 yakalandı (`python3 araclar/mutasyon_a0.py`, `python3 araclar/mutasyon_a1.py`).
 
 **Eksik:**
-- Önsel-ters bölmesi (`NotImplementedError`, V-020).
-- Altın/kalibrasyon kümesi yok, mekanizma hazır.
-- Kesişim denetimi yalnız birebir aynı bölümü yakalar, izomorf olanları yakalamaz.
-- İsim havuzu ve parafraz Türkçe aşamasında.
-- Ek A P7'deki "kural alt kümesi" yok (Ek bağlamdır, karar değildir).
+- Altın küme kullanıcı cevapları (2 parça).
+- Kalibrasyon kümesi: ~500 örnek, CLUTRR aşamasında (sistem.md §9).
+- Kesişim yalnız birebir aynı bölümü yakalar.
+- İsim/parafraz Türkçe aşamasında.

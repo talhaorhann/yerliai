@@ -224,11 +224,6 @@ class BolumTesti(unittest.TestCase):
             for o in a.bolum["olgular"]:
                 self.assertIn(o["iliski"], set(esleme.values()))
 
-    def test_onsel_ters_onay_bekliyor(self):
-        with self.assertRaises(NotImplementedError) as b:
-            aday_uret(random.Random(7), TANIM, PRM, "onsel_ters")
-        self.assertIn("V-020", str(b.exception))
-
     def test_bilinmeyen_bolme(self):
         with self.assertRaises(ValueError):
             aday_uret(random.Random(7), TANIM, PRM, "uydurma")

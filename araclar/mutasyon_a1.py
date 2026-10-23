@@ -18,6 +18,7 @@ DUN = "degerlendirme/dunya.py"
 URE = "degerlendirme/uretec.py"
 KY = "degerlendirme/kisa_yol.py"
 KK = "degerlendirme/kilitli_kumeler.py"
+ALT = "degerlendirme/altin.py"
 
 
 def veri_iliskisi():
@@ -57,6 +58,15 @@ def mutasyonlar():
         ("kısa yol kapısı kapatıldı", KY, "if dogruluk > sans_ + pay:", "if False:"),
         ("kilitli küme hash denetimi silindi", KK, 'if hashlib.new(girdi["algoritma"], ham).hexdigest() != girdi["ozet"]:',
          "if False:"),
+        ("önsel-ters reddetme yok", URE, "if kabul is not None and rng.random() >= kabul[a.cevap[\"cevap\"]]:",
+         "if False:"),
+        ("altın soruda cevap işaretli", ALT, 'satirlar.append("  ·  ".join(f"{h}) {_goster(sec)}"',
+         'satirlar.append(s["dogru_harf"] + "  ·  ".join(f"{h}) {_goster(sec)}"'),
+        ("altın küme üzerine yazılabiliyor", ALT, "        if KUME_ADI in kumeler:\n", "        if False:\n"),
+        ("geçersiz cevap harfi kabul", ALT, "if harf is None or harf.upper() not in HARFLER + EMIN_DEGIL:",
+         "if harf is None:"),
+        ("bozuk soruda doğru seçenek D değil", ALT, "BILGI_YETMEZ if cevap is None else cevap)]",
+         "secenekler[0] if cevap is None else cevap)]"),
     ]
 
 

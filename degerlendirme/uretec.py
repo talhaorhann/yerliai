@@ -9,7 +9,7 @@ import hashlib
 import json
 import random
 import sys
-from collections import deque
+from collections import Counter, deque
 from pathlib import Path
 
 from cekirdek.altyapi.atomik import atomik_yaz
@@ -21,7 +21,7 @@ from degerlendirme.dunya import Dunya, tanimlar_yukle
 from degerlendirme.kilitli_kumeler import KilitliKumeHatasi, kesisim_denetle, kilitli_ozetler
 from degerlendirme.kisa_yol import NaiveBayes, kapi_denetle, ozellikler
 
-BOLMELER = ("egitim", "uzunluk", "zincir_bozuk", "yon_ters", "yeniden_adlandirma")  # sistem.md §10
+BOLMELER = ("egitim", "uzunluk", "zincir_bozuk", "yon_ters", "yeniden_adlandirma", "onsel_ters")  # sistem.md §10
 KUMELER = ("dedektor", "ana", "treg", "bozuk")  # K-008
 SURUM = "1"  # V-017
 KAYNAK = "üreteç"  # KODLAMA_PROMPTU §5
@@ -114,8 +114,6 @@ def _dikkat_dagiticilar(rng, baglar, zincir, kullanilan, adet):
 
 
 def aday_uret(rng, tanimlar, prm, bolme, ad_esleme=None, kume="ana"):
-    if bolme == "onsel_ters":
-        raise NotImplementedError("VARSAYIM V-020 onay bekliyor: önsel-ters bölmesinin tanımı yok")
     if bolme not in BOLMELER:
         raise ValueError(f"bilinmeyen bölme: {bolme}")
     k_araligi = prm.test_k if bolme == "uzunluk" else prm.egitim_k
@@ -184,6 +182,15 @@ def yeniden_adlandirilmis_sema(sema_verisi, esleme):
     return yeni
 
 
+def _kabul_olasiliklari(dedektor, adlar):
+    """V-022: doğal dağılım p(r) (Laplace +1); q(r) ∝ 1/p(r) için reddetme örneklemesi kabul olasılığı (p_en_az/p)²."""
+    sayac = Counter(a.cevap["cevap"] for a in dedektor)
+    toplam = len(dedektor) + len(adlar)
+    p = {r: (sayac[r] + 1) / toplam for r in adlar}
+    p_en_az = min(p.values())
+    return {r: (p_en_az / p[r]) ** 2 for r in adlar}  # V-022
+
+
 def bolme_uret(bolme, prm, tanimlar, iliski_semasi, sema_yolu, yasakli=frozenset()):
     rng = random.Random(f"{prm.tohum}:{bolme}")
     esleme = ad_eslemesi(rng, iliski_semasi, prm) if bolme == "yeniden_adlandirma" else None
@@ -202,6 +209,7 @@ def bolme_uret(bolme, prm, tanimlar, iliski_semasi, sema_yolu, yasakli=frozenset
                              for _ in range(prm.dedektor_egitim_sayisi)]
         nb = NaiveBayes(prm.laplace)
         nb.egit([ozellikler(a.bolum) for a in sonuc["dedektor"]], [a.cevap["cevap"] for a in sonuc["dedektor"]])
+        kabul = _kabul_olasiliklari(sonuc["dedektor"], iliski_semasi.adlar) if bolme == "onsel_ters" else None
         aday_sayisi = 0
         while len(sonuc["ana"]) < prm.ana_kume_sayisi:
             aday_sayisi += 1
@@ -209,6 +217,8 @@ def bolme_uret(bolme, prm, tanimlar, iliski_semasi, sema_yolu, yasakli=frozenset
                 raise UretimDurduHatasi(f"{bolme}: {prm.aday_siniri} adayda ana küme dolmadı "
                                         f"({len(sonuc['ana'])}/{prm.ana_kume_sayisi})")
             a = aday_uret(rng, tanimlar, prm, bolme, esleme)
+            if kabul is not None and rng.random() >= kabul[a.cevap["cevap"]]:
+                continue  # V-022: önsel-ters reddetme örneklemesi (ret edilen aday da sınıra sayılır)
             if nb.tahmin(ozellikler(a.bolum)) == a.cevap["cevap"]:
                 a.cevap["kume"] = "treg"
                 sonuc["treg"].append(a)

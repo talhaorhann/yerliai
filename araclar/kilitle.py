@@ -21,6 +21,9 @@ KILIT_YOLU = KOK / "kilit" / "kilitler.json"  # V-008
 def kilitlenecekler():
     dosyalar = [p for p in (KOK / "testler").rglob("*") if p.is_file() and "__pycache__" not in p.parts]
     dosyalar.append(KOK / "config.json")
+    # K-009: onaylı veri dosyaları (ör. gizli tanımlar) config'teki listeden; araç yalnız hash alır, içeriği kullanmaz
+    ayar = json.loads((KOK / "config.json").read_text(encoding="utf-8"))
+    dosyalar.extend(KOK / y for y in ayar["degerler"]["kilitli_veri_dosyalari"]["deger"])
     return sorted(p.relative_to(KOK).as_posix() for p in dosyalar)
 
 

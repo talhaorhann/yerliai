@@ -1,0 +1,9 @@
+{
+  "kumeler": {
+    "altin": {
+      "algoritma": "sha256",
+      "dosya": "degerlendirme/altin/altin_bolumler.jsonl",
+      "ozet": "d3f9a8e5c01ea918fee8456704fa1f7d78d44a512ec0fb5db770a5aef11e1743"
+    }
+  }
+}
