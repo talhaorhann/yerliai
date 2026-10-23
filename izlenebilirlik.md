@@ -41,3 +41,4 @@
 | KODLAMA_PROMPTU §5 (çelişki defteri; K-020, V-038) | `cekirdek/defter.py` | `testler/test_a4_mudahale.py` |
 | sistem.md §9 (müdahale testi; K-021, V-038) | `cekirdek/mudahale.py` | `testler/test_a4_mudahale.py` |
 | KODLAMA_PROMPTU §6 (Mutasyon sınaması, A4) | `araclar/mutasyon_a4.py` | `testler/test_a4_mudahale.py` |
+| sistem.md §3 (vektörleştirilmiş matmul; K-015, K-022, V-040) | `cekirdek/vektor_hizli.py`, `araclar/hiz_olc.py` | `testler/test_a5_hizli_yol.py` |
