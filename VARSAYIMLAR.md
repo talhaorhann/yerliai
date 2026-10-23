@@ -419,3 +419,20 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 - **Durum:** "tur sınırı yok" mutasyonu A4 testlerinden birinde (döngüsel kural) çekirdeği sonsuz döngüye soktu. Testler bu hatayı gerçekte yakalıyor (takım bitmiyor), ama araç sonsuza kadar bekliyordu.
 - **Uygulanan:** bir kopya koşusu 600 sn'yi aşarsa durdurulur ve mutasyon "yakalandı (zaman aşımı)" sayılır. Normal koşu yaklaşık 25 sn.
 - **Felsefi:** hayır (araç). **Durum:** ONAYSIZ.
+
+---
+
+# A5 varsayımları
+
+## V-040: PyTorch hızlı yolunun yöntemi
+- **Bölüm:** sistem.md §3 ("vektörleştirilmiş maskeli matmul"), KODLAMA_PROMPTU §4 (referans = hızlı, birebir aynı çıktı), §5 (tensör şekilleri, no_grad, .item() yok), K-014, K-015, K-022.
+- **Uygulanan:**
+  - **Evrişim:** sabit rol vektörü p ile toplu evrişim, int64 dairesel (circulant) matrisle matris çarpımıdır: M[j,k] = p[(k−j) mod d], sonuç = E @ M. Değişme özelliğinden p⊛E ile aynıdır, tamsayıyla tamdır.
+  - **Kosinüs:** nokta çarpımları ve normlar int64. Tek kayan nokta adımı: nokta / √(norm·norm), float64. Tamsayılar 2^53'ten küçük olduğu sürece float64'e tam çevrilir ve sonuç referansla (Python `int / math.sqrt`) bit düzeyinde aynıdır. 2^53 aşılırsa hata verir, sessizce yaklaşık sonuç üretmez.
+  - **Kök:** `torch.sqrt` (float64, CPU) bu derlemede doğru yuvarlanmıyor. Ölçüldü: √36912709632 için 1 ulp sapma; kesin rasyonel hesapla `math.sqrt` doğru çıktı. Bu yüzden payda kökü öğe öğe `math.sqrt` ile alınır, bölme torch'ta yapılır (IEEE, Python'la aynı ölçüldü).
+  - **Taşma:** 2^53 sınırı çarpımlardan önce, Python tamsayılarıyla denetlenir. Sınır aşılırsa hata verilir.
+  - **Afinite:** kırp(kosinüs · √3, 0, 1), referansla aynı sabit.
+  - **Kapsam:** yalnız CPU; GPU ayrı aşamada (K-012). Şekiller SEKILLER eksen adlarıyla denetlenir.
+  - **Bit-eşitlik denetimi:** kayan noktalı çıktılar `float.hex` ile karşılaştırılır (prompt §5: bit düzeyinde eşitlikte kayan nokta `==` kullanılmaz).
+  - Hızlı yol şimdilik çekirdek döngüsüne bağlı değildir; döngü referans yolu kullanır. Bağlama A5'te, ölçümle birlikte yapılacak.
+- **Felsefi:** hayır (referansla aynı sonucu veren hızlandırma). **Durum:** ONAYSIZ.
