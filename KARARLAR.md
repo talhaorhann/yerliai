@@ -118,3 +118,7 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
   - **Puan** = a × b × c. Cevap yoksa puan yok. Geçişlilik sınanmaz (şemada bilgi yok).
 - **Ek şart (kullanıcı):** (b) için ilgisiz epitop yoksa soru "sınanamadı" olur. Başarı sayılmaz: b ve puan boş kalır. H1 raporunda ayrı bir sayı olarak gösterilir (ör. "100 soruda 18 sınanamadı").
 - **Onaylayan:** kullanıcı.
+
+## K-022 (2026-10-23): PyTorch CPU sürümü kurulumu
+- **Karar:** torch 2.14.1+cpu (`download.pytorch.org/whl/cpu`) ve CPU bağımlılıkları hash'leriyle sabitlenir (`gereksinimler.txt`). GPU (CUDA) sürümü gerekirse ayrıca konuşulur. Hızlı yol referansla bit düzeyinde aynı olmalıdır (K-015).
+- **Onaylayan:** kullanıcı (ağ izni verildi).
