@@ -2,7 +2,7 @@
   "algoritma": "sha256",
   "dosyalar": {
     "ONKAYIT.md": "742038ae3f03d4269e4326232a3c38faf47c0d061f491cde81f295e9376e6e6b",
-    "config.json": "22cd05e2f43ecdfbfd8b8c5d6e9c920b581cdc2a37f93957707c6d7934c133be",
+    "config.json": "c9364b6128dca42e21eaa77dcfa6ff985d06355f2eb029db0e28c55c74ed6102",
     "degerlendirme/altin/kullanici_cevaplari_1.json": "306ee0a0c54d3d6972695ae8a0c8c14e8dff12e2d6ef084884a9fd345a5c45ff",
     "degerlendirme/veri/tanimlar_v1.json": "8f62d7ecf2ff39624f86bda8a5a3f48773afbd5e7a1084fd6a2ce058e96064e4",
     "testler/__init__.py": "85bf82b388ec555748bf51e7c7f49f7d1896ad8c38f1480d781b4f854873cca9",
@@ -27,7 +27,9 @@
     "testler/test_a5_danisman.py": "8092fcc2583f6fc2bcaa71d56ec257658504c7608668642dfe598e15c3f33441",
     "testler/test_a5_dna_v2.py": "271b725b06cd91b185e21a693f48e1381fe9f4a66b60f87ec0d6b7425c7773d0",
     "testler/test_a5_dongu_hizli.py": "01b05cec0816f7cbd330930abe169f8246ba9fd8feab920997a21f07515ca70a",
+    "testler/test_a5_h1.py": "f2a6853ee78fe5fabc9125148d516c537b973c57a7c068912b76c5b94a9e5fc3",
     "testler/test_a5_hizli_yol.py": "6820071372e744ed2cbe1a2bfbeed98f65e89805b97267b577604bf931003cb5",
+    "testler/test_a5_istatistik.py": "6e306a945299e6b789aa4e5a9b317996415e0adb31a32c3117e5a90255690ee0",
     "testler/yardimci.py": "3abd3a5fcb495d53e6b692a7cd095cabb7401e83a425aa9dcd0f18ce3e887b68",
     "testler/yardimci_senaryo.py": "df814a14803e2a60765b2fd127d456baabcce1d6032a2c7f173eba27f3da1580",
     "testler/yardimci_uzun_kosu.py": "0b43bf29ff8a16564668b6c3e5823c749082347dab534716c62e1e201ee74a6d"

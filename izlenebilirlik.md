@@ -46,3 +46,4 @@
 | sistem.md §3 (hızlı yol çekirdek döngüsünde; V-042) | `cekirdek/eslesme.py`, `cekirdek/dongu.py`, `cekirdek/havuz.py`, `cekirdek/vektor.py`, `cekirdek/vektor_hizli.py`, `testler/yardimci_senaryo.py` | `testler/test_a5_dongu_hizli.py` |
 | sistem.md §3 (DNA sürüm 2, farklı kişi şartı; K-025, V-043) | `cekirdek/dna.py`, `cekirdek/eslesme.py`, `sema/dna_v2.schema.json` | `testler/test_a5_dna_v2.py` |
 | sistem.md §13 (H1 DNA'sı: bağımsız danışmana ilişki listesi, gizli tanım yok; K-024) | `DANISMAN_ICIN_ILISKI_LISTESI.md` | `testler/test_a5_danisman.py` |
+| sistem.md §13 (H1 koşturucusu; K-023, V-044) | `degerlendirme/h1.py`, `degerlendirme/istatistik.py` | `testler/test_a5_h1.py`, `testler/test_a5_istatistik.py` |

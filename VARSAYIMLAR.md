@@ -467,3 +467,15 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Hangi sürümün kabul edileceğini çağıranın verdiği biçim dosyası belirler. Sürüm 1 dosyaları aynen çalışır; şartsız hücrede davranış değişmez (A3/A4 testleri ve V-042 altın değerleri aynı).
 - **Doğrulama:** `testler/test_a5_dna_v2.py`.
 - **Felsefi:** K-025 ile onaylandı; buradaki yalnız biçim ayrıntısı. **Durum:** ONAYSIZ (biçim).
+
+## V-044: H1 koşturucusunun ayrıntıları
+- **Bölüm:** ÖK-002 (K-023) §2–§6, §9; KODLAMA_PROMPTU §5 (İstatistik, Uzun koşular). Sayılar ve yöntem ayrıntısı ön kayıtta yok.
+- **Uygulanan:**
+  - `degerlendirme/h1.py`. Kapı bölmeleri için config, DNA ve tohum manifestlerinin (`tohum_N/ozet.json`) özetleri `ONKAYIT.md` "9. Koşu öncesi ek" bölümünde yazılı olmalı; değilse koşu durur. Geliştirme bölmesi (eğitim) için bu şart yok.
+  - Kümeler: zincir-bozukta `bozuk`, diğerlerinde `ana` (400'er). Kısa yol dedektörünün çözdüğü `treg` kümesi kapıya girmez.
+  - Otomatik hata sınıfları: tur sınırı, havuz (atma ya da yedek olayı), bilmiyorum, yanlış ilişki. ÖK-002 §6'daki "ad yok / türetilemez / DNA / çekirdek" ayrımı incelemede yapılır.
+  - Hata oranı aralığı: iki yanlı Clopper–Pearson, ikiye bölmeyle (200 adım). Müdahale puanı: ortalamanın yüzdelik bootstrap aralığı, `bootstrap_tekrar` = 10000, `istatistik_tohum` = 2027.
+  - Uzun koşu: her `ara_kayit_araligi` (25) bölümde bir sonuç dosyası atomik yazılır. Sürdürmede eski satırların bölüm özetleri sırayla denetlenir. Duvar saati (`sure_sn`) belirlenim karşılaştırmasının dışındadır.
+  - Bölüm dosyalarının özetleri üretecin manifestiyle karşılaştırılır; uyuşmazsa koşu durur.
+- **Doğrulama:** `testler/test_a5_h1.py`, `testler/test_a5_istatistik.py`.
+- **Felsefi:** hayır (ön kaydın uygulanışı). **Durum:** ONAYSIZ.

@@ -33,6 +33,13 @@
     "eslesme_butcesi": {"deger": 1024, "kaynak": "K-016"},
     "impasse_esik_carpani": {"deger": 0.5, "kaynak": "K-017"},
     "torch_surumu": {"deger": "2.14.1+cpu", "kaynak": "K-022"},
+    "h1_tohumlar": {"deger": [7, 8, 9, 10, 11], "kaynak": "K-023"},
+    "h1_kapi_bolmeleri": {"deger": ["uzunluk", "yon_ters", "onsel_ters", "zincir_bozuk"], "kaynak": "K-023"},
+    "h1_gelistirme_bolmeleri": {"deger": ["egitim"], "kaynak": "K-023"},
+    "guven_duzeyi": {"deger": 0.95, "kaynak": "KODLAMA_PROMPTU §5"},
+    "bootstrap_tekrar": {"deger": 10000, "kaynak": "V-044"},
+    "istatistik_tohum": {"deger": 2027, "kaynak": "V-044"},
+    "ara_kayit_araligi": {"deger": 25, "kaynak": "V-044"},
     "kilitli_veri_dosyalari": {"deger": ["degerlendirme/veri/tanimlar_v1.json", "ONKAYIT.md", "degerlendirme/altin/kullanici_cevaplari_1.json"], "kaynak": "V-008"}
   },
   "bayraklar": {
