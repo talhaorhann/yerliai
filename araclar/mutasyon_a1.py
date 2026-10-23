@@ -14,6 +14,10 @@ from araclar.mutasyon_a0 import kopyada_kostur  # noqa: E402
 DOG = "cekirdek/altyapi/sema_dogrulayici.py"
 SEM = "cekirdek/iliski_semasi.py"
 BT = "cekirdek/bilgi_tabani.py"
+DUN = "degerlendirme/dunya.py"
+URE = "degerlendirme/uretec.py"
+KY = "degerlendirme/kisa_yol.py"
+KK = "degerlendirme/kilitli_kumeler.py"
 
 
 def veri_iliskisi():
@@ -37,6 +41,22 @@ def mutasyonlar():
         ("yinelemeye izin", BT, 'elif kayit["ozet"] in self._ozetler:', "elif False:"),
         ("ret günlüğe yazılmıyor", BT, 'self.gunluk.ekle("KAYIT_REDDEDILDI"', '(lambda *a: None)("KAYIT_REDDEDILDI"'),
         ("kodda ilişki sözcüğü", BT, 'KABUL = "KABUL"\n', f'KABUL = "KABUL"  # {veri_iliskisi()}\n'),
+        ("yürüyüşte kişi tekrarına izin", DUN, "if sonraki in gorulen or (", "if ("),
+        ("tip kısıtı yok sayıldı", DUN, "(tip is not None and self.tip[sonraki] != tip)", "False"),
+        ("cevap sabit: ilk zincir olgusu", URE, '"cevap": None if bozuk else adla(cevap)}',
+         '"cevap": None if bozuk else adla(olgular[0][1])}'),
+        ("en kısa yol denetimi silindi", URE, "if (uzaklik is not None) if bozuk else (uzaklik != k):", "if False:"),
+        ("kimlikler karıştırılmıyor", URE, "rng.sample(range(dunya.kisi_sayisi), len(kisiler))", "kisiler"),
+        ("olgular karıştırılmıyor", URE, "        rng.shuffle(hepsi)\n", ""),
+        ("bozuk bölümde ek dikkat dağıtıcı yok", URE, "            dikkat_sayisi += 1", "            pass"),
+        ("cevap bölüme sızdı", URE, '"sorgu": {"ozne": esleme[sorgu[0]], "nesne": esleme[sorgu[1]]}}',
+         '"sorgu": {"ozne": esleme[sorgu[0]], "nesne": esleme[sorgu[1]]}, "cevap": cevap}'),
+        ("Treg ayrımı ters", URE, 'if nb.tahmin(ozellikler(a.bolum)) == a.cevap["cevap"]:',
+         'if nb.tahmin(ozellikler(a.bolum)) != a.cevap["cevap"]:'),
+        ("kilitli küme kesişimi denetlenmiyor", URE, "    kesisim_denetle(yasakli, ozetler)\n", ""),
+        ("kısa yol kapısı kapatıldı", KY, "if dogruluk > sans_ + pay:", "if False:"),
+        ("kilitli küme hash denetimi silindi", KK, 'if hashlib.new(girdi["algoritma"], ham).hexdigest() != girdi["ozet"]:',
+         "if False:"),
     ]
 
 

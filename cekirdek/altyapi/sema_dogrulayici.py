@@ -55,8 +55,10 @@ class SemaDogrulayici:
         bilinmeyen = set(sema) - DESTEKLENEN
         if bilinmeyen:
             raise SemaHatasi(f"{yer}: desteklenmeyen anahtar {sorted(bilinmeyen)}")
-        if "type" in sema and sema["type"] not in TIPLER:
-            raise SemaHatasi(f"{yer}: bilinmeyen tip {sema['type']!r}")
+        if "type" in sema:
+            tipler = sema["type"] if isinstance(sema["type"], list) else [sema["type"]]
+            if not tipler or any(t not in TIPLER for t in tipler):
+                raise SemaHatasi(f"{yer}: bilinmeyen tip {sema['type']!r}")
         if sema.get("type") == "object" or "properties" in sema:
             if sema.get("additionalProperties") is not False:
                 raise SemaHatasi(f"{yer}: nesne şemasında additionalProperties:false zorunlu")
@@ -72,9 +74,11 @@ class SemaDogrulayici:
 
     def _dogrula(self, sema, veri, yer, sonuc):
         ad = yer or "kayıt"
-        if "type" in sema and not _tip_uyar(veri, sema["type"]):
-            sonuc.append(f"{ad}: tip {sema['type']} olmalı")
-            return
+        if "type" in sema:
+            tipler = sema["type"] if isinstance(sema["type"], list) else [sema["type"]]
+            if not any(_tip_uyar(veri, t) for t in tipler):
+                sonuc.append(f"{ad}: tip {'/'.join(tipler)} olmalı")
+                return
         if isinstance(veri, float) and not math.isfinite(veri):
             sonuc.append(f"{ad}: sonlu sayı olmalı")
             return

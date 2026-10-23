@@ -25,13 +25,38 @@
 
 ## A1: bilgi tabanı + sentetik soy ağacı üreteci (dal `asama-1`)
 
-**Durum:** YARIM. Üreteç tasarımı (V-015), kelime çantası kuralı (V-016) ve ilişki şeması (V-013) kullanıcı onayı bekliyor. A1 kapısı geçilmedi, etiket yok.
+**Durum:** Kelime çantası kapısı (ilk kabul ölçütü) beş bölmenin hepsinde geçti. Açık kalan: önsel-ters bölmesi (V-020), gizli tanımların kullanıcı okuması (V-019), altın/kalibrasyon kümesi (kullanıcıdan). Bu yüzden etiket atılmadı.
 
 **Çalışan (testle gösterilmiş):**
-- `cekirdek/altyapi/sema_dogrulayici.py`: JSON Schema alt kümesi. Bozuk kayıtlar reddedilir: eksik/fazla alan, yanlış tip, aralık dışı, NaN, enjeksiyon metni.
-- `cekirdek/iliski_semasi.py`: şema yalnız onay kaydındaki hash tutarsa yüklenir. Sonradan eklenen ilişki ve tek bayt değişiklik yakalanır. Ters/simetrik tutarlılığı denetlenir.
-- `cekirdek/bilgi_tabani.py`: kabul/ret/karantina. Her karar günlükte. LLM kaydı karantinada kalır.
-- Dil veridir taraması: şema verisindeki hiçbir ilişki adı kodda ve testlerde geçmiyor.
-- Mutasyon: A1'de 13/13, A0'da 15/15 yakalandı.
+- Şema doğrulayıcı, onay kilitli ilişki şeması (K-006), bilgi tabanı (ret/karantina/günlük).
+- `degerlendirme/dunya.py`: soyut soy ağacı ve gizli yapısal tanımlar. Her ağaçta tanımların onaylı şemayla tutarlı olduğu sınanır: tek ilişki, ters, işlevsellik, simetri.
+- `degerlendirme/uretec.py`: bölmeler eğitim (k=2–3), uzunluk (k=4–10), zincir-bozuk, yön ters ve yeniden adlandırma.
+  - Bölüm dosyasında cevap ve bölme adı yok. Cevaplar `kahin/` klasöründe.
+  - Kimlikler ve olgu sırası karıştırılıyor.
+  - Olgu grafiğinde en kısa yol tam k.
+- `degerlendirme/kisa_yol.py`: Naive Bayes dedektörü, Treg ayrımı ve kapı. Dikkat dağıtıcısız ham veride dedektör kısa yolu yakalıyor (0,27 > şans 0,15), yani değersiz değil.
+- `degerlendirme/kilitli_kumeler.py`: hash denetimi ve kesişim durdurucusu.
+- Tam üretim: `python3 -m degerlendirme.uretec <klasör>` (~11 sn). İki koşu birebir aynı çıktı veriyor.
 
-**Eksik:** üreteç ve kısa yol dedektörü (`NotImplementedError`), kilitli altın/kalibrasyon kümesi mekanizması (üreteçle birlikte), ad havuzu ve parafraz (Türkçe aşaması).
+**Kapı sonuçları (config boyutu, ana küme 400, ölçüm ikinci yarı 200):**
+
+| Bölme | Dedektör doğruluğu | Şans | Sınır (şans + 0,05) |
+|---|---|---|---|
+| eğitim | 0,135 | 0,140 | 0,190 |
+| uzunluk | 0,105 | 0,150 | 0,200 |
+| zincir-bozuk (karışım) | 0,4525 | 0,500 | 0,550 |
+| yön ters | 0,085 | 0,125 | 0,175 |
+| yeniden adlandırma | 0,105 | 0,160 | 0,210 |
+
+**Kilitli dosya değişiklikleri (bildirim):**
+- `config.json`'a K-007/K-008 için yalnız yeni anahtarlar eklendi, eski değerler aynı.
+- `testler/test_a1_uretec_iskelet.py` yeniden yazıldı, artık yalnız önsel-ters iskeletini sınıyor (üreteç artık var).
+
+**Mutasyon:** A0 15/15, A1 25/25 yakalandı.
+
+**Eksik:**
+- Önsel-ters bölmesi (`NotImplementedError`, V-020).
+- Altın/kalibrasyon kümesi yok, mekanizma hazır.
+- Kesişim denetimi yalnız birebir aynı bölümü yakalar, izomorf olanları yakalamaz.
+- İsim havuzu ve parafraz Türkçe aşamasında.
+- Ek A P7'deki "kural alt kümesi" yok (Ek bağlamdır, karar değildir).

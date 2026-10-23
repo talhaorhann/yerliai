@@ -18,5 +18,10 @@
 | sistem.md §14 (şema onayı; V-013) | `cekirdek/iliski_semasi.py`, `araclar/sema_onayla.py`, `sema/iliski_semasi_v1.schema.json`, `sema/iliskiler_v1.json` | `testler/test_a1_iliski_semasi.py` |
 | sistem.md §1, §14 (bilgi tabanı; V-012, V-014) | `cekirdek/bilgi_tabani.py` | `testler/test_a1_bilgi_tabani.py` |
 | KODLAMA_PROMPTU §2.4 (dil veridir) | `sema/iliskiler_v1.json` | `testler/test_a1_dil_veridir.py` |
-| sistem.md §10, §11 (üreteç; V-015, V-016 onay bekliyor) | `degerlendirme/uretec.py` | `testler/test_a1_uretec_iskelet.py` |
+| sistem.md §10 (önsel-ters; V-020 onay bekliyor) | `degerlendirme/uretec.py` | `testler/test_a1_uretec_iskelet.py` |
 | KODLAMA_PROMPTU §6 (Mutasyon sınaması, A1) | `araclar/mutasyon_a1.py` | `testler/test_a0_yasak_kaliplar.py` |
+| sistem.md §11 (soy ağacı, gizli tanımlar; K-007, V-019) | `degerlendirme/dunya.py`, `degerlendirme/veri/tanimlar_v1.json`, `degerlendirme/veri/tanimlar_v1.schema.json` | `testler/test_a1_uretec.py` |
+| sistem.md §10, §11 (bölmeler, bölüm biçimi; V-017) | `degerlendirme/uretec.py`, `sema/bolum_v1.schema.json`, `sema/cevap_v1.schema.json` | `testler/test_a1_uretec.py`, `testler/test_a1_uretec_iskelet.py` |
+| sistem.md §10, KODLAMA_PROMPTU §6 (kelime çantası kapısı; K-008, V-018) | `degerlendirme/kisa_yol.py` | `testler/test_a1_uretec.py` |
+| KODLAMA_PROMPTU §5 (kilitli kümeler; V-021) | `degerlendirme/kilitli_kumeler.py` | `testler/test_a1_uretec.py` |
+| sistem.md §10, §11 (üreteç mutasyonları) | `araclar/mutasyon_a1.py` | `testler/test_a1_uretec.py` |

@@ -1,0 +1,338 @@
+{
+ "sema_surumu": "1",
+ "aciklama": "GİZLİ KURALLAR (kâhin). Yalnız degerlendirme/ okur. Adım: yon U=ebeveyne, D=çocuğa, E=eşe; tip ulaşılan kişinin tipi (null=fark etmez). Bir ilişki, A'dan B'ye kişi tekrarlamayan bir yürüyüş adımlara uyuyorsa vardır. Tip 1 = erkek, tip 0 = kadın.",
+ "tanimlar": [
+  {
+   "ad": "anne",
+   "secenekler": [
+    [
+     {
+      "yon": "U",
+      "tip": 0
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "baba",
+   "secenekler": [
+    [
+     {
+      "yon": "U",
+      "tip": 1
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "oğul",
+   "secenekler": [
+    [
+     {
+      "yon": "D",
+      "tip": 1
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "kız",
+   "secenekler": [
+    [
+     {
+      "yon": "D",
+      "tip": 0
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "eş",
+   "secenekler": [
+    [
+     {
+      "yon": "E",
+      "tip": null
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "erkek_kardeş",
+   "secenekler": [
+    [
+     {
+      "yon": "U",
+      "tip": null
+     },
+     {
+      "yon": "D",
+      "tip": 1
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "kız_kardeş",
+   "secenekler": [
+    [
+     {
+      "yon": "U",
+      "tip": null
+     },
+     {
+      "yon": "D",
+      "tip": 0
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "dede",
+   "secenekler": [
+    [
+     {
+      "yon": "U",
+      "tip": null
+     },
+     {
+      "yon": "U",
+      "tip": 1
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "babaanne",
+   "secenekler": [
+    [
+     {
+      "yon": "U",
+      "tip": 1
+     },
+     {
+      "yon": "U",
+      "tip": 0
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "anneanne",
+   "secenekler": [
+    [
+     {
+      "yon": "U",
+      "tip": 0
+     },
+     {
+      "yon": "U",
+      "tip": 0
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "torun",
+   "secenekler": [
+    [
+     {
+      "yon": "D",
+      "tip": null
+     },
+     {
+      "yon": "D",
+      "tip": null
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "amca",
+   "secenekler": [
+    [
+     {
+      "yon": "U",
+      "tip": 1
+     },
+     {
+      "yon": "U",
+      "tip": null
+     },
+     {
+      "yon": "D",
+      "tip": 1
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "dayı",
+   "secenekler": [
+    [
+     {
+      "yon": "U",
+      "tip": 0
+     },
+     {
+      "yon": "U",
+      "tip": null
+     },
+     {
+      "yon": "D",
+      "tip": 1
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "hala",
+   "secenekler": [
+    [
+     {
+      "yon": "U",
+      "tip": 1
+     },
+     {
+      "yon": "U",
+      "tip": null
+     },
+     {
+      "yon": "D",
+      "tip": 0
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "teyze",
+   "secenekler": [
+    [
+     {
+      "yon": "U",
+      "tip": 0
+     },
+     {
+      "yon": "U",
+      "tip": null
+     },
+     {
+      "yon": "D",
+      "tip": 0
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "yeğen",
+   "secenekler": [
+    [
+     {
+      "yon": "U",
+      "tip": null
+     },
+     {
+      "yon": "D",
+      "tip": null
+     },
+     {
+      "yon": "D",
+      "tip": null
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "kuzen",
+   "secenekler": [
+    [
+     {
+      "yon": "U",
+      "tip": null
+     },
+     {
+      "yon": "U",
+      "tip": null
+     },
+     {
+      "yon": "D",
+      "tip": null
+     },
+     {
+      "yon": "D",
+      "tip": null
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "kayınpeder",
+   "secenekler": [
+    [
+     {
+      "yon": "E",
+      "tip": null
+     },
+     {
+      "yon": "U",
+      "tip": 1
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "kayınvalide",
+   "secenekler": [
+    [
+     {
+      "yon": "E",
+      "tip": null
+     },
+     {
+      "yon": "U",
+      "tip": 0
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "gelin",
+   "secenekler": [
+    [
+     {
+      "yon": "D",
+      "tip": 1
+     },
+     {
+      "yon": "E",
+      "tip": null
+     }
+    ]
+   ]
+  },
+  {
+   "ad": "damat",
+   "secenekler": [
+    [
+     {
+      "yon": "D",
+      "tip": 0
+     },
+     {
+      "yon": "E",
+      "tip": null
+     }
+    ]
+   ]
+  }
+ ],
+ "olgu_iliskileri": [
+  "anne",
+  "baba",
+  "oğul",
+  "kız",
+  "eş",
+  "erkek_kardeş",
+  "kız_kardeş"
+ ]
+}

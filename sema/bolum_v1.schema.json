@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "bolum_v1",
+  "title": "Üreteç bölümü (çekirdeğin göreceği kısım), sürüm 1 (V-017). Bölme adı, k ve cevap burada YOK.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sema_surumu",
+    "olgular",
+    "sorgu",
+    "ozet"
+  ],
+  "properties": {
+    "sema_surumu": {
+      "const": "1"
+    },
+    "olgular": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sema_surumu",
+          "ozne",
+          "iliski",
+          "nesne",
+          "kaynak",
+          "guven",
+          "adim",
+          "ozet"
+        ],
+        "properties": {
+          "sema_surumu": {
+            "const": "1"
+          },
+          "ozne": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "iliski": {
+            "type": "string",
+            "pattern": "^[a-zçğıöşü_]+$",
+            "minLength": 1
+          },
+          "nesne": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "kaynak": {
+            "enum": [
+              "kullanıcı",
+              "çekirdek",
+              "LLM",
+              "KeNet",
+              "Wikidata",
+              "üreteç"
+            ]
+          },
+          "guven": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "adim": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "ozet": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "sorgu": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ozne",
+        "nesne"
+      ],
+      "properties": {
+        "ozne": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "nesne": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "ozet": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

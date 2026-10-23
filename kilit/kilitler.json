@@ -1,7 +1,7 @@
 {
   "algoritma": "sha256",
   "dosyalar": {
-    "config.json": "fa8ae455bfebf1cc3eb9e3526d76abd7738c62335608647a004bcf548403f593",
+    "config.json": "f0b359f9a12db70293b6f371be2fdf866ddaab670915ee9f60d3ce8da273ca46",
     "testler/__init__.py": "85bf82b388ec555748bf51e7c7f49f7d1896ad8c38f1480d781b4f854873cca9",
     "testler/test_a0_atomik.py": "77ad6cefdaf61406d0f731fdab039b0993f6df0f39b59f402194def8953f1d81",
     "testler/test_a0_ayar.py": "13f797cc46f7b18d577558b46b39d5e94e4c12bd198cb5f429f55d92bd57e416",
@@ -13,7 +13,8 @@
     "testler/test_a1_dil_veridir.py": "5cdf5f15603613563ed0d22b33a3b653266c5b2a5a569caee6a97df36932f884",
     "testler/test_a1_iliski_semasi.py": "2e8c64482d3fcdb7f3a2ff2ce79481bdfffcf26bb1cb28cee9d192bfca54fe07",
     "testler/test_a1_sema_dogrulayici.py": "028cf001646c57f6914397a1431fe6a8cb6ff82abeba707f26a8bc69da0d3cf2",
-    "testler/test_a1_uretec_iskelet.py": "cfcaa551e03d9aac5472ff2c76b37e5de225ba8f5cd732c52d096ae77cedf55c",
+    "testler/test_a1_uretec.py": "d4a614a691cf34e099b147d16c760fc90a0d32090c40fd555d9fa011c1f706f0",
+    "testler/test_a1_uretec_iskelet.py": "b0fa859976fde81d45d1475d735b075fbf74ff6219efe230cac95a46af36d4dc",
     "testler/yardimci.py": "3abd3a5fcb495d53e6b692a7cd095cabb7401e83a425aa9dcd0f18ce3e887b68",
     "testler/yardimci_uzun_kosu.py": "0b43bf29ff8a16564668b6c3e5823c749082347dab534716c62e1e201ee74a6d"
   }
