@@ -167,7 +167,7 @@
 
 ## A5: H1 deneyi (dal `asama-5`, sürüyor)
 
-**Durum:** 1. adım (PyTorch hızlı yolu) ve 2. adım (hızlı yolun çekirdek döngüsüne bağlanması) bitti. H1 ön kaydı taslak, kullanıcı onayı bekliyor. H1 deneyinin kendisi başlamadı.
+**Durum:** Hızlı yol kuruldu ve döngüye bağlandı. H1 ön kaydı (ÖK-002) onaylandı ve kilitlendi. DNA dışındaki H1 hazırlıkları bitti. Danışmanın DNA'sı bekleniyor; H1 deneyinin kendisi başlamadı.
 
 **Çalışan (testle gösterilmiş):**
 - torch 2.14.1+cpu ve bağımlılıkları `gereksinimler.txt`'de hash'le sabit (K-022). Lisans `LISANSLAR.md`'de, kaynakla karşılaştırılarak doğrulandı.
@@ -190,10 +190,31 @@
 - Mutasyon: 19/19 yakalandı (12 vektör + 7 bağlama), taban 254/254. Eşdeğer mutant: döngünün tabloyu eşleşmeye vermemesi (sonuç aynı, yalnız hız); listede yok.
 - Bulgu: büyük vektör listelerinde `assertEqual`'ın fark çıktısı (difflib) dakikalar sürüyor; bir mutant yakalandığı hâlde 600 sn sınırına takıldı. Test ilk farkı raporlayacak biçimde düzeltildi.
 
+**3. adım, H1 hazırlıkları (DNA hariç):**
+- ÖK-002 onaylandı ve kilitlendi (K-023). DNA'yı bağımsız danışman yazacak (K-024). DNA'ya isteğe bağlı "farklı kişi" şartı eklenecek (K-025).
+- DNA sürüm 2 (V-043): `sema/dna_v2.schema.json`, hücrede isteğe bağlı `farkli` ve `okunus`. `testler/test_a5_dna_v2.py` önce kırmızı (8 hata), sonra yeşil. Sürüm 1 ve şartsız hücreler aynen çalışıyor (V-042 altın değerleri değişmedi).
+- Danışman dosyası `DANISMAN_ICIN_ILISKI_LISTESI.md`: onaylı şemadan üretildi, gizli tanım içermiyor. `testler/test_a5_danisman.py` tablonun şemayla aynı olduğunu ve gizli tanım metninin geçmediğini denetliyor (sızıntı eklenince yakaladığı denendi).
+- H1 koşturucusu `degerlendirme/h1.py` ve `degerlendirme/istatistik.py` (V-044):
+  - çekirdek cevabı görmeden koşar, sonra kâhinle karşılaştırılır;
+  - kapı bölmeleri ve altın küme, config, DNA ve tohum manifestlerinin özetleri ÖK-002 ekinde yoksa koşmaz;
+  - bölüm dosyaları manifestle denetlenir; ara kayıt atomik, kaldığı yerden sürer;
+  - Clopper–Pearson üst sınırı, bootstrap aralığı, "sınanamadı" ayrı sayım (K-021);
+  - altın küme her parça kendi kaynak etiketiyle (ÖK-001).
+  - Testler: `test_a5_h1.py` (14), `test_a5_istatistik.py` (7), önce kırmızı.
+- H1 bölümleri üretildi: 5 tohum (7–11), `uretilen/h1/` (git dışında, 36 MB, 2 dk 12 sn). Kısa yol kapısı 5 tohumun hepsinde geçti. Manifest özetleri (sha256):
+  - tohum 7 `d95f6afebd56c4008fe91f11b813c0e5c8c817a34b180f79d9c5e4907547f127`
+  - tohum 8 `6f481451bb2c661e130987e3b2af48fa9acac223d927e516afff5de023bc1f31`
+  - tohum 9 `68647318999d1ef59430ec84928e49bcc76ac38da1cbda7c02e80a4d243f0b29`
+  - tohum 10 `7a331cee31840531547d7b8cf988921c364e66318bb87fcd8baceabdc9981c19`
+  - tohum 11 `b2f57c2be8821982a892ff1abb311bd3c536e2a9eda3a70443c07100cb93c863`
+- Bulgu: tohum 8'de önsel-ters bölmesi 20000 adayda doldurulamadı (356/400). Aday sınırı 100000'e çıkarıldı (V-045). Sınır yalnız durdurucu; tohum 7 manifesti önce ve sonra aynı.
+- Config (kilitli) değişti: H1 değerleri (tohumlar, bölmeler, güven düzeyi, bootstrap, ara kayıt) ve aday sınırı.
+- Mutasyon: 37/37 yakalandı (vektör 12, bağlama 7, farklı kişi 4, koşturucu ve istatistik 14), taban 287/287.
+
 **Eksik:**
+- DNA (danışmanda), kullanıcının kural kural onayı, eğitim bölmesinde geliştirme.
+- ÖK-002 eki: config, DNA ve tohum manifest özetleri (DNA kilitlenince).
+- Kapı koşusu ve altın küme koşusu. Gerçek DNA ile süre ölçümü (deneme DNA'sıyla ölçülen 0,02 sn/bölüm gerçeği yansıtmaz).
 - Altın küme 2. parça cevapları (kullanıcıda).
-- H1 ön kaydı: taslak `H1_ONKAYIT_TASLAGI.md`, onay bekliyor. Onaylanınca `ONKAYIT.md`'ye ÖK-002 olarak taşınıp kilitlenecek.
-- Akrabalık için elle doğru DNA: kimin yazacağı ve "farklı kişi" şartı kullanıcıya soruldu.
-- Bulgu (denendi): çekirdek iki ayrı değişkeni aynı kişiye bağlayabiliyor (r1(1,2), r2(2,1) → r3(1,1)).
-- H1 koşturucusu (`degerlendirme/` içinde, cevapları yalnız o okur) ve ek tohumlar yazılmadı.
+- Otomatik ayrılamayan hata sınıfları (ad yok / türetilemez / DNA / çekirdek) için inceleme aracı.
 - GPU (CUDA) sürümü: gerekirse konuşulacak (K-022).
