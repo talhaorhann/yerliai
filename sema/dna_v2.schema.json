@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dna_v2",
+  "title": "Hücre DNA dosyası, sürüm 2 (sistem.md §3, V-032, K-025): isteğe bağlı farklı kişi şartı ve okunuş",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sema_surumu",
+    "hucreler"
+  ],
+  "properties": {
+    "sema_surumu": {
+      "const": "2"
+    },
+    "hucreler": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kimlik",
+          "halkalar",
+          "sonuc",
+          "guvenilirlik"
+        ],
+        "properties": {
+          "kimlik": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "halkalar": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 3,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "gen",
+                "sol",
+                "sag",
+                "esik"
+              ],
+              "properties": {
+                "gen": {
+                  "type": "string",
+                  "pattern": "^[a-zçğıöşü_]+$"
+                },
+                "sol": {
+                  "type": "string",
+                  "pattern": "^[A-Z][A-Z0-9]*$"
+                },
+                "sag": {
+                  "type": "string",
+                  "pattern": "^[A-Z][A-Z0-9]*$"
+                },
+                "esik": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              }
+            }
+          },
+          "sonuc": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "gen",
+              "sol",
+              "sag"
+            ],
+            "properties": {
+              "gen": {
+                "type": "string",
+                "pattern": "^[a-zçğıöşü_]+$"
+              },
+              "sol": {
+                "type": "string",
+                "pattern": "^[A-Z][A-Z0-9]*$"
+              },
+              "sag": {
+                "type": "string",
+                "pattern": "^[A-Z][A-Z0-9]*$"
+              }
+            }
+          },
+          "guvenilirlik": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "farkli": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Z][A-Z0-9]*$"
+              }
+            }
+          },
+          "okunus": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

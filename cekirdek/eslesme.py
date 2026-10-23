@@ -1,7 +1,8 @@
 """sistem.md §3, V-032, K-016: sembolik bağlama maskesi × kosinüs afinitesi > θ, yarı-naif eşleşme (saf Python).
 
 Her halka ilişki dizininden kendi genindeki kayıtlara bakar; halkalar farklı kayıtlara bağlanır, aynı değişken
-her yerde aynı varlığa bağlanır, en az bir halka `yeni` kümesindeki (önceki turda yazılmış) bir kayda bağlanır.
+her yerde aynı varlığa bağlanır (`farkli` çiftleri ayrı varlıklara, K-025), en az bir halka `yeni` kümesindeki
+(önceki turda yazılmış) bir kayda bağlanır.
 Afinite = kırp(kosinüs(alıcı, kayıt)·√3, 0, 1); güven = min(afiniteler, ebeveyn güvenleri) × hücre güvenilirliği.
 Afiniteler tur başında bir kez, kod kitabının yoluyla (referans ya da hızlı) tablo olarak hesaplanır (V-042).
 """
@@ -23,6 +24,8 @@ def _bagla(hucre, kayitlar):
         for degisken, varlik in ((halka.sol, ozne), (halka.sag, nesne)):
             if degiskenler.setdefault(degisken, varlik) != varlik:
                 return None
+    if any(degiskenler[a] == degiskenler[b] for a, b in hucre.farkli):  # K-025: farklı kişi şartı
+        return None
     return degiskenler
 
 

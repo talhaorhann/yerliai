@@ -457,3 +457,13 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 - **Doğrulama:** `testler/test_a5_dongu_hizli.py`. Dört senaryo (atma, bütçe, hücre sınırı, impasse, çelişki, müdahale) iki yolda koşar; defterin her olayı kanonik JSON ile (bit düzeyinde) aynı. Referans yolun izi, bağlamadan önceki koddan (commit 797eeaa) alınan altın değerlerle aynı.
 - **Geri alma:** döngüye `KodKitabi` vermek (referans yol).
 - **Felsefi:** hayır (sonucu değiştirmeyen hızlandırma). **Durum:** ONAYSIZ.
+
+## V-043: DNA sürüm 2'nin biçimi (K-025)
+- **Bölüm:** sistem.md §3 (DNA, sembolik bağlama maskesi), K-025. Şartın biçimi tanımlı değil.
+- **Uygulanan:**
+  - `sema/dna_v2.schema.json`: sürüm 1'in aynısı, hücrede iki isteğe bağlı alan var. `farkli`: değişken çiftleri listesi (en az bir çift, her çift tam iki değişken). `okunus`: kuralın Türkçe okunuşu, yalnız insan gözden geçirmesi için; çekirdek okumaz.
+  - Çiftteki iki değişken ayrı adlar olmalı ve gövdede (halkalarda) geçmeli; değilse DNA reddedilir.
+  - Eşleşmede bağlama tamamlanınca her çiftin iki değişkeni farklı varlığa bağlı değilse bağlama atılır.
+  - Hangi sürümün kabul edileceğini çağıranın verdiği biçim dosyası belirler. Sürüm 1 dosyaları aynen çalışır; şartsız hücrede davranış değişmez (A3/A4 testleri ve V-042 altın değerleri aynı).
+- **Doğrulama:** `testler/test_a5_dna_v2.py`.
+- **Felsefi:** K-025 ile onaylandı; buradaki yalnız biçim ayrıntısı. **Durum:** ONAYSIZ (biçim).
