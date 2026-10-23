@@ -177,7 +177,7 @@
 - Kurulum: `sh kur.sh` → Python 3.13 denetimi, `.venv`, hash denetimli kurulum, testler (V-041). Boş kopyada doğrulandı. `kur.bat` DOĞRULANMADI.
 - Ölçüm (`araclar/hiz_olc.py`, hız iddiası değil): 64 kayıt matrisi referans 0,622 sn / hızlı 0,020 sn; 64×64 kosinüs 0,200 / 0,002 sn; bit-eşit.
 
-**Mutasyon:** ilk koşuda 12 mutasyondan 10'u yakalandı, 2'si kaçtı (benzerlikte int64 denetimi, eksen sayısı denetimi): testi yoktu, eklendi. Son koşu aşağıda.
+**Mutasyon:** ilk koşuda 12 mutasyondan 10'u yakalandı, 2'si kaçtı (benzerlikte int64 denetimi, eksen sayısı denetimi): testi yoktu, eklendi. Son koşu: 12/12 yakalandı, taban 244/244.
 
 **Eksik:**
 - Hızlı yol çekirdek döngüsüne bağlı değil (döngü referans yolu kullanıyor).
