@@ -70,7 +70,7 @@ class Ortam(unittest.TestCase):
     def kos(self, olgular, *dna, sorgu=None, prm=PRM, kapasite=None, gunluk_adi="olaylar.jsonl"):
         h = self.havuz(olgular, kapasite)
         g = self.gunluk(gunluk_adi)
-        sonuc = calistir(self.hucreler(*dna), h, KK, prm, g, sorgu=sorgu)
+        sonuc = calistir(self.hucreler(*dna), h, KK, prm, g, iliski_semasi=self.sema, sorgu=sorgu)
         return h, g, sonuc
 
 

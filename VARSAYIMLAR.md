@@ -386,7 +386,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
      Denetim her tur sonunda canlı kayıtlar arasında yapılır; epitoplar da dahildir.
   2. Hiçbir kayıt silinmez. Her çelişki bir kez `CELISKI` olayıyla kaydedilir: tür, iki kaydın kimliği ve ortak destek kümesi. Ortak destek kümesi, iki kaydın kök kümelerinin kesişimidir, yani iki tarafın da dayandığı epitoplar; şüpheli olgular bunlardır.
   3. Cevap K-018'deki gibi verilir, değişmez. Çelişki cevabın köken alt grafındaki bir kayda dokunuyorsa müdahale puanının tutarlılık (c) bileşeni 0 olur.
-- **Felsefi:** EVET (güven, tutarlılık). **Durum:** ONAYSIZ, onay listesinde (madde 1).
+- **Felsefi:** EVET (güven, tutarlılık). **Durum:** ONAYLI (2026-10-23) → `KARARLAR.md` K-020 (V-037'deki "b = 1, sınanamadı" önerisi kullanıcı şartıyla değişti: b ve puan boş, ayrı sayılır).
 
 ## V-037: Müdahale testi ve müdahale puanı
 - **Bölüm:** sistem.md §9 (silme / tür uyumlu yedekle değiştirme, yalnız etkilenen köken alt grafı, ölçümler a/b/c), §8 (uygunluk = doğruluk × (ε + müdahale puanı); uygunluk H3'te), KODLAMA_PROMPTU §5 (yalnız çekirdeğin kendi zincirleri), §6 (ispat sadakati).
@@ -401,4 +401,21 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
     - Geçişlilik sınanmaz: şemada geçişlilik bilgisi yok, uydurmuyorum.
   - **Müdahale puanı:** a × b × c, [0,1] aralığında. Cevap "bilmiyorum" ise puan yoktur.
   - **Kurallar:** Etiket, kâhin, kalibrasyon ve LLM bu hesaba girmez. Karşı-olgusal koşular ana havuzu ve defteri değiştirmez.
-- **Felsefi:** EVET (kredi/uygunluk girdisi). **Durum:** ONAYSIZ, onay listesinde (madde 2).
+- **Felsefi:** EVET (kredi/uygunluk girdisi). **Durum:** ONAYLI (2026-10-23) → `KARARLAR.md` K-021 (V-037'deki "b = 1, sınanamadı" önerisi kullanıcı şartıyla değişti: b ve puan boş, ayrı sayılır).
+
+## V-038: Çelişki ve müdahalenin uygulama ayrıntıları
+- **Bölüm:** K-020, K-021.
+- **Uygulanan:**
+  - **Tersi tanımsız ilişki:** Şemada ters adayı boş olan bir ilişki için ters çelişkisi ve ters tutarlılığı denetlenmez; tersi bilinmiyor, uydurulmaz.
+  - **Aynı kişi:** A = B olan kayıtta ters denetimi yapılmaz; bu durum dışlayıcı denetimine düşer.
+  - **Tür uyumlu yedek:** aynı ilişki ve aynı güven; varlıklar bölümdeki en büyük kimlikten sonraki ilk iki yeni kimlik.
+  - **Sorgu yolu varlıkları:** cevabın ispatlarının kök epitoplarındaki varlıklar.
+  - **Karşı-olgusal koşular:** bellekte (dosyasız) defterle yapılır. Ana deftere yalnız `MUDAHALE` özeti yazılır.
+  - **Arayüz:** `calistir` artık onaylı ilişki şemasını zorunlu ister (çelişki denetimi atlanamasın diye). A3/A4 testleri buna göre güncellendi.
+- **Felsefi:** hayır (onaylı kuralların uygulanışı). **Durum:** ONAYSIZ.
+
+## V-039: Mutasyon aracının zaman sınırı
+- **Bölüm:** KODLAMA_PROMPTU §5 (her döngü için üst sınır), §6 (mutasyon sınaması).
+- **Durum:** "tur sınırı yok" mutasyonu A4 testlerinden birinde (döngüsel kural) çekirdeği sonsuz döngüye soktu. Testler bu hatayı gerçekte yakalıyor (takım bitmiyor), ama araç sonsuza kadar bekliyordu.
+- **Uygulanan:** bir kopya koşusu 600 sn'yi aşarsa durdurulur ve mutasyon "yakalandı (zaman aşımı)" sayılır. Normal koşu yaklaşık 25 sn.
+- **Felsefi:** hayır (araç). **Durum:** ONAYSIZ.

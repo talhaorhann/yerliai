@@ -1,5 +1,5 @@
 # DURUM: nerede kaldık
 
-- A3 kapandı (`asama-3`). Sırada A4 (defter + müdahale testi).
-- Kullanıcıda: altın küme 2. parça; PyTorch ağ izni (A5 öncesi).
+- A4 kapandı (`asama-4`). Sırada A5 (H1 deneyi).
+- Kullanıcıda: altın küme 2. parça; PyTorch ağ izni; H1 için elle DNA yolu kararı.
 - Tek komutla tüm testler: `python3 araclar/kostur.py`

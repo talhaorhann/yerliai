@@ -38,3 +38,6 @@
 | sistem.md §6 (plazma, noisy-OR, gerekçe; K-018) | `cekirdek/plazma.py` | `testler/test_a3_cekirdek.py` |
 | sistem.md §2 (havuzdan atma, mezar taşı; K-019, V-033) | `cekirdek/havuz.py` | `testler/test_a3_cekirdek.py` |
 | KODLAMA_PROMPTU §5 (Defter), sistem.md §18 (V-035) | `cekirdek/defter.py`, `cekirdek/altyapi/olay_gunlugu.py`, `cekirdek/dongu.py`, `cekirdek/plazma.py` | `testler/test_a4_defter.py` |
+| KODLAMA_PROMPTU §5 (çelişki defteri; K-020, V-038) | `cekirdek/defter.py` | `testler/test_a4_mudahale.py` |
+| sistem.md §9 (müdahale testi; K-021, V-038) | `cekirdek/mudahale.py` | `testler/test_a4_mudahale.py` |
+| KODLAMA_PROMPTU §6 (Mutasyon sınaması, A4) | `araclar/mutasyon_a4.py` | `testler/test_a4_mudahale.py` |

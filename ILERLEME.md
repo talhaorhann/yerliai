@@ -127,14 +127,40 @@
 - Akrabalık için elle doğru DNA ve H1 deneyi A5'te.
 - τ ile durma kalibrasyon kümesi oluşunca açılacak.
 
-## A4: destek/çelişki defteri + müdahale testi (dal `asama-4`)
+## A4: destek/çelişki defteri + müdahale testi (dal `asama-4`, etiket `asama-4`)
 
-**Durum:** YARIM. Defter altyapısı yazıldı (V-035). Çelişkinin tanımı ve etkisi (V-036) ile müdahale testi ve puanı (V-037) kullanıcı onayında.
+**Durum:** KAPANDI (saf Python referans yolu).
 
 **Çalışan (testle gösterilmiş):**
-- `cekirdek/defter.py`: hash zincirli olay günlüğünün alt sınıfı. Dizini olaylardan kurulur, dosyadan yeniden açılınca yeniden oluşur. `yazildi_mi`, `canli_ispatlar`, kök-ayrık `destek` var.
-- Döngü her ateşlemeyi, yazmayı (kök kümesiyle) ve atmayı deftere yazıyor. Bir turun olayları tek seferde, sırası korunarak yazılıyor.
-- İz kuralı: plazma yalnız defterde YAZMA izi olan çıkarımı ispat sayıyor. Defteri atlayarak havuza yazılan kayıt cevaba giremiyor.
-- Olay günlüğü: dosyasız (bellekte) çalışabiliyor. Toplu yazım tek tek yazımla aynı baytları üretiyor. Toplu yazımda tek geçersiz olay varsa hiçbiri yazılmıyor.
+- `cekirdek/defter.py` (V-035, K-020):
+  - Hash zincirli, sadece ekleme. Her ateşleme, yazma (kök kümesiyle) ve atma kayıtlı.
+  - Dizin olaylardan kurulur, dosyadan yeniden açılınca yeniden oluşur. Kök-ayrık destek var.
+  - Çelişkiler: dışlayıcı, işlevsel, ters (tersi tanımsız ilişki denetlenmez).
+  - Hiçbir kayıt silinmez. Her çelişki bir kez `CELISKI` olayıyla iki kayda bağlanır ve ortak destek kümesi kalıcı yazılır. Epitoplar dahil her turda denetlenir.
+- İz kuralı: plazma yalnız defterde YAZMA izi olan çıkarımı ispat sayar. `calistir` defter ve onaylı şema olmadan çalışmaz.
+- `cekirdek/mudahale.py` (K-021):
+  - (a) Kök silme, yalnız etkilenen köken alt grafında (`BudanmisHavuz`).
+  - (b) İlgisiz epitopu tür uyumlu yedekle değiştirip yeniden koşma.
+  - (c) Ters tutarlılığı ve çelişkisizlik.
+  - Puan = a·b·c. İlgisiz epitop yoksa "sınanamadı": b ve puan boş, başarı sayılmaz.
+  - `mudahale_ozeti` sınanamadı ve cevapsız soruları ayrı sayar (H1 raporu için).
+  - Karşı-olgusal koşular bellekteki defterle yapılır; ana deftere yalnız `MUDAHALE` özeti yazılır.
+- Olay günlüğü: bellekte çalışma, toplu yazım (tek fsync, aynı baytlar, tek hata hepsini durdurur).
 
-**Kilitli dosya değişikliği:** `testler/test_a3_cekirdek.py`'de yalnız `cevapla` çağrılarına koşunun defteri eklendi (iz kuralı). Beklentiler aynı.
+**Kilitli test değişiklikleri (bildirim):**
+- `testler/test_a3_cekirdek.py`: `cevapla` çağrılarına defter, `calistir` çağrısına `iliski_semasi` eklendi. Beklentiler aynı.
+- `testler/test_a4_defter.py`: `calistir` çağrılarına `iliski_semasi` eklendi.
+
+**Mutasyon:**
+- A4: 22/22 yakalandı.
+- A3 yeniden koşturuldu: 25/25 yakalandı. "Tur sınırı yok" mutasyonu çekirdeği sonsuz döngüye soktuğu için zaman aşımıyla yakalandı (V-039).
+- İlk A4 koşusunda iki mutasyon kaçmıştı:
+  - Ortak destekte kesişim yerine birleşim: test eksikti, kök kümeleri farklı bir durum eklendi.
+  - c'den yalnız ters tutarlılığını çıkaran mutasyon: eşdeğer mutanttı (onaylı tanımda ters tutarsızlık her zaman ters çelişkisi olarak da deftere düşer). Mutasyon, raporlanan `ters_tutarli` alanını bozacak biçimde değiştirildi.
+  - Bu sırada ters tutarlılığındaki "tersi tanımsız ilişki" kuralı, çelişki kuralıyla aynı hâle getirildi (V-038).
+
+**Eksik:**
+- Geri çekme olayı (henüz geri çeken işlem yok; A7).
+- Hücre susturma ve uygunluk (§8, H3).
+- Geçişlilik denetimi (şemada bilgi yok).
+- Müdahale puanının CLUTRR kalibrasyon kümesinde doğrulukla ilişkisi (r > 0,8 hedefi; CLUTRR aşaması).

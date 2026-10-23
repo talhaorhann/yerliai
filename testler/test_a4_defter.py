@@ -111,7 +111,7 @@ class DefterTesti(t3.Ortam):
         d = self.gunluk()
         h.cikarim_ekle((1, "quax", 3), zincir="sahte", ebeveynler=(0, 1), guven=1.0)
         self.assertIsNone(cevapla(h, (1, 3), d).iliski)
-        calistir(self.hucreler(BB_Q), h, KK, PRM, d, sorgu=(1, 3))
+        calistir(self.hucreler(BB_Q), h, KK, PRM, d, iliski_semasi=self.sema, sorgu=(1, 3))
         c = cevapla(h, (1, 3), d)
         self.assertEqual(c.iliski, "quax")
         self.assertTrue(all(d.yazildi_mi(a["kimlik"]) for a in c.gerekce))
@@ -121,7 +121,8 @@ class DefterTesti(t3.Ortam):
         for s, r, o, g in DUNYA:
             h.epitop_ekle(s, r, o, guven=g)
         with self.assertRaises(TypeError):
-            calistir(self.hucreler(BB_Q), h, KK, PRM, OlayGunlugu(None, **gunluk_ayari()), sorgu=(1, 3))
+            calistir(self.hucreler(BB_Q), h, KK, PRM, OlayGunlugu(None, **gunluk_ayari()), iliski_semasi=self.sema,
+                     sorgu=(1, 3))
 
 
 if __name__ == "__main__":

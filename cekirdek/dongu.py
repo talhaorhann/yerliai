@@ -11,13 +11,12 @@ olayları sırası korunarak tur sonunda tek seferde yazılır.
 from dataclasses import dataclass
 
 from cekirdek.altyapi.olay_gunlugu import YEDEK_KULLANILDI
-from cekirdek.defter import ATESLEME, ATMA, YAZMA, Defter
+from cekirdek.defter import ATESLEME, ATMA, KAYNAK, YAZMA, Defter
 from cekirdek.eslesme import eslesmeler
 from cekirdek.havuz import HavuzDoluHatasi
 from cekirdek.plazma import cevapla, kok_kumesi
 
 DURMA_YENI_YOK, DURMA_TUR_SINIRI, DURMA_IMPASSE = "yeni_kayit_yok", "tur_siniri", "impasse"
-KAYNAK = "çekirdek"  # KODLAMA_PROMPTU §5
 
 
 @dataclass(frozen=True)
@@ -86,10 +85,11 @@ def _yaz(hucreler, havuz, adaylar, olaylar, tur):
     return yazilanlar
 
 
-def calistir(hucreler, havuz, kk, prm, gunluk, sorgu=None):
-    """`gunluk` destek/çelişki defteri olmalıdır (V-035)."""
+def calistir(hucreler, havuz, kk, prm, gunluk, *, iliski_semasi, sorgu=None):
+    """`gunluk` destek/çelişki defteri olmalıdır (V-035); çelişki denetimi onaylı şemayla her turda yapılır (K-020)."""
     if not isinstance(gunluk, Defter):
         raise TypeError("çekirdek döngüsü Defter ister (defterde izi olmayan sonuç yanıta giremez)")
+    gunluk.celiski_denetle(havuz, iliski_semasi, tur=0)
     yeni = frozenset(k.kimlik for k in havuz.kayitlar())
     carpan, dusurme, tur, toplam = 1.0, 0, 0, 0
     while True:
@@ -98,6 +98,7 @@ def calistir(hucreler, havuz, kk, prm, gunluk, sorgu=None):
         adaylar = _tur_adaylari(hucreler, havuz, yeni, kk, prm, carpan, olaylar, tur)
         yazilanlar = _yaz(hucreler, havuz, adaylar, olaylar, tur)
         gunluk.ekle_toplu(olaylar)
+        gunluk.celiski_denetle(havuz, iliski_semasi, tur)
         toplam += len(yazilanlar)
         havuz.tur_ilerlet()
         canli = {k.kimlik for k in havuz.kayitlar()}

@@ -99,3 +99,22 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
   - Havuz dolunca çıkarım katmanından en düşük güvenli kayıt atılır. Eşitlikte en yaşlı, sonra en küçük kimlik.
   - Yayın sahnesi H3/H4'e kalır. A3'te eşleşme bütün havuzda yarı-naif yapılır.
 - **Onaylayan:** kullanıcı.
+
+## K-020 (2026-10-23): Çelişkinin tanımı ve etkisi (V-036'dan)
+- **Karar:**
+  - Çelişki türleri (onaylı şemaya göre):
+    - **dışlayıcı:** aynı çiftte aynı dışlayıcı gruptan iki ilişki;
+    - **işlevsel:** aynı özne, aynı işlevsel ilişki, iki farklı nesne;
+    - **ters:** r(A,B) ile q(B,A), q ∉ ters(r).
+  - Denetim her tur sonunda canlı kayıtlarda yapılır, epitoplar dahil. Hiçbir kayıt silinmez. `CELISKI` olayı iki kaydı ve ortak destek kümesini (kök kümelerinin kesişimi) kalıcı kaydeder.
+  - Cevap K-018'deki gibi verilir. Çelişki cevabın köken alt grafına dokunursa müdahale puanının c bileşeni 0 olur.
+- **Onaylayan:** kullanıcı.
+
+## K-021 (2026-10-23): Müdahale testi ve puanı (V-037'den) + kullanıcının ek şartı
+- **Karar:**
+  - **(a)** Kök epitop silme (yalnız etkilenen köken alt grafı). a = güveni düşüren silmelerin oranı.
+  - **(b)** İlgisiz epitopu tür uyumlu yedekle değiştirip yeniden koşma. b = cevabın değişmediği oran.
+  - **(c)** Ters tutarlılığı ve çelişkisizlik. c ∈ {0, 1}.
+  - **Puan** = a × b × c. Cevap yoksa puan yok. Geçişlilik sınanmaz (şemada bilgi yok).
+- **Ek şart (kullanıcı):** (b) için ilgisiz epitop yoksa soru "sınanamadı" olur. Başarı sayılmaz: b ve puan boş kalır. H1 raporunda ayrı bir sayı olarak gösterilir (ör. "100 soruda 18 sınanamadı").
+- **Onaylayan:** kullanıcı.

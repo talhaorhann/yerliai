@@ -17,6 +17,8 @@ AYAR = "cekirdek/altyapi/ayar.py"
 KANONIK = "cekirdek/altyapi/kanonik.py"
 ATOMIK = "cekirdek/altyapi/atomik.py"
 
+ZAMAN_SINIRI = 600  # V-039: bir kopya koşusunun üst sınırı (normal koşu ~25 sn)
+
 # (ad, dosya, eski metin, yeni metin)
 MUTASYONLAR = [
     ("zincir bağı denetimi silindi", OLAY,
@@ -52,8 +54,11 @@ def kopyada_kostur(degisiklik=None):
             if eski not in metin:
                 raise SystemExit(f"mutasyon uygulanamadı, metin bulunamadı: {dosya}")
             yol.write_text(metin.replace(eski, yeni, 1), encoding="utf-8")
-        r = subprocess.run([sys.executable, os.path.join("araclar", "kostur.py")], cwd=kopya,
-                           capture_output=True, text=True)
+        try:
+            r = subprocess.run([sys.executable, os.path.join("araclar", "kostur.py")], cwd=kopya,
+                               capture_output=True, text=True, timeout=ZAMAN_SINIRI)
+        except subprocess.TimeoutExpired:
+            return 1, f"ZAMAN AŞIMI ({ZAMAN_SINIRI} sn): test takımı bitmedi, mutasyon yakalandı sayılır (V-039)"
         sayac = [s for s in r.stdout.splitlines() if s.startswith("SAYAÇ")]
         return r.returncode, (sayac[0] if sayac else r.stderr.strip().splitlines()[-1])
 
