@@ -1,0 +1,35 @@
+{
+  "surum": "1",
+  "degerler": {
+    "hash_algoritmasi": {"deger": "sha256", "kaynak": "V-007"},
+    "olay_sema_surumu": {"deger": "1", "kaynak": "KODLAMA_PROMPTU §5"},
+    "kaynaklar": {"deger": ["kullanıcı", "çekirdek", "LLM", "KeNet", "Wikidata", "üreteç"], "kaynak": "KODLAMA_PROMPTU §5"},
+    "izinli_ek_paketler": {"deger": [], "kaynak": "V-005"},
+    "yasak_cekirdek_modulleri": {"deger": ["socket", "ssl", "http", "urllib", "ftplib", "smtplib", "poplib", "imaplib", "xmlrpc", "asyncio", "subprocess", "multiprocessing", "webbrowser", "ctypes"], "kaynak": "V-005"},
+    "uretec_tohum": {"deger": 7, "kaynak": "V-017"},
+    "uretec_nesil_sayisi": {"deger": 4, "kaynak": "V-017"},
+    "uretec_cocuk_en_az": {"deger": 2, "kaynak": "V-017"},
+    "uretec_cocuk_en_cok": {"deger": 4, "kaynak": "V-017"},
+    "uretec_deneme_siniri": {"deger": 2000, "kaynak": "V-017"},
+    "dikkat_dagitici_olgu_sayisi": {"deger": 4, "kaynak": "V-017"},
+    "yeniden_ad_uzunlugu": {"deger": 6, "kaynak": "V-017"},
+    "egitim_k": {"deger": [2, 3], "kaynak": "sistem.md §10"},
+    "test_k": {"deger": [4, 10], "kaynak": "sistem.md §10"},
+    "ana_kume_sayisi": {"deger": 400, "kaynak": "V-017"},
+    "aday_siniri": {"deger": 20000, "kaynak": "V-017"},
+    "dedektor_egitim_sayisi": {"deger": 400, "kaynak": "V-018"},
+    "dedektor_laplace": {"deger": 1, "kaynak": "V-018"},
+    "kisa_yol_sans_payi": {"deger": 0.05, "kaynak": "KODLAMA_PROMPTU §6"},
+    "altin_tohum": {"deger": 1001, "kaynak": "V-023"},
+    "altin_parca_sayisi": {"deger": 2, "kaynak": "K-011"},
+    "altin_normal_sayisi": {"deger": 40, "kaynak": "V-023"},
+    "altin_bozuk_sayisi": {"deger": 10, "kaynak": "V-023"},
+    "altin_dikkat_dagitici": {"deger": 2, "kaynak": "V-023"},
+    "kilitli_veri_dosyalari": {"deger": ["degerlendirme/veri/tanimlar_v1.json"], "kaynak": "K-009"}
+  },
+  "bayraklar": {
+    "deneysel": {"deger": false, "kaynak": "KODLAMA_PROMPTU §5"},
+    "kahin": {"deger": false, "kaynak": "KODLAMA_PROMPTU §5"},
+    "api_yedegi": {"deger": false, "kaynak": "KODLAMA_PROMPTU §5"}
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cevap_v1",
+  "title": "Üreteç cevap kaydı (kâhin; yalnız degerlendirme okur), sürüm 1 (V-017, K-008)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sema_surumu",
+    "bolum_ozeti",
+    "bolme",
+    "kume",
+    "k",
+    "cevap"
+  ],
+  "properties": {
+    "sema_surumu": {
+      "const": "1"
+    },
+    "bolum_ozeti": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "bolme": {
+      "enum": [
+        "egitim",
+        "uzunluk",
+        "zincir_bozuk",
+        "yon_ters",
+        "yeniden_adlandirma",
+        "onsel_ters"
+      ]
+    },
+    "kume": {
+      "enum": [
+        "ana",
+        "treg",
+        "dedektor",
+        "bozuk"
+      ]
+    },
+    "k": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "cevap": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-zçğıöşü_]+$"
+    }
+  }
+}

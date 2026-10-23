@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "tanimlar_v1",
+  "title": "Gizli yapısal ilişki tanımları, sürüm 1 (K-007, V-019)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["sema_surumu", "aciklama", "tanimlar", "olgu_iliskileri"],
+  "properties": {
+    "sema_surumu": {"const": "1"},
+    "aciklama": {"type": "string"},
+    "tanimlar": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ad", "secenekler"],
+        "properties": {
+          "ad": {"type": "string", "pattern": "^[a-zçğıöşü_]+$"},
+          "secenekler": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["yon", "tip"],
+                "properties": {
+                  "yon": {"enum": ["U", "D", "E"]},
+                  "tip": {"enum": [0, 1, null]}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "olgu_iliskileri": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-zçğıöşü_]+$"}}
+  }
+}

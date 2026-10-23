@@ -1,0 +1,214 @@
+{
+  "sema_surumu": "1",
+  "okuma": "(A, r, B) = B, A'nın r'sidir. Örnek: (A, baba, B) = B, A'nın babasıdır. TASLAK: kullanıcı onayı bekliyor (V-013). Dışlayıcı grup, akraba evliliği olmayan ağaç varsayımıyla tek gruptur.",
+  "iliskiler": [
+    {
+      "ad": "anne",
+      "ters": [
+        "oğul",
+        "kız"
+      ],
+      "simetrik": false,
+      "islevsel": true
+    },
+    {
+      "ad": "baba",
+      "ters": [
+        "oğul",
+        "kız"
+      ],
+      "simetrik": false,
+      "islevsel": true
+    },
+    {
+      "ad": "oğul",
+      "ters": [
+        "anne",
+        "baba"
+      ],
+      "simetrik": false,
+      "islevsel": false
+    },
+    {
+      "ad": "kız",
+      "ters": [
+        "anne",
+        "baba"
+      ],
+      "simetrik": false,
+      "islevsel": false
+    },
+    {
+      "ad": "eş",
+      "ters": [
+        "eş"
+      ],
+      "simetrik": true,
+      "islevsel": true
+    },
+    {
+      "ad": "erkek_kardeş",
+      "ters": [
+        "erkek_kardeş",
+        "kız_kardeş"
+      ],
+      "simetrik": false,
+      "islevsel": false
+    },
+    {
+      "ad": "kız_kardeş",
+      "ters": [
+        "erkek_kardeş",
+        "kız_kardeş"
+      ],
+      "simetrik": false,
+      "islevsel": false
+    },
+    {
+      "ad": "dede",
+      "ters": [
+        "torun"
+      ],
+      "simetrik": false,
+      "islevsel": false
+    },
+    {
+      "ad": "babaanne",
+      "ters": [
+        "torun"
+      ],
+      "simetrik": false,
+      "islevsel": true
+    },
+    {
+      "ad": "anneanne",
+      "ters": [
+        "torun"
+      ],
+      "simetrik": false,
+      "islevsel": true
+    },
+    {
+      "ad": "torun",
+      "ters": [
+        "dede",
+        "babaanne",
+        "anneanne"
+      ],
+      "simetrik": false,
+      "islevsel": false
+    },
+    {
+      "ad": "amca",
+      "ters": [
+        "yeğen"
+      ],
+      "simetrik": false,
+      "islevsel": false
+    },
+    {
+      "ad": "dayı",
+      "ters": [
+        "yeğen"
+      ],
+      "simetrik": false,
+      "islevsel": false
+    },
+    {
+      "ad": "hala",
+      "ters": [
+        "yeğen"
+      ],
+      "simetrik": false,
+      "islevsel": false
+    },
+    {
+      "ad": "teyze",
+      "ters": [
+        "yeğen"
+      ],
+      "simetrik": false,
+      "islevsel": false
+    },
+    {
+      "ad": "yeğen",
+      "ters": [
+        "amca",
+        "dayı",
+        "hala",
+        "teyze"
+      ],
+      "simetrik": false,
+      "islevsel": false
+    },
+    {
+      "ad": "kuzen",
+      "ters": [
+        "kuzen"
+      ],
+      "simetrik": true,
+      "islevsel": false
+    },
+    {
+      "ad": "kayınpeder",
+      "ters": [
+        "gelin",
+        "damat"
+      ],
+      "simetrik": false,
+      "islevsel": true
+    },
+    {
+      "ad": "kayınvalide",
+      "ters": [
+        "gelin",
+        "damat"
+      ],
+      "simetrik": false,
+      "islevsel": true
+    },
+    {
+      "ad": "gelin",
+      "ters": [
+        "kayınpeder",
+        "kayınvalide"
+      ],
+      "simetrik": false,
+      "islevsel": false
+    },
+    {
+      "ad": "damat",
+      "ters": [
+        "kayınpeder",
+        "kayınvalide"
+      ],
+      "simetrik": false,
+      "islevsel": false
+    }
+  ],
+  "dislayici_gruplar": [
+    [
+      "anne",
+      "baba",
+      "oğul",
+      "kız",
+      "eş",
+      "erkek_kardeş",
+      "kız_kardeş",
+      "dede",
+      "babaanne",
+      "anneanne",
+      "torun",
+      "amca",
+      "dayı",
+      "hala",
+      "teyze",
+      "yeğen",
+      "kuzen",
+      "kayınpeder",
+      "kayınvalide",
+      "gelin",
+      "damat"
+    ]
+  ]
+}

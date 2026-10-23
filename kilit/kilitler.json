@@ -1,0 +1,23 @@
+{
+  "algoritma": "sha256",
+  "dosyalar": {
+    "config.json": "bdfe83a0d24d6cb12f44f31cd6d288b3e92269cad6b7ff3215d1818c9d7e3326",
+    "degerlendirme/veri/tanimlar_v1.json": "8f62d7ecf2ff39624f86bda8a5a3f48773afbd5e7a1084fd6a2ce058e96064e4",
+    "testler/__init__.py": "85bf82b388ec555748bf51e7c7f49f7d1896ad8c38f1480d781b4f854873cca9",
+    "testler/test_a0_atomik.py": "77ad6cefdaf61406d0f731fdab039b0993f6df0f39b59f402194def8953f1d81",
+    "testler/test_a0_ayar.py": "13f797cc46f7b18d577558b46b39d5e94e4c12bd198cb5f429f55d92bd57e416",
+    "testler/test_a0_kilit.py": "a801246de6798d7101f2c7112ca268ba25bebdd3cde809aace59cea3a0d7bbc6",
+    "testler/test_a0_olay_gunlugu.py": "1d7a5de0bb26aa0904454cbe932e2a1e6c97e0be4e2f48ee5f8f81be99ef494a",
+    "testler/test_a0_yapi.py": "1a1d499511807706168a653abc044e3b0d5374c73a8021393b1ce3c178bef589",
+    "testler/test_a0_yasak_kaliplar.py": "38994eab5a4c567a51153530b4c9dd4d293deb4987a6c6cac3b948f2afb4fcbb",
+    "testler/test_a1_altin.py": "079123d1557bac5411bd543bd6f04c1803288eea6b20e2583835ca896dad44a7",
+    "testler/test_a1_bilgi_tabani.py": "3ae298217eec023f67375249f6c295dce9940a7677ed4680909032e75de6ea5b",
+    "testler/test_a1_dil_veridir.py": "5cdf5f15603613563ed0d22b33a3b653266c5b2a5a569caee6a97df36932f884",
+    "testler/test_a1_iliski_semasi.py": "2e8c64482d3fcdb7f3a2ff2ce79481bdfffcf26bb1cb28cee9d192bfca54fe07",
+    "testler/test_a1_sema_dogrulayici.py": "028cf001646c57f6914397a1431fe6a8cb6ff82abeba707f26a8bc69da0d3cf2",
+    "testler/test_a1_uretec.py": "4b55bc39766856224ed329385eacd7dcbd59fb795c3b1f48ec432ce0cf30ea1f",
+    "testler/test_a1_uretec_iskelet.py": "a136e78dedf1f360e47bd7a05f49b24a98310d0f45bdd4c0ce4083802ef2cf51",
+    "testler/yardimci.py": "3abd3a5fcb495d53e6b692a7cd095cabb7401e83a425aa9dcd0f18ce3e887b68",
+    "testler/yardimci_uzun_kosu.py": "0b43bf29ff8a16564668b6c3e5823c749082347dab534716c62e1e201ee74a6d"
+  }
+}
