@@ -298,7 +298,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   4. Güven = min(halka afiniteleri, eşleşen kayıtların güvenleri) × hücre güvenilirliği. Ebeveyn güveni de min'e girer; böylece zincir hiçbir halkasından daha güvenilir olamaz. Elle yazılan hücrenin güvenilirliği = 1.
   5. Hücre bir turda 8'den fazla eşleşirse en yüksek afinite×güvenli 8'i yazılır. Eşitlikte kayıt kimliği sırası belirler.
   6. Tur başına eşleşme bütçesi 1024. Aşılırsa en düşük afinite×güvenliler atılır (§3) ve atılan sayısı günlüğe yazılır.
-- **Felsefi:** EVET. **Durum:** ONAYSIZ, onay listesinde (madde 1).
+- **Felsefi:** EVET. **Durum:** ONAYLI (2026-10-23) → `KARARLAR.md` K-016.
 
 ## V-029: Durma ve impasse
 - **Bölüm:** sistem.md §5: durma (a) yeni kayıt yok, (b) yanıt güveni > τ (τ = güven dağılımının yüzdeliği), (c) 8 tur; impasse'te bir kez eşik düşürülür. KODLAMA_PROMPTU §5: τ yalnız kilitli kalibrasyon kümesinde seçilir.
@@ -307,7 +307,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   1. Kalibrasyon kümesi oluşana kadar (b) kapalıdır. Döngü (a) ya da (c) ile durur. τ'yu kafadan uydurmuyorum.
   2. Impasse: sorgu için yanıt yok ve yeni kayıt da yoksa, bütün hücrelerin θ'sı bir kez yarıya iner, döngü sürer. İkinci impasse'te durur.
   3. Tur sınırı 8 (§5), config'te.
-- **Felsefi:** EVET (durma). **Durum:** ONAYSIZ, onay listesinde (madde 2).
+- **Felsefi:** EVET (durma). **Durum:** ONAYLI (2026-10-23) → `KARARLAR.md` K-017.
 
 ## V-030: Plazma hücresi: ispat birleştirme ve cevap
 - **Bölüm:** sistem.md §6 (aynı sonuca giden ispatlar noisy-OR, gerekçe zinciri), KODLAMA_PROMPTU §5 (noisy-OR yalnız ortak atası olmayan ispatlar arasında, log1p/expm1) ve §10 (sızıntı terimi ve bağımsızlık tanımı bilinen boşluk). Ek A P5 (bağlam): kök kümelerine göre bileşen, bileşen içi MAX, bileşenler arası noisy-OR.
@@ -317,7 +317,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   3. Cevap, birleşik güveni en yüksek ilişkidir. İspat yoksa ya da en yüksek güvende iki farklı ilişki eşitse cevap "bilmiyorum" olur.
   4. Farklı ilişkilere giden ispatlar varsa sonuçta "çelişki var" diye işaretlenir. Çözümü A4'teki defterin işidir.
   5. Gerekçe, köken DAG'ından epitoplara kadar ağaç olarak verilir. Güven olasılık diye sunulmaz.
-- **Felsefi:** EVET (güven, "bilmiyorum"). **Durum:** ONAYSIZ, onay listesinde (madde 2).
+- **Felsefi:** EVET (güven, "bilmiyorum"). **Durum:** ONAYLI (2026-10-23) → `KARARLAR.md` K-018.
 
 ## V-031: Havuzdan atma kuralı ve yayın sahnesi
 - **Bölüm:** sistem.md §2: "dolunca YALNIZ çıkarım katmanından en düşük güven × yaş kaydı atılır", "her turda en yüksek skorlu ~4 öğe yayın sahnesine çıkar".
@@ -328,7 +328,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   1. Atma kuralı: çıkarım katmanında en düşük güvenli kayıt atılır. Eşitlikte en yaşlı, sonra en küçük kimlik. Yeni bir çarpan (γ) uydurulmaz.
   2. Katman 0 tek başına kapasiteyi aşarsa bölüm reddedilir. Atılacak çıkarım kalmamışsa yeni çıkarım yazılmaz ve günlüğe "havuz dolu" diye kaydedilir.
   3. Yayın sahnesi A3'te yoktur. Skoru sitokin, kredi ve sorgu uzaklığına (H3/H4) bağlı; onlarla birlikte gelir. Eşleşme bütün havuzda yarı-naif yapılır.
-- **Felsefi:** EVET (bellek). **Durum:** ONAYSIZ, onay listesinde (madde 3).
+- **Felsefi:** EVET (bellek). **Durum:** ONAYLI (2026-10-23) → `KARARLAR.md` K-019.
 
 ## V-032: DNA dosya biçimi ve tur düzeni
 - **Bölüm:** sistem.md §3 (1–3 halka, değişkenli zincir, her halka ilişki geni + alıcı + θ), KODLAMA_PROMPTU §2.4 (dil veridir), §5 (şemalı veri).
@@ -340,3 +340,21 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Yarı-naif kural: en az bir halka önceki turda yazılmış kayda bağlanır. İlk turda bütün epitoplar "yeni" sayılır.
   - Aynı (üçlü, köken) iki kez yazılmaz (karma tablo, §3).
 - **Felsefi:** hayır (§3'ün doğrudan uygulaması). **Durum:** ONAYSIZ.
+
+## V-033: Atılan kaydın mezar taşı
+- **Bölüm:** K-019 (atma), K-018 (gerekçe köken DAG'ından). Ek A P6'da "mezar taşı" geçiyor (bağlam).
+- **Uygulanan:**
+  - Havuzdan atılan kayıt eşleşmeye katılmaz ve kapasiteye sayılmaz.
+  - Kimliği, üçlüsü ve kökeni "mezar taşı" olarak saklanır. Böylece ondan türemiş kayıtların gerekçe ağacı ve kök kümesi kopmaz.
+  - Atma günlüğe `ATMA` olayı olarak yazılır.
+- **Felsefi:** hayır (kökeni korur, eşleşmeyi değiştirmez). **Durum:** ONAYSIZ.
+
+## V-034: Sınırı aşan eşleşmeler ve günlük olayları
+- **Bölüm:** K-016 (hücre başına 8, bütçe 1024), KODLAMA_PROMPTU §5 (hata yutma yok, durdurma, üst sınırlar).
+- **Uygulanan:**
+  - Hücre başına 8 sınırına giremeyen ve bütçeyi aşan eşleşmeler atılır. Sonraki turlara taşınmaz; §3'teki "atılır" ifadesiyle tutarlı.
+  - Atılan sayısı günlüğe `ESLESME_ATILDI` olarak yazılır.
+  - Atılacak çıkarım kalmadığı için yazılamayan kayıt `YEDEK_KULLANILDI` (neden: havuz dolu) olarak yazılır.
+  - Her yazma `YAZMA`, her durma `DURMA` (neden ve tur) olayıdır. Zaman bilgisi tur numarasıdır (K-004).
+  - Bütçe ve impasse çarpanı config'tedir: `eslesme_butcesi` (K-016), `impasse_esik_carpani` (K-017).
+- **Felsefi:** hayır (onaylı kuralın uygulanışı). **Durum:** ONAYSIZ.

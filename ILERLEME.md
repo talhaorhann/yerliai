@@ -90,18 +90,39 @@
 - GPU yolu (K-012: ayrı aşama).
 - Reseptör vektörleri ve gradyan (sistem.md §3, §7): A3 ve sonrası.
 
-## A3: LLM'siz çekirdek (dal `asama-3`)
+## A3: LLM'siz çekirdek (dal `asama-3`, etiket `asama-3`)
 
-**Durum:** YARIM. Şartnamenin doğrudan tarif ettiği parçalar yazıldı. Afinite/güven (V-028), durma (V-029), plazma (V-030) ve havuzdan atma (V-031) kullanıcı onayında.
+**Durum:** KAPANDI (saf Python referans yolu). Kapsam V-027'ye göre: sitokin ve Treg H4'te, öğrenme H2'de, kredi H3'te, defter ve müdahale A4'te, yayın sahnesi H3/H4'te (K-019).
 
 **Çalışan (testle gösterilmiş):**
-- `cekirdek/dna.py` + `sema/dna_v1.schema.json`: 1–3 halkalı DNA veri dosyası. Genler onaylı şemada olmalı, sonuç değişkenleri gövdede geçmeli.
+- `cekirdek/dna.py`: 1–3 halkalı DNA veri dosyası.
 - `cekirdek/havuz.py`:
   - İki katman, ilişki dizini, (üçlü, köken) tekilleştirmesi.
-  - Yaş = geçen tur.
-  - Epitoplar kapasiteyi aşarsa durur.
-  - Atma kuralı onaya kadar `NotImplementedError`.
-- `cekirdek/eslesme.py`: sembolik bağlama (değişken tutarlılığı, farklı kayıtlar, yarı-naif kural, yön).
-- Mutasyon: A3 temel 10/10.
+  - En düşük güvenli çıkarım atılır (K-019) ve mezar taşı kalır (V-033).
+  - Atılacak çıkarım yoksa `YEDEK_KULLANILDI` yazılır.
+- `cekirdek/eslesme.py`:
+  - Sembolik yarı-naif bağlama.
+  - Afinite = kırp(cos·√3). θ süzgeci.
+  - Güven = min(afiniteler, ebeveyn güvenleri) × güvenilirlik (K-016). Bağımsız yeniden hesapla birebir aynı.
+- `cekirdek/dongu.py`:
+  - Eşzamanlı turlar. Hücre başına en iyi 8 eşleşme, tur bütçesi 1024; atılanlar günlükte.
+  - Durma: yeni kayıt yok, tur sınırı 8, impasse. Impasse'te θ bir kez yarıya iner ve tüm havuz yeniden denenir (K-017).
+  - Her yazma, atma ve durma günlükte.
+- `cekirdek/plazma.py` (K-018):
+  - Kök kümesi bileşenleri, bileşen içi MAX, bileşenler arası noisy-OR. Bağımsız iki ispatta elle hesapla eşit.
+  - Aynı kaynaktan 10 kopya ispat güveni değiştirmiyor.
+  - "Bilmiyorum" ve çelişki işareti.
+  - Gerekçe ağacı epitoplara iniyor.
+- Belirlenim: iki koşu, havuz ve günlük baytları aynı.
+- İlişki adları tutarlı değişince cevap da aynı eşlemeyle değişiyor ("blorp" testi).
+- Zincirden bir olgu silinince cevap düşüyor. İlgisiz olgu değişince cevap ve güven sabit kalıyor.
 
-**Kapsam (V-027):** sitokin ve Treg H4'te, öğrenme H2'de, kredi H3'te, defter ve müdahale A4'te.
+**Mutasyon:** A3 25/25 yakalandı (`python3 araclar/mutasyon_a3.py`).
+
+**Ölçüm (hız iddiası değil):** 9 olgulu geçişli kapanış (1 hücre) referans yolda 0,53 sn, 8 tur, 51 yazma.
+
+**Eksik:**
+- PyTorch hızlı yol ve bit-eşitlik testi (K-015, A5 öncesi).
+- Yayın sahnesi, sitokin, Treg, öğrenme, kredi (yol haritasındaki aşamalarında).
+- Akrabalık için elle doğru DNA ve H1 deneyi A5'te.
+- τ ile durma kalibrasyon kümesi oluşunca açılacak.

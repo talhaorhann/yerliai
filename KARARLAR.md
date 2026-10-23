@@ -70,3 +70,32 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
 ## K-015 (2026-10-23): PyTorch hızlı yolu A5 öncesine ertelendi
 - **Karar:** Ağ izni şimdilik yok (V-025). A2 yalnız saf Python tamsayı referans yoluyla kapanır. PyTorch hızlı yolu ve referansla bit-eşitlik testi A5 (H1) öncesine bırakılır. Bu sırada hız iddiası yazılmaz.
 - **Onaylayan:** kullanıcı.
+
+## K-016 (2026-10-23): Eşleşme, afinite ve güven (V-028'den)
+- **Karar:**
+  - İlişki geni sert süzgeçtir.
+  - Afinite = kırp(kosinüs(alıcı, kayıt) · √3, 0, 1). Elle yazılan hücrede alıcı = 16·R[gen].
+  - Halka afinite > θ ise eşleşir. Elle yazılan hücrelerde θ = 0,5.
+  - Güven = min(afiniteler, ebeveyn güvenleri) × hücre güvenilirliği. Elle yazılan hücrede güvenilirlik 1.
+  - Hücre başına tur başına en iyi 8 eşleşme yazılır. Tur bütçesi 1024.
+- **Onaylayan:** kullanıcı.
+
+## K-017 (2026-10-23): Durma ve impasse (V-029'dan)
+- **Karar:**
+  - Kalibrasyon kümesi oluşana kadar τ ile durma kapalı. Döngü yeni kayıt kalmayınca ya da 8 turda durur.
+  - Impasse'te (yanıt yok, yeni kayıt yok) bütün θ'lar bir kez yarıya iner. İkinci impasse'te durur.
+- **Onaylayan:** kullanıcı.
+
+## K-018 (2026-10-23): Plazma hücresi (V-030'dan)
+- **Karar:**
+  - Kök kümesi kesişen ispatlar aynı bileşendedir. Bileşen içi MAX, bileşenler arası noisy-OR, sızıntı 0.
+  - Cevap, en yüksek birleşik güvenli ilişkidir. İspat yoksa ya da en yüksekte eşitlik varsa "bilmiyorum".
+  - Farklı ilişkilere giden ispatlar "çelişki" diye işaretlenir.
+  - Gerekçe, köken DAG'ından verilir.
+- **Onaylayan:** kullanıcı.
+
+## K-019 (2026-10-23): Havuzdan atma; yayın sahnesi ertelendi (V-031'den)
+- **Karar:**
+  - Havuz dolunca çıkarım katmanından en düşük güvenli kayıt atılır. Eşitlikte en yaşlı, sonra en küçük kimlik.
+  - Yayın sahnesi H3/H4'e kalır. A3'te eşleşme bütün havuzda yarı-naif yapılır.
+- **Onaylayan:** kullanıcı.

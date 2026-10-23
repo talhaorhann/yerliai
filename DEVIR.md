@@ -1,16 +1,10 @@
 # DEVİR (sonraki oturum için)
 
-Oturum başında oku: `sistem.md` §2–§6, `ILERLEME.md`, `VARSAYIMLAR.md` (V-027..V-032), `KARARLAR.md`, `ONKAYIT.md`.
+Oturum başında oku: `sistem.md` ilgili bölüm, `ILERLEME.md`, `VARSAYIMLAR.md`, `KARARLAR.md`, `ONKAYIT.md`.
 
-- **Ne çalışıyor:** A0–A2 kapandı. A3 yarım, dal `asama-3`: DNA, havuz, sembolik eşleşme. `python3 araclar/kostur.py` → 184/184.
-- **Bekleyen kullanıcı onayı (3 madde):**
-  1. V-028: afinite, θ, güven, bütçe.
-  2. V-029 + V-030: durma ve plazma.
-  3. V-031: havuzdan atma ve yayın sahnesi.
-- **Sıradaki tek adım:** onay gelince önce kabul testleri (kırmızı), sonra:
-  - afinite süzgeci ve güven (`cekirdek/eslesme.py`'ye),
-  - havuz atma (`Havuz._at`),
-  - döngü ve durma (`cekirdek/dongu.py`),
-  - plazma (`cekirdek/plazma.py`).
-  A3 kabulü: blorp DNA'lı oyuncak dünyalarda doğru çıkarım, "bilmiyorum", noisy-OR'un elle hesaba eşitliği ve çift sayımda güvenin değişmemesi.
-- **Kural hatırlatma:** `testler/`, `config.json` ve `kilitli_veri_dosyalari` hash kilitli.
+- **Ne çalışıyor:** A0–A3 kapandı (etiketler yerel: `asama-0`…`asama-3`). `python3 araclar/kostur.py` → 205/205, 0 atlanan, 0 xfail. Mutasyon: A0 15/15, A1 30/30, A2 11/11, A3 25/25.
+- **Sıradaki tek adım:** A4 (destek/çelişki defteri + müdahale testi).
+  - Oku: sistem.md §8–§9, Ek A (defter omurgası: kök epitop kümesi, kökleri ayrık ispat sayısı, şema çelişkisi, sorgu uzaklığı).
+  - Felsefi boşlukları (müdahale ölçütleri, çelişki tanımı, uygunluk formülü) tek onay listesinde sor; felsefi olmayanlarda sormadan ilerle (kullanıcı tercihi).
+- **Bekleyenler:** altın küme 2. parça (A5'e kadar); PyTorch ağ izni (A5 öncesi, K-015).
+- **Kural hatırlatma:** `testler/`, `config.json` ve `kilitli_veri_dosyalari` hash kilitli. Değişiklikten sonra `python3 araclar/kilitle.py` çalıştırılır ve raporda bildirilir.

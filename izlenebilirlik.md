@@ -33,3 +33,7 @@
 | sistem.md §2 (havuz; V-031 atma onayda) | `cekirdek/havuz.py` | `testler/test_a3_temel.py` |
 | sistem.md §3 (sembolik yarı-naif eşleşme; V-032) | `cekirdek/eslesme.py` | `testler/test_a3_temel.py` |
 | KODLAMA_PROMPTU §6 (Mutasyon sınaması, A3) | `araclar/mutasyon_a3.py` | `testler/test_a3_temel.py` |
+| sistem.md §3 (afinite, θ, güven; K-016) | `cekirdek/eslesme.py` | `testler/test_a3_cekirdek.py` |
+| sistem.md §3, §5 (döngü, durma, impasse; K-016, K-017, V-034) | `cekirdek/dongu.py` | `testler/test_a3_cekirdek.py` |
+| sistem.md §6 (plazma, noisy-OR, gerekçe; K-018) | `cekirdek/plazma.py` | `testler/test_a3_cekirdek.py` |
+| sistem.md §2 (havuzdan atma, mezar taşı; K-019, V-033) | `cekirdek/havuz.py` | `testler/test_a3_cekirdek.py` |

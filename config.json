@@ -30,6 +30,8 @@
     "havuz_kapasitesi": {"deger": 64, "kaynak": "sistem.md §2"},
     "tur_siniri": {"deger": 8, "kaynak": "sistem.md §5"},
     "hucre_tur_yazma_siniri": {"deger": 8, "kaynak": "sistem.md §3"},
+    "eslesme_butcesi": {"deger": 1024, "kaynak": "K-016"},
+    "impasse_esik_carpani": {"deger": 0.5, "kaynak": "K-017"},
     "kilitli_veri_dosyalari": {"deger": ["degerlendirme/veri/tanimlar_v1.json", "ONKAYIT.md", "degerlendirme/altin/kullanici_cevaplari_1.json"], "kaynak": "V-008"}
   },
   "bayraklar": {
