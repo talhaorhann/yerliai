@@ -43,3 +43,4 @@
 | KODLAMA_PROMPTU §6 (Mutasyon sınaması, A4) | `araclar/mutasyon_a4.py` | `testler/test_a4_mudahale.py` |
 | sistem.md §3 (vektörleştirilmiş matmul; K-015, K-022, V-040) | `cekirdek/vektor_hizli.py`, `araclar/hiz_olc.py` | `testler/test_a5_hizli_yol.py` |
 | KODLAMA_PROMPTU §6 (Mutasyon sınaması, A5) | `araclar/mutasyon_a5.py` | `testler/test_a5_hizli_yol.py` |
+| sistem.md §3 (hızlı yol çekirdek döngüsünde; V-042) | `cekirdek/eslesme.py`, `cekirdek/dongu.py`, `cekirdek/havuz.py`, `cekirdek/vektor.py`, `cekirdek/vektor_hizli.py`, `testler/yardimci_senaryo.py` | `testler/test_a5_dongu_hizli.py` |

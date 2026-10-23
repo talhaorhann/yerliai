@@ -11,7 +11,7 @@ import torch
 
 from cekirdek.eslesme import AFINITE_OLCEGI
 from cekirdek.sekiller import SEKILLER, SekilHatasi
-from cekirdek.vektor import ROL_NESNE, ROL_OZNE, TUR_ILISKI, TUR_ROL, TUR_VARLIK
+from cekirdek.vektor import ROL_NESNE, ROL_OZNE, TUR_ILISKI, TUR_ROL, TUR_VARLIK, KodKitabi
 
 TAMSAYI = torch.int64
 ONDALIK = torch.float64
@@ -98,3 +98,20 @@ def benzerlik_matrisi_hizli(a, b):
 def afinite_matrisi_hizli(kayitlar, alicilar):
     """[kayit × aday] afinite = kırp(kosinüs·√3, 0, 1) (K-016), referans `afinite` ile bit-eşit."""
     return torch.clamp(benzerlik_matrisi_hizli(kayitlar, alicilar) * AFINITE_OLCEGI, 0.0, 1.0)
+
+
+class HizliKodKitabi(KodKitabi):
+    """Aynı kod kitabı; kayıt vektörü ve kosinüs matrisi bu modülün hızlı yoluyla (V-042).
+
+    Çıktılar referansla bit-eşittir ve Python türleriyle döner (tamsayı demeti, ondalık listesi); çekirdeğin geri
+    kalanı tensör görmez. Çekirdek döngüsü kendisine hangi kod kitabı verilirse onun yolunu kullanır."""
+
+    def _matris(self, vektorler):
+        t = torch.tensor(vektorler, dtype=TAMSAYI) if vektorler else torch.zeros((0, self.boyut), dtype=TAMSAYI)
+        return tensor_sekli_dogrula(t, ("kayit", "boyut"), boyut=self.boyut)
+
+    def kayit_vektoru(self, ozne, iliski, nesne):
+        return tuple(kayit_matrisi_hizli(self, [(ozne, iliski, nesne)])[0].tolist())
+
+    def benzerlik_matrisi(self, a, b):
+        return benzerlik_matrisi_hizli(self._matris(a), self._matris(b)).tolist()

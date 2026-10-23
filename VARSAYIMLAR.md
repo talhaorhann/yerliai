@@ -434,7 +434,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - **Afinite:** kırp(kosinüs · √3, 0, 1), referansla aynı sabit.
   - **Kapsam:** yalnız CPU; GPU ayrı aşamada (K-012). Şekiller SEKILLER eksen adlarıyla denetlenir.
   - **Bit-eşitlik denetimi:** kayan noktalı çıktılar `float.hex` ile karşılaştırılır (prompt §5: bit düzeyinde eşitlikte kayan nokta `==` kullanılmaz).
-  - Hızlı yol şimdilik çekirdek döngüsüne bağlı değildir; döngü referans yolu kullanır. Bağlama A5'te, ölçümle birlikte yapılacak.
+  - Çekirdek döngüsüne bağlama: V-042.
 - **Felsefi:** hayır (referansla aynı sonucu veren hızlandırma). **Durum:** ONAYSIZ.
 
 ## V-041: Kurulum için Python 3.13 ve `.venv`
@@ -445,3 +445,15 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 - **Doğrulama:** `kur.sh` bu ortamda (Linux) boş bir kopyada koşturuldu. `kur.bat` Windows olmadığı için DOĞRULANMADI.
 - **Geri alma:** başka sürümlerin hash'lerini `gereksinimler.txt`'ye ekleyip sürüm denetimini gevşetmek.
 - **Felsefi:** hayır. **Durum:** ONAYSIZ.
+
+## V-042: Hızlı yolun çekirdek döngüsüne bağlanması
+- **Bölüm:** sistem.md §3 ("vektörleştirilmiş maskeli matmul"), K-015 (referans = hızlı), K-016 (alıcı = √d·R[gen]), V-040.
+- **Durum:** Ölçümde döngü süresinin büyük kısmı, havuza yazılan her kaydın vektörünü saf Python evrişimiyle hesaplamaya gidiyordu.
+- **Uygulanan:**
+  - Vektör hesabının giriş noktası kod kitabıdır: `kayit_vektoru` ve `benzerlik_matrisi` yöntemleri. `KodKitabi` referans yoldur. `HizliKodKitabi` (`cekirdek/vektor_hizli.py`) aynı yöntemleri PyTorch ile ve bit-eşit ezer, Python türleriyle döner.
+  - Havuz, döngü ve müdahale testi kendilerine verilen kod kitabının yolunu kullanır. Deney koşuları `HizliKodKitabi` ile yapılır; referans yol testlerde karşılaştırma için kalır.
+  - Afinite tablosu: tur başında bir kez `{(gen, kayıt): afinite}`. Yalnız aynı gendeki canlı kayıtlar girer (sembolik maske). Elle yazılan hücrede alıcı yalnız gene bağlı olduğundan (K-016) bütün hücreler tabloyu paylaşır. Öğrenilen alıcılar (H2) gelince tablonun anahtarı alıcıya göre genişletilmeli.
+  - Fark: eskiden afinite yalnız bir bağlamaya giren kayıtlar için hesaplanıyordu; şimdi o gendeki bütün canlı kayıtlar için. Değerler aynı. Tek davranış farkı: sıfır vektörlü bir kayıt (pratikte oluşmaz) hiç bağlanmasa da hata verir.
+- **Doğrulama:** `testler/test_a5_dongu_hizli.py`. Dört senaryo (atma, bütçe, hücre sınırı, impasse, çelişki, müdahale) iki yolda koşar; defterin her olayı kanonik JSON ile (bit düzeyinde) aynı. Referans yolun izi, bağlamadan önceki koddan (commit 797eeaa) alınan altın değerlerle aynı.
+- **Geri alma:** döngüye `KodKitabi` vermek (referans yol).
+- **Felsefi:** hayır (sonucu değiştirmeyen hızlandırma). **Durum:** ONAYSIZ.

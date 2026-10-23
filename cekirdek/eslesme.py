@@ -3,6 +3,7 @@
 Her halka ilişki dizininden kendi genindeki kayıtlara bakar; halkalar farklı kayıtlara bağlanır, aynı değişken
 her yerde aynı varlığa bağlanır, en az bir halka `yeni` kümesindeki (önceki turda yazılmış) bir kayda bağlanır.
 Afinite = kırp(kosinüs(alıcı, kayıt)·√3, 0, 1); güven = min(afiniteler, ebeveyn güvenleri) × hücre güvenilirliği.
+Afiniteler tur başında bir kez, kod kitabının yoluyla (referans ya da hızlı) tablo olarak hesaplanır (V-042).
 """
 import math
 from collections import namedtuple
@@ -48,17 +49,40 @@ def alici(kk, gen):
     return tuple(kk.olcek * x for x in kk.vektor(TUR_ILISKI, gen))
 
 
+def afinite_kosinustan(kosinus_degeri):
+    return max(0.0, min(1.0, kosinus_degeri * AFINITE_OLCEGI))
+
+
 def afinite(alici_vektoru, kayit_vektoru):
-    return max(0.0, min(1.0, kosinus(alici_vektoru, kayit_vektoru) * AFINITE_OLCEGI))
+    return afinite_kosinustan(kosinus(alici_vektoru, kayit_vektoru))
 
 
-def eslesmeler(hucre, havuz, yeni, kk, esik_carpani):
-    """Sembolik bağlamalardan her halkası afinite > θ·çarpan olanlar, güvenleriyle (K-016, K-017)."""
-    alicilar = [alici(kk, h.gen) for h in hucre.halkalar]
+def afinite_tablosu(kk, havuz, genler):
+    """{(gen, kayıt kimliği): afinite}, her gen için yalnız o gendeki canlı kayıtlar (sembolik maske).
+
+    Elle yazılan hücrenin alıcısı yalnız genine bağlıdır (K-016), bu yüzden bir turda bütün hücreler aynı tabloyu
+    kullanır. Kosinüsler kod kitabının yoluyla hesaplanır (referans ya da hızlı, V-042)."""
+    tablo = {}
+    for gen in sorted(set(genler)):
+        kimlikler = havuz.iliski_dizini(gen)
+        if not kimlikler:
+            continue
+        kosinusler = kk.benzerlik_matrisi([havuz.kayit(k).vektor for k in kimlikler], [alici(kk, gen)])
+        for kimlik, (deger,) in zip(kimlikler, kosinusler):
+            tablo[(gen, kimlik)] = afinite_kosinustan(deger)
+    return tablo
+
+
+def eslesmeler(hucre, havuz, yeni, kk, esik_carpani, tablo=None):
+    """Sembolik bağlamalardan her halkası afinite > θ·çarpan olanlar, güvenleriyle (K-016, K-017).
+
+    `tablo` verilmezse hücrenin genleri için `afinite_tablosu` burada kurulur."""
+    if tablo is None:
+        tablo = afinite_tablosu(kk, havuz, [h.gen for h in hucre.halkalar])
     sonuc = []
     for b in baglamalar(hucre, havuz, yeni):
         kayitlar = [havuz.kayit(k) for k in b.kayitlar]
-        afiniteler = tuple(afinite(a, k.vektor) for a, k in zip(alicilar, kayitlar))
+        afiniteler = tuple(tablo[(h.gen, k)] for h, k in zip(hucre.halkalar, b.kayitlar))
         if any(af <= h.esik * esik_carpani for af, h in zip(afiniteler, hucre.halkalar)):
             continue
         guven = min(afiniteler + tuple(k.guven for k in kayitlar)) * hucre.guvenilirlik

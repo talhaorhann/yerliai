@@ -1,7 +1,8 @@
 """sistem.md §1, §3; K-014: tamsayı HRR/VSA vektörleri, saf Python referans yolu.
 
 v = √d·R[ilişki] + P_s⊛E[özne] + P_o⊛E[nesne]; öğeler ±1, ⊛ tamsayıyla tam dairesel evrişim.
-Yuvarlama yoktur; tek kayan nokta işlemi kosinüsteki son bölmedir (CPU, float64). Hızlı yol K-015 ile ertelendi.
+Yuvarlama yoktur; tek kayan nokta işlemi kosinüsteki son bölmedir (CPU, float64). Çekirdek vektör hesabını kod
+kitabının yöntemleriyle ister; hızlı yol (`cekirdek/vektor_hizli.py`, `HizliKodKitabi`) bunları bit-eşit ezer (V-042).
 """
 import hashlib
 import math
@@ -28,6 +29,14 @@ class KodKitabi:
         baytlar = hashlib.shake_256(f"{self.tohum}|{tur}|{ad}".encode("utf-8")).digest(self.boyut // BAYT_BITI)
         v = tuple(1 if (baytlar[i // BAYT_BITI] >> (i % BAYT_BITI)) & 1 else -1 for i in range(self.boyut))
         return sekil_dogrula(v, ("boyut",), boyut=self.boyut)
+
+    def kayit_vektoru(self, ozne, iliski, nesne):
+        """Havuza yazılan kaydın vektörü (referans yol)."""
+        return kayit_vektoru(self, ozne, iliski, nesne)
+
+    def benzerlik_matrisi(self, a, b):
+        """[kayit × aday] kosinüs matrisi (referans yol)."""
+        return benzerlik_matrisi(a, b)
 
 
 def _ayni_uzunluk(a, b):

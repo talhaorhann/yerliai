@@ -12,7 +12,7 @@ from dataclasses import dataclass
 
 from cekirdek.altyapi.olay_gunlugu import YEDEK_KULLANILDI
 from cekirdek.defter import ATESLEME, ATMA, KAYNAK, YAZMA, Defter
-from cekirdek.eslesme import eslesmeler
+from cekirdek.eslesme import afinite_tablosu, eslesmeler
 from cekirdek.havuz import HavuzDoluHatasi
 from cekirdek.plazma import cevapla, kok_kumesi
 
@@ -49,8 +49,9 @@ def _skor(eslesme):
 
 def _tur_adaylari(hucreler, havuz, yeni, kk, prm, carpan, olaylar, tur):
     adaylar = []
+    tablo = afinite_tablosu(kk, havuz, [h.gen for hucre in hucreler for h in hucre.halkalar])  # V-042: tur başına bir kez
     for sira, hucre in enumerate(hucreler):
-        es = sorted(eslesmeler(hucre, havuz, yeni, kk, carpan), key=lambda e: (-_skor(e), e.baglama.kayitlar))
+        es = sorted(eslesmeler(hucre, havuz, yeni, kk, carpan, tablo), key=lambda e: (-_skor(e), e.baglama.kayitlar))
         for e in es:
             olaylar.append((ATESLEME, KAYNAK, {"tur": tur, "hucre": hucre.kimlik, "kayitlar": list(e.baglama.kayitlar),
                                                "uclu": list(e.uclu), "afiniteler": list(e.afiniteler),

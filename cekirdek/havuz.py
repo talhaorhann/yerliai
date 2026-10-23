@@ -1,13 +1,11 @@
 """sistem.md §2: iki katmanlı havuz (0: epitoplar, 1: çıkarımlar), ilişki dizini, (üçlü, köken) tekilleştirmesi.
 
-Kayıt: vektör, üçlü, katman, köken (zincir kimliği + ebeveyn kayıt kimlikleri), güven, yaş. Yaş = geçen tur
-sayısı (K-004: saat yok). Dolunca yalnız çıkarım katmanından en düşük güvenli kayıt atılır (eşitlikte en yaşlı,
+Kayıt: vektör (kod kitabının yoluyla, V-042), üçlü, katman, köken (zincir kimliği + ebeveyn kayıt kimlikleri),
+güven, yaş. Yaş = geçen tur sayısı (K-004: saat yok). Dolunca yalnız çıkarım katmanından en düşük güvenli kayıt atılır (eşitlikte en yaşlı,
 sonra en küçük kimlik; K-019). Atılan kayıt eşleşmeye katılmaz ama kökeni mezar taşında kalır (V-033).
 """
 import math
 from dataclasses import dataclass
-
-from cekirdek.vektor import kayit_vektoru
 
 EPITOP, CIKARIM = 0, 1  # sistem.md §2
 
@@ -49,7 +47,7 @@ class Havuz:
             raise HavuzHatasi(f"güven [0,1] aralığında sonlu sayı olmalı: {guven!r}")
 
     def _yaz(self, uclu, katman, zincir, ebeveynler, guven):
-        k = Kayit(self._sonraki, kayit_vektoru(self.kod_kitabi, *uclu), tuple(uclu), katman, zincir,
+        k = Kayit(self._sonraki, self.kod_kitabi.kayit_vektoru(*uclu), tuple(uclu), katman, zincir,
                   tuple(ebeveynler), guven, self.tur)
         self._kayitlar[k.kimlik] = k
         self._dizin.setdefault(k.uclu[1], []).append(k.kimlik)
