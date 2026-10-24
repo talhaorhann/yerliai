@@ -200,3 +200,51 @@ Bu ek ÖK-003 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
   - İlk koşunun teşhis aracı bu sınırı gevşetmediği için onlara "sınırdan bağımsız" demişti (V-047).
 - §1'in metni değiştirilmedi.
 - Çekirdekte bir değişiklik yapılacaksa kullanıcının kararını bekler; karar bu eke tarihiyle yazılır.
+
+### 4. Çekirdek değişikliği: kopya kuralı C hücre sınırından önce (K-031, 2026-10-24)
+
+- **Değişiklik:** Bir turda bir hücrenin eşleşmeleri önce C ile süzülür: yeni dayanak getirmeyen aday, hücre sınırından yer almaz. Sonra hücre başına en iyi 8 aday, sonra tur bütçesi uygulanır. Sınır böylece sistem.md §3'teki gibi yazmaları sayar.
+  - Hücre sınırı (8), bütçe, θ, güvenilirlik ve DNA değişmez.
+  - §3.5'teki "diğer bütün ayarlar aynen kalır" cümlesinin tek istisnası budur.
+- **Neden:** §1'deki 14 uzunluk hatasının 14'ünde, sınırın içindeki yerleri C'nin atacağı kopyalar dolduruyordu (bu ekin 3. bölümü).
+- **Onay:** kullanıcı, 2026-10-24 (K-031).
+- **Kod:** commit `ce2607b`. Test önce yazıldı (`testler/test_a5_sinir_c.py`, kırmızı → yeşil).
+  - Hızlı yol ile referans yol yine bit-eşit.
+  - Yalnız dayanaksız adayı olan senaryonun değiştiği testle gösterildi.
+  - Mutasyon 4/4 yakalandı.
+- **Eski eğitim (§3.3, olağan sınırlarla, tur 8, havuz 128):** 2000/2000 doğru (her tohumda 400/400), yanlış 0, bilmiyorum 0; müdahale 2000 puanlı, 0 sınanamadı (`raporlar/H1_v2_eski_egitim_RAPOR.md`).
+
+### 5. Son DNA (§5.3)
+
+- Danışman 14 hatayı kendi motoruyla sınırsız kapanışta çözdü ve DNA'da eksik kural olmadığını bildirdi. DNA değişmedi; ilk koşudaki dosyanın aynısı.
+- `dna` (`veri/dna/akrabalik_dna_v2_final.json`, 170 kural): `624b073c826650401cf85df00e92c8569c1ce25d0609625f1970946e804a7f4e`
+
+### 6. Tur ve havuz sınırları (§3.4)
+
+- **Ölçüm (2026-10-24):** son DNA ve K-031'li çekirdekle, geliştirme verisinin dört eski test bölmesinde (uzunluk, yön ters, önsel-ters, zincir-bozuk; tohum 7–11; 8000 bölüm).
+  - Yalnız çekirdek + plazma koşuldu; müdahale testi doğruluğu etkilemez.
+  - Komut: `.venv/bin/python -m degerlendirme.h1_sinir uretilen/h1 veri/dna/akrabalik_dna_v2_final.json uretilen/h1_sinir_1`.
+  - Kural §3.4'teki gibi harfiyen uygulandı.
+- **Seçilen:** tur 8, havuz 256. Config: `h1_tur_siniri` = 8, `h1_havuz_kapasitesi` = 256.
+  - Bu değerler yalnız kapı, altın küme ve yeni tohumların eğitim satırında kullanılır (`degerlendirme/h1.py` `kosu_parametreleri`).
+  - Genel ayarlar (`tur_siniri` 8, `havuz_kapasitesi` 128) değişmedi.
+  - Tur sistem.md §5'teki 8 ile aynı. Havuz sistem.md §2'deki 64'ten sapar; bu K-029'a dayanır (genel ayar K-026 ile 128).
+- **Ölçüm tablosu (doğru sayısı / 8000):**
+
+  | Tur | Havuz | Doğru |
+  |---|---|---|
+  | 8 | 128 | 6567 |
+  | 8 | 256 | 6573 |
+  | 8 | 1024 | 6573 |
+  | 32 | 1024 | 6573 |
+
+  - Kural: önce havuz 1024'te, tur 32'deki (6573) ile eşit olan en küçük tur: 8. Sonra tur 8'de, havuz 1024'teki (6573) ile eşit olan en küçük havuz: 256. Tablodakiler dışındaki adaylar kural gereği ölçülmedi.
+  - Tur 8, havuz 256'da bölme dökümü: uzunluk 2000/2000, önsel-ters 2000/2000, zincir-bozuk 2000/2000, yön ters 573/2000. Yön ters açığı, §1'deki ölçüme göre eski verideki çıkarılamayan sorulardan gelir; yeni tohumlarda üreteç bu soruları ayıklar (§3.1).
+
+### 7. Kapı koşusu öncesi özetler (§5.5)
+
+- `config.json`: `ce14605aca9e3498bb6d9df7afee1c97748c5eb70e9c074ed9211de4a1cba7e1`
+- `dna`: `624b073c826650401cf85df00e92c8569c1ce25d0609625f1970946e804a7f4e`
+- Yeni manifestler ve `tohumlar.json`: 2. bölümdeki özetler.
+- Kod: commit `157c1fb`.
+- Kapı bölmeleri bu ekten sonra, tohum 12, 13, 14, 17, 16 ile bir kez koşar; sonra altın küme. Kapı geçmezse ayarlar ve DNA bu sonuca bakılarak değiştirilmez (§6).
