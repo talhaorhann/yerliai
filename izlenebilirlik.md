@@ -56,3 +56,6 @@
 | sistem.md §13 (H2 kapısı: V-053 kapanmadan H2 yok; K-032 §4) | `degerlendirme/h2.py` | `testler/test_a6_h2_kapisi.py` |
 | KODLAMA_PROMPTU §6 (Mutasyon sınaması, A6) | `araclar/mutasyon_a6.py` | `testler/test_a6_h2_kapisi.py` |
 | sistem.md §10, §11 (olgulardan çıkarılabilirlik; K-032 §3, V-053) | `degerlendirme/dunya.py` | `testler/test_a6_olgudan_cikarilabilirlik.py` |
+| sistem.md §8, §18, EK A P7 (bellek geçidi; V-054) | `cekirdek/bellek_gecidi.py` | `testler/test_a6_bellek_gecidi.py` |
+| sistem.md §8, §15 (bellek deposu: salt ekleme, sürüm kilidi, geri alma; V-056) | `cekirdek/bellek.py` | `testler/test_a6_bellek.py` |
+| sistem.md §17, §15, §18 (iç dil sürüm 1; V-055) | `cekirdek/ic_dil.py`, `sema/ic_dil_v1.schema.json` | `testler/test_a6_ic_dil.py` |

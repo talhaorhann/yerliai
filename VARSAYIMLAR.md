@@ -581,3 +581,53 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - (b) 6 açıklanamayan hata: yeni tanıma göre çıkarılabilir. Altısında da karar verdiren kişinin cinsiyeti zincir dışındaki ayrı bir olgudan geliyor (ör. "22, 23'ün oğlu" → 22 erkek). DNA'da cinsiyeti bir olgudan ötekine taşıyan kural yok; bu bir DNA kapsam açığı, çekirdek ya da tanım hatası değil. DNA'yı danışman düzeltir (K-024).
   - Etki: tohum 12'nin eğitim, uzunluk, önsel-ters ve yeniden adlandırma bölmelerinde yeni tanım hiçbir soruyu atmıyor; yalnız yön ters etkileniyor.
 - **Felsefi:** evet (kâhin, veri olarak dil: "olgulardan çıkarılabilir" ne demek). **Durum:** AÇIK; tanım onaya geldi (K-032 §3). Kapanmadan H2 başlamaz (K-032 §4). ÖK-003 §6'ya göre ayarlar ve DNA değişmedi.
+
+## V-054: Bellek geçidi (A6 önerisi)
+- **Bölüm:** sistem.md §8 (bellek: müdahale + karşı-kısayol), §18 (kabul/ret yalnız çekirdeğin kendi kurallarıyla), EK A P7 (mutlak bellek kapısı, kaydırılmış doğrulama, en kötü ortam), KODLAMA_PROMPTU §2 (kâhin yalıtımı: etiket çekirdeğe girmez).
+- **Uygulanan:** `cekirdek/bellek_gecidi.py` `gecit`.
+  - **Girdi:** Aday kural, ortamlar (bölüm listeleri) üzerinde yalnız veriyle sınanır; etiket ve kâhin yok.
+  - **Ölçüm:** Her bölümde çekirdek bellekle (R0) ve bellek + adayla (R1) koşar. Adayın soyu = yazdıkları ve onlardan türeyenler. Dört sayı tutulur:
+    - destek: soydan bir üçlü gözlenen bir olguyla aynı, olgu kendi kök kümesinde değil;
+    - karşıtlık: soy ile olgu arasında şema çelişkisi;
+    - çelişki: soy ile bellekten türemiş kayıt arasında şema çelişkisi;
+    - katkı: R0'da olmayan ya da daha geç çıkan üçlüler.
+  - Ayrıca soydan gelen cevaplara müdahale testi yapılır.
+  - **Karar sırası:**
+    1. Yapıca aynı kural bellekte varsa → gereksiz.
+    2. Ölçülen her ortamda doğruluk < eşik → yanlış. Bir ortamda tutup en kötü ortamda tutmuyorsa → kısayol.
+    3. Çelişki → çelişkili.
+    4. Katkı yok → gereksiz.
+    5. Bir ortam gözlemle ölçülemedi ya da müdahale kanıtı az → sınanamadı.
+    6. Müdahale ortalaması < eşik → kısayol. Hiçbiri değilse → kabul.
+  - `gozden_gecir`: aktif bellek hücreleri yeni veriyle yeniden sınanır; yanlış, kısayol ya da çelişkili çıkan geri alınır.
+- **Eşikler (config, öneri):**
+  - `bellek_dogruluk_esigi` 1,0: belirlenimli sentetik dünyada H1 DNA'sı hiç yanlış ilişki vermedi.
+  - `bellek_en_az_kanit` 3: ortam başına gözlem sayısı ve toplam müdahaleli soru.
+  - `bellek_mudahale_esigi` 0,9: H1'deki en düşük bölme ortalaması 0,982'nin altında.
+- **Sınır (önemli):** Gözlenmeyen ilişki için doğruluk kanıtı yoktur. Sentetik akrabalık verisinde olgular yalnız 7 temel ilişkidir; dede, amca gibi türetilmiş ilişkileri sonuçlayan kurallar etiketsiz geçitte "sınanamadı" kalır. Dışarıdan doğruluk skoru (eğitim bölmesinin cevaplarından, kâhin kanalı) kodda kapalıdır (NotImplementedError).
+- **Doğrulama:** `testler/test_a6_bellek_gecidi.py`.
+  - Kabul: doğru üç kural sırayla.
+  - Ret: yanlış sonuç, şemayla çelişen sonuç, kısayol (yalnız kaydırılmış ortamda yakalanır), yapıca eşdeğer, katkısız, bellekle çelişkili.
+  - Sınanamadı: gözlenmeyen sonuç.
+  - Cevap alanı okunmuyor; karar belirlenimli.
+- **Felsefi:** evet (bellek, kâhin, kalibrasyon). **Durum:** ONAYSIZ (öneri; A6 onay listesi).
+
+## V-055: İç dil sürüm 1 (A6 önerisi)
+- **Bölüm:** sistem.md §17 ("kapalı iç form"), §15 (LLM'den gelen üçlü onaysız öğrenmeye girmez), §18 (karantina).
+- **Uygulanan:**
+  - `cekirdek/ic_dil.py`, `sema/ic_dil_v1.schema.json`. Kayıt: özne, ilişki, nesne, kutup (olumlu/olumsuz), kip (kesin/olası), zaman (yok ya da sıra numarası), kaynak, güven, özet.
+  - Onaylı şema ve biçim denetlenir; özet tutmazsa kayıt reddedilir.
+  - Havuza yalnız olumlu + kesin + zamansız kayıt girer. Olumsuz kutup, olası kip ve zamanın anlamı NotImplementedError ile bekliyor.
+  - LLM kaynaklı kayıt karantinasız girmez (KarantinaHatasi; karantina A7'de).
+- **Doğrulama:** `testler/test_a6_ic_dil.py`.
+- **Felsefi:** evet (veri olarak dil). **Durum:** ONAYSIZ (öneri; A6 onay listesi).
+
+## V-056: Bellek deposu (A6 önerisi)
+- **Bölüm:** sistem.md §8 (bellek hücresi), §15 (bellek salt okunur, sürüm kilitli), EK A P7 (sönümlü, geri alınabilir statü).
+- **Uygulanan:**
+  - `cekirdek/bellek.py` `Bellek`: sadece-ekleme, hash zincirli olay günlüğü.
+  - İki olay türü var: kabul (hücre + geçit kanıtı) ve geri alma (kimlik + neden). Geçmiş kayıt değişmez; sürüm = son olayın özeti. Kurcalanmış dosya açılmaz.
+  - Şimdilik "sönüm", gözden geçirmede geri alma demektir; zamanla azalan güç yok.
+  - Mutasyondan koruma ve hızlı tetiklenme H2/H3 ile gelir.
+- **Doğrulama:** `testler/test_a6_bellek.py`.
+- **Felsefi:** evet (bellek). **Durum:** ONAYSIZ (öneri; A6 onay listesi).

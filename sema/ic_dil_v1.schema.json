@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ic_dil_v1",
+  "title": "İç dil kaydı, sürüm 1 (sistem.md §17 kapalı iç form; V-055)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["sema_surumu", "ozne", "iliski", "nesne", "kutup", "kip", "zaman", "kaynak", "guven", "ozet"],
+  "properties": {
+    "sema_surumu": {"const": "ic1"},
+    "ozne": {"type": "integer", "minimum": 0},
+    "iliski": {"type": "string", "pattern": "^[a-zçğıöşü_]+$", "minLength": 1},
+    "nesne": {"type": "integer", "minimum": 0},
+    "kutup": {"enum": ["olumlu", "olumsuz"]},
+    "kip": {"enum": ["kesin", "olasi"]},
+    "zaman": {"type": ["integer", "null"], "minimum": 0},
+    "kaynak": {"enum": ["kullanıcı", "çekirdek", "LLM", "KeNet", "Wikidata", "üreteç"]},
+    "guven": {"type": "number", "minimum": 0, "maximum": 1},
+    "ozet": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
