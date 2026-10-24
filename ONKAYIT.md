@@ -86,3 +86,15 @@ Bu deney kuralı **bulmayı** değil, verilen kuralla **doğru yürütmeyi** sı
 ### 9. Koşu öncesi ek
 
 `config.json`, DNA dosyası ve H1 bölüm dosyalarının hash'leri, DNA kilitlenince ve test bölmeleri koşmadan önce "ÖK-002 eki" olarak buraya eklenir. Ekleme kullanıcıya bildirilir. Bu bölümün dışındaki metin değişmez.
+
+## ÖK-002a (2026-10-24): Havuz kapasitesi 64 → 128 (K-026)
+
+**Durum:** ONAYLI (kullanıcı, 2026-10-24). ÖK-002'nin yalnız §2'deki havuz değerini değiştirir; ÖK-002'nin metni olduğu gibi kalır.
+
+1. **Değişiklik:** havuz kapasitesi 64 yerine 128 (`config.json` `havuz_kapasitesi`, K-026). Kapı (§6: her kapı bölmesinde ve her tohumda %100, tolerans yok), bölmeler, tohumlar, ölçütler ve DNA kuralları değişmez.
+2. **Neden:** Bağımsız danışmanın kendi simülasyonunda (projenin bölüm dosyaları ve gizli tanımları kullanılmadan, kullanıcının iletmesiyle) k=10 zincirlerde havuz 64 yetmedi: doğru %56–71, kaçan %18–36. 128'de doğru %89–92, kaçan ~%0. Kullanıcı 128'e "evet" dedi.
+3. **Zaman:** Değişiklik, test bölmeleri gerçek DNA ile koşturulmadan ve DNA eğitim bölmesinde denenmeden önce yapıldı.
+4. **Şartnameden sapma:** sistem.md §2 "Kapasite 64" der. Bu sapma kullanıcı kararıdır (K-026); sistem.md değiştirilmedi.
+5. **Açıklama (kodlayıcının ihlali):** 2026-10-23'te kodlayıcı, süre kestirmek için uzunluk bölmesinin (tohum 7) ilk 20 bölümünü ve eğitim bölmesinin ilk 20 bölümünü anlamsız, rastgele kurulmuş bir deneme DNA'sıyla koşturdu. Yalnız süre, ortalama tur ve atma sayısı yazdırıldı (atma 0). Doğruluğa ve cevaplara bakılmadı; çıktı silindi. Bu, ÖK-002 durum satırındaki "DNA kilitlenmeden önce test bölmeleri koşturulmaz" kuralına aykırıdır ve burada kayda geçirildi. Sonuç kararlarını etkilemez: havuz kararı danışmanın simülasyonuna dayanır; deneme DNA'sı başka hiçbir yerde kullanılmadı.
+6. **Beklenti notu:** Danışmanın simülasyonu 128'de bile k=10'da %89–92 doğru öngörüyor. §6 kapısı %100 ister ve değişmedi.
+

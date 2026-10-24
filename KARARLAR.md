@@ -134,3 +134,9 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
 ## K-025 (2026-10-23): DNA'da isteğe bağlı "farklı kişi" şartı
 - **Karar:** DNA biçimine (sürüm 2) isteğe bağlı bir şart eklenir: bir hücrede belirtilen değişken çiftleri farklı varlıklara bağlanmalıdır. Şartı olmayan hücreler önceki gibi çalışır (değişkenler aynı varlığa bağlanabilir). Gerekçe: şart yokken çekirdek r1(1,2), r2(2,1) olgularından r3(1,1) yazdı (denendi).
 - **Onaylayan:** kullanıcı.
+
+## K-026 (2026-10-24): Havuz kapasitesi 64 → 128 (ÖK-002a)
+- **Karar:** `havuz_kapasitesi` 128. sistem.md §2 "Kapasite 64" der; bu, kullanıcının bilerek verdiği bir sapma kararıdır, sistem.md değiştirilmez. ÖK-002 §2'deki "havuz 64" ÖK-002a ile 128 olur; ön kaydın geri kalanı (kapı %100, tolerans yok, bölmeler, tohumlar) aynen geçerlidir.
+- **Gerekçe (kullanıcının ilettiği):** bağımsız danışmanın kendi simülasyonunda k=10 zincirlerde havuz 64 yetmedi (doğru %56–71, kaçan %18–36); 128'de doğru %89–92, kaçan ~%0.
+- **Zamanlama:** test bölmeleri gerçek DNA ile hiç koşturulmadan ve DNA eğitim bölmesinde denenmeden önce.
+- **Onaylayan:** kullanıcı.
