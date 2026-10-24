@@ -11,6 +11,7 @@ Kullanım (.venv/bin/python -m degerlendirme.h1 ...):
   ozetler <klasör> <dna>           ÖK-002 ekine yazılacak özetleri basar
   gelistir <klasör> <dna> <çıkış>  geliştirme bölmesini koşturur (ön kayıt gerekmez)
   kapi <klasör> <dna> <çıkış>      kapı bölmelerini koşturur ve kapı kararını verir (ön kayıt gerekir)
+  yeni_egitim <klasör> <dna> <çıkış>  kapı tohumlarının eğitim bölmesi, ayrı satır, kapıya girmez (ÖK-003 §3.3)
   altin <dna> <çıkış>              altın küme, her parça kendi kaynak etiketiyle (ön kayıt gerekir)
 """
 import dataclasses
@@ -47,6 +48,7 @@ SINIF_TUR, SINIF_HAVUZ, SINIF_BILMIYORUM, SINIF_YANLIS = "tur_siniri", "havuz", 
 EK_BASLIGI = "### 9. Koşu öncesi ek"  # ÖK-002 §9
 DNA_BICIMLERI = {"1": "dna_v1.schema.json", "2": "dna_v2.schema.json"}  # V-032, V-043
 TOHUM_KAYDI = "tohumlar.json"  # K-030: üretimde kullanılan tohumlar ve değişimler
+KIP_GELISTIRME, KIP_KAPI, KIP_ALTIN, KIP_YENI_EGITIM = "gelistirme", "kapi", "altin", "yeni_egitim"  # ÖK-003 §3.3–§3.4
 
 
 class H1Hatasi(RuntimeError):
@@ -333,6 +335,15 @@ def kapi_tohumlari(klasor, on_kayit, sinir):
     return beklenen
 
 
+def kosu_parametreleri(ayar, kip):
+    """ÖK-003 §3.4: kapı, altın ve yeni tohumların eğitim satırı seçilen sınırlarla (`h1_tur_siniri`,
+    `h1_havuz_kapasitesi`); eski eğitimde DNA denetimi (§3.3) olağan ayarla. Sınır seçilmemişse KeyError."""
+    prm = CekirdekParametreleri.ayardan(ayar)
+    if kip == KIP_GELISTIRME:
+        return prm
+    return dataclasses.replace(prm, tur_siniri=ayar.deger("h1_tur_siniri"), kapasite=ayar.deger("h1_havuz_kapasitesi"))
+
+
 def _uret(kok, klasor):
     from degerlendirme.dunya import tanimlar_yukle
     from degerlendirme.uretec import Parametreler, hepsini_uret
@@ -355,19 +366,20 @@ def _uret(kok, klasor):
                kanonik_json({"on_kayit": on_kayit, "kullanilan": kullanilan, "degisimler": degisimler}))
 
 
-def _kos(kok, klasor, dna_yolu, cikis, kapi_mi):
+def _kos(kok, klasor, dna_yolu, cikis, kip):
     ayar, sema, gunluk = _ortam(kok)
-    if kapi_mi:  # ÖK-003 §3.2, K-030
-        tohumlar = kapi_tohumlari(klasor, ayar.deger("h1_tohumlar"), ayar.deger("h1_tohum_degisim_siniri"))
-    else:  # ÖK-003 §3.3
+    kapi_mi = kip == KIP_KAPI
+    if kip == KIP_GELISTIRME:  # ÖK-003 §3.3
         tohumlar = ayar.deger("h1_gelistirme_tohumlari")
+    else:  # ÖK-003 §3.2, K-030
+        tohumlar = kapi_tohumlari(klasor, ayar.deger("h1_tohumlar"), ayar.deger("h1_tohum_degisim_siniri"))
     bolmeler = ayar.deger("h1_kapi_bolmeleri" if kapi_mi else "h1_gelistirme_bolmeleri")
-    if kapi_mi:
+    if kip != KIP_GELISTIRME:
         on_kayit_denetle((kok / "ONKAYIT.md").read_text(encoding="utf-8"),
                          gerekli_ozetler(kok, klasor, dna_yolu, tohumlar, gunluk["algoritma"]), ayar.deger("h1_on_kayit_eki"))
     hucreler = _dna(kok, dna_yolu, sema)
     kk = HizliKodKitabi(ayar.deger("vektor_tohum"), ayar.deger("vektor_boyutu"))
-    prm = CekirdekParametreleri.ayardan(ayar)
+    prm = kosu_parametreleri(ayar, kip)
     satirlar = []
     for t in tohumlar:
         for b in bolmeler:
@@ -375,7 +387,7 @@ def _kos(kok, klasor, dna_yolu, cikis, kapi_mi):
             print(f"{b} / tohum {t}: {len(satirlar)} bölüm bitti")
     ozet = ozetle(satirlar, ayar.deger("guven_duzeyi"), ayar.deger("bootstrap_tekrar"), ayar.deger("istatistik_tohum"))
     kapi = kapi_karari(ozet, bolmeler, tohumlar, ayar.deger("ana_kume_sayisi")) if kapi_mi else None
-    ad = "kapi" if kapi_mi else "gelistirme"
+    ad = kip
     atomik_yaz(Path(cikis) / f"rapor_{ad}.json", kanonik_json({"ozet": ozet, "kapi": kapi}))
     atomik_yaz(Path(cikis) / f"RAPOR_{ad}.md", rapor_metni(ozet, kapi).encode("utf-8"))
     print(rapor_metni(ozet, kapi))
@@ -409,7 +421,7 @@ def _altin(kok, dna_yolu, cikis):
             kullanici[p] = json.loads(yol.read_text(encoding="utf-8"))
     hucreler = _dna(kok, dna_yolu, sema)
     kk = HizliKodKitabi(ayar.deger("vektor_tohum"), ayar.deger("vektor_boyutu"))
-    prm = CekirdekParametreleri.ayardan(ayar)
+    prm = kosu_parametreleri(ayar, KIP_ALTIN)
     satirlar = [altin_satiri(s, bolum_kos(s["bolum"], hucreler, sema, kk, prm, gunluk), kullanici, u)
                 for s, u in zip(sorular, uretec)]
     ozet = altin_ozeti(satirlar, kullanici)
@@ -420,7 +432,8 @@ def _altin(kok, dna_yolu, cikis):
 
 
 KOMUTLAR = {"uret": ("klasor",), "ozetler": ("klasor", "dna"), "gelistir": ("klasor", "dna", "cikis"),
-            "kapi": ("klasor", "dna", "cikis"), "altin": ("dna", "cikis")}
+            "kapi": ("klasor", "dna", "cikis"), "yeni_egitim": ("klasor", "dna", "cikis"), "altin": ("dna", "cikis")}
+KIPLER = {"gelistir": KIP_GELISTIRME, "kapi": KIP_KAPI, "yeni_egitim": KIP_YENI_EGITIM}
 
 
 def main(arg):
@@ -442,7 +455,7 @@ def main(arg):
     elif komut == "altin":
         _altin(kok, d["dna"], d["cikis"])
     else:
-        _kos(kok, d["klasor"], d["dna"], d["cikis"], komut == "kapi")
+        _kos(kok, d["klasor"], d["dna"], d["cikis"], KIPLER[komut])
     return 0
 
 

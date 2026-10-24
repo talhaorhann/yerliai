@@ -6,6 +6,8 @@ müdahale sonuçları iki yolda aynı olmalı. Ayrıca referans yolun izi, bağl
 alınmış altın değerlerle aynı olmalı: bağlama, referans yolun davranışını da değiştirmemeli.
 K-028 (kopya kuralı C) davranışı bilerek değiştirdi: yalnız C'nin "yeni dayanak yok" diye aday attığı senaryonun
 izi değişti; o senaryonun altın değeri C'li referans yoldan yenilendi, 797eeaa değeri ONCEKI_C_SIZ'da duruyor.
+K-031 (C hücre sınırından önce) yine yalnız o senaryoyu değiştirdi (hem sınırı aşan hücre hem dayanaksız aday var);
+altın değeri yenilendi, K-028 değeri ONCEKI_K028'de duruyor.
 """
 import collections
 import unittest
@@ -26,10 +28,15 @@ ONCEKI_C_SIZ = {
     "kalabalik": (186, "7e076c30b7f6e7176a2fb43ea4edd259df78f561361c66a237d5d63d24bb9001",
                   "701cb127fdf80be98ec5c01b98f29900f9a04dc6c462e141e1eb5f8a3c13c812"),
 }
-# K-028 sonrası; diğer senaryolar 797eeaa ile aynı.
-ONCEKI = {
+# K-028 sonrası, K-031 öncesi (C hücre sınırından sonra).
+ONCEKI_K028 = {
     "kalabalik": (139, "9d58526b9e90121baef35680813f32b8ae87a3f6f54467ccd646867d1bff1148",
                   "998fb8cff4bba0dc567fda135b0a53dddf2f91dabc93330ea92acb1c71bca919"),
+}
+# K-031 sonrası; diğer senaryolar 797eeaa ile aynı.
+ONCEKI = {
+    "kalabalik": (124, "afa484b61c5f93bec5f199a690316c9af617182e0b2088707a865a7a7146e33b",
+                  "38f885f075b1297a73f33727b24265d6bdab0b0f416918cc6c583cd55ad32a51"),
     "impasse_cevapli": (6, "1bafcabdc1d4920e6706268a513acab12cb81fc5752e39c3a0490a32cfae7055",
                         "e50a4c5ac126f7f1d804b9ca39034316ee25e36638e0f66d2392b58814942c39"),
     "impasse_cevapsiz": (6, "9885755328682882616a304fecd50fddbc6f1be36fa9e659ad5210eaa85d1bea",
@@ -77,6 +84,14 @@ class DonguHizliYolTesti(unittest.TestCase):
             with self.subTest(senaryo=ad):
                 self.assertEqual(dayanaksiz > 0, ad in ONCEKI_C_SIZ)
                 self.assertNotEqual(ONCEKI_C_SIZ.get(ad), oz.altin())
+
+    def test_k031_yalniz_dayanaksiz_aday_olan_senaryoyu_degistirdi(self):
+        """Dayanaksız aday yoksa C'nin sınırdan önce gelmesi hiçbir şeyi değiştiremez; değişen senaryoda vardır."""
+        for ad, oz in self.referans.items():
+            dayanaksiz = any(k["tur"] == "ESLESME_ATILDI" and k["veri"]["neden"] == "dayanak_yok" for k in oz.satirlar)
+            with self.subTest(senaryo=ad):
+                self.assertEqual(ad in ONCEKI_K028, dayanaksiz)
+                self.assertNotEqual(ONCEKI_K028.get(ad), oz.altin())
 
     def test_hizli_yol_defteri_referansla_bit_duzeyinde_ayni(self):
         for ad in ONCEKI:

@@ -4,10 +4,12 @@ Kural: önce en büyük havuzda, doğru sayısı en büyük turdakine eşit olan
 en büyük havuzdakine eşit olan en küçük havuz. Ölçüm yalnız çekirdek + plazmadır (müdahale yok).
 İlişki adları anlamsızdır (blorp şeması).
 """
+import dataclasses
 from pathlib import Path
+from types import SimpleNamespace
 
 from cekirdek.vektor_hizli import HizliKodKitabi
-from degerlendirme import h1_sinir
+from degerlendirme import h1, h1_sinir
 from testler.test_a3_temel import halka, hucre
 from testler.test_a5_h1 import GUNLUK, bolum, cevap, klasor_yaz
 import testler.test_a3_cekirdek as t3
@@ -53,3 +55,29 @@ class SecimKuraliTesti(t3.Ortam):
         self.assertEqual(olc(2, 64), 1)
         secim = h1_sinir.sec(olc, [1, 2, 4], [8, 64])
         self.assertEqual((secim["tur"], secim["havuz"]), (2, 8))
+
+
+class KosuParametreleriTesti(t3.Ortam):
+    """ÖK-003 §3.4: seçilen sınırlar (config `h1_tur_siniri`, `h1_havuz_kapasitesi`) kapı ve altın koşusunda kullanılır;
+    eski eğitimde DNA denetimi (ÖK-003 §3.3) olağan ayarla yapılır. Öteki ayarlar değişmez."""
+
+    def ayar(self, **ek):
+        degerler = {ad: t3.AYAR.deger(ad) for ad in ("havuz_kapasitesi", "tur_siniri", "hucre_tur_yazma_siniri",
+                                                     "eslesme_butcesi", "impasse_esik_carpani")}
+        degerler.update(ek)
+        return SimpleNamespace(deger=degerler.__getitem__)
+
+    def test_kapi_ve_altin_secilen_sinirlarla(self):
+        ayar = self.ayar(h1_tur_siniri=16, h1_havuz_kapasitesi=512)
+        for kip in (h1.KIP_KAPI, h1.KIP_ALTIN, h1.KIP_YENI_EGITIM):
+            prm = h1.kosu_parametreleri(ayar, kip)
+            self.assertEqual((prm.tur_siniri, prm.kapasite), (16, 512))
+            self.assertEqual(dataclasses.replace(prm, tur_siniri=t3.PRM.tur_siniri, kapasite=t3.PRM.kapasite), t3.PRM)
+
+    def test_gelistirme_olagan_ayarla(self):
+        self.assertEqual(h1.kosu_parametreleri(self.ayar(h1_tur_siniri=16, h1_havuz_kapasitesi=512), h1.KIP_GELISTIRME),
+                         t3.PRM)
+
+    def test_secilmemis_sinirla_kapi_kosmaz(self):
+        with self.assertRaises(KeyError):
+            h1.kosu_parametreleri(self.ayar(), h1.KIP_KAPI)

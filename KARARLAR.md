@@ -167,3 +167,9 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
   - Her değişim tarih ve nedeniyle ÖK-003 ekine yazılır. Kullanılan tohumlar üretim klasöründe `tohumlar.json`'a yazılır; kapı koşusu tohumları buradan alır ve bu dosyanın özeti ön kayıt ekinde aranır.
 - **Ek:** V-050 (önsel-ters bölmesinde kelime çantası sızıntısı) üreteç açığı olarak incelenir.
 - **Onaylayan:** kullanıcı.
+
+## K-031 (2026-10-24): Kopya kuralı C hücre sınırından önce (V-051'den)
+- **Karar:** Her turda bir hücrenin eşleşmeleri önce C ile süzülür (turun başındaki havuz ve defterle): yeni dayanak getirmeyen aday sınırdan yer almaz. Sonra hücre başına en iyi `hucre_tur_yazma_siniri` (8) aday, sonra tur bütçesi uygulanır. Yazma sırasında C, bu turda yazılanlarla birlikte bir kez daha denetlenir. "Dayanak yok" sayısı turda tek olay olarak kaydedilir. Böylece sınır, sistem.md §3'teki gibi yazmaları sayar. Başka ayar değişmez.
+- **Gerekçe:** İlk koşunun 14 uzunluk hatasının 14'ünde, sınırın içindeki yerleri C'nin atacağı kopyalar dolduruyordu; cevap üçlüsü sınır dışında kalıp bir daha denenmiyordu (`raporlar/H1_hucre_siniri_izleme.md`). Geliştirme verisinde geçici kopyayla ölçüldü: eğitim 2000/2000, uzunluk 1980 → 1994, öteki bölmeler aynı.
+- **Ön kayıt:** ÖK-003 §3.5 "diğer bütün ayarlar aynen kalır" dediği için ÖK-003 ekinde ayrıca yazıldı.
+- **Onaylayan:** kullanıcı.

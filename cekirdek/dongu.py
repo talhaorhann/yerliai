@@ -1,7 +1,7 @@
 """sistem.md §3, §5; K-016, K-017, V-032, V-034: çekirdek döngüsü (eşzamanlı turlar) ve durma.
 
-Her turda bütün hücreler turun başındaki havuza yarı-naif bakar. Hücre başına en iyi `hucre_yazma_siniri`
-eşleşme, sonra tur bütçesi uygulanır; atılanlar günlüğe yazılır. Yazmalar (hücre sırası, kayıt kimlikleri)
+Her turda bütün hücreler turun başındaki havuza yarı-naif bakar. Önce kopya kuralı C süzer (K-031), sonra
+hücre başına en iyi `hucre_yazma_siniri` eşleşme, sonra tur bütçesi uygulanır; atılanlar günlüğe yazılır. Yazmalar (hücre sırası, kayıt kimlikleri)
 sırasıyla yapılır. Durma: yeni kayıt yok (sorgu cevaplıysa ya da sorgu yoksa), tur sınırı, ya da ikinci
 impasse. İlk impasse'te bütün θ'lar bir kez `impasse_carpani` ile çarpılır ve tüm havuz yeniden denenir.
 τ ile durma kalibrasyon kümesi oluşana kadar kapalıdır (K-017).
@@ -9,6 +9,8 @@ Günlük destek/çelişki defteridir (V-035): her ateşleme, yazma (kök kümesi
 olayları sırası korunarak tur sonunda tek seferde yazılır.
 Kopya kuralı (K-028, V-046): aynı üçlünün yeni kökenli kaydı yalnız yeni dayanak getiriyorsa yazılır (`yeni_dayanak_mi`);
 getirmeyen aday yazılmaz ve tur başına sayısı `ESLESME_ATILDI` (neden: dayanak_yok) olarak kaydedilir.
+K-031 (V-051): C hücre sınırından önce uygulanır, böylece sınır yalnız yazılabilecek adayları sayar (§3 "≤8 yazma");
+yazma sırasında C bir kez daha, bu turda yazılanlarla birlikte denetlenir.
 """
 from dataclasses import dataclass
 
@@ -50,8 +52,9 @@ def _skor(eslesme):
     return min(eslesme.afiniteler) * eslesme.guven
 
 
-def _tur_adaylari(hucreler, havuz, yeni, kk, prm, carpan, olaylar, tur):
-    adaylar = []
+def _tur_adaylari(hucreler, havuz, yeni, kk, prm, carpan, olaylar, tur, ispat_mi):
+    """Turun adayları ve C'nin (turun başındaki havuza göre) baştan attığı aday sayısı."""
+    adaylar, dayanaksiz = [], 0
     tablo = afinite_tablosu(kk, havuz, [h.gen for hucre in hucreler for h in hucre.halkalar])  # V-042: tur başına bir kez
     for sira, hucre in enumerate(hucreler):
         es = sorted(eslesmeler(hucre, havuz, yeni, kk, carpan, tablo), key=lambda e: (-_skor(e), e.baglama.kayitlar))
@@ -59,6 +62,9 @@ def _tur_adaylari(hucreler, havuz, yeni, kk, prm, carpan, olaylar, tur):
             olaylar.append((ATESLEME, KAYNAK, {"tur": tur, "hucre": hucre.kimlik, "kayitlar": list(e.baglama.kayitlar),
                                                "uclu": list(e.uclu), "afiniteler": list(e.afiniteler),
                                                "guven": e.guven}))
+        yazilabilir = [e for e in es if yeni_dayanak_mi(havuz, e.uclu, e.baglama.kayitlar, ispat_mi)]  # K-031
+        dayanaksiz += len(es) - len(yazilabilir)
+        es = yazilabilir
         if len(es) > prm.hucre_yazma_siniri:
             olaylar.append(("ESLESME_ATILDI", KAYNAK, {"tur": tur, "neden": "hucre_siniri", "hucre": hucre.kimlik,
                                                         "sayi": len(es) - prm.hucre_yazma_siniri}))
@@ -67,7 +73,7 @@ def _tur_adaylari(hucreler, havuz, yeni, kk, prm, carpan, olaylar, tur):
         adaylar.sort(key=lambda x: (-_skor(x[1]), x[0], x[1].baglama.kayitlar))
         olaylar.append(("ESLESME_ATILDI", KAYNAK, {"tur": tur, "neden": "butce", "sayi": len(adaylar) - prm.butce}))
         adaylar = adaylar[:prm.butce]
-    return sorted(adaylar, key=lambda x: (x[0], x[1].baglama.kayitlar))
+    return sorted(adaylar, key=lambda x: (x[0], x[1].baglama.kayitlar)), dayanaksiz
 
 
 def yeni_dayanak_mi(havuz, uclu, ebeveynler, ispat_mi):
@@ -83,8 +89,8 @@ def yeni_dayanak_mi(havuz, uclu, ebeveynler, ispat_mi):
     return True
 
 
-def _yaz(hucreler, havuz, adaylar, olaylar, tur, gunluk):
-    yazilanlar, dayanaksiz = [], 0
+def _yaz(hucreler, havuz, adaylar, olaylar, tur, gunluk, dayanaksiz=0):
+    yazilanlar = []
     for sira, e in adaylar:
         if not yeni_dayanak_mi(havuz, e.uclu, e.baglama.kayitlar,
                                lambda kimlik: gunluk.yazildi_mi(kimlik) or kimlik in yazilanlar):
@@ -118,8 +124,8 @@ def calistir(hucreler, havuz, kk, prm, gunluk, *, iliski_semasi, sorgu=None):
     while True:
         tur += 1
         olaylar = []
-        adaylar = _tur_adaylari(hucreler, havuz, yeni, kk, prm, carpan, olaylar, tur)
-        yazilanlar = _yaz(hucreler, havuz, adaylar, olaylar, tur, gunluk)
+        adaylar, dayanaksiz = _tur_adaylari(hucreler, havuz, yeni, kk, prm, carpan, olaylar, tur, gunluk.yazildi_mi)
+        yazilanlar = _yaz(hucreler, havuz, adaylar, olaylar, tur, gunluk, dayanaksiz)
         gunluk.ekle_toplu(olaylar)
         gunluk.celiski_denetle(havuz, iliski_semasi, tur)
         toplam += len(yazilanlar)

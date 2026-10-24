@@ -119,6 +119,16 @@ MUTASYONLAR = [
      "tur = next(t for t in sorted(tur_adaylari, reverse=True)"),
     ("sınır ölçümü belleksiz", SIN, "        if (tur, havuz) not in olcum:", "        if True:"),
     ("sınır ölçümünde tur uygulanmıyor", SIN, "tur_siniri=tur, kapasite=havuz)", "kapasite=havuz)"),
+    # K-031: C hücre sınırından önce
+    ("C yine hücre sınırından sonra", "cekirdek/dongu.py",
+     "        yazilabilir = [e for e in es if yeni_dayanak_mi(havuz, e.uclu, e.baglama.kayitlar, ispat_mi)]  # K-031",
+     "        yazilabilir = es  # K-031"),
+    ("ön süzgecin attığı sayılmıyor", "cekirdek/dongu.py", "        dayanaksiz += len(es) - len(yazilabilir)",
+     "        dayanaksiz += 0"),
+    # ÖK-003 §3.4: koşu parametreleri
+    ("geliştirme de seçilen sınırla", H1, "    if kip == KIP_GELISTIRME:\n        return prm",
+     "    if False:\n        return prm"),
+    ("kapı seçilen turu kullanmıyor", H1, 'tur_siniri=ayar.deger("h1_tur_siniri"), ', ""),
     # K-030: tohum değişimi
     ("tohum değişimi sınırsız", H1, "                if len(degisimler) == sinir:", "                if False:"),
     ("duran tohum yerine geçmiyor", H1, "                tohum = siradaki\n", "                pass\n"),

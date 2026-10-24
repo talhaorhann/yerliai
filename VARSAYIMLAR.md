@@ -552,4 +552,12 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Eski verideki doğru sayıları: eğitim 2000 → 2000, uzunluk 1980 → 1994, önsel-ters 2000 → 2000, zincir-bozuk 2000 → 2000, yön ters 573 → 573.
   - Kalan 6 uzunluk hatasının hepsi tur 8'de, havuz dolu (128); ÖK-003 §3.4 sınır seçiminin ölçeceği türden.
   - Ayrıntı: `raporlar/H1_hucre_siniri_izleme.md`.
-- **Felsefi:** evet (çekirdek davranışı; kullanıcı "önce bana sor" dedi). ÖK-003 §3.5 "diğer bütün ayarlar aynen kalır" der, bu yüzden değişiklik ÖK-003 ekinde ayrıca onay ister. **Durum:** AÇIK, kullanıcı kararı bekleniyor.
+- **Felsefi:** evet (çekirdek davranışı; kullanıcı "önce bana sor" dedi). ÖK-003 §3.5 "diğer bütün ayarlar aynen kalır" der, bu yüzden değişiklik ÖK-003 ekinde ayrıca onay ister. **Durum:** KARARA BAĞLANDI (K-031, 2026-10-24); uygulama `cekirdek/dongu.py`, testler `testler/test_a5_sinir_c.py`.
+
+## V-052: Önsel-ters bölmesinin ters ağırlık tasarımı (ayrı konu, V-050'den)
+- **Bölüm:** K-010, V-022 (q ∝ 1/p, kabul olasılığı (p_en_az/p)²), K-008.
+- **Konu:** Ters ağırlık, 400 doğal örnekte en az görülen birkaç cevaba yığılıyor (ör. tohum 8'de 0 kez görülen damat, ana kümenin %28'i). Bu cevapların olgularında belirgin ilişki adları var. Kelime çantası kapısı bu bölmede sınıra yakın dolaşıyor: 11 tohumda doğruluk − şans ortalaması +0,014, en çok +0,070.
+  - Ayırma dedektörünü q'dan eğitmek bunu düzeltmedi (V-050).
+  - Olası yönler, ölçülmedi: daha yumuşak ters ağırlık (ör. q ∝ 1/√p), ağırlığa üst sınır, ya da p'yi daha büyük doğal örnekten kestirmek.
+- **Durum:** AÇIK, ayrı konu. Bu H1 yeniden denemesini etkilemez: üretilmiş tohumlar kapıdan geçti, K-030 geçerli. Tasarım değişikliği kâhin kararıdır, kullanıcıya gelir.
+- **Felsefi:** evet (kâhin).
