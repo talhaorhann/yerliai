@@ -120,3 +120,48 @@ Bu deney kuralı **bulmayı** değil, verilen kuralla **doğru yürütmeyi** sı
 - `tohum_10/ozet.json`: `7a331cee31840531547d7b8cf988921c364e66318bb87fcd8baceabdc9981c19`
 - `tohum_11/ozet.json`: `b2f57c2be8821982a892ff1abb311bd3c536e2a9eda3a70443c07100cb93c863`
 
+## ÖK-003 (2026-10-24): H1 yeniden deneme ön kaydı (K-029)
+
+**Durum:** ONAYLI (kullanıcı, 2026-10-24). Bu metin yeni bölümler üretilmeden ve yeni koşudan önce yazıldı. Seçilen sınırlar, son DNA ve yeni bölümlerin özetleri koşudan önce "ÖK-003 eki"ne yazılır; ek dışındaki metin değişmez.
+
+### 1. İlk koşunun sonucu (silinmez)
+
+- **Tarih:** 2026-10-24. **Ön kayıt:** ÖK-002 (+ ÖK-002a havuz 128, ÖK-002b kopya kuralı C). **Kod:** `91591f3`. **DNA:** `624b073c…` (170 kural).
+- **Sonuç: KAPI GEÇMEDİ.** Önsel-ters 2000/2000, zincir-bozuk 2000/2000, uzunluk 1980/2000, yön ters 573/2000. Eğitim (geliştirme) 2000/2000. Bütün hatalar "bilmiyorum"; yanlış ilişki 0.
+- **Nedenler (ölçüldü):**
+  - Yön ters: 1427 hatanın 1426'sında cevabı belirleyen kişinin cinsiyetine olgularda (doğrudan ya da eş üzerinden) kanıt yok. Büyük olasılıkla üreteç cevabı olgulardan çıkarılamayan sorular üretti; V-017 bu şartı koymuyordu.
+  - Uzunluk: 20 hatanın 3'ü tur sınırı (8), 3'ü havuz (128) yüzünden; 14'ü sınırdan bağımsız (büyük olasılıkla DNA eksiği).
+- **Kayıtlar:** `raporlar/H1_SONUC.md`, `raporlar/H1_kapi_RAPOR.md`, `raporlar/H1_kapi_ozet.json`, `raporlar/H1_altin_RAPOR.md`, `raporlar/H1_ilk_kosu_uzunluk_14_hata.md`. Bunlar silinmez ve değiştirilmez.
+
+### 2. Hipotez
+
+ÖK-002 §1 ile aynı: elle yazılmış doğru DNA verilince LLM'siz çekirdek soruları kâhine bakmadan doğru cevaplar, zincir bozuksa "bilmiyorum" der.
+
+### 3. Değişiklikler
+
+1. **Üreteç: "cevap olgulardan çıkarılabilir" şartı, çekirdekten bağımsız.** Her aday için ağaç yapısı (ebeveyn ve eş bağları) sabit tutulur. Olguların izin verdiği bütün cinsiyet atamaları denenir: her olgu doğru kalmalı ve eşler karşı cinsten olmalı. Bu atamaların hepsinde sorgu çiftinin ilişkisi gerçek cevapla aynı değilse aday atılır. Çekirdek bu seçimde hiç çalıştırılmaz; soru, çekirdeğin cevap verip vermediğine bakılarak seçilmez. Zincir-bozuk bölümler (beklenen cevap "bilmiyorum") bu denetime girmez. Atılan aday sayısı bölme başına raporlanır. Varsayım: farklı kişi numaraları farklı kişilerdir; yapı sabittir, yalnız cinsiyet değişir.
+2. **Tohumlar:** kapı koşusu yeni tohumlarla, 12, 13, 14, 15, 16. İlk koşunun tohumları (7–11) geliştirme verisi olur.
+3. **Geliştirme verisi:** ilk koşunun bütün bölümleri (eğitim ve dört test bölmesi, tohum 7–11). DNA'yı danışman bunlara bakarak düzeltebilir; kodlayıcı düzeltmez (K-024). Son DNA kullanıcı onayından sonra eski eğitim bölmesinde %100 olmalı (ÖK-002 §3 gibi). Eski test bölmelerinde %100 şartı yok; onlar DNA düzeltmesi ve sınır seçimi içindir. Yeni tohumların eğitim bölmesi ayrı satırda raporlanır, kapıya girmez, DNA geliştirmede kullanılmaz.
+4. **Tur ve havuz sınırları:** son DNA ile, geliştirme verisinin dört eski test bölmesinde (8000 bölüm), önceden belirlenen şu kuralla seçilir:
+   - Adaylar: tur {8, 12, 16, 24, 32}, havuz {128, 256, 512, 1024}.
+   - Önce havuz 1024'te, doğru sayısı tur 32'dekine eşit olan en küçük tur seçilir. Sonra o turla, doğru sayısı havuz 1024'tekine eşit olan en küçük havuz seçilir.
+   - Seçilen değerler ve ölçüm tablosu ÖK-003 ekine yazılır ve yeni koşudan önce kilitlenir. sistem.md §5 (8 tur) ve §2 (64) değerlerinden sapma kullanıcı kararıdır (K-029).
+5. Kopya kuralı C (ÖK-002b), θ = 0,5, güvenilirlik 1 ve diğer bütün ayarlar aynen kalır.
+
+### 4. Bölmeler, ölçütler, kapı
+
+ÖK-002 §4–§6 ile aynı. Kapı: kapıya giren her bölmede (uzunluk, yön ters, önsel-ters, zincir-bozuk) ve her yeni tohumda %100, tolerans yok. Yeniden adlandırma H2'ye kalır. Müdahale raporlanır, kapıya girmez; "sınanamadı" ayrı sayılır. Altın küme ayrı satır.
+
+### 5. Sıra
+
+1. Üreteç denetimi testle eklenir.
+2. Yeni bölümler (tohum 12–16) üretilir; manifest özetleri ÖK-003 ekine yazılır.
+3. Danışman DNA'yı (gerekirse) düzeltir; kullanıcı onaylar; eski eğitim bölmesinde %100.
+4. Sınırlar §3.4'teki kuralla seçilir.
+5. ÖK-003 eki: config, son DNA, yeni manifestler, seçilen sınırlar ve ölçüm tablosu.
+6. Kapı bölmeleri yeni tohumlarla bir kez koşar; sonra altın küme.
+
+### 6. Kapı geçmezse
+
+Ayarlar ve DNA bu sonuca bakılarak değiştirilmez. Rapor kullanıcıya gider, karar kullanıcınındır.
+

@@ -150,3 +150,11 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
 - **Karar:** Aynı üçlünün yeni kökenli kaydı yalnız **yeni dayanak** getiriyorsa yazılır. Adayın dayanağı = ebeveynlerinin kök kümelerinin (dayandığı olguların) birleşimi. Aynı üçlünün havuzdaki canlı, izli (defterde YAZMA izi olan ya da bu turda döngünün yazdığı) bir çıkarımının kök kümesi bu dayanağın alt kümesiyse aday yeni dayanak getirmez, yazılmaz; tur başına sayısı `ESLESME_ATILDI` (dayanak_yok) olarak kaydedilir. Epitoplar ve izsiz kayıtlar ispat sayılmaz.
 - **Gerekçe:** Eğitim bölmesi ölçümü (tohum 7, ilk 60 bölüm; test bölmeleri açılmadı): bugünkü hâl 33/60, A 55/60, B 60/60, C 60/60. B bağımsız ikinci ispatı da sildiği için müdahale testinin (a) ve (b) kısımlarını anlamsızlaştırıyor; C kök-ayrık ispatları koruyor.
 - **Onaylayan:** kullanıcı.
+
+## K-029 (2026-10-24): H1 yeniden deneme (ÖK-003)
+- **Karar:** İlk H1 koşusu (ÖK-002) kapıyı geçmedi; sonuç ve raporları silinmez. Yeniden deneme ÖK-003 ile yapılır. Kullanıcının üç şartı:
+  1. Üreteçte "cevap olgulardan çıkarılabilir" denetimi çekirdekten bağımsızdır: olguların izin verdiği bütün cinsiyet atamalarında aynı cevap çıkmalı. Soru, çekirdeğin cevap verip vermediğine bakılarak seçilmez.
+  2. ÖK-003 ilk koşunun sonucunu, nedenlerini ve tarihini açıkça içerir.
+  3. Tur ve havuz sınırları eski test bölmelerinde (artık geliştirme verisi) belirlenir, yeni koşudan önce kilitlenir. sistem.md §5 (8 tur) ve §2 (64) değerlerinden sapma bu karara dayanır.
+- **Ek:** Danışman, ilk koşunun 14 sınırdan bağımsız uzunluk hatasını (olgular, soru, cevap) görür (`raporlar/H1_ilk_kosu_uzunluk_14_hata.md`). Eski bölümler artık geliştirme verisidir.
+- **Onaylayan:** kullanıcı.
