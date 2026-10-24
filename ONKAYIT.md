@@ -165,3 +165,38 @@ Bu deney kuralı **bulmayı** değil, verilen kuralla **doğru yürütmeyi** sı
 
 Ayarlar ve DNA bu sonuca bakılarak değiştirilmez. Rapor kullanıcıya gider, karar kullanıcınındır.
 
+
+## ÖK-003 eki
+
+Bu ek ÖK-003 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetlerin hepsi bu başlığın altında yazılı olmalı: config, son DNA, yeni manifestler ve tohum kaydı. Biri eksikse kapı koşmaz (`degerlendirme/h1.py` `on_kayit_denetle`).
+
+### 1. Tohum değişimi (K-030)
+
+- **2026-10-24:** Tohum 15'in üretimi önsel-ters bölmesinde kısa yol kapısında (K-008) durdu: "kelime çantası dedektörü 0,250 > şans 0,180 + 0,05".
+  - Çıkarılabilirlik denetimi (K-029) bu bölmede aday atmıyor; denetim kapalıyken de aynı sonuç çıkıyor (V-050).
+  - Çekirdek tohum 15'te hiç koşmadı.
+- **Kural (K-030, kullanıcı onayı 2026-10-24):** yerine kullanılmamış ilk tohum geçer; eşik gevşetilmez; en çok 3 değişim.
+- **Uygulama:** Tohum 15 yerine 17 geçti; kullanılan değişim hakkı 1/3. Kullanılan tohumlar: 12, 13, 14, 17, 16.
+
+### 2. Yeni bölümler (§5.2)
+
+- **Üretim:** `.venv/bin/python -m degerlendirme.h1 uret uretilen/h1_v2`, kod commit `de8ca8d`.
+  - Üreteç ve çıkarılabilirlik denetimi `00022e0`'dakiyle aynı.
+  - Tohum 12–14'ün manifestleri, tohum değişimi kodundan önceki üretimle bayt bayt aynı çıktı.
+- **Çıkarılamadığı için atılan aday:** yalnız yön ters bölmesinde; öteki bölmelerde 0. Tohum 12: 2388, 13: 2283, 14: 2180, 17: 2243, 16: 2243.
+- **Özetler (sha256):**
+  - `tohumlar.json`: `d6c0cd971c11b9c18c79a5bcf0131205b60a6f230a562b92821b97ba27d2d4c5`
+  - `tohum_12/ozet.json`: `96937c495cdb8a4215b98a84a399c2b9ff8c5d8ddec47c932b760684509d5855`
+  - `tohum_13/ozet.json`: `d01792de370d294eadf960c356ac5ef31c58c693b349b17d67d6a4922c9331c0`
+  - `tohum_14/ozet.json`: `eb6a1b41aadba4d16f2ff5dfcb9f2a32ec6302187f89162966d35a34b6e41669`
+  - `tohum_16/ozet.json`: `d57357e830f244d3eacf8740fedad8d8295cfdde0eead1a247ea7206737ee19b`
+  - `tohum_17/ozet.json`: `94d2026230dc9dfc6279b5842eff30dcb1ffdc0af1578d35e1a6cc5209474616`
+
+### 3. İlk koşunun 14 uzunluk hatası: nedenin düzeltilmesi (2026-10-24)
+
+- §1'de bu 14 hata için "büyük olasılıkla DNA eksiği" yazıyor. Bu yanlıştı.
+  - Danışman 14'ünü de kendi motoruyla sınırsız kapanışta çözdü.
+  - Kodlayıcının izlemesine göre 14'ünün de nedeni, hücre başına tur başına yazma sınırı (8). Sınır C kuralından önce kesiyor (V-051, `raporlar/H1_hucre_siniri_izleme.md`).
+  - İlk koşunun teşhis aracı bu sınırı gevşetmediği için onlara "sınırdan bağımsız" demişti (V-047).
+- §1'in metni değiştirilmedi.
+- Çekirdekte bir değişiklik yapılacaksa kullanıcının kararını bekler; karar bu eke tarihiyle yazılır.
