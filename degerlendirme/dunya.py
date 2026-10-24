@@ -128,10 +128,75 @@ class Dunya:
     def iliski(self, a, b, tanimlar):
         return self.iliskiler(a, tanimlar).get(b)
 
+    def komsular(self, kisi):
+        return tuple(self.ebeveynler.get(kisi, ())) + tuple(self.cocuklar.get(kisi, ())) + \
+            ((self.es[kisi],) if kisi in self.es else ())
+
+    def yol_kisileri(self, a, b, en_cok):
+        """a'dan b'ye en çok `en_cok` adımlı, kişi tekrarlamayan bütün yürüyüşlerdeki kişiler (tip gözetilmez)."""
+        sonuc = set()
+
+        def yuru(kisi, yol):
+            if kisi == b and len(yol) > 1:
+                sonuc.update(yol)
+                return
+            if len(yol) > en_cok:
+                return
+            for s in self.komsular(kisi):
+                if s not in yol:
+                    yuru(s, yol + (s,))
+
+        yuru(a, (a,))
+        return frozenset(sonuc)
+
     def olgu_baglari(self, tanimlar):
         """Her kişiden doğrudan bağlarla (olgu ilişkileri) ulaşılan (kişi, ilişki) listesi, sıralı."""
         return {a: tuple(self.iliskiler(a, tanimlar, tanimlar.olgu_iliskileri).items())
                 for a in range(self.kisi_sayisi)}
+
+
+def cikarilabilir_mi(dunya, tanimlar, olgular, sorgu):
+    """K-029, ÖK-003 §3.1, V-048: ağaç yapısı sabitken, olguların izin verdiği bütün cinsiyet atamalarında (her olgu
+    doğru kalır, eşler karşı cinstendir) sorgu çiftinin ilişkisi aynı mı. Çekirdek kullanılmaz.
+
+    Evli çiftler birlikte çevrilir (karşı cins şartı); evli olmayan kişi tek başına çevrilir. Yalnız olguların ve
+    sorgunun yürüyüşlerinde geçen kişilerin bileşenleri değişken sayılır (başka kişinin tipi hiçbir sonucu
+    etkilemez). Geri izlemeyle aranır: olguyu bozan dal budanır, cevabı değişen ilk atamada aranma biter."""
+    a, b = sorgu
+
+    def bilesen(p):
+        return min(p, dunya.es[p]) if p in dunya.es else p
+
+    en_uzun = max(len(s) for secenekler in tanimlar.secenekler.values() for s in secenekler)
+    olgu_en_uzun = max(len(s) for r in tanimlar.olgu_iliskileri for s in tanimlar.secenekler[r])
+    olgu_bag = [(x, r, y, frozenset(map(bilesen, dunya.yol_kisileri(x, y, olgu_en_uzun)))) for x, r, y in olgular]
+    degiskenler = sorted(frozenset(map(bilesen, dunya.yol_kisileri(a, b, en_uzun))).union(*(d for *_, d in olgu_bag)))
+    sira = {c: i for i, c in enumerate(degiskenler)}
+
+    def kur(cevrilen):
+        return Dunya([t ^ (bilesen(p) in cevrilen) for p, t in enumerate(dunya.tip)], dunya.ebeveynler, dunya.es)
+
+    def olgu_dogru(w, x, r, y):
+        return w.iliskiler(x, tanimlar, tanimlar.olgu_iliskileri).get(y) == r
+
+    if not all(olgu_dogru(dunya, x, r, y) for x, r, y, _ in olgu_bag):
+        raise ValueError("olgular gerçek dünyaya uymuyor")
+    hedef = dunya.iliski(a, b, tanimlar)
+    # her olgu, bağımlı olduğu son değişken atanınca denetlenir
+    denetim = {}
+    for x, r, y, d in olgu_bag:
+        denetim.setdefault(max(sira[c] for c in d), []).append((x, r, y))
+
+    def ara(i, cevrilen):
+        if i:
+            w = kur(cevrilen)
+            if not all(olgu_dogru(w, x, r, y) for x, r, y in denetim.get(i - 1, ())):
+                return True  # olguların izin vermediği atama: karşı örnek değil
+        if i == len(degiskenler):
+            return kur(cevrilen).iliski(a, b, tanimlar) == hedef
+        return ara(i + 1, cevrilen) and ara(i + 1, cevrilen | {degiskenler[i]})
+
+    return ara(0, frozenset())
 
 
 ADIM_METNI = {YUKARI: "ebeveyni", ASAGI: "çocuğu", ES: "evlendiği kişi"}  # V-019: okunur gösterim

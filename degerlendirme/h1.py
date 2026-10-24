@@ -147,14 +147,14 @@ def kapi_karari(ozet, kapi_bolmeleri, tohumlar, beklenen_sayi):
     return not nedenler, nedenler
 
 
-def on_kayit_denetle(metin, gerekli):
-    """Gerekli her özet ÖK-002 ekinde (EK_BASLIGI'ndan sonra) yazılı olmalı (ÖK-002 §2, §3, §9)."""
-    if EK_BASLIGI not in metin:
-        raise OnKayitHatasi("ÖK-002 eki bulunamadı")
-    ek = metin.split(EK_BASLIGI, 1)[1]
+def on_kayit_denetle(metin, gerekli, ek_basligi=EK_BASLIGI):
+    """Gerekli her özet ön kayıt ekinde (`ek_basligi`ndan sonra) yazılı olmalı (ÖK-002 §2, §3, §9; ÖK-003 §5)."""
+    if ek_basligi not in metin:
+        raise OnKayitHatasi(f"ön kayıt eki bulunamadı: {ek_basligi}")
+    ek = metin.split(ek_basligi, 1)[1]
     eksik = sorted(ad for ad, o in gerekli.items() if o not in ek)
     if eksik:
-        raise OnKayitHatasi("ÖK-002 ekinde özeti yazılı olmayanlar: " + ", ".join(eksik))
+        raise OnKayitHatasi("ön kayıt ekinde özeti yazılı olmayanlar: " + ", ".join(eksik))
 
 
 def _ozet(baytlar, algoritma):
@@ -294,19 +294,19 @@ def _uret(kok, klasor):
     tanimlar = tanimlar_yukle(kok / "degerlendirme" / "veri" / "tanimlar_v1.json",
                               kok / "degerlendirme" / "veri" / "tanimlar_v1.schema.json", sema)
     for t in ayar.deger("h1_tohumlar"):
-        prm = dataclasses.replace(Parametreler.ayardan(ayar), tohum=t)
-        hepsini_uret(Path(klasor) / f"tohum_{t}", prm, tanimlar, sema, kok / "sema" / "iliskiler_v1.json",
-                     kok / "kilit" / "kilitli_kumeler.json", kok)
-        print(f"tohum {t}: üretildi")
+        prm = dataclasses.replace(Parametreler.ayardan(ayar), tohum=t, cikarilabilirlik=ayar.deger("h1_cikarilabilirlik"))
+        manifest = hepsini_uret(Path(klasor) / f"tohum_{t}", prm, tanimlar, sema, kok / "sema" / "iliskiler_v1.json",
+                                kok / "kilit" / "kilitli_kumeler.json", kok)
+        print(f"tohum {t}: üretildi; çıkarılamadığı için atılan aday: {manifest.get('cikarilamaz_atilan')}")
 
 
 def _kos(kok, klasor, dna_yolu, cikis, kapi_mi):
     ayar, sema, gunluk = _ortam(kok)
-    tohumlar = ayar.deger("h1_tohumlar")
+    tohumlar = ayar.deger("h1_tohumlar" if kapi_mi else "h1_gelistirme_tohumlari")  # ÖK-003 §3.2–§3.3
     bolmeler = ayar.deger("h1_kapi_bolmeleri" if kapi_mi else "h1_gelistirme_bolmeleri")
     if kapi_mi:
         on_kayit_denetle((kok / "ONKAYIT.md").read_text(encoding="utf-8"),
-                         gerekli_ozetler(kok, klasor, dna_yolu, tohumlar, gunluk["algoritma"]))
+                         gerekli_ozetler(kok, klasor, dna_yolu, tohumlar, gunluk["algoritma"]), ayar.deger("h1_on_kayit_eki"))
     hucreler = _dna(kok, dna_yolu, sema)
     kk = HizliKodKitabi(ayar.deger("vektor_tohum"), ayar.deger("vektor_boyutu"))
     prm = CekirdekParametreleri.ayardan(ayar)
@@ -337,7 +337,7 @@ def _altin(kok, dna_yolu, cikis):
     from degerlendirme.kilitli_kumeler import kilitli_ozetler
     ayar, sema, gunluk = _ortam(kok)
     on_kayit_denetle((kok / "ONKAYIT.md").read_text(encoding="utf-8"),  # DNA altın kümeye bakılarak düzeltilemez
-                     gerekli_ozetler(kok, None, dna_yolu, [], gunluk["algoritma"]))
+                     gerekli_ozetler(kok, None, dna_yolu, [], gunluk["algoritma"]), ayar.deger("h1_on_kayit_eki"))
     klasor = kok / "degerlendirme" / "altin"
     sorular = _jsonl_oku((klasor / "altin_sorular.jsonl").read_bytes())
     uretec = _jsonl_oku((klasor / "uretec_cevaplari.jsonl").read_bytes())

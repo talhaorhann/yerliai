@@ -510,3 +510,13 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 - **Uygulanan:** `degerlendirme/h1_inceleme.py`. Hatalı her bölüm sınırlar gevşetilerek yeniden koşturulur: tur sınırı ×4, havuz ×32, ikisi birden. Cevap doğrulaşırsa "tur yetmedi" / "havuz yetmedi" / "ikisi yetmedi" (§6 sınıf 1); hiçbirinde doğrulaşmazsa "sınırdan bağımsız" (§6 sınıf 2–4, elle incelenir). Önce olağan ayarla yeniden koşulur ve aynı cevap çıkmazsa durur (belirlenim denetimi).
 - **Kısıt:** Yalnız teşhistir; kapı sonucu, ayarlar ve DNA buna bakılarak değişmez. Rapor test cevapları içerir.
 - **Felsefi:** hayır. **Durum:** ONAYSIZ.
+
+## V-048: Çıkarılabilirlik denetiminin uygulanışı (K-029, ÖK-003 §3.1)
+- **Uygulanan:** `degerlendirme/dunya.py` `cikarilabilir_mi`; üreteçte `Parametreler.cikarilabilirlik` (varsayılan kapalı, `uretec_cikarilabilirlik`; H1 yeniden denemesinde açık, `h1_cikarilabilirlik`).
+  - Ağaç yapısı sabit. Eş çiftleri birlikte çevrilir (eşler karşı cinsten); evli olmayan kişi tek başına çevrilir. Dünyada başka cinsiyet kuralı yoktur (V-017).
+  - Değişkenler: olguların ve sorgunun yürüyüşlerinde (en uzun tanım kadar adım, kişi tekrarsız) geçen kişilerin bileşenleri. Başka kişinin cinsiyeti hiçbir olguyu ya da cevabı etkilemez.
+  - Geri izleme: olguyu bozan atama budanır; cevabın değiştiği ilk atamada denetim "çıkarılamaz" der. Önce olguların gerçek dünyaya uyduğu denetlenir.
+  - Denetim yalnız aday seçiminin en sonunda yapılır; çekirdek hiç çalıştırılmaz. Zincir-bozuk adaylar denetime girmez. Atılan adaylar bölme başına sayılır ve manifestte (`cikarilamaz_atilan`) yazılır.
+  - Denetim kapalıyken üretecin çıktısı eskisiyle bayt bayt aynıdır (küçük parametrelerde testle; ilk koşunun tohum 7 verisinde manifest özetiyle doğrulandı).
+- **Doğrulama:** `testler/test_a5_cikarilabilirlik.py`: elle kurulmuş ağaçta uç durumlar; küçük rastgele ağaçlarda bütün atamaları deneyen kaba kuvvetle aynı sonuç (31 durum); çekirdek ve plazma çağrılmıyor; bozuk aday denetime girmiyor.
+- **Felsefi:** K-029 ile onaylı; buradaki uygulama ayrıntısı. **Durum:** ONAYSIZ (ayrıntı).

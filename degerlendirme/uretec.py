@@ -17,7 +17,7 @@ from cekirdek.altyapi.ayar import ayar_yukle
 from cekirdek.altyapi.kanonik import kanonik_json, ozet
 from cekirdek.bilgi_tabani import uclu_kaydi
 from cekirdek.iliski_semasi import iliski_semasi_yukle
-from degerlendirme.dunya import Dunya, tanimlar_yukle
+from degerlendirme.dunya import Dunya, cikarilabilir_mi, tanimlar_yukle
 from degerlendirme.kilitli_kumeler import KilitliKumeHatasi, kesisim_denetle, kilitli_ozetler
 from degerlendirme.kisa_yol import NaiveBayes, kapi_denetle, ozellikler
 
@@ -51,6 +51,7 @@ class Parametreler:
     laplace: float
     sans_payi: float
     algoritma: str
+    cikarilabilirlik: bool = False  # K-029, V-048: cevap olgulardan çıkarılabilir olmalı (H1 yeniden denemesi)
 
     @classmethod
     def ayardan(cls, ayar):
@@ -59,7 +60,7 @@ class Parametreler:
                    d("uretec_deneme_siniri"), d("dikkat_dagitici_olgu_sayisi"), d("yeniden_ad_uzunlugu"),
                    tuple(d("egitim_k")), tuple(d("test_k")), d("ana_kume_sayisi"), d("aday_siniri"),
                    d("dedektor_egitim_sayisi"), d("dedektor_laplace"), d("kisa_yol_sans_payi"),
-                   d("hash_algoritmasi"))
+                   d("hash_algoritmasi"), d("uretec_cikarilabilirlik"))
 
 
 @dataclasses.dataclass
@@ -113,7 +114,7 @@ def _dikkat_dagiticilar(rng, baglar, zincir, kullanilan, adet):
     return secilen
 
 
-def aday_uret(rng, tanimlar, prm, bolme, ad_esleme=None, kume="ana"):
+def aday_uret(rng, tanimlar, prm, bolme, ad_esleme=None, kume="ana", sayac=None):
     if bolme not in BOLMELER:
         raise ValueError(f"bilinmeyen bölme: {bolme}")
     k_araligi = prm.test_k if bolme == "uzunluk" else prm.egitim_k
@@ -145,6 +146,10 @@ def aday_uret(rng, tanimlar, prm, bolme, ad_esleme=None, kume="ana"):
         kisiler = sorted({x for x, _r, y in hepsi} | {y for x, _r, y in hepsi})
         if sorgu[0] not in kisiler or sorgu[1] not in kisiler:
             continue  # V-017: sorgulanan kişi olgularda hiç geçmezse kolay bir kısa yol olur
+        if prm.cikarilabilirlik and not bozuk and not cikarilabilir_mi(dunya, tanimlar, hepsi, sorgu):
+            if sayac is not None:
+                sayac["cikarilamaz"] += 1  # K-029: cevap olgulardan çıkarılamıyor, aday atılır
+            continue
         esleme = dict(zip(kisiler, rng.sample(range(dunya.kisi_sayisi), len(kisiler))))
         rng.shuffle(hepsi)
         adla = (lambda r: ad_esleme[r]) if ad_esleme else (lambda r: r)
@@ -195,17 +200,18 @@ def bolme_uret(bolme, prm, tanimlar, iliski_semasi, sema_yolu, yasakli=frozenset
     rng = random.Random(f"{prm.tohum}:{bolme}")
     esleme = ad_eslemesi(rng, iliski_semasi, prm) if bolme == "yeniden_adlandirma" else None
     sonuc = {k: [] for k in KUMELER}
+    sayac = Counter()
     if bolme == "zincir_bozuk":
         # V-018: kapı, bozuk bölümler ile aynı dağılımdan bozulmamış bölümlerin karışımında ölçülür
         karisim = []
         for _ in range(prm.ana_kume_sayisi):
-            karisim.append(aday_uret(rng, tanimlar, prm, "egitim", kume="dedektor"))
-            bozuk = aday_uret(rng, tanimlar, prm, bolme)
+            karisim.append(aday_uret(rng, tanimlar, prm, "egitim", kume="dedektor", sayac=sayac))
+            bozuk = aday_uret(rng, tanimlar, prm, bolme, sayac=sayac)
             karisim.append(bozuk)
             sonuc["bozuk"].append(bozuk)
         sonuc["kapi"] = kapi_denetle([a.bolum for a in karisim], [a.cevap for a in karisim], prm.laplace, prm.sans_payi)
     else:
-        sonuc["dedektor"] = [aday_uret(rng, tanimlar, prm, bolme, esleme, kume="dedektor")
+        sonuc["dedektor"] = [aday_uret(rng, tanimlar, prm, bolme, esleme, kume="dedektor", sayac=sayac)
                              for _ in range(prm.dedektor_egitim_sayisi)]
         nb = NaiveBayes(prm.laplace)
         nb.egit([ozellikler(a.bolum) for a in sonuc["dedektor"]], [a.cevap["cevap"] for a in sonuc["dedektor"]])
@@ -216,7 +222,7 @@ def bolme_uret(bolme, prm, tanimlar, iliski_semasi, sema_yolu, yasakli=frozenset
             if aday_sayisi > prm.aday_siniri:
                 raise UretimDurduHatasi(f"{bolme}: {prm.aday_siniri} adayda ana küme dolmadı "
                                         f"({len(sonuc['ana'])}/{prm.ana_kume_sayisi})")
-            a = aday_uret(rng, tanimlar, prm, bolme, esleme)
+            a = aday_uret(rng, tanimlar, prm, bolme, esleme, sayac=sayac)
             if kabul is not None and rng.random() >= kabul[a.cevap["cevap"]]:
                 continue  # V-022: önsel-ters reddetme örneklemesi (ret edilen aday da sınıra sayılır)
             if nb.tahmin(ozellikler(a.bolum)) == a.cevap["cevap"]:
@@ -231,6 +237,7 @@ def bolme_uret(bolme, prm, tanimlar, iliski_semasi, sema_yolu, yasakli=frozenset
         raise UretimDurduHatasi(f"{bolme}: bölme içinde yinelenen bölüm")
     kesisim_denetle(yasakli, ozetler)
     sonuc["esleme"] = esleme
+    sonuc["cikarilamaz_atilan"] = sayac["cikarilamaz"]
     if esleme:
         with open(sema_yolu, encoding="utf-8") as f:
             sonuc["sema"] = yeniden_adlandirilmis_sema(json.load(f), esleme)
@@ -249,9 +256,10 @@ def hepsini_uret(klasor, prm, tanimlar, iliski_semasi, sema_yolu, kilit_kayit_yo
     klasor = Path(klasor)
     (klasor / "bolumler").mkdir(parents=True, exist_ok=True)
     (klasor / "kahin").mkdir(parents=True, exist_ok=True)
-    yazilacak, kapilar, gorulen = {}, {}, set()
+    yazilacak, kapilar, gorulen, atilan = {}, {}, set(), {}
     for bolme in BOLMELER:
         s = bolme_uret(bolme, prm, tanimlar, iliski_semasi, sema_yolu, yasakli)
+        atilan[bolme] = s["cikarilamaz_atilan"]
         for kume in KUMELER:
             if not s[kume]:
                 continue
@@ -270,6 +278,8 @@ def hepsini_uret(klasor, prm, tanimlar, iliski_semasi, sema_yolu, kilit_kayit_yo
     manifest = {"sema_surumu": SURUM, "tohum": prm.tohum, "iliski_semasi_ozeti": iliski_semasi.ozet,
                 "kilitli_bolum_sayisi": len(yasakli), "kapilar": kapilar,
                 "dosyalar": {y: hashlib.new(prm.algoritma, b).hexdigest() for y, b in sorted(yazilacak.items())}}
+    if prm.cikarilabilirlik:  # K-029: denetim kapalıyken manifest eskisiyle bayt bayt aynı kalır
+        manifest["cikarilamaz_atilan"] = atilan
     atomik_yaz(klasor / "ozet.json", kanonik_json(manifest))
     return manifest
 
