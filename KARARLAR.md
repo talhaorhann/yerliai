@@ -140,3 +140,13 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
 - **Gerekçe (kullanıcının ilettiği):** bağımsız danışmanın kendi simülasyonunda k=10 zincirlerde havuz 64 yetmedi (doğru %56–71, kaçan %18–36); 128'de doğru %89–92, kaçan ~%0.
 - **Zamanlama:** test bölmeleri gerçek DNA ile hiç koşturulmadan ve DNA eğitim bölmesinde denenmeden önce.
 - **Onaylayan:** kullanıcı.
+
+## K-027 (2026-10-24): H1 DNA'sı onaylandı (9 grup)
+- **Karar:** `veri/dna/akrabalik_dna_v2_final.json` (170 kural, sha256 `624b073c826650401cf85df00e92c8569c1ce25d0609625f1970946e804a7f4e`) H1 DNA'sıdır. Kullanıcı 9 grubun (`veri/dna/AKRABALIK_DNA_GRUPLARI.md`) tümüne tek "evet" verdi. Kaynak: bağımsız danışman (LLM, K-024); beş bağımsız gözetmen "yanlış türetme yok" dedi; onaylayan: kullanıcı.
+- **Kural:** Eğitim bölmesinde hata çıkarsa düzeltmeyi danışman yapar, kodlayıcı yapmaz. DNA, eğitimde %100'e ulaşınca ÖK-002 ekiyle kilitlenir; test bölmeleri ondan sonra açılır.
+- **Onaylayan:** kullanıcı.
+
+## K-028 (2026-10-24): Kopya kuralı C (V-046'dan)
+- **Karar:** Aynı üçlünün yeni kökenli kaydı yalnız **yeni dayanak** getiriyorsa yazılır. Adayın dayanağı = ebeveynlerinin kök kümelerinin (dayandığı olguların) birleşimi. Aynı üçlünün havuzdaki canlı, izli (defterde YAZMA izi olan ya da bu turda döngünün yazdığı) bir çıkarımının kök kümesi bu dayanağın alt kümesiyse aday yeni dayanak getirmez, yazılmaz; tur başına sayısı `ESLESME_ATILDI` (dayanak_yok) olarak kaydedilir. Epitoplar ve izsiz kayıtlar ispat sayılmaz.
+- **Gerekçe:** Eğitim bölmesi ölçümü (tohum 7, ilk 60 bölüm; test bölmeleri açılmadı): bugünkü hâl 33/60, A 55/60, B 60/60, C 60/60. B bağımsız ikinci ispatı da sildiği için müdahale testinin (a) ve (b) kısımlarını anlamsızlaştırıyor; C kök-ayrık ispatları koruyor.
+- **Onaylayan:** kullanıcı.

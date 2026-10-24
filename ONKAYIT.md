@@ -98,3 +98,13 @@ Bu deney kuralı **bulmayı** değil, verilen kuralla **doğru yürütmeyi** sı
 5. **Açıklama (kodlayıcının ihlali):** 2026-10-23'te kodlayıcı, süre kestirmek için uzunluk bölmesinin (tohum 7) ilk 20 bölümünü ve eğitim bölmesinin ilk 20 bölümünü anlamsız, rastgele kurulmuş bir deneme DNA'sıyla koşturdu. Yalnız süre, ortalama tur ve atma sayısı yazdırıldı (atma 0). Doğruluğa ve cevaplara bakılmadı; çıktı silindi. Bu, ÖK-002 durum satırındaki "DNA kilitlenmeden önce test bölmeleri koşturulmaz" kuralına aykırıdır ve burada kayda geçirildi. Sonuç kararlarını etkilemez: havuz kararı danışmanın simülasyonuna dayanır; deneme DNA'sı başka hiçbir yerde kullanılmadı.
 6. **Beklenti notu:** Danışmanın simülasyonu 128'de bile k=10'da %89–92 doğru öngörüyor. §6 kapısı %100 ister ve değişmedi.
 
+## ÖK-002b (2026-10-24): Kopya kuralı C (K-028)
+
+**Durum:** ONAYLI (kullanıcı, 2026-10-24). ÖK-002 ve ÖK-002a'nın metni değişmez; çekirdek davranışına aşağıdaki kural eklenir.
+
+1. **Kural ("yeni dayanak"):** Bir adayın dayanağı, ebeveyn kayıtlarının kök kümelerinin (dayandığı olguların) birleşimidir. Aynı üçlünün havuzdaki canlı ve izli (defterde YAZMA izi olan ya da o turda döngünün yazdığı) bir çıkarımının kök kümesi adayın dayanağının alt kümesiyse aday yeni dayanak getirmez ve yazılmaz. Atılan adaylar tur başına sayılarak `ESLESME_ATILDI` (neden: dayanak_yok) olarak deftere yazılır. Epitoplar ve izsiz kayıtlar ispat sayılmaz.
+2. **Neden:** Gerçek DNA ile simetrik ve ters kurallar aynı ilişkiyi yeni kökenlerle sonsuza dek yeniden yazdırdı. Döngü 8. tura dayandı, kopyalar doğru cevabı havuzdan attı. Eğitim bölmesinde (tohum 7, ilk 60 bölüm) ölçüldü: bugünkü hâl 33/60, A ("yeni" = yeni üçlü) 55/60, B (aynı üçlü varsa hiç yazma) 60/60, C 60/60. B bağımsız ikinci ispatı da sildiği için müdahale testinin (a) ve (b) kısımlarını anlamsızlaştırıyor; C kök-ayrık ispatları koruyor (V-046).
+3. **Zaman ve veri:** Karar test bölmeleri açılmadan verildi. Ölçüm yalnız geliştirme bölmesinde (eğitim, ÖK-002 §3), depodan ayrı kopyalarda yapıldı.
+4. **Etki:** V-042 senaryolarından yalnız C'nin aday attığı biri değişti; diğer üçü önceki altın değerlerle aynı. A3/A4 testlerinden ikisinde "aynı olgulardan 10 kopya hücre 10 kayıt yazar" beklentisi "1 kayıt, 9 dayanak_yok" oldu; güven ve destek beklentileri aynı kaldı.
+5. Kapı (§6), bölmeler, tohumlar, ölçütler ve DNA değişmez.
+

@@ -4,6 +4,8 @@ Aynı senaryolar (`testler/yardimci_senaryo.py`) referans ve hızlı kod kitabı
 (afinite ve güven ondalıkları dahil, kanonik JSON ile, yani bit düzeyinde), havuzdaki kayıt vektörleri, döngü ve
 müdahale sonuçları iki yolda aynı olmalı. Ayrıca referans yolun izi, bağlamadan önceki koddan (commit 797eeaa)
 alınmış altın değerlerle aynı olmalı: bağlama, referans yolun davranışını da değiştirmemeli.
+K-028 (kopya kuralı C) davranışı bilerek değiştirdi: yalnız C'nin "yeni dayanak yok" diye aday attığı senaryonun
+izi değişti; o senaryonun altın değeri C'li referans yoldan yenilendi, 797eeaa değeri ONCEKI_C_SIZ'da duruyor.
 """
 import collections
 import unittest
@@ -20,9 +22,14 @@ KK = V.KodKitabi(AYAR.deger("vektor_tohum"), AYAR.deger("vektor_boyutu"))
 HKK = H.HizliKodKitabi(AYAR.deger("vektor_tohum"), AYAR.deger("vektor_boyutu"))
 
 # Bağlamadan önceki kodun (797eeaa) referans yoldaki izi: (olay sayısı, son zincir özeti, kayıt vektörlerinin özeti).
-ONCEKI = {
+ONCEKI_C_SIZ = {
     "kalabalik": (186, "7e076c30b7f6e7176a2fb43ea4edd259df78f561361c66a237d5d63d24bb9001",
                   "701cb127fdf80be98ec5c01b98f29900f9a04dc6c462e141e1eb5f8a3c13c812"),
+}
+# K-028 sonrası; diğer senaryolar 797eeaa ile aynı.
+ONCEKI = {
+    "kalabalik": (139, "9d58526b9e90121baef35680813f32b8ae87a3f6f54467ccd646867d1bff1148",
+                  "998fb8cff4bba0dc567fda135b0a53dddf2f91dabc93330ea92acb1c71bca919"),
     "impasse_cevapli": (6, "1bafcabdc1d4920e6706268a513acab12cb81fc5752e39c3a0490a32cfae7055",
                         "e50a4c5ac126f7f1d804b9ca39034316ee25e36638e0f66d2392b58814942c39"),
     "impasse_cevapsiz": (6, "9885755328682882616a304fecd50fddbc6f1be36fa9e659ad5210eaa85d1bea",
@@ -62,6 +69,14 @@ class DonguHizliYolTesti(unittest.TestCase):
 
     def test_referans_yol_baglamadan_onceki_kodla_ayni(self):
         self.assertEqual({ad: oz.altin() for ad, oz in self.referans.items()}, ONCEKI)
+
+    def test_c_yalniz_dayanaksiz_aday_atilan_senaryoyu_degistirdi(self):
+        for ad, oz in self.referans.items():
+            dayanaksiz = sum(k["veri"]["sayi"] for k in oz.satirlar
+                             if k["tur"] == "ESLESME_ATILDI" and k["veri"]["neden"] == "dayanak_yok")
+            with self.subTest(senaryo=ad):
+                self.assertEqual(dayanaksiz > 0, ad in ONCEKI_C_SIZ)
+                self.assertNotEqual(ONCEKI_C_SIZ.get(ad), oz.altin())
 
     def test_hizli_yol_defteri_referansla_bit_duzeyinde_ayni(self):
         for ad in ONCEKI:

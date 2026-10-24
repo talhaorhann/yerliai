@@ -7,16 +7,19 @@ impasse. İlk impasse'te bütün θ'lar bir kez `impasse_carpani` ile çarpılı
 τ ile durma kalibrasyon kümesi oluşana kadar kapalıdır (K-017).
 Günlük destek/çelişki defteridir (V-035): her ateşleme, yazma (kök kümesiyle) ve atma kayıtlıdır; bir turun
 olayları sırası korunarak tur sonunda tek seferde yazılır.
+Kopya kuralı (K-028, V-046): aynı üçlünün yeni kökenli kaydı yalnız yeni dayanak getiriyorsa yazılır (`yeni_dayanak_mi`);
+getirmeyen aday yazılmaz ve tur başına sayısı `ESLESME_ATILDI` (neden: dayanak_yok) olarak kaydedilir.
 """
 from dataclasses import dataclass
 
 from cekirdek.altyapi.olay_gunlugu import YEDEK_KULLANILDI
 from cekirdek.defter import ATESLEME, ATMA, KAYNAK, YAZMA, Defter
 from cekirdek.eslesme import afinite_tablosu, eslesmeler
-from cekirdek.havuz import HavuzDoluHatasi
+from cekirdek.havuz import CIKARIM, HavuzDoluHatasi
 from cekirdek.plazma import cevapla, kok_kumesi
 
 DURMA_YENI_YOK, DURMA_TUR_SINIRI, DURMA_IMPASSE = "yeni_kayit_yok", "tur_siniri", "impasse"
+DAYANAK_YOK = "dayanak_yok"  # K-028
 
 
 @dataclass(frozen=True)
@@ -67,9 +70,26 @@ def _tur_adaylari(hucreler, havuz, yeni, kk, prm, carpan, olaylar, tur):
     return sorted(adaylar, key=lambda x: (x[0], x[1].baglama.kayitlar))
 
 
-def _yaz(hucreler, havuz, adaylar, olaylar, tur):
-    yazilanlar = []
+def yeni_dayanak_mi(havuz, uclu, ebeveynler, ispat_mi):
+    """K-028 (C): adayın dayanağı, ebeveynlerinin kök kümelerinin birleşimidir (dayandığı olgular). Aynı üçlünün
+    havuzdaki canlı bir ispatının kök kümesi bu dayanağın alt kümesiyse aday, o ispatın dayandığı her olguya zaten
+    dayanıyordur: yeni dayanak getirmez. İspat = izli çıkarım (`ispat_mi`: defterde YAZMA izi var ya da bu turda
+    döngü yazdı, V-035); epitoplar ve izsiz kayıtlar ispat sayılmaz (K-018)."""
+    dayanak = frozenset().union(*(kok_kumesi(havuz, e) for e in ebeveynler))
+    for kimlik in havuz.iliski_dizini(uclu[1]):
+        k = havuz.kayit(kimlik)
+        if k.katman == CIKARIM and k.uclu == tuple(uclu) and ispat_mi(kimlik) and kok_kumesi(havuz, kimlik) <= dayanak:
+            return False
+    return True
+
+
+def _yaz(hucreler, havuz, adaylar, olaylar, tur, gunluk):
+    yazilanlar, dayanaksiz = [], 0
     for sira, e in adaylar:
+        if not yeni_dayanak_mi(havuz, e.uclu, e.baglama.kayitlar,
+                               lambda kimlik: gunluk.yazildi_mi(kimlik) or kimlik in yazilanlar):
+            dayanaksiz += 1
+            continue
         try:
             k = havuz.cikarim_ekle(e.uclu, hucreler[sira].kimlik, e.baglama.kayitlar, e.guven)
         except HavuzDoluHatasi:
@@ -83,6 +103,8 @@ def _yaz(hucreler, havuz, adaylar, olaylar, tur):
             olaylar.append((YAZMA, KAYNAK, {"tur": tur, "kimlik": k.kimlik, "uclu": list(k.uclu), "zincir": k.zincir,
                                             "ebeveynler": list(k.ebeveynler), "guven": k.guven,
                                             "kokler": sorted(kok_kumesi(havuz, k.kimlik))}))
+    if dayanaksiz:
+        olaylar.append(("ESLESME_ATILDI", KAYNAK, {"tur": tur, "neden": DAYANAK_YOK, "sayi": dayanaksiz}))
     return yazilanlar
 
 
@@ -97,7 +119,7 @@ def calistir(hucreler, havuz, kk, prm, gunluk, *, iliski_semasi, sorgu=None):
         tur += 1
         olaylar = []
         adaylar = _tur_adaylari(hucreler, havuz, yeni, kk, prm, carpan, olaylar, tur)
-        yazilanlar = _yaz(hucreler, havuz, adaylar, olaylar, tur)
+        yazilanlar = _yaz(hucreler, havuz, adaylar, olaylar, tur, gunluk)
         gunluk.ekle_toplu(olaylar)
         gunluk.celiski_denetle(havuz, iliski_semasi, tur)
         toplam += len(yazilanlar)

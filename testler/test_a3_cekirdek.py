@@ -205,11 +205,14 @@ class PlazmaTesti(Ortam):
         self.assertAlmostEqual(c.guven, 1 - (1 - 0.6) * (1 - 0.7), places=12)
 
     def test_ortak_kokenli_kopyalar_guveni_sisirmez(self):
-        """10 aynı hücre aynı olgulardan 10 ispat yazar; kök kümeleri aynı olduğu için güven değişmez."""
+        """10 aynı hücre aynı olgulardan ispat üretir; kök kümeleri aynı olduğu için biri yazılır, 9'u yeni dayanak
+        getirmediğinden yazılmaz (K-028, A5'te güncellendi). Güven değişmez."""
         tek = self.cevap(self.kos(self.IKI_YOL[:2], BB_Q, sorgu=(1, 3), gunluk_adi="a.jsonl"), (1, 3))
         kopyalar = [dict(BB_Q, kimlik=f"h_kopya{i}") for i in range(10)]
         h10, g10, _ = self.kos(self.IKI_YOL[:2], *kopyalar, sorgu=(1, 3), gunluk_adi="b.jsonl")
-        self.assertEqual(len([k for k in h10.kayitlar() if k.katman == 1]), 10)
+        self.assertEqual(len([k for k in h10.kayitlar() if k.katman == 1]), 1)
+        self.assertEqual(sum(k["veri"]["sayi"] for k in g10.kayitlar()
+                             if k["tur"] == "ESLESME_ATILDI" and k["veri"]["neden"] == "dayanak_yok"), 9)
         self.assertEqual(cevapla(h10, (1, 3), g10).guven, tek.guven)
 
     def test_noisy_or_ucler(self):

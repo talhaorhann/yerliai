@@ -503,4 +503,4 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 
   C, dairesel matris önbelleğiyle tek başına: bölüm başına 0,13 sn.
 - **Öneri:** C. Kısır döngüleri keser, kök-ayrık (bağımsız) ispatları korur; böylece §6 noisy-OR ve K-021 (a) anlamlı kalır.
-- **Durum:** AÇIK, kullanıcı kararı bekleniyor. Karar gelene kadar çekirdek değişmez; H1 eğitim koşusu yapılmaz.
+- **Durum:** KARARA BAĞLANDI: C (K-028, ÖK-002b, 2026-10-24). Uygulama `cekirdek/dongu.py` `yeni_dayanak_mi`; testler `testler/test_a5_kopya_c.py`.

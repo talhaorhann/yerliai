@@ -53,6 +53,16 @@ MUTASYONLAR = [
     ("önbellekte roller karışık", HIZ, "vektor_tensoru(kk, TUR_VARLIK, ozneler), donusumler.get(ROL_OZNE))",
      "vektor_tensoru(kk, TUR_VARLIK, ozneler), donusumler.get(ROL_NESNE))"),
     ("önbellek yanlış rolden kurulmuş", HIZ, "for rol in (ROL_OZNE, ROL_NESNE)}", "for rol in (ROL_NESNE, ROL_OZNE)}"),
+    # K-028: kopya kuralı C
+    ("C kapalı", "cekirdek/dongu.py", "        if not yeni_dayanak_mi(havuz, e.uclu, e.baglama.kayitlar,",
+     "        if False and not yeni_dayanak_mi(havuz, e.uclu, e.baglama.kayitlar,"),
+    ("C alt küme yerine eşitlik", "cekirdek/dongu.py", "kok_kumesi(havuz, kimlik) <= dayanak:", "kok_kumesi(havuz, kimlik) == dayanak:"),
+    ("C izli denetimi yok", "cekirdek/dongu.py", " and ispat_mi(kimlik) and kok_kumesi", " and kok_kumesi"),
+    ("C epitopu ispat sayıyor", "cekirdek/dongu.py", "        if k.katman == CIKARIM and k.uclu == tuple(uclu)",
+     "        if k.uclu == tuple(uclu)"),
+    ("C bu turun yazdıklarını görmüyor", "cekirdek/dongu.py", "gunluk.yazildi_mi(kimlik) or kimlik in yazilanlar",
+     "gunluk.yazildi_mi(kimlik)"),
+    ("C atılanları kaydetmiyor", "cekirdek/dongu.py", "    if dayanaksiz:\n", "    if False:\n"),
     # K-025, V-043: farklı kişi şartı
     ("farklı şartı uygulanmıyor", ESL, "    if any(degiskenler[a] == degiskenler[b] for a, b in hucre.farkli):",
      "    if False:"),

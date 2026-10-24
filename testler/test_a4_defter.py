@@ -89,7 +89,7 @@ class DefterTesti(t3.Ortam):
         self.assertEqual(d.destek((1, "quax", 3)), 2)
         kopyalar = [dict(BB_Q, kimlik=f"h_kopya{i}") for i in range(10)]
         _, d10, _ = self.kos(IKI_YOL[:2], *kopyalar, sorgu=(1, 3), gunluk_adi="b.jsonl")
-        self.assertEqual(len(d10.canli_ispatlar((1, "quax", 3))), 10)
+        self.assertEqual(len(d10.canli_ispatlar((1, "quax", 3))), 1)  # K-028: aynı dayanaklı 9 kopya yazılmaz
         self.assertEqual(d10.destek((1, "quax", 3)), 1)
         self.assertEqual(d10.destek((1, "vonk", 3)), 0)
 
