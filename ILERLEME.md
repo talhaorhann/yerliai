@@ -217,8 +217,17 @@
 - Bulgu: aynı ilişkinin yeni kökenle yeniden yazılması döngüyü 8 tura sürüklüyor, kopyalar doğru cevabı havuzdan atıyor. Eğitimde ilk 60 bölümde bugünkü hâl 33/60. Seçenekler ölçüldü (V-046); karar kullanıcıda.
 - Hızlandırma: dairesel matrisler bir kez kuruluyor (V-042 eki); ölçülen en pahalı adım buydu.
 
+**5. adım, H1 koşuldu (2026-10-24):**
+- DNA 9 grup onayı (K-027), kopya kuralı C (K-028, ÖK-002b; testler `test_a5_kopya_c.py`).
+- Eğitim 2000/2000 → DNA kilitlendi (ÖK-002 eki). Mutasyon 45/45 (2'si düzeltmeyle; bkz. commit 729b851), inceleme aracı 3/3.
+- **Kapı GEÇMEDİ:** önsel-ters 2000/2000, zincir-bozuk 2000/2000, uzunluk 1980/2000, yön ters 573/2000. Hepsi "bilmiyorum"; yanlış ilişki yok. Ayrıntı `raporlar/H1_SONUC.md`.
+- Yön ters hatalarının 1426/1427'sinde cevabı belirleyen kişinin cinsiyeti olgularda yok: büyük olasılıkla türetilemez sorular (üreteç açığı, V-017).
+- Altın küme 1. parça 50/50.
+
 **Eksik:**
-- V-046 kararı (felsefi), DNA'nın 9 grupluk onayı, sonra eğitim bölmesinde geliştirme.
+- Kullanıcının H1 sonrası kararı (yeniden ön kayıt mı, sonuç olduğu gibi mi).
+- Altın küme 2. parça cevapları.
+- Aşama sonu bağımsız inceleme (KODLAMA_PROMPTU §4).
 - ÖK-002 eki: config, DNA ve tohum manifest özetleri (DNA kilitlenince).
 - Kapı koşusu ve altın küme koşusu. Gerçek DNA ile süre ölçümü (deneme DNA'sıyla ölçülen 0,02 sn/bölüm gerçeği yansıtmaz).
 - Altın küme 2. parça cevapları (kullanıcıda).
