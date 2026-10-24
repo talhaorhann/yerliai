@@ -46,7 +46,7 @@ MUTASYONLAR = [
 def kopyada_kostur(degisiklik=None):
     with tempfile.TemporaryDirectory() as d:
         kopya = Path(d) / "proje"
-        shutil.copytree(KOK, kopya, ignore=shutil.ignore_patterns(".git", "__pycache__", ".venv"))
+        shutil.copytree(KOK, kopya, ignore=shutil.ignore_patterns(".git", "__pycache__", ".venv", "uretilen"))
         if degisiklik:
             dosya, eski, yeni = degisiklik
             yol = kopya / dosya
