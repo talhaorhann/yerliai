@@ -1,7 +1,7 @@
 {
   "algoritma": "sha256",
   "dosyalar": {
-    "ONKAYIT.md": "d6b886d0ac24700714fa07bba1432f776775f8a9bf2524c501f5de09951d4252",
+    "ONKAYIT.md": "cc6f0e766d1337e908e77cfe493ba692c55820407d83808ab670c3caa8c7ad9c",
     "config.json": "ce14605aca9e3498bb6d9df7afee1c97748c5eb70e9c074ed9211de4a1cba7e1",
     "degerlendirme/altin/kullanici_cevaplari_1.json": "306ee0a0c54d3d6972695ae8a0c8c14e8dff12e2d6ef084884a9fd345a5c45ff",
     "degerlendirme/veri/tanimlar_v1.json": "8f62d7ecf2ff39624f86bda8a5a3f48773afbd5e7a1084fd6a2ce058e96064e4",

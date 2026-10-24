@@ -173,3 +173,13 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
 - **Gerekçe:** İlk koşunun 14 uzunluk hatasının 14'ünde, sınırın içindeki yerleri C'nin atacağı kopyalar dolduruyordu; cevap üçlüsü sınır dışında kalıp bir daha denenmiyordu (`raporlar/H1_hucre_siniri_izleme.md`). Geliştirme verisinde geçici kopyayla ölçüldü: eğitim 2000/2000, uzunluk 1980 → 1994, öteki bölmeler aynı.
 - **Ön kayıt:** ÖK-003 §3.5 "diğer bütün ayarlar aynen kalır" dediği için ÖK-003 ekinde ayrıca yazıldı.
 - **Onaylayan:** kullanıcı.
+
+## K-032 (2026-10-24): H1 yeniden deneme sonucu kabul; A6'ya geçiş; ÖK-004 ertelendi; H2 kapısı
+- **Kayıt:** "H1 iki kez kapıyı geçmedi. İkinci koşuda uzunluk, önsel-ters, zincir-bozuk bölmeleri 5 tohumda 2000/2000, yön ters 1881/2000 (ilk koşuda 573/2000). Yanlış ilişki iki koşuda da 0. 119 hatanın hepsi 'bilmiyorum'; 113'ü üretecin çıkarılabilirlik tanımının olgularda görünmeyen evliliği kullanmasından. H1 resmen KANITLANMAMIŞTIR; çekirdek lehine güçlü kanıt vardır."
+- **Karar:**
+  1. ÖK-003 sonucu olduğu gibi kabul edildi; H1 "geçti" diye işaretlenmez.
+  2. Kullanıcı kararıyla A6'ya (bellek geçidi + iç dil) geçilir. Bu, KODLAMA_PROMPTU'daki "bir aşama kapısı geçmeden sonrakini başlatma" kuralına kullanıcının koyduğu istisnadır.
+  3. ÖK-004 ertelendi, iptal edilmedi. H2'ye geçmeden önce V-053 kapanır. Yeni tanım: olgular + dünya varsayımlarının zorunlu kıldığı yapı verilir; cinsiyetlerin bütün olası atamalarında aynı cevap çıkıyorsa soru çıkarılabilirdir; olgularda olmayan ve varsayımlardan da çıkmayan bilgi kullanılmaz. Tanım çekirdekten bağımsız kaba kuvvetle ve üç kümede (113, 6, 27) sınanır, kullanıcı onayına gelir. Sonra H1 taze tohumlarla tek sefer yeniden koşar; tohum değişim hakkı 2.
+  4. **H2 kapısı:** V-053 kapanmadan ve H1 taze tohumlarla yeniden koşulmadan H2 çalıştırma komutu "V-053 açık" diye reddeder. Bu kuralı kapatan ya da gevşeten kod yazılmaz.
+  5. Altın küme 2. parça cevapları H1 yeniden koşusundan önce gelir. Aşama sonu bağımsız inceleme A6 sonunda yapılır.
+- **Onaylayan:** kullanıcı.

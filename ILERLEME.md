@@ -240,9 +240,12 @@
 - Teşhis: 119'unun hiçbirinde cevap DNA kapanışında yok. Çıkarılabilirlik denetimi gizli ağaç yapısını kullanıyor (113'ü olgularda görünmeyen evlilik). V-053, `raporlar/H1_v2_SONUC.md`.
 - Testler 335/335.
 
-**Eksik:**
-- Kullanıcının ÖK-003 sonrası kararı (V-053).
-- Altın küme 2. parça cevapları. Aşama sonu bağımsız inceleme.
+- **Karar (K-032):** H1 sonucu kabul edildi, kapı geçmedi; H1 resmen kanıtlanmamıştır, çekirdek lehine güçlü kanıt vardır. Kullanıcı kararıyla A6'ya geçildi; ÖK-004 ertelendi (önce V-053).
+
+**Eksik (A5'ten kalan):**
+- V-053 tanımı ve onayı; sonra H1 taze tohumlarla tek sefer (ÖK-004).
+- Altın küme 2. parça cevapları (H1 yeniden koşusundan önce).
+- Aşama sonu bağımsız inceleme: A6 sonunda.
 - Altın küme 2. parça cevapları.
 - Aşama sonu bağımsız inceleme (KODLAMA_PROMPTU §4).
 - ÖK-002 eki: config, DNA ve tohum manifest özetleri (DNA kilitlenince).

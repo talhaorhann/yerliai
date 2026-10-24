@@ -569,4 +569,4 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Denetim yapıyı sabit tuttuğu için, olgularda geçmeyen evlilikleri ve ebeveynlikleri de biliyor. Örnek: "15, 14 ile evli" olgularda yok, ama 15'in cinsiyetini yalnız bu bağ belirliyor.
   - Yalnız olgularda görünen evlilikleri sabit tutan bir tür denetimle: 119 hatanın 113'ü çıkarılamaz; çekirdeğin doğru bildiği 1881 sorunun 27'si de çıkarılamaz. Yani bu tür denetim de kesin tanım değil.
   - Ayrıntı: `raporlar/H1_v2_SONUC.md`.
-- **Felsefi:** evet (kâhin, veri olarak dil: "olgulardan çıkarılabilir" ne demek). **Durum:** AÇIK, kullanıcı kararı. ÖK-003 §6'ya göre ayarlar ve DNA değişmedi.
+- **Felsefi:** evet (kâhin, veri olarak dil: "olgulardan çıkarılabilir" ne demek). **Durum:** AÇIK. Kullanıcı tanımın yönünü verdi (K-032 §3); tanım ve sınama sonuçları onaya gelecek. Kapanmadan H2 başlamaz (K-032 §4). ÖK-003 §6'ya göre ayarlar ve DNA değişmedi.
