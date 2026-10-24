@@ -1,0 +1,4265 @@
+{
+ "sema_surumu": "2",
+ "hucreler": [
+  {
+   "kimlik": "es_es",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "eş",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in eşi ise X, Y'nin eşidir."
+  },
+  {
+   "kimlik": "baba_anne_es",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "eş",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin babası; Z, Y'nin annesi ise Z, X'in eşidir."
+  },
+  {
+   "kimlik": "baba_ogul_es",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "eş",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin babası; Y, Z'nin oğlu ise Z, X'in eşidir (X ve Z farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "baba_kiz_es",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "eş",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin babası; Y, Z'nin kızı ise Z, X'in eşidir (X ve Z farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "ogul_ogul_es",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "eş",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; Y, Z'nin oğlu ise Z, X'in eşidir (X ve Z farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "kiz_kiz_es",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "eş",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; Y, Z'nin kızı ise Z, X'in eşidir (X ve Z farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "baba_es_anne",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "eş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in babası; Z, Y'nin eşi ise Z, X'in annesidir."
+  },
+  {
+   "kimlik": "anne_es_baba",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "eş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in annesi; Z, Y'nin eşi ise Z, X'in babasıdır."
+  },
+  {
+   "kimlik": "es_ogul_ogul",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "oğul",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in eşi; Z, Y'nin oğlu ise Z, X'in oğludur."
+  },
+  {
+   "kimlik": "es_kiz_kiz",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in eşi; Z, Y'nin kızı ise Z, X'in kızıdır."
+  },
+  {
+   "kimlik": "baba_baba_dede",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in babası; Z, Y'nin babası ise Z, X'in dedesidir."
+  },
+  {
+   "kimlik": "anne_baba_dede",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in annesi; Z, Y'nin babası ise Z, X'in dedesidir."
+  },
+  {
+   "kimlik": "baba_anne_babaanne",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "babaanne",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in babası; Z, Y'nin annesi ise Z, X'in babaannesidir."
+  },
+  {
+   "kimlik": "anne_anne_anneanne",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "anneanne",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in annesi; Z, Y'nin annesi ise Z, X'in anneannesidir."
+  },
+  {
+   "kimlik": "dede_torun",
+   "halkalar": [
+    {
+     "gen": "dede",
+     "sol": "X",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "Z",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Z, X'in dedesi ise X, Z'nin torunudur."
+  },
+  {
+   "kimlik": "babaanne_torun",
+   "halkalar": [
+    {
+     "gen": "babaanne",
+     "sol": "X",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "Z",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Z, X'in babaannesi ise X, Z'nin torunudur."
+  },
+  {
+   "kimlik": "ogul_ogul_torun",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; Z, Y'nin oğlu ise Z, X'in torunudur."
+  },
+  {
+   "kimlik": "ogul_kiz_torun",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; Z, Y'nin kızı ise Z, X'in torunudur."
+  },
+  {
+   "kimlik": "kiz_ogul_torun",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; Z, Y'nin oğlu ise Z, X'in torunudur."
+  },
+  {
+   "kimlik": "kiz_kiz_torun",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; Z, Y'nin kızı ise Z, X'in torunudur."
+  },
+  {
+   "kimlik": "amca_baba_dede",
+   "halkalar": [
+    {
+     "gen": "amca",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in amcası; Z, Y'nin babası ise Z, X'in dedesidir."
+  },
+  {
+   "kimlik": "amca_anne_babaanne",
+   "halkalar": [
+    {
+     "gen": "amca",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "babaanne",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in amcası; Z, Y'nin annesi ise Z, X'in babaannesidir."
+  },
+  {
+   "kimlik": "hala_anne_babaanne",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "babaanne",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in halası; Z, Y'nin annesi ise Z, X'in babaannesidir."
+  },
+  {
+   "kimlik": "dayi_baba_dede",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in dayısı; Z, Y'nin babası ise Z, X'in dedesidir."
+  },
+  {
+   "kimlik": "dayi_anne_anneanne",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "anneanne",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in dayısı; Z, Y'nin annesi ise Z, X'in anneannesidir."
+  },
+  {
+   "kimlik": "teyze_baba_dede",
+   "halkalar": [
+    {
+     "gen": "teyze",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in teyzesi; Z, Y'nin babası ise Z, X'in dedesidir."
+  },
+  {
+   "kimlik": "teyze_anne_anneanne",
+   "halkalar": [
+    {
+     "gen": "teyze",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "anneanne",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in teyzesi; Z, Y'nin annesi ise Z, X'in anneannesidir."
+  },
+  {
+   "kimlik": "baba_ogul_erkek_kardes",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in babası; Z, Y'nin oğlu ise Z, X'in erkek kardeşidir (X ve Z farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "baba_kiz_kiz_kardes",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in babası; Z, Y'nin kızı ise Z, X'in kız kardeşidir (X ve Z farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "anne_ogul_erkek_kardes",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in annesi; Z, Y'nin oğlu ise Z, X'in erkek kardeşidir (X ve Z farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "anne_kiz_kiz_kardes",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in annesi; Z, Y'nin kızı ise Z, X'in kız kardeşidir (X ve Z farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "erkek_kardes_baba_baba",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in erkek kardeşi; Z, Y'nin babası ise Z, X'in babasıdır."
+  },
+  {
+   "kimlik": "erkek_kardes_anne_anne",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in erkek kardeşi; Z, Y'nin annesi ise Z, X'in annesidir."
+  },
+  {
+   "kimlik": "kiz_kardes_baba_baba",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kız kardeşi; Z, Y'nin babası ise Z, X'in babasıdır."
+  },
+  {
+   "kimlik": "kiz_kardes_anne_anne",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kız kardeşi; Z, Y'nin annesi ise Z, X'in annesidir."
+  },
+  {
+   "kimlik": "erkek_kardes_erkek_kardes_erkek_kardes",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in erkek kardeşi; Z, Y'nin erkek kardeşi ise Z, X'in erkek kardeşidir (X ve Z farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "erkek_kardes_kiz_kardes_kiz_kardes",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in erkek kardeşi; Z, Y'nin kız kardeşi ise Z, X'in kız kardeşidir (X ve Z farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "kiz_kardes_erkek_kardes_erkek_kardes",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kız kardeşi; Z, Y'nin erkek kardeşi ise Z, X'in erkek kardeşidir (X ve Z farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "kiz_kardes_kiz_kardes_kiz_kardes",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kız kardeşi; Z, Y'nin kız kardeşi ise Z, X'in kız kardeşidir (X ve Z farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "ogul_ogul_erkek_kardes",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "P",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "P",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "Y",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, P'nin oğlu; Z, P'nin oğlu ise Z, Y'nin erkek kardeşidir (Y ve Z farklı kişi).",
+   "farkli": [
+    [
+     "Y",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "ogul_kiz_kiz_kardes",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "P",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "P",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "Y",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, P'nin oğlu; Z, P'nin kızı ise Z, Y'nin kız kardeşidir."
+  },
+  {
+   "kimlik": "kiz_ogul_erkek_kardes",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "P",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "P",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "Y",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, P'nin kızı; Z, P'nin oğlu ise Z, Y'nin erkek kardeşidir."
+  },
+  {
+   "kimlik": "kiz_kiz_kiz_kardes",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "P",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "P",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "Y",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, P'nin kızı; Z, P'nin kızı ise Z, Y'nin kız kardeşidir (Y ve Z farklı kişi).",
+   "farkli": [
+    [
+     "Y",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "ogul_erkek_kardes_ogul",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "oğul",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; Z, Y'nin erkek kardeşi ise Z, X'in oğludur."
+  },
+  {
+   "kimlik": "ogul_kiz_kardes_kiz",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; Z, Y'nin kız kardeşi ise Z, X'in kızıdır."
+  },
+  {
+   "kimlik": "kiz_erkek_kardes_ogul",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "oğul",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; Z, Y'nin erkek kardeşi ise Z, X'in oğludur."
+  },
+  {
+   "kimlik": "kiz_kiz_kardes_kiz",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; Z, Y'nin kız kardeşi ise Z, X'in kızıdır."
+  },
+  {
+   "kimlik": "baba_erkek_kardes_amca",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "amca",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in babası; Z, Y'nin erkek kardeşi ise Z, X'in amcasıdır."
+  },
+  {
+   "kimlik": "baba_kiz_kardes_hala",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "hala",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in babası; Z, Y'nin kız kardeşi ise Z, X'in halasıdır."
+  },
+  {
+   "kimlik": "anne_erkek_kardes_dayi",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "dayı",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in annesi; Z, Y'nin erkek kardeşi ise Z, X'in dayısıdır."
+  },
+  {
+   "kimlik": "anne_kiz_kardes_teyze",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "teyze",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in annesi; Z, Y'nin kız kardeşi ise Z, X'in teyzesidir."
+  },
+  {
+   "kimlik": "amca_yegen",
+   "halkalar": [
+    {
+     "gen": "amca",
+     "sol": "X",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "Z",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Z, X'in amcası ise X, Z'nin yeğenidir."
+  },
+  {
+   "kimlik": "dayi_yegen",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "Z",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Z, X'in dayısı ise X, Z'nin yeğenidir."
+  },
+  {
+   "kimlik": "hala_yegen",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "Z",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Z, X'in halası ise X, Z'nin yeğenidir."
+  },
+  {
+   "kimlik": "teyze_yegen",
+   "halkalar": [
+    {
+     "gen": "teyze",
+     "sol": "X",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "Z",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Z, X'in teyzesi ise X, Z'nin yeğenidir."
+  },
+  {
+   "kimlik": "erkek_kardes_ogul_yegen",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in erkek kardeşi; Z, Y'nin oğlu ise Z, X'in yeğenidir."
+  },
+  {
+   "kimlik": "erkek_kardes_kiz_yegen",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in erkek kardeşi; Z, Y'nin kızı ise Z, X'in yeğenidir."
+  },
+  {
+   "kimlik": "kiz_kardes_ogul_yegen",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kız kardeşi; Z, Y'nin oğlu ise Z, X'in yeğenidir."
+  },
+  {
+   "kimlik": "kiz_kardes_kiz_yegen",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kız kardeşi; Z, Y'nin kızı ise Z, X'in yeğenidir."
+  },
+  {
+   "kimlik": "amca_ogul_kuzen",
+   "halkalar": [
+    {
+     "gen": "amca",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in amcası; Z, Y'nin oğlu ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "amca_kiz_kuzen",
+   "halkalar": [
+    {
+     "gen": "amca",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in amcası; Z, Y'nin kızı ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "dayi_ogul_kuzen",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in dayısı; Z, Y'nin oğlu ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "dayi_kiz_kuzen",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in dayısı; Z, Y'nin kızı ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "hala_ogul_kuzen",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in halası; Z, Y'nin oğlu ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "hala_kiz_kuzen",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in halası; Z, Y'nin kızı ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "teyze_ogul_kuzen",
+   "halkalar": [
+    {
+     "gen": "teyze",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in teyzesi; Z, Y'nin oğlu ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "kuzen_kuzen",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kuzeni ise X, Y'nin kuzenidir."
+  },
+  {
+   "kimlik": "baba_yegen_kuzen",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in babası; Z, Y'nin yeğeni ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "anne_yegen_kuzen",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in annesi; Z, Y'nin yeğeni ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "es_baba_kayinpeder",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kayınpeder",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in eşi; Z, Y'nin babası ise Z, X'in kayınpederidir."
+  },
+  {
+   "kimlik": "es_anne_kayinvalide",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kayınvalide",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in eşi; Z, Y'nin annesi ise Z, X'in kayınvalidesidir."
+  },
+  {
+   "kimlik": "ogul_es_gelin",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "eş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "gelin",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; Z, Y'nin eşi ise Z, X'in gelinidir."
+  },
+  {
+   "kimlik": "kiz_es_damat",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "eş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "damat",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; Z, Y'nin eşi ise Z, X'in damadıdır."
+  },
+  {
+   "kimlik": "kayinpeder_es_kayinvalide",
+   "halkalar": [
+    {
+     "gen": "kayınpeder",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "eş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kayınvalide",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kayınpederi; Z, Y'nin eşi ise Z, X'in kayınvalidesidir."
+  },
+  {
+   "kimlik": "kayinvalide_es_kayinpeder",
+   "halkalar": [
+    {
+     "gen": "kayınvalide",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "eş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kayınpeder",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kayınvalidesi; Z, Y'nin eşi ise Z, X'in kayınpederidir."
+  },
+  {
+   "kimlik": "baba_ogul_ogul",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "oğul",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in babası; X, P'nin oğlu ise X, Y'nin oğludur."
+  },
+  {
+   "kimlik": "baba_baba_ogul",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "oğul",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in babası; X, P'nin babası ise X, Y'nin oğludur."
+  },
+  {
+   "kimlik": "baba_erkek_kardes_ogul",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "oğul",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in babası; X, P'nin erkek kardeşi ise X, Y'nin oğludur."
+  },
+  {
+   "kimlik": "baba_kiz_kiz",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in babası; X, P'nin kızı ise X, Y'nin kızıdır."
+  },
+  {
+   "kimlik": "baba_anne_kiz",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in babası; X, P'nin annesi ise X, Y'nin kızıdır."
+  },
+  {
+   "kimlik": "baba_kiz_kardes_kiz",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in babası; X, P'nin kız kardeşi ise X, Y'nin kızıdır."
+  },
+  {
+   "kimlik": "anne_ogul_ogul",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "oğul",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in annesi; X, P'nin oğlu ise X, Y'nin oğludur."
+  },
+  {
+   "kimlik": "anne_baba_ogul",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "oğul",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in annesi; X, P'nin babası ise X, Y'nin oğludur."
+  },
+  {
+   "kimlik": "anne_erkek_kardes_ogul",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "oğul",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in annesi; X, P'nin erkek kardeşi ise X, Y'nin oğludur."
+  },
+  {
+   "kimlik": "anne_kiz_kiz",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in annesi; X, P'nin kızı ise X, Y'nin kızıdır."
+  },
+  {
+   "kimlik": "anne_anne_kiz",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in annesi; X, P'nin annesi ise X, Y'nin kızıdır."
+  },
+  {
+   "kimlik": "anne_kiz_kardes_kiz",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in annesi; X, P'nin kız kardeşi ise X, Y'nin kızıdır."
+  },
+  {
+   "kimlik": "ogul_ogul_baba",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; X, P'nin oğlu ise X, Y'nin babasıdır."
+  },
+  {
+   "kimlik": "ogul_baba_baba",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; X, P'nin babası ise X, Y'nin babasıdır."
+  },
+  {
+   "kimlik": "ogul_erkek_kardes_baba",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; X, P'nin erkek kardeşi ise X, Y'nin babasıdır."
+  },
+  {
+   "kimlik": "ogul_kiz_anne",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; X, P'nin kızı ise X, Y'nin annesidir."
+  },
+  {
+   "kimlik": "ogul_anne_anne",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; X, P'nin annesi ise X, Y'nin annesidir."
+  },
+  {
+   "kimlik": "ogul_kiz_kardes_anne",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; X, P'nin kız kardeşi ise X, Y'nin annesidir."
+  },
+  {
+   "kimlik": "kiz_baba_baba",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; X, P'nin babası ise X, Y'nin babasıdır."
+  },
+  {
+   "kimlik": "kiz_erkek_kardes_baba",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; X, P'nin erkek kardeşi ise X, Y'nin babasıdır."
+  },
+  {
+   "kimlik": "kiz_kiz_anne",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; X, P'nin kızı ise X, Y'nin annesidir."
+  },
+  {
+   "kimlik": "kiz_anne_anne",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; X, P'nin annesi ise X, Y'nin annesidir."
+  },
+  {
+   "kimlik": "kiz_kiz_kardes_anne",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; X, P'nin kız kardeşi ise X, Y'nin annesidir."
+  },
+  {
+   "kimlik": "erkek_kardes_ogul_erkek_kardes",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in erkek kardeşi; X, P'nin oğlu ise X, Y'nin erkek kardeşidir."
+  },
+  {
+   "kimlik": "erkek_kardes_baba_erkek_kardes",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in erkek kardeşi; X, P'nin babası ise X, Y'nin erkek kardeşidir."
+  },
+  {
+   "kimlik": "erkek_kardes_erkek_kardes_erkek_kardes_2",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in erkek kardeşi; X, P'nin erkek kardeşi ise X, Y'nin erkek kardeşidir."
+  },
+  {
+   "kimlik": "erkek_kardes_kiz_kiz_kardes",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in erkek kardeşi; X, P'nin kızı ise X, Y'nin kız kardeşidir."
+  },
+  {
+   "kimlik": "erkek_kardes_anne_kiz_kardes",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in erkek kardeşi; X, P'nin annesi ise X, Y'nin kız kardeşidir."
+  },
+  {
+   "kimlik": "erkek_kardes_kiz_kardes_kiz_kardes_2",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in erkek kardeşi; X, P'nin kız kardeşi ise X, Y'nin kız kardeşidir."
+  },
+  {
+   "kimlik": "kiz_kardes_ogul_erkek_kardes",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kız kardeşi; X, P'nin oğlu ise X, Y'nin erkek kardeşidir."
+  },
+  {
+   "kimlik": "kiz_kardes_baba_erkek_kardes",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kız kardeşi; X, P'nin babası ise X, Y'nin erkek kardeşidir."
+  },
+  {
+   "kimlik": "kiz_kardes_erkek_kardes_erkek_kardes_2",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kız kardeşi; X, P'nin erkek kardeşi ise X, Y'nin erkek kardeşidir."
+  },
+  {
+   "kimlik": "kiz_kardes_kiz_kiz_kardes",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kız kardeşi; X, P'nin kızı ise X, Y'nin kız kardeşidir."
+  },
+  {
+   "kimlik": "kiz_kardes_anne_kiz_kardes",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kız kardeşi; X, P'nin annesi ise X, Y'nin kız kardeşidir."
+  },
+  {
+   "kimlik": "kiz_kardes_kiz_kardes_kiz_kardes_2",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "P",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "Y",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kız kardeşi; X, P'nin kız kardeşi ise X, Y'nin kız kardeşidir."
+  },
+  {
+   "kimlik": "baba_erkek_kardes_baba",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "Z",
+    "sag": "Y"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in babası; Z, X'in erkek kardeşi ise Y, Z'nin babasıdır."
+  },
+  {
+   "kimlik": "baba_kiz_kardes_baba",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "Z",
+    "sag": "Y"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in babası; Z, X'in kız kardeşi ise Y, Z'nin babasıdır."
+  },
+  {
+   "kimlik": "anne_erkek_kardes_anne",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "Z",
+    "sag": "Y"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in annesi; Z, X'in erkek kardeşi ise Y, Z'nin annesidir."
+  },
+  {
+   "kimlik": "anne_kiz_kardes_anne",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "Z",
+    "sag": "Y"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in annesi; Z, X'in kız kardeşi ise Y, Z'nin annesidir."
+  },
+  {
+   "kimlik": "erkek_kardes_erkek_kardes_erkek_kardes_3",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "Y",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in erkek kardeşi; Z, X'in erkek kardeşi ise Z, Y'nin erkek kardeşidir (Y ve Z farklı kişi).",
+   "farkli": [
+    [
+     "Y",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "erkek_kardes_kiz_kardes_kiz_kardes_3",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "Y",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in erkek kardeşi; Z, X'in kız kardeşi ise Z, Y'nin kız kardeşidir (Y ve Z farklı kişi).",
+   "farkli": [
+    [
+     "Y",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "kiz_kardes_erkek_kardes_erkek_kardes_3",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "Y",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kız kardeşi; Z, X'in erkek kardeşi ise Z, Y'nin erkek kardeşidir (Y ve Z farklı kişi).",
+   "farkli": [
+    [
+     "Y",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "kiz_kardes_kiz_kardes_kiz_kardes_3",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "Y",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kız kardeşi; Z, X'in kız kardeşi ise Z, Y'nin kız kardeşidir (Y ve Z farklı kişi).",
+   "farkli": [
+    [
+     "Y",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "amca_baba_kuzen",
+   "halkalar": [
+    {
+     "gen": "amca",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in amcası; Y, Z'nin babası ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "amca_anne_kuzen",
+   "halkalar": [
+    {
+     "gen": "amca",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in amcası; Y, Z'nin annesi ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "dayi_baba_kuzen",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in dayısı; Y, Z'nin babası ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "dayi_anne_kuzen",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in dayısı; Y, Z'nin annesi ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "hala_baba_kuzen",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in halası; Y, Z'nin babası ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "hala_anne_kuzen",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in halası; Y, Z'nin annesi ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "teyze_baba_kuzen",
+   "halkalar": [
+    {
+     "gen": "teyze",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in teyzesi; Y, Z'nin babası ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "teyze_anne_kuzen",
+   "halkalar": [
+    {
+     "gen": "teyze",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in teyzesi; Y, Z'nin annesi ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "erkek_kardes_baba_yegen",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in erkek kardeşi; Y, Z'nin babası ise Z, X'in yeğenidir."
+  },
+  {
+   "kimlik": "erkek_kardes_anne_yegen",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in erkek kardeşi; Y, Z'nin annesi ise Z, X'in yeğenidir."
+  },
+  {
+   "kimlik": "kiz_kardes_baba_yegen",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kız kardeşi; Y, Z'nin babası ise Z, X'in yeğenidir."
+  },
+  {
+   "kimlik": "kiz_kardes_anne_yegen",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kız kardeşi; Y, Z'nin annesi ise Z, X'in yeğenidir."
+  },
+  {
+   "kimlik": "ogul_baba_torun",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; Y, Z'nin babası ise Z, X'in torunudur."
+  },
+  {
+   "kimlik": "ogul_anne_torun",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; Y, Z'nin annesi ise Z, X'in torunudur."
+  },
+  {
+   "kimlik": "kiz_baba_torun",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; Y, Z'nin babası ise Z, X'in torunudur."
+  },
+  {
+   "kimlik": "kiz_anne_torun",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; Y, Z'nin annesi ise Z, X'in torunudur."
+  },
+  {
+   "kimlik": "ogul_baba_dede",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin oğlu; Z, Y'nin babası ise Z, X'in dedesidir."
+  },
+  {
+   "kimlik": "kiz_baba_dede",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin kızı; Z, Y'nin babası ise Z, X'in dedesidir."
+  },
+  {
+   "kimlik": "erkek_kardes_ogul_yegen_2",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "Z",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Z, Y'nin erkek kardeşi; X, Y'nin oğlu ise X, Z'nin yeğenidir."
+  },
+  {
+   "kimlik": "erkek_kardes_kiz_yegen_2",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "Z",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Z, Y'nin erkek kardeşi; X, Y'nin kızı ise X, Z'nin yeğenidir."
+  },
+  {
+   "kimlik": "kiz_kardes_ogul_yegen_2",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "Z",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Z, Y'nin kız kardeşi; X, Y'nin oğlu ise X, Z'nin yeğenidir."
+  },
+  {
+   "kimlik": "kiz_kardes_kiz_yegen_2",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "Z",
+    "sag": "X"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Z, Y'nin kız kardeşi; X, Y'nin kızı ise X, Z'nin yeğenidir."
+  },
+  {
+   "kimlik": "baba_ogul_torun",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin babası; Z, Y'nin oğlu ise Z, X'in torunudur."
+  },
+  {
+   "kimlik": "baba_kiz_torun",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin babası; Z, Y'nin kızı ise Z, X'in torunudur."
+  },
+  {
+   "kimlik": "anne_ogul_torun",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin annesi; Z, Y'nin oğlu ise Z, X'in torunudur."
+  },
+  {
+   "kimlik": "anne_kiz_torun",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin annesi; Z, Y'nin kızı ise Z, X'in torunudur."
+  },
+  {
+   "kimlik": "baba_baba_torun",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin babası; Y, Z'nin babası ise Z, X'in torunudur."
+  },
+  {
+   "kimlik": "baba_anne_torun",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin babası; Y, Z'nin annesi ise Z, X'in torunudur."
+  },
+  {
+   "kimlik": "anne_baba_torun",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin annesi; Y, Z'nin babası ise Z, X'in torunudur."
+  },
+  {
+   "kimlik": "anne_anne_torun",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin annesi; Y, Z'nin annesi ise Z, X'in torunudur."
+  },
+  {
+   "kimlik": "erkek_kardes_baba_yegen_2",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin erkek kardeşi; Y, Z'nin babası ise Z, X'in yeğenidir."
+  },
+  {
+   "kimlik": "erkek_kardes_anne_yegen_2",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin erkek kardeşi; Y, Z'nin annesi ise Z, X'in yeğenidir."
+  },
+  {
+   "kimlik": "kiz_kardes_baba_yegen_2",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin kız kardeşi; Y, Z'nin babası ise Z, X'in yeğenidir."
+  },
+  {
+   "kimlik": "kiz_kardes_anne_yegen_2",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin kız kardeşi; Y, Z'nin annesi ise Z, X'in yeğenidir."
+  },
+  {
+   "kimlik": "ogul_yegen_kuzen",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin oğlu; Z, Y'nin yeğeni ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "kiz_yegen_kuzen",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "X",
+     "esik": 0.5
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Y",
+     "sag": "Z",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "X, Y'nin kızı; Z, Y'nin yeğeni ise Z, X'in kuzenidir."
+  },
+  {
+   "kimlik": "ogul_erkek_kardes_ogul_torun",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Z",
+     "sag": "W",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "W"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; Y, Z'nin erkek kardeşi; W, Z'nin oğlu ise W, X'in torunudur."
+  },
+  {
+   "kimlik": "ogul_erkek_kardes_kiz_torun",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Z",
+     "sag": "W",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "W"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; Y, Z'nin erkek kardeşi; W, Z'nin kızı ise W, X'in torunudur."
+  },
+  {
+   "kimlik": "ogul_kiz_kardes_ogul_torun",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Z",
+     "sag": "W",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "W"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; Y, Z'nin kız kardeşi; W, Z'nin oğlu ise W, X'in torunudur."
+  },
+  {
+   "kimlik": "ogul_kiz_kardes_kiz_torun",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Z",
+     "sag": "W",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "W"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in oğlu; Y, Z'nin kız kardeşi; W, Z'nin kızı ise W, X'in torunudur."
+  },
+  {
+   "kimlik": "kiz_erkek_kardes_ogul_torun",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Z",
+     "sag": "W",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "W"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; Y, Z'nin erkek kardeşi; W, Z'nin oğlu ise W, X'in torunudur."
+  },
+  {
+   "kimlik": "kiz_erkek_kardes_kiz_torun",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Z",
+     "sag": "W",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "W"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; Y, Z'nin erkek kardeşi; W, Z'nin kızı ise W, X'in torunudur."
+  },
+  {
+   "kimlik": "kiz_kiz_kardes_ogul_torun",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Z",
+     "sag": "W",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "W"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; Y, Z'nin kız kardeşi; W, Z'nin oğlu ise W, X'in torunudur."
+  },
+  {
+   "kimlik": "kiz_kiz_kardes_kiz_torun",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Z",
+     "sag": "W",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "W"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kızı; Y, Z'nin kız kardeşi; W, Z'nin kızı ise W, X'in torunudur."
+  },
+  {
+   "kimlik": "baba_baba_ogul_yegen",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "P",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "P",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "W",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "W"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "P, X'in babası; P, Y'nin babası; W, Y'nin oğlu ise W, X'in yeğenidir (X ve Y farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ]
+  },
+  {
+   "kimlik": "baba_baba_kiz_yegen",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "P",
+     "esik": 0.5
+    },
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "P",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "W",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "W"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "P, X'in babası; P, Y'nin babası; W, Y'nin kızı ise W, X'in yeğenidir (X ve Y farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ]
+  },
+  {
+   "kimlik": "anne_anne_ogul_yegen",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "P",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "P",
+     "esik": 0.5
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "W",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "W"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "P, X'in annesi; P, Y'nin annesi; W, Y'nin oğlu ise W, X'in yeğenidir (X ve Y farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ]
+  },
+  {
+   "kimlik": "anne_anne_kiz_yegen",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "P",
+     "esik": 0.5
+    },
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "P",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "W",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "W"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "P, X'in annesi; P, Y'nin annesi; W, Y'nin kızı ise W, X'in yeğenidir (X ve Y farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ]
+  },
+  {
+   "kimlik": "kuzen_erkek_kardes_kuzen",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kuzeni; Y, Z'nin erkek kardeşi ise Z, X'in kuzenidir (X ve Z farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "kuzen_kiz_kardes_kuzen",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Z",
+     "sag": "Y",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Z"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kuzeni; Y, Z'nin kız kardeşi ise Z, X'in kuzenidir (X ve Z farklı kişi).",
+   "farkli": [
+    [
+     "X",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "kuzen_erkek_kardes_kuzen_2",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Z",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "Z",
+    "sag": "Y"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kuzeni; X, Z'nin erkek kardeşi ise Y, Z'nin kuzenidir (Y ve Z farklı kişi).",
+   "farkli": [
+    [
+     "Y",
+     "Z"
+    ]
+   ]
+  },
+  {
+   "kimlik": "kuzen_kiz_kardes_kuzen_2",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Y",
+     "esik": 0.5
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Z",
+     "sag": "X",
+     "esik": 0.5
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "Z",
+    "sag": "Y"
+   },
+   "guvenilirlik": 1.0,
+   "okunus": "Y, X'in kuzeni; X, Z'nin kız kardeşi ise Y, Z'nin kuzenidir (Y ve Z farklı kişi).",
+   "farkli": [
+    [
+     "Y",
+     "Z"
+    ]
+   ]
+  }
+ ]
+}
