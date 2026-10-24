@@ -18,6 +18,10 @@ class CokluIliskiHatasi(ValueError):
     pass
 
 
+class OlguTutarsizHatasi(ValueError):
+    """Olgular dünya varsayımlarıyla bağdaşmıyor (V-053)."""
+
+
 class Tanimlar:
     def __init__(self, adlar, secenekler, olgu_iliskileri):
         self.adlar = tuple(adlar)
@@ -195,6 +199,166 @@ def cikarilabilir_mi(dunya, tanimlar, olgular, sorgu):
         return ara(i + 1, cevrilen) and ara(i + 1, cevrilen | {degiskenler[i]})
 
     return ara(0, frozenset())
+
+
+# --- V-053: olgulardan çıkarılabilirlik (dünya verilmez) ---------------------------------------------
+
+EBEVEYN, COCUK, ESLIK, KARDES = "ebeveyn", "cocuk", "evlilik", "ortak_ebeveyn"  # V-053: olgu tanımlarının desenleri
+EBEVEYN_SAYISI = 2  # V-053: dünya varsayımı (V-017): ebeveyni olan herkesin birbiriyle evli iki ebeveyni vardır
+
+
+def olgu_bicimi(tanimlar, iliski):
+    """Olgu ilişkisinin tanımındaki adım deseni: (biçim, hedefin tipi)."""
+    secenekler = tanimlar.secenekler[iliski]
+    if len(secenekler) != 1:
+        raise NotImplementedError(f"tek seçenekli olmayan olgu tanımı desteklenmiyor: {iliski}")
+    adimlar = secenekler[0]
+    yonler = tuple(y for y, _ in adimlar)
+    tip = adimlar[-1][1]
+    if yonler == (YUKARI,):
+        return EBEVEYN, tip
+    if yonler == (ASAGI,):
+        return COCUK, tip
+    if yonler == (ES,) and tip is None:
+        return ESLIK, None
+    if yonler == (YUKARI, ASAGI) and adimlar[0][1] is None:
+        return KARDES, tip
+    raise NotImplementedError(f"olgu tanımının deseni desteklenmiyor: {iliski}")
+
+
+class _Birlesim:
+    def __init__(self):
+        self.ust = {}
+
+    def bul(self, x):
+        self.ust.setdefault(x, x)
+        while self.ust[x] != x:
+            self.ust[x] = self.ust[self.ust[x]]
+            x = self.ust[x]
+        return x
+
+    def birlestir(self, a, b):
+        a, b = self.bul(a), self.bul(b)
+        if a != b:
+            self.ust[max(a, b)] = min(a, b)
+        return a != b
+
+
+def zorunlu_yapi(tanimlar, olgular, kisiler):
+    """Olgular + dünya varsayımlarının zorunlu kıldığı yapı.
+
+    Dönüş: (ebeveyni ortak kişi sınıfları, sınıf → adı geçen ebeveynler, evlilikler, olgularla sabitlenen tipler)."""
+    tip, ebeveyn_olgusu, kardes, es = {}, [], [], {}
+    for x, r, y in olgular:
+        bicim, t = olgu_bicimi(tanimlar, r)
+        if t is not None:
+            if tip.setdefault(y, t) != t:
+                raise OlguTutarsizHatasi(f"{y} için iki farklı tip")
+        if bicim == EBEVEYN:
+            ebeveyn_olgusu.append((x, y))
+        elif bicim == COCUK:
+            ebeveyn_olgusu.append((y, x))
+        elif bicim == KARDES:
+            kardes.append((x, y))
+        else:
+            for a, b in ((x, y), (y, x)):
+                if es.setdefault(a, b) != b:
+                    raise OlguTutarsizHatasi(f"{a} için iki farklı evlilik")
+    sinif = _Birlesim()
+    ebeveynli = set()
+    for cocuk, _ in ebeveyn_olgusu:
+        ebeveynli.add(cocuk)
+        sinif.bul(cocuk)
+    for a, b in kardes:
+        if a == b:
+            raise OlguTutarsizHatasi(f"{a} kendi kardeşi")
+        ebeveynli |= {a, b}
+        sinif.birlestir(a, b)
+    degisti = True
+    while degisti:
+        degisti = False
+        uyeler = {}
+        for cocuk, e in ebeveyn_olgusu:
+            uyeler.setdefault(sinif.bul(cocuk), set()).add(e)
+        # bir kişinin bütün çocukları aynı çiftin çocuklarıdır (varsayım 1 + 2)
+        sinifi = {}
+        for k, u in uyeler.items():
+            for e in u:
+                if e in sinifi:
+                    degisti |= sinif.birlestir(sinifi[e], k)
+                sinifi.setdefault(e, k)
+        if degisti:
+            continue
+        # adı geçen ebeveynin eşi de o sınıfın ebeveynidir; iki ebeveyn evlidir
+        for k, u in list(uyeler.items()):
+            for e in list(u):
+                if e in es and es[e] not in u:
+                    ebeveyn_olgusu.append((k, es[e]))
+                    degisti = True
+            if len(u) > EBEVEYN_SAYISI:
+                raise OlguTutarsizHatasi(f"{sorted(u)}: ikiden çok ebeveyn")
+            if len(u) == EBEVEYN_SAYISI:
+                a, b = sorted(u)
+                for p, q in ((a, b), (b, a)):
+                    if es.setdefault(p, q) != q:
+                        raise OlguTutarsizHatasi(f"{p} için iki farklı evlilik")
+    uyeler = {}
+    for cocuk, e in ebeveyn_olgusu:
+        uyeler.setdefault(sinif.bul(cocuk), set()).add(e)
+    siniflar = {}
+    for k in ebeveynli:
+        siniflar.setdefault(sinif.bul(k), set()).add(k)
+    for k, cocuklar in siniflar.items():
+        if cocuklar & uyeler.get(k, set()):
+            raise OlguTutarsizHatasi("bir kişi kendi ebeveyni")
+    return siniflar, {k: sorted(uyeler.get(k, ())) for k in siniflar}, es, tip
+
+
+def zorunlu_dunya(tanimlar, olgular, sorgu):
+    """Zorunlu yapıyı Dunya olarak kurar. Adı geçen kişiler 0..n-1, adsız ebeveynler n.. ; ilk tipler olgulardan,
+    eşler karşı cinsten, gerisi keyfî (sonuç buna bağlı değildir: bütün atamalar denenir)."""
+    adlar = sorted({x for x, _, y in olgular} | {y for x, _, y in olgular} | set(sorgu), key=repr)
+    kimlik = {a: i for i, a in enumerate(adlar)}
+    siniflar, uyeler, es, tip = zorunlu_yapi(tanimlar, olgular, adlar)
+    sayi = len(adlar)
+    es_d = {kimlik[a]: kimlik[b] for a, b in es.items()}
+    ebeveynler = {}
+    for k in sorted(siniflar, key=repr):
+        u = [kimlik[e] for e in uyeler[k]]
+        while len(u) < EBEVEYN_SAYISI:  # adı geçen ebeveynin evliliği zorunlu yapıda; eksik ebeveyn adsız düğümdür
+            yeni = sayi
+            sayi += 1
+            if u:
+                es_d[u[0]], es_d[yeni] = yeni, u[0]
+            u.append(yeni)
+        for c in siniflar[k]:
+            ebeveynler[kimlik[c]] = tuple(u)
+    tipler = [None] * sayi
+    for a, t in tip.items():
+        tipler[kimlik[a]] = t
+    for p in range(sayi):  # eşler karşı cinsten; geri kalan keyfî
+        if tipler[p] is None:
+            q = es_d.get(p)
+            tipler[p] = 1 - tipler[q] if q is not None and tipler[q] is not None else 0
+        q = es_d.get(p)
+        if q is not None and tipler[q] is None:
+            tipler[q] = 1 - tipler[p]
+    for p, q in es_d.items():
+        if tipler[p] == tipler[q]:
+            raise OlguTutarsizHatasi("eşler aynı cinsten")
+    return Dunya(tipler, ebeveynler, es_d), kimlik
+
+
+def olgudan_cikarilabilir_mi(tanimlar, olgular, sorgu, cevap):
+    """V-053, K-032 §3: dünya verilmez. Olgular + dünya varsayımlarının zorunlu kıldığı yapıda, cinsiyetlerin olgulara
+    uyan bütün atamalarında sorgu çiftinin ilişkisi `cevap` ise True. Varsayımlar: her kişinin ya hiç ebeveyni yoktur
+    ya da birbiriyle evli iki ebeveyni vardır; en çok bir evlilik; evli çiftler karşı cinsten. Başka bilgi kullanılmaz."""
+    dunya, kimlik = zorunlu_dunya(tanimlar, olgular, sorgu)
+    olgular_d = [(kimlik[x], r, kimlik[y]) for x, r, y in olgular]
+    sorgu_d = (kimlik[sorgu[0]], kimlik[sorgu[1]])
+    if dunya.iliski(*sorgu_d, tanimlar) != cevap:
+        return False
+    return cikarilabilir_mi(dunya, tanimlar, olgular_d, sorgu_d)
 
 
 ADIM_METNI = {YUKARI: "ebeveyni", ASAGI: "çocuğu", ES: "evlendiği kişi"}  # V-019: okunur gösterim

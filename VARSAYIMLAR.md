@@ -569,4 +569,15 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Denetim yapıyı sabit tuttuğu için, olgularda geçmeyen evlilikleri ve ebeveynlikleri de biliyor. Örnek: "15, 14 ile evli" olgularda yok, ama 15'in cinsiyetini yalnız bu bağ belirliyor.
   - Yalnız olgularda görünen evlilikleri sabit tutan bir tür denetimle: 119 hatanın 113'ü çıkarılamaz; çekirdeğin doğru bildiği 1881 sorunun 27'si de çıkarılamaz. Yani bu tür denetim de kesin tanım değil.
   - Ayrıntı: `raporlar/H1_v2_SONUC.md`.
-- **Felsefi:** evet (kâhin, veri olarak dil: "olgulardan çıkarılabilir" ne demek). **Durum:** AÇIK. Kullanıcı tanımın yönünü verdi (K-032 §3); tanım ve sınama sonuçları onaya gelecek. Kapanmadan H2 başlamaz (K-032 §4). ÖK-003 §6'ya göre ayarlar ve DNA değişmedi.
+- **Önerilen tanım (2026-10-24; uygulama `degerlendirme/dunya.py` `olgudan_cikarilabilir_mi`, onay bekliyor):**
+  - **Girdi:** yalnız olgular, sorgu ve beklenen cevap. Gerçek dünya fonksiyona hiç verilmez.
+  - **Dünya varsayımları (yalnız bunlar):** her kişinin ya hiç ebeveyni yoktur ya da birbiriyle evli iki ebeveyni vardır; en çok bir evlilik; evli çiftler karşı cinsten.
+  - **Zorunlu yapı:** Bu varsayımlardan şunlar çıkar: bir çocuğun iki ebeveyni evlidir; bir kişinin bütün çocukları aynı çiftindir; kardeşlerin iki ebeveyni de ortaktır; adı geçen ebeveynin evlendiği kişi o çocukların öteki ebeveynidir. Adı geçmeyen ebeveyn adsız düğümdür. Üretecin başka özellikleri kullanılmaz (dışarıdan evlenenin ebeveynsizliği, nesil sayısı, akraba evliliği yokluğu).
+  - **Karar:** Zorunlu yapıda, cinsiyetlerin olgulara uyan bütün atamalarında sorgu çiftinin ilişkisi beklenen cevapsa soru çıkarılabilirdir. Olgular varsayımlarla çelişirse hata verir.
+- **Sınama:**
+  - Kaba kuvvet: küçük örneklerde (en çok 7 düğüm), varsayımlara uyan ve olguları doğrulayan BÜTÜN dünyalar (yapı + cinsiyet) sayıldı; 152 üretilmiş örnekte 152 aynı karar (93 çıkarılabilir, 58 değil). Eski (ağaç sabit) tanım bunların 1'inde yanılıyordu.
+  - Testte 24 rastgele örnek + elle örnekler var (`testler/test_a6_olgudan_cikarilabilirlik.py`).
+  - ÖK-003 yön ters (2000 soru): (a) 113 hatanın 113'ü çıkarılamaz; (c) çekirdeğin doğru bildiği ve geçici türün çıkarılamaz saydığı 27 sorunun 27'si çıkarılabilir; çekirdeğin doğru bildiği öteki 1854 sorunun hepsi çıkarılabilir.
+  - (b) 6 açıklanamayan hata: yeni tanıma göre çıkarılabilir. Altısında da karar verdiren kişinin cinsiyeti zincir dışındaki ayrı bir olgudan geliyor (ör. "22, 23'ün oğlu" → 22 erkek). DNA'da cinsiyeti bir olgudan ötekine taşıyan kural yok; bu bir DNA kapsam açığı, çekirdek ya da tanım hatası değil. DNA'yı danışman düzeltir (K-024).
+  - Etki: tohum 12'nin eğitim, uzunluk, önsel-ters ve yeniden adlandırma bölmelerinde yeni tanım hiçbir soruyu atmıyor; yalnız yön ters etkileniyor.
+- **Felsefi:** evet (kâhin, veri olarak dil: "olgulardan çıkarılabilir" ne demek). **Durum:** AÇIK; tanım onaya geldi (K-032 §3). Kapanmadan H2 başlamaz (K-032 §4). ÖK-003 §6'ya göre ayarlar ve DNA değişmedi.

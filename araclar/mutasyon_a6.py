@@ -11,6 +11,7 @@ sys.path.insert(0, str(KOK))
 from araclar.mutasyon_a0 import kopyada_kostur  # noqa: E402
 
 H2 = "degerlendirme/h2.py"
+DUN = "degerlendirme/dunya.py"
 
 MUTASYONLAR = [
     # K-032 §4: H2 kapısı
@@ -26,6 +27,18 @@ MUTASYONLAR = [
     ("tohumsuz özet kabul ediliyor", H2, "    if not tohumlar or KULLANILMIS_H1_TOHUMLARI",
      "    if KULLANILMIS_H1_TOHUMLARI"),
     ("komut kapıyı atlıyor", H2, "    try:\n        kapi_denetle(kok)\n", "    try:\n        pass\n"),
+    # V-053: olgulardan çıkarılabilirlik
+    ("çocuğun iki ebeveyni evlendirilmiyor", DUN, "            if len(u) == EBEVEYN_SAYISI:\n                a, b = sorted(u)",
+     "            if False:\n                a, b = sorted(u)"),
+    ("kardeşler birleştirilmiyor", DUN, "        sinif.birlestir(a, b)\n    degisti = True", "        sinif.bul(b)\n    degisti = True"),
+    ("bir kişinin çocukları aynı çifte bağlanmıyor", DUN, "                    degisti |= sinif.birlestir(sinifi[e], k)",
+     "                    pass"),
+    ("ebeveynin eşi ebeveyn sayılmıyor", DUN, "                if e in es and es[e] not in u:", "                if False:"),
+    ("olgu tipi alınmıyor", DUN, "            if tip.setdefault(y, t) != t:", "            if False:"),
+    ("beklenen cevap karşılaştırılmıyor", DUN, "    if dunya.iliski(*sorgu_d, tanimlar) != cevap:\n        return False",
+     "    if False:\n        return False"),
+    ("aynı cinsten evli çift denetlenmiyor", DUN, "        if tipler[p] == tipler[q]:", "        if False:"),
+    ("ikiden çok ebeveyn denetlenmiyor", DUN, "            if len(u) > EBEVEYN_SAYISI:", "            if False:"),
 ]
 
 
