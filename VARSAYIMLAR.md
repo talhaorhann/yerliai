@@ -596,7 +596,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
     1. Yapıca aynı kural bellekte varsa → gereksiz.
     2. Ölçülen her ortamda doğruluk < eşik → yanlış. Bir ortamda tutup en kötü ortamda tutmuyorsa → kısayol.
     3. Çelişki → çelişkili.
-    4. Katkı yok → gereksiz.
+    4. Aday hiç eşleşmediyse → sınanamadı (kanıt yok); eşleşip katkı yapmadıysa → gereksiz.
     5. Bir ortam gözlemle ölçülemedi ya da müdahale kanıtı az → sınanamadı.
     6. Müdahale ortalaması < eşik → kısayol. Hiçbiri değilse → kabul.
   - `gozden_gecir`: aktif bellek hücreleri yeni veriyle yeniden sınanır; yanlış, kısayol ya da çelişkili çıkan geri alınır.

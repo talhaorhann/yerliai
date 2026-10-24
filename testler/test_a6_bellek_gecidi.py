@@ -166,3 +166,10 @@ class AyrintiTesti(Ortam):
         hucreler = self.hucreler(T1) + self.hucreler(ayni_ad)
         with self.assertRaises(ValueError):
             gecit(hucreler[1], hucreler[:1], ORTAMLAR, self.sema, KK, t3.PRM, GUNLUK, ESIK)
+
+    def test_hic_eslesmeyen_aday_sinanamadi(self):
+        """Verideki hiçbir bölümde gövdesi eşleşmeyen kural için kanıt yoktur: gereksiz değil, sınanamadı."""
+        hic = hucre("s_vv", [halka("vonk", "X", "Y"), halka("vonk", "Y", "Z")], ("quax", "X", "Z"))
+        k = self.gec(hic)
+        self.assertEqual((k.karar, k.neden), (SINANAMADI, None), k.olcumler)
+        self.assertEqual(sum(o["eslesme"] for o in k.olcumler.values()), 0)

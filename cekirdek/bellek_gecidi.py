@@ -7,13 +7,13 @@ koşar: bellekle (R0) ve bellek + adayla (R1). Adayın soyu = adayın yazdığı
   doğrulamıyor, kök-ayrık).
 - Karşıtlık: soydan bir kayıt ile bir olgu arasında şema çelişkisi (dışlayıcı / işlevsel / ters; defterin CELISKI'si).
 - Çelişki: soydan bir kayıt ile bellekten türemiş (soy dışı) bir çıkarım ya da soyun kendi içinde şema çelişkisi.
-- Katkı: soyun yazdığı, R0'da hiç olmayan ya da R0'da daha geç turda çıkan üçlüler.
+- Katkı: soyun yazdığı, R0'da hiç olmayan ya da R0'da daha geç turda çıkan üçlüler. Eşleşme: adayın ateşleme sayısı.
 - Müdahale: cevabı soydan gelen sorularda müdahale testinin puanı ("sınanamadı" sayılmaz, K-021).
 Ortam doğruluğu = destek / (destek + karşıtlık), en az `en_az_kanit` gözlemle. Karar sırası:
 1. Bellekteki bir kuralla yapıca aynı (değişken adı ve halka sırası dışında) → ret: gereksiz.
 2. Ölçülen her ortamda doğruluk < eşik → ret: yanlış. Bazı ortamlarda eşiği geçip en kötü ortamda geçmiyor → ret: kısayol.
 3. Çelişki > 0 → ret: çelişkili.
-4. Katkı = 0 → ret: gereksiz.
+4. Hiç eşleşme yoksa → sınanamadı (kanıt yok). Eşleşip katkı = 0 → ret: gereksiz.
 5. Bir ortam gözlemle ölçülemedi ya da müdahale kanıtı `en_az_kanit`'ten az → sınanamadı (kabul de ret de değil).
 6. Müdahale ortalaması < eşik → ret: kısayol. Değilse kabul.
 Gözlenmeyen ilişkiler için doğruluk kanıtı yoktur; dışarıdan skor (kâhin) kanalı kullanıcı kararıdır (V-054).
@@ -21,7 +21,7 @@ Gözlenmeyen ilişkiler için doğruluk kanıtı yoktur; dışarıdan skor (kâh
 import itertools
 from dataclasses import dataclass
 
-from cekirdek.defter import CELISKI, YAZMA, Defter
+from cekirdek.defter import ATESLEME, CELISKI, YAZMA, Defter
 from cekirdek.dongu import calistir
 from cekirdek.havuz import EPITOP, Havuz
 from cekirdek.mudahale import PUANLI, mudahale_testi
@@ -116,8 +116,9 @@ def bolum_kaniti(aday, bellek, bolum, iliski_semasi, kk, prm, gunluk_ayari):
         if cevap.iliski is not None and soy.intersection(a["kimlik"] for a in cevap.gerekce):
             m = mudahale_testi(havuz1, defter1, hucreler, olgular, kk, prm, iliski_semasi, sorgu)
             mudahale = m.puan if m.durum == PUANLI else None
+    eslesme = sum(1 for k in olaylar if k["tur"] == ATESLEME and k["veri"]["hucre"] == aday.kimlik)
     return {"destek": len(destek), "karsitlik": len(karsitlik), "celiski": len(celiski), "katki": len(katki),
-            "mudahale": mudahale}
+            "eslesme": eslesme, "mudahale": mudahale}
 
 
 def gecit(aday, bellek, ortamlar, iliski_semasi, kk, prm, gunluk_ayari, esikler, dis_kanit=None):
@@ -133,7 +134,7 @@ def gecit(aday, bellek, ortamlar, iliski_semasi, kk, prm, gunluk_ayari, esikler,
     olcum = {}
     for ad in sorted(ortamlar):
         kanitlar = [bolum_kaniti(aday, bellek, b, iliski_semasi, kk, prm, gunluk_ayari) for b in ortamlar[ad]]
-        toplam = {a: sum(k[a] for k in kanitlar) for a in ("destek", "karsitlik", "celiski", "katki")}
+        toplam = {a: sum(k[a] for k in kanitlar) for a in ("destek", "karsitlik", "celiski", "katki", "eslesme")}
         gozlem = toplam["destek"] + toplam["karsitlik"]
         toplam["dogruluk"] = toplam["destek"] / gozlem if gozlem >= esikler.en_az_kanit else None
         toplam["mudahale"] = [k["mudahale"] for k in kanitlar if k["mudahale"] is not None]
@@ -145,6 +146,8 @@ def gecit(aday, bellek, ortamlar, iliski_semasi, kk, prm, gunluk_ayari, esikler,
         return GecitKarari(RET, KISAYOL, olcum)
     if sum(o["celiski"] for o in olcum.values()):
         return GecitKarari(RET, CELISKILI, olcum)
+    if not sum(o["eslesme"] for o in olcum.values()):
+        return GecitKarari(SINANAMADI, None, olcum)
     if not sum(o["katki"] for o in olcum.values()):
         return GecitKarari(RET, GEREKSIZ, olcum)
     puanlar = [p for o in olcum.values() for p in o["mudahale"]]
