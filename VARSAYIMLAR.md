@@ -488,3 +488,19 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 - **Uygulanan:** (a), `aday_siniri` = 100000. Sınır yalnız durdurucudur: sınıra takılmayan bir üretimin çıktısı değişmez. Doğrulandı: tohum 7 manifestinin (`ozet.json`) özeti değişiklikten önce ve sonra aynı.
 - **Geri alma:** değeri 20000'e döndürmek (tohum 8 yine durur).
 - **Felsefi:** hayır. **Durum:** ONAYSIZ.
+
+## V-046: Aynı ilişkinin yeni kökenle yeniden yazılması (AÇIK SORU, felsefi)
+- **Bölüm:** sistem.md §2 ((üçlü, köken) tekilleştirmesi), §3 (yarı-naif eşleşme: önceki turda yazılmış kayıt), §5 (durma: yeni kayıt yok; kopyaları Treg baskılar, H4), §6 (kök-ayrık ispatlar noisy-OR), K-021 (a).
+- **Bulgu (ölçüldü, eğitim bölmesi, tohum 7, ilk 60 bölüm, gerçek DNA, havuz 128):** Bütün yeni ilişkiler 2. turda bulunuyor; sonraki turlar aynı ilişkileri yalnız yeni kökenle yeniden yazıyor (bir bölümde 9 ilişki 738 kez, biri 121 kez). Simetrik ve ters kurallar döngü kuruyor. Her yeni köken "yeni kayıt" sayıldığı için döngü 8. tura kadar sürüyor, kopyalar havuzu doldurup doğru cevabı atıyor (aynı bölüm havuz 4096 ile doğru).
+- **Ölçülen seçenekler** (ayrı kopyada, depodaki kod değişmeden; süreler A/B/C/bugün paralel koşuda, önbelleksiz):
+
+  | Seçenek | Doğru / 60 | Atma | Ortalama tur | Durma | (a) ortalaması |
+  |---|---|---|---|---|---|
+  | Bugünkü (şartnamenin harfi) | 33 | 24080 | 8,0 | 60'ı tur sınırı | — |
+  | A: kopya yazılır ama yeni tur başlatmaz ("yeni" = yeni üçlü) | 55 | 1628 | 3,0 | 55 yeni yok, 5 impasse | 0,974 |
+  | B: aynı üçlü havuzdaysa hiç yazılmaz | 60 | 0 | 2,9 | 60 yeni yok | 1,000 (ikinci kanıt hiç yok) |
+  | C: kopya yalnız yeni dayanak getiriyorsa yazılır (kök kümesi mevcut bir ispatınkini kapsamıyorsa) | 60 | 0 | 3,5 | 60 yeni yok | 0,992 |
+
+  C, dairesel matris önbelleğiyle tek başına: bölüm başına 0,13 sn.
+- **Öneri:** C. Kısır döngüleri keser, kök-ayrık (bağımsız) ispatları korur; böylece §6 noisy-OR ve K-021 (a) anlamlı kalır.
+- **Durum:** AÇIK, kullanıcı kararı bekleniyor. Karar gelene kadar çekirdek değişmez; H1 eğitim koşusu yapılmaz.

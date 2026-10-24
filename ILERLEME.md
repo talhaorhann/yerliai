@@ -211,8 +211,14 @@
 - Config (kilitli) değişti: H1 değerleri (tohumlar, bölmeler, güven düzeyi, bootstrap, ara kayıt) ve aday sınırı.
 - Mutasyon: 37/37 yakalandı (vektör 12, bağlama 7, farklı kişi 4, koşturucu ve istatistik 14), taban 287/287.
 
+**4. adım, DNA geldi (2026-10-24):**
+- `veri/dna/akrabalik_dna_v2_final.json`: 170 kural (8 tek, 150 iki, 12 üç halkalı; 26'sında farklı kişi şartı), DNA v2 ve onaylı şemayla geçerli. 9 grupluk özet `veri/dna/AKRABALIK_DNA_GRUPLARI.md`; kullanıcının tek evet/hayır onayı bekleniyor.
+- Havuz 128 (ÖK-002a, K-026).
+- Bulgu: aynı ilişkinin yeni kökenle yeniden yazılması döngüyü 8 tura sürüklüyor, kopyalar doğru cevabı havuzdan atıyor. Eğitimde ilk 60 bölümde bugünkü hâl 33/60. Seçenekler ölçüldü (V-046); karar kullanıcıda.
+- Hızlandırma: dairesel matrisler bir kez kuruluyor (V-042 eki); ölçülen en pahalı adım buydu.
+
 **Eksik:**
-- DNA (danışmanda), kullanıcının kural kural onayı, eğitim bölmesinde geliştirme.
+- V-046 kararı (felsefi), DNA'nın 9 grupluk onayı, sonra eğitim bölmesinde geliştirme.
 - ÖK-002 eki: config, DNA ve tohum manifest özetleri (DNA kilitlenince).
 - Kapı koşusu ve altın küme koşusu. Gerçek DNA ile süre ölçümü (deneme DNA'sıyla ölçülen 0,02 sn/bölüm gerçeği yansıtmaz).
 - Altın küme 2. parça cevapları (kullanıcıda).
