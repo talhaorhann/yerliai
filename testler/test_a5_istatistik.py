@@ -54,9 +54,10 @@ class ClopperPearsonTesti(unittest.TestCase):
 
 class BootstrapTesti(unittest.TestCase):
     def test_belirlenimli(self):
-        veri = [0.0, 1.0, 0.5, 0.25, 1.0, 0.0, 0.75]
-        self.assertEqual(bootstrap_araligi(veri, 997, GUVEN, 13), bootstrap_araligi(veri, 997, GUVEN, 13))
-        self.assertNotEqual(bootstrap_araligi(veri, 997, GUVEN, 13), bootstrap_araligi(veri, 997, GUVEN, 17))
+        """Çok farklı değerli veri: aralık tohuma duyarlıdır, tohumsuz iki koşu şans eseri aynı çıkamaz."""
+        veri = [(i * 37 % 101) / 101 for i in range(97)]
+        self.assertEqual(bootstrap_araligi(veri, 101, GUVEN, 13), bootstrap_araligi(veri, 101, GUVEN, 13))
+        self.assertNotEqual(bootstrap_araligi(veri, 101, GUVEN, 13), bootstrap_araligi(veri, 101, GUVEN, 17))
 
     def test_sabit_veri_ve_bos_liste(self):
         self.assertEqual(bootstrap_araligi([0.5] * 11, 101, GUVEN, 7), (0.5, 0.5))

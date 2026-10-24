@@ -52,7 +52,9 @@ MUTASYONLAR = [
     # yalnız hızı etkiler, bu yüzden listede yok.
     ("önbellekte roller karışık", HIZ, "vektor_tensoru(kk, TUR_VARLIK, ozneler), donusumler.get(ROL_OZNE))",
      "vektor_tensoru(kk, TUR_VARLIK, ozneler), donusumler.get(ROL_NESNE))"),
-    ("önbellek yanlış rolden kurulmuş", HIZ, "for rol in (ROL_OZNE, ROL_NESNE)}", "for rol in (ROL_NESNE, ROL_OZNE)}"),
+    # Not: sözlükteki rol sırasını değiştiren mutant eşdeğerdir (her rol yine kendi matrisini alır); yerine:
+    ("önbellek yanlış rolden kurulmuş", HIZ, "donusum_matrisi(torch.tensor(self.vektor(TUR_ROL, rol), dtype=TAMSAYI))",
+     "donusum_matrisi(torch.tensor(self.vektor(TUR_ROL, ROL_OZNE), dtype=TAMSAYI))"),
     # K-028: kopya kuralı C
     ("C kapalı", "cekirdek/dongu.py", "        if not yeni_dayanak_mi(havuz, e.uclu, e.baglama.kayitlar,",
      "        if False and not yeni_dayanak_mi(havuz, e.uclu, e.baglama.kayitlar,"),
