@@ -108,3 +108,15 @@ Bu deney kuralı **bulmayı** değil, verilen kuralla **doğru yürütmeyi** sı
 4. **Etki:** V-042 senaryolarından yalnız C'nin aday attığı biri değişti; diğer üçü önceki altın değerlerle aynı. A3/A4 testlerinden ikisinde "aynı olgulardan 10 kopya hücre 10 kayıt yazar" beklentisi "1 kayıt, 9 dayanak_yok" oldu; güven ve destek beklentileri aynı kaldı.
 5. Kapı (§6), bölmeler, tohumlar, ölçütler ve DNA değişmez.
 
+## ÖK-002 eki (2026-10-24): DNA kilidi, koşu öncesi özetler (§9)
+
+**Durum:** DNA eğitim bölmesinde 5 tohumun hepsinde 400/400, toplam 2000/2000 doğru (ÖK-002 §3, K-027). DNA ve aşağıdaki dosyalar bu özetlerle kilitlendi. Kapı bölmeleri bu ekten sonra, kilitli DNA ile bir kez koşar. Kod: commit `91591f3` (kopya kuralı C dahil, ÖK-002b).
+
+- `config.json`: `556babab6116dd286492fe955229c40887e679ba734d06c30dfbd6fa2eac22eb`
+- DNA `veri/dna/akrabalik_dna_v2_final.json`: `624b073c826650401cf85df00e92c8569c1ce25d0609625f1970946e804a7f4e`
+- `tohum_7/ozet.json`: `d95f6afebd56c4008fe91f11b813c0e5c8c817a34b180f79d9c5e4907547f127`
+- `tohum_8/ozet.json`: `6f481451bb2c661e130987e3b2af48fa9acac223d927e516afff5de023bc1f31`
+- `tohum_9/ozet.json`: `68647318999d1ef59430ec84928e49bcc76ac38da1cbda7c02e80a4d243f0b29`
+- `tohum_10/ozet.json`: `7a331cee31840531547d7b8cf988921c364e66318bb87fcd8baceabdc9981c19`
+- `tohum_11/ozet.json`: `b2f57c2be8821982a892ff1abb311bd3c536e2a9eda3a70443c07100cb93c863`
+
