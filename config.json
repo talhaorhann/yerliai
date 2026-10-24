@@ -40,6 +40,8 @@
     "h1_on_kayit_eki": {"deger": "## ÖK-003 eki", "kaynak": "K-029"},
     "h1_tur_adaylari": {"deger": [8, 12, 16, 24, 32], "kaynak": "K-029"},
     "h1_havuz_adaylari": {"deger": [128, 256, 512, 1024], "kaynak": "K-029"},
+    "h1_tur_siniri": {"deger": 8, "kaynak": "K-029"},
+    "h1_havuz_kapasitesi": {"deger": 256, "kaynak": "K-029"},
     "h1_kapi_bolmeleri": {"deger": ["uzunluk", "yon_ters", "onsel_ters", "zincir_bozuk"], "kaynak": "K-023"},
     "h1_gelistirme_bolmeleri": {"deger": ["egitim"], "kaynak": "K-023"},
     "h1_cikarilabilirlik": {"deger": true, "kaynak": "K-029"},
