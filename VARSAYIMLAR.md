@@ -520,3 +520,8 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Denetim kapalıyken üretecin çıktısı eskisiyle bayt bayt aynıdır (küçük parametrelerde testle; ilk koşunun tohum 7 verisinde manifest özetiyle doğrulandı).
 - **Doğrulama:** `testler/test_a5_cikarilabilirlik.py`: elle kurulmuş ağaçta uç durumlar; küçük rastgele ağaçlarda bütün atamaları deneyen kaba kuvvetle aynı sonuç (31 durum); çekirdek ve plazma çağrılmıyor; bozuk aday denetime girmiyor.
 - **Felsefi:** K-029 ile onaylı; buradaki uygulama ayrıntısı. **Durum:** ONAYSIZ (ayrıntı).
+
+## V-049: Sınır seçimi aracının uygulanışı (ÖK-003 §3.4)
+- **Uygulanan:** `degerlendirme/h1_sinir.py`. Ölçüm: geliştirme tohumlarının (7–11) dört eski test bölmesinde (8000 bölüm) çekirdek + plazma ile doğru sayısı; müdahale testi doğruluğu etkilemediği için koşulmaz. Kural ÖK-003 §3.4'teki gibi harfiyen ("eşit"); her ölçüm bir kez yapılır ve tabloya yazılır, tekdüze olmayan sonuçlar da görünür. Bölme-tohum dosyaları paralel süreçlerde ölçülür; her süreçte torch tek iş parçacığıyla çalışır (sonuç değişmez, V-040).
+- **Doğrulama:** `testler/test_a5_h1_sinir.py`.
+- **Felsefi:** hayır (K-029 kuralının uygulanışı). **Durum:** ONAYSIZ.

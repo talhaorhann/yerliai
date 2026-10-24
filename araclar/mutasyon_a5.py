@@ -18,6 +18,9 @@ DNA = "cekirdek/dna.py"
 H1 = "degerlendirme/h1.py"
 IST = "degerlendirme/istatistik.py"
 INC = "degerlendirme/h1_inceleme.py"
+DUN = "degerlendirme/dunya.py"
+URE = "degerlendirme/uretec.py"
+SIN = "degerlendirme/h1_sinir.py"
 
 MUTASYONLAR = [
     ("dairesel matris yönü ters", HIZ, "p[(sira.unsqueeze(0) - sira.unsqueeze(1)) % d]",
@@ -80,7 +83,7 @@ MUTASYONLAR = [
     ("kapıda hata sayılmıyor", H1, '            if s["yanlis"]:', "            if False:"),
     ("kapıda bölüm sayısı denetlenmiyor", H1, '            if s["n"] != beklenen_sayi:', "            if False:"),
     ("kapıda eksik tohum geçiyor", H1, '                nedenler.append(f"{anahtar}: koşulmamış")\n', ""),
-    ("ön kayıt eki aranmıyor", H1, "    ek = metin.split(EK_BASLIGI, 1)[1]", "    ek = metin"),
+    ("ön kayıt eki aranmıyor", H1, "    ek = metin.split(ek_basligi, 1)[1]", "    ek = metin"),
     ("manifest denetimi yok", H1, '        if _ozet(baytlar, algoritma) != manifest["dosyalar"].get(goreli):', "        if False:"),
     ("ara kayıt denetimi yok", H1,
      '        if i >= len(bolumler) or (s["bolum_ozeti"], s["bolme"], s["tohum"]) != (bolumler[i]["ozet"], bolme, tohum):',
@@ -98,6 +101,23 @@ MUTASYONLAR = [
     ("teşhis hep sınırdan bağımsız", INC, "if cevaplar[ad] == beklenen), SINIRDAN_BAGIMSIZ)",
      "if False), SINIRDAN_BAGIMSIZ)"),
     ("okunurda yön ters", INC, "f\"{o['ozne']} —{o['iliski']}→ {o['nesne']}\"", "f\"{o['nesne']} —{o['iliski']}→ {o['ozne']}\""),
+    # K-029, V-048: çıkarılabilirlik denetimi
+    ("evli çift birlikte çevrilmiyor", DUN, "        return min(p, dunya.es[p]) if p in dunya.es else p\n", "        return p\n"),
+    ("çıkarılabilirlikte olgu denetimi yok", DUN,
+     "            if not all(olgu_dogru(w, x, r, y) for x, r, y in denetim.get(i - 1, ())):", "            if False:"),
+    ("çıkarılabilirlikte cevap karşılaştırılmıyor", DUN, "            return kur(cevrilen).iliski(a, b, tanimlar) == hedef",
+     "            return True"),
+    ("olgu kişileri değişken sayılmıyor", DUN, ".union(*(d for *_, d in olgu_bag)))", ")"),
+    ("üreteçte denetim uygulanmıyor", URE, "        if prm.cikarilabilirlik and not bozuk and not cikarilabilir_mi(",
+     "        if False and not cikarilabilir_mi("),
+    ("üreteçte bozuk da denetleniyor", URE, "        if prm.cikarilabilirlik and not bozuk and not",
+     "        if prm.cikarilabilirlik and not"),
+    ("manifest denetim kapalıyken de değişiyor", URE, "    if prm.cikarilabilirlik:  # K-029", "    if True:  # K-029"),
+    # V-049: sınır seçimi
+    ("sınır seçimi en büyük turu seçiyor", SIN, "tur = next(t for t in sorted(tur_adaylari)",
+     "tur = next(t for t in sorted(tur_adaylari, reverse=True)"),
+    ("sınır ölçümü belleksiz", SIN, "        if (tur, havuz) not in olcum:", "        if True:"),
+    ("sınır ölçümünde tur uygulanmıyor", SIN, "tur_siniri=tur, kapasite=havuz)", "kapasite=havuz)"),
 ]
 
 

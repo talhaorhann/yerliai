@@ -50,3 +50,4 @@
 | sistem.md §3, §5, §6 (kopya kuralı C: yeni dayanak; K-028, V-046) | `cekirdek/dongu.py` | `testler/test_a5_kopya_c.py` |
 | sistem.md §13 (H1 hata incelemesi; ÖK-002 §6, V-047) | `degerlendirme/h1_inceleme.py` | `testler/test_a5_h1_inceleme.py` |
 | sistem.md §10, §11 (çıkarılabilirlik denetimi; K-029, V-048) | `degerlendirme/dunya.py`, `degerlendirme/uretec.py` | `testler/test_a5_cikarilabilirlik.py` |
+| sistem.md §13 (H1 sınır seçimi; ÖK-003 §3.4, V-049) | `degerlendirme/h1_sinir.py` | `testler/test_a5_h1_sinir.py` |
