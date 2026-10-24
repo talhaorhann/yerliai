@@ -264,7 +264,7 @@
 - **A6 önerisi (onay bekliyor):** bellek geçidi (etiketsiz kanıt), bellek deposu, iç dil v1 (V-054, V-055, V-056; `raporlar/A6_ONERI.md`).
   - Testte doğru kurallar kabul, bozuklar (yanlış, kısayol, gereksiz, çelişkili) ret.
   - Gerçek DNA'da: bozukların 70/73'ü ret, doğruların hiçbiri yanlış sayılmadı; ama veride gözlem olmadığı için doğrular kabul de edilemedi (sınanamadı).
-- Testler 389/389.
+- Testler 389/389. Mutasyon (A6): H2 kapısı 9/9, V-053 8/8, bellek geçidi + bellek + iç dil 18/18.
 
 **Eksik:**
 - Kullanıcının onay listesi kararları (V-053 tanımı, geçidin kanıt kaynağı, eşikler/iç dil/bellek).
