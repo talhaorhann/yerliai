@@ -561,3 +561,12 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Olası yönler, ölçülmedi: daha yumuşak ters ağırlık (ör. q ∝ 1/√p), ağırlığa üst sınır, ya da p'yi daha büyük doğal örnekten kestirmek.
 - **Durum:** AÇIK, ayrı konu. Bu H1 yeniden denemesini etkilemez: üretilmiş tohumlar kapıdan geçti, K-030 geçerli. Tasarım değişikliği kâhin kararıdır, kullanıcıya gelir.
 - **Felsefi:** evet (kâhin).
+
+## V-053: Çıkarılabilirlik denetimi gizli ağaç yapısını kullanıyor (ÖK-003 kapı sonucu)
+- **Bölüm:** K-029, ÖK-003 §3.1 ("ağaç yapısı sabit tutulur, yalnız cinsiyet değişir"), V-048.
+- **Bulgu (2026-10-24, kapı koşusundan sonra; yalnız teşhis):** ÖK-003 kapısında yön ters 1881/2000; 119 hatanın hepsi "bilmiyorum".
+  - 119'unun hiçbirinde cevap sınırsız DNA kapanışında yok.
+  - Denetim yapıyı sabit tuttuğu için, olgularda geçmeyen evlilikleri ve ebeveynlikleri de biliyor. Örnek: "15, 14 ile evli" olgularda yok, ama 15'in cinsiyetini yalnız bu bağ belirliyor.
+  - Yalnız olgularda görünen evlilikleri sabit tutan bir tür denetimle: 119 hatanın 113'ü çıkarılamaz; çekirdeğin doğru bildiği 1881 sorunun 27'si de çıkarılamaz. Yani bu tür denetim de kesin tanım değil.
+  - Ayrıntı: `raporlar/H1_v2_SONUC.md`.
+- **Felsefi:** evet (kâhin, veri olarak dil: "olgulardan çıkarılabilir" ne demek). **Durum:** AÇIK, kullanıcı kararı. ÖK-003 §6'ya göre ayarlar ve DNA değişmedi.

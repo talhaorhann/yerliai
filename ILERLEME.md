@@ -234,9 +234,15 @@
 - Danışman 14 uzunluk hatasını sınırsız kapanışla çözdü. DNA bayt bayt aynı. 14'ünün de nedeni hücre başına yazma sınırı (8): sınır C'den önce kesiyor, kopyalar yer harcıyor (V-051, `raporlar/H1_hucre_siniri_izleme.md`). Seçenek B (C sınırdan önce) geçici kopyada ölçüldü; çekirdek değişmedi, karar kullanıcıda.
 - Testler 328/328.
 
+- K-031: C hücre sınırından önce (test önce; mutasyon 4/4). Eski eğitim 2000/2000.
+- Sınır seçimi (ÖK-003 §3.4, eski test bölmeleri, 8000 bölüm): tur 8, havuz 256 (`h1_tur_siniri`, `h1_havuz_kapasitesi`). ÖK-003 eki 4–7 yazıldı ve kilitlendi (`6cf0c85`).
+- **Kapı (ÖK-003) GEÇMEDİ:** uzunluk, önsel-ters ve zincir-bozuk 2000/2000; yön ters 1881/2000 (119 "bilmiyorum", yanlış ilişki 0). Yeni eğitim 2000/2000; altın 1. parça 50/50.
+- Teşhis: 119'unun hiçbirinde cevap DNA kapanışında yok. Çıkarılabilirlik denetimi gizli ağaç yapısını kullanıyor (113'ü olgularda görünmeyen evlilik). V-053, `raporlar/H1_v2_SONUC.md`.
+- Testler 335/335.
+
 **Eksik:**
-- V-051 kararı (çekirdekte C ile hücre sınırının sırası).
-- Sonra sınır seçimi, ÖK-003 eki son kısmı (config, DNA, sınırlar), kapı koşusu.
+- Kullanıcının ÖK-003 sonrası kararı (V-053).
+- Altın küme 2. parça cevapları. Aşama sonu bağımsız inceleme.
 - Altın küme 2. parça cevapları.
 - Aşama sonu bağımsız inceleme (KODLAMA_PROMPTU §4).
 - ÖK-002 eki: config, DNA ve tohum manifest özetleri (DNA kilitlenince).
