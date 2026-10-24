@@ -86,7 +86,8 @@ class KayitTesti(unittest.TestCase):
             h1.kapi_tohumlari(self.klasor, ON_KAYIT, 3)
 
     def test_on_kayit_uyusmazsa_durur(self):
-        self.yaz({"on_kayit": [12, 13, 14, 16, 17], "kullanilan": [12, 13, 14, 16, 17], "degisimler": []})
+        """Kullanılan tohumlar ön kayıtla tutarlı görünse bile kaydın kendi ön kayıt listesi aynı olmalı."""
+        self.yaz({"on_kayit": [12, 13, 14, 15, 17], "kullanilan": ON_KAYIT, "degisimler": []})
         with self.assertRaises(h1.H1Hatasi):
             h1.kapi_tohumlari(self.klasor, ON_KAYIT, 3)
 
