@@ -504,3 +504,9 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   C, dairesel matris önbelleğiyle tek başına: bölüm başına 0,13 sn.
 - **Öneri:** C. Kısır döngüleri keser, kök-ayrık (bağımsız) ispatları korur; böylece §6 noisy-OR ve K-021 (a) anlamlı kalır.
 - **Durum:** KARARA BAĞLANDI: C (K-028, ÖK-002b, 2026-10-24). Uygulama `cekirdek/dongu.py` `yeni_dayanak_mi`; testler `testler/test_a5_kopya_c.py`.
+
+## V-047: H1 hata incelemesi (teşhis)
+- **Bölüm:** ÖK-002 §6 (hataların sınıflanması, kâhin tarafında).
+- **Uygulanan:** `degerlendirme/h1_inceleme.py`. Hatalı her bölüm sınırlar gevşetilerek yeniden koşturulur: tur sınırı ×4, havuz ×32, ikisi birden. Cevap doğrulaşırsa "tur yetmedi" / "havuz yetmedi" / "ikisi yetmedi" (§6 sınıf 1); hiçbirinde doğrulaşmazsa "sınırdan bağımsız" (§6 sınıf 2–4, elle incelenir). Önce olağan ayarla yeniden koşulur ve aynı cevap çıkmazsa durur (belirlenim denetimi).
+- **Kısıt:** Yalnız teşhistir; kapı sonucu, ayarlar ve DNA buna bakılarak değişmez. Rapor test cevapları içerir.
+- **Felsefi:** hayır. **Durum:** ONAYSIZ.

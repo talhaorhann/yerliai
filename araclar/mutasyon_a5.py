@@ -17,6 +17,7 @@ HAV = "cekirdek/havuz.py"
 DNA = "cekirdek/dna.py"
 H1 = "degerlendirme/h1.py"
 IST = "degerlendirme/istatistik.py"
+INC = "degerlendirme/h1_inceleme.py"
 
 MUTASYONLAR = [
     ("dairesel matris yönü ters", HIZ, "p[(sira.unsqueeze(0) - sira.unsqueeze(1)) % d]",
@@ -92,6 +93,11 @@ MUTASYONLAR = [
     ("Clopper–Pearson tek yanlı", IST, "    yari = (1 - guven) / KUYRUK\n    alt = 0.0", "    yari = 1 - guven\n    alt = 0.0"),
     ("yarılama yönü ters", IST, "if (fonksiyon(orta) < hedef) == artan_mi:", "if (fonksiyon(orta) < hedef) != artan_mi:"),
     ("bootstrap tohumsuz", IST, "    rng = random.Random(tohum)", "    rng = random.Random()"),
+    # V-047: hata incelemesi
+    ("teşhiste tur genişletilmiyor", INC, "tur_siniri=prm.tur_siniri * TUR_CARPANI", "tur_siniri=prm.tur_siniri"),
+    ("teşhis hep sınırdan bağımsız", INC, "if cevaplar[ad] == beklenen), SINIRDAN_BAGIMSIZ)",
+     "if False), SINIRDAN_BAGIMSIZ)"),
+    ("okunurda yön ters", INC, "f\"{o['ozne']} —{o['iliski']}→ {o['nesne']}\"", "f\"{o['nesne']} —{o['iliski']}→ {o['ozne']}\""),
 ]
 
 
