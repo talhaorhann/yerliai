@@ -514,7 +514,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 ## V-048: Çıkarılabilirlik denetiminin uygulanışı (K-029, ÖK-003 §3.1)
 - **Uygulanan:** `degerlendirme/dunya.py` `cikarilabilir_mi`; üreteçte `Parametreler.cikarilabilirlik` (varsayılan kapalı, `uretec_cikarilabilirlik`; H1 yeniden denemesinde açık, `h1_cikarilabilirlik`).
   - Ağaç yapısı sabit. Eş çiftleri birlikte çevrilir (eşler karşı cinsten); evli olmayan kişi tek başına çevrilir. Dünyada başka cinsiyet kuralı yoktur (V-017).
-  - Değişkenler: olguların ve sorgunun yürüyüşlerinde (en uzun tanım kadar adım, kişi tekrarsız) geçen kişilerin bileşenleri. Başka kişinin cinsiyeti hiçbir olguyu ya da cevabı etkilemez.
+  - Değişkenler: olguların ve sorgunun tanım yürüyüşlerinde (yönlere uyan, kişi tekrarsız) tip şartı olan adımların hedef kişilerinin bileşenleri. İlişki yalnız bu kişilerin tipine bağlıdır; başka kişinin cinsiyeti hiçbir olguyu ya da cevabı etkilemez. (İlk sürüm yürüyüşteki bütün kişileri değişken sayıyordu: aynı kararlar, uzunluk adayında ~100 kat yavaş; gerçek adaylarda 220 kararın 220'si iki sürümde aynı çıktı.)
   - Geri izleme: olguyu bozan atama budanır; cevabın değiştiği ilk atamada denetim "çıkarılamaz" der. Önce olguların gerçek dünyaya uyduğu denetlenir.
   - Denetim yalnız aday seçiminin en sonunda yapılır; çekirdek hiç çalıştırılmaz. Zincir-bozuk adaylar denetime girmez. Atılan adaylar bölme başına sayılır ve manifestte (`cikarilamaz_atilan`) yazılır.
   - Denetim kapalıyken üretecin çıktısı eskisiyle bayt bayt aynıdır (küçük parametrelerde testle; ilk koşunun tohum 7 verisinde manifest özetiyle doğrulandı).

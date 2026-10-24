@@ -108,6 +108,7 @@ MUTASYONLAR = [
     ("çıkarılabilirlikte cevap karşılaştırılmıyor", DUN, "            return kur(cevrilen).iliski(a, b, tanimlar) == hedef",
      "            return True"),
     ("olgu kişileri değişken sayılmıyor", DUN, ".union(*(d for *_, d in olgu_bag)))", ")"),
+    ("tipli adımlar gözetilmiyor", DUN, "tipliler + ((s,) if tip is not None else ())", "tipliler"),
     ("üreteçte denetim uygulanmıyor", URE, "        if prm.cikarilabilirlik and not bozuk and not cikarilabilir_mi(",
      "        if False and not cikarilabilir_mi("),
     ("üreteçte bozuk da denetleniyor", URE, "        if prm.cikarilabilirlik and not bozuk and not",
