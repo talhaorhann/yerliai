@@ -456,6 +456,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Fark: eskiden afinite yalnız bir bağlamaya giren kayıtlar için hesaplanıyordu; şimdi o gendeki bütün canlı kayıtlar için. Değerler aynı. Tek davranış farkı: sıfır vektörlü bir kayıt (pratikte oluşmaz) hiç bağlanmasa da hata verir.
 - **Doğrulama:** `testler/test_a5_dongu_hizli.py`. Dört senaryo (atma, bütçe, hücre sınırı, impasse, çelişki, müdahale) iki yolda koşar; defterin her olayı kanonik JSON ile (bit düzeyinde) aynı. Referans yolun izi, bağlamadan önceki koddan (commit 797eeaa) alınan altın değerlerle aynı.
 - **Geri alma:** döngüye `KodKitabi` vermek (referans yol).
+- **Ek (2026-10-24):** `HizliKodKitabi` rol vektörlerinin dairesel matrislerini kurulurken bir kez hesaplar. Ölçüm: gerçek DNA ile kayıt başına en pahalı adım bu matrislerin her çağrıda yeniden kurulmasıydı. Çıktı aynı (testle gösterildi).
 - **Felsefi:** hayır (sonucu değiştirmeyen hızlandırma). **Durum:** ONAYSIZ.
 
 ## V-043: DNA sürüm 2'nin biçimi (K-025)

@@ -50,6 +50,9 @@ MUTASYONLAR = [
      "for h, k in zip(hucre.halkalar, reversed(b.kayitlar)))"),
     # Not: döngünün tabloyu eşleşmeye vermemesi eşdeğer mutanttır (her hücre aynı tabloyu kendisi kurar, sonuç aynı);
     # yalnız hızı etkiler, bu yüzden listede yok.
+    ("önbellekte roller karışık", HIZ, "vektor_tensoru(kk, TUR_VARLIK, ozneler), donusumler.get(ROL_OZNE))",
+     "vektor_tensoru(kk, TUR_VARLIK, ozneler), donusumler.get(ROL_NESNE))"),
+    ("önbellek yanlış rolden kurulmuş", HIZ, "for rol in (ROL_OZNE, ROL_NESNE)}", "for rol in (ROL_NESNE, ROL_OZNE)}"),
     # K-025, V-043: farklı kişi şartı
     ("farklı şartı uygulanmıyor", ESL, "    if any(degiskenler[a] == degiskenler[b] for a, b in hucre.farkli):",
      "    if False:"),

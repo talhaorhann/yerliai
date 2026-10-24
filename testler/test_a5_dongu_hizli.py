@@ -107,6 +107,14 @@ class HizliKodKitabiTesti(unittest.TestCase):
             self.assertEqual(v, V.kayit_vektoru(KK, *uclu))
             self.assertEqual(KK.kayit_vektoru(*uclu), V.kayit_vektoru(KK, *uclu))
 
+    def test_onbellekli_donusum_matrisleri_dogru(self):
+        """V-042 eki: dönüşüm matrisleri kod kitabı kurulurken bir kez hesaplanır; her çağrıda kurulanla aynı."""
+        for rol in ("ozne", "nesne"):
+            p = H.torch.tensor(KK.vektor("rol", rol), dtype=H.TAMSAYI)
+            self.assertTrue(H.torch.equal(HKK._donusumler[rol], H.donusum_matrisi(p)))
+        u = [(7, "blorp", 11), (11, "zindle", 13), (0, "quax", 0)]
+        self.assertEqual(H.kayit_matrisi_hizli(KK, u, HKK._donusumler).tolist(), H.kayit_matrisi_hizli(KK, u).tolist())
+
     def test_benzerlik_matrisi_referansla_ayni(self):
         a = [V.kayit_vektoru(KK, i, "blorp", i + 1) for i in range(7)]
         b = [alici(KK, g) for g in ("blorp", "zindle", "quax")]

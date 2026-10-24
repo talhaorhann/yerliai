@@ -44,26 +44,30 @@ def donusum_matrisi(p):
 
 
 @torch.no_grad()
-def evrisim_toplu(p, e):
-    """[kayit × boyut]: her satır için p⊛E[satır], int64 tam."""
+def evrisim_toplu(p, e, donusum=None):
+    """[kayit × boyut]: her satır için p⊛E[satır], int64 tam. `donusum`: p'nin önceden kurulmuş dairesel matrisi."""
     tensor_sekli_dogrula(p, ("boyut",))
     tensor_sekli_dogrula(e, ("kayit", "boyut"), boyut=p.shape[0])
     if p.dtype != TAMSAYI or e.dtype != TAMSAYI:
         raise SekilHatasi("evrişim yalnız int64 ile yapılır")
-    return tensor_sekli_dogrula(e @ donusum_matrisi(p), ("kayit", "boyut"), kayit=e.shape[0], boyut=p.shape[0])
+    m = donusum_matrisi(p) if donusum is None else tensor_sekli_dogrula(donusum, ("boyut", "boyut"), boyut=p.shape[0])
+    return tensor_sekli_dogrula(e @ m, ("kayit", "boyut"), kayit=e.shape[0], boyut=p.shape[0])
 
 
 @torch.no_grad()
-def kayit_matrisi_hizli(kk, uclular):
-    """[kayit × boyut] int64: v = √d·R[r] + P_s⊛E[s] + P_o⊛E[o] (K-014), referans `kayit_matrisi` ile aynı."""
+def kayit_matrisi_hizli(kk, uclular, donusumler=None):
+    """[kayit × boyut] int64: v = √d·R[r] + P_s⊛E[s] + P_o⊛E[o] (K-014), referans `kayit_matrisi` ile aynı.
+
+    `donusumler`: {rol: dairesel matris}, verilmezse her çağrıda kurulur (V-042 eki)."""
+    donusumler = donusumler or {}
     ozneler = [s for s, _r, _o in uclular]
     iliskiler = [r for _s, r, _o in uclular]
     nesneler = [o for _s, _r, o in uclular]
     p_s = torch.tensor(kk.vektor(TUR_ROL, ROL_OZNE), dtype=TAMSAYI)
     p_o = torch.tensor(kk.vektor(TUR_ROL, ROL_NESNE), dtype=TAMSAYI)
     v = (kk.olcek * vektor_tensoru(kk, TUR_ILISKI, iliskiler)
-         + evrisim_toplu(p_s, vektor_tensoru(kk, TUR_VARLIK, ozneler))
-         + evrisim_toplu(p_o, vektor_tensoru(kk, TUR_VARLIK, nesneler)))
+         + evrisim_toplu(p_s, vektor_tensoru(kk, TUR_VARLIK, ozneler), donusumler.get(ROL_OZNE))
+         + evrisim_toplu(p_o, vektor_tensoru(kk, TUR_VARLIK, nesneler), donusumler.get(ROL_NESNE)))
     return tensor_sekli_dogrula(v, ("kayit", "boyut"), kayit=len(uclular), boyut=kk.boyut)
 
 
@@ -104,14 +108,20 @@ class HizliKodKitabi(KodKitabi):
     """Aynı kod kitabı; kayıt vektörü ve kosinüs matrisi bu modülün hızlı yoluyla (V-042).
 
     Çıktılar referansla bit-eşittir ve Python türleriyle döner (tamsayı demeti, ondalık listesi); çekirdeğin geri
-    kalanı tensör görmez. Çekirdek döngüsü kendisine hangi kod kitabı verilirse onun yolunu kullanır."""
+    kalanı tensör görmez. Çekirdek döngüsü kendisine hangi kod kitabı verilirse onun yolunu kullanır.
+    Rol vektörlerinin dairesel matrisleri kurulurken bir kez hesaplanır (ölçüldü: kayıt başına en pahalı adımdı)."""
+
+    def __init__(self, tohum, boyut):
+        super().__init__(tohum, boyut)
+        self._donusumler = {rol: donusum_matrisi(torch.tensor(self.vektor(TUR_ROL, rol), dtype=TAMSAYI))
+                            for rol in (ROL_OZNE, ROL_NESNE)}
 
     def _matris(self, vektorler):
         t = torch.tensor(vektorler, dtype=TAMSAYI) if vektorler else torch.zeros((0, self.boyut), dtype=TAMSAYI)
         return tensor_sekli_dogrula(t, ("kayit", "boyut"), boyut=self.boyut)
 
     def kayit_vektoru(self, ozne, iliski, nesne):
-        return tuple(kayit_matrisi_hizli(self, [(ozne, iliski, nesne)])[0].tolist())
+        return tuple(kayit_matrisi_hizli(self, [(ozne, iliski, nesne)], self._donusumler)[0].tolist())
 
     def benzerlik_matrisi(self, a, b):
         return benzerlik_matrisi_hizli(self._matris(a), self._matris(b)).tolist()
