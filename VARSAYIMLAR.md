@@ -525,3 +525,11 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 - **Uygulanan:** `degerlendirme/h1_sinir.py`. Ölçüm: geliştirme tohumlarının (7–11) dört eski test bölmesinde (8000 bölüm) çekirdek + plazma ile doğru sayısı; müdahale testi doğruluğu etkilemediği için koşulmaz. Kural ÖK-003 §3.4'teki gibi harfiyen ("eşit"); her ölçüm bir kez yapılır ve tabloya yazılır, tekdüze olmayan sonuçlar da görünür. Bölme-tohum dosyaları paralel süreçlerde ölçülür; her süreçte torch tek iş parçacığıyla çalışır (sonuç değişmez, V-040).
 - **Doğrulama:** `testler/test_a5_h1_sinir.py`.
 - **Felsefi:** hayır (K-029 kuralının uygulanışı). **Durum:** ONAYSIZ.
+
+## V-050: Tohum 15'te kısa yol kapısı (K-008) önsel-ters bölmesinde üretimi durdurdu
+- **Bölüm:** ÖK-003 §3.2 (tohumlar 12–16), K-008, K-010.
+- **Bulgu (2026-10-24):** Tohum 15 üretimi önsel-ters bölmesinde durdu: kelime çantası 0,250 > şans 0,180 + 0,05. Çıkarılabilirlik denetimi bu bölmede aday atmıyor (0); denetim kapalıyken de aynı hata çıkıyor. Yani K-029 ile ilgisi yok, üretecin önsel-ters dağılımının bu tohumdaki hâli. (Önceki raporda bunu yanlışlıkla yön ters / K-029 çatışması sandım; ölçüm düzeltti.)
+- **Ölçüm (çekirdek hiç koşulmadı):** tohum 12–14 ve 16'nın altı bölmesi de kapıdan geçiyor; tohum 17 de altı bölmede geçiyor. Önsel-ters kapı değerleri (doğruluk/şans): 7: 0,295/0,295; 8: 0,535/0,575; 9: 0,235/0,23; 10: 0,215/0,185; 11: 0,225/0,205; 12: 0,36/0,33; 13: 0,345/0,30; 14: 0,61/0,63; 16: 0,30/0,275; 17: 0,315/0,325.
+- **Ön kayıtta kural yok:** ÖK-003 tohum durması için bir şey söylemiyor. Tohum değişikliği ön kaydı değiştirir.
+- **Öneri:** tohum 15 yerine kullanılmamış ilk tohum (17); 17 de durursa 18, ve böyle sürer. Durma, nedeni ve tarihi ÖK-003 ekine yazılır. Çekirdek tohum 15'te hiç koşmadı, bu yüzden değiştirme çekirdeğin sonucuna bakarak seçim değildir.
+- **Felsefi:** evet (kâhin, ön kayıt). **Durum:** AÇIK, kullanıcı kararı bekleniyor.

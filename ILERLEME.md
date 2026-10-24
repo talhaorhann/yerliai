@@ -224,8 +224,17 @@
 - Yön ters hatalarının 1426/1427'sinde cevabı belirleyen kişinin cinsiyeti olgularda yok: büyük olasılıkla türetilemez sorular (üreteç açığı, V-017).
 - Altın küme 1. parça 50/50.
 
+**6. adım, ÖK-003 (H1 yeniden deneme, 2026-10-24):**
+- ÖK-003 yazıldı ve kilitlendi (K-029): ilk sonuç silinmedi; yeni tohumlar 12–16; eski veri geliştirme verisi; sınır seçme kuralı.
+- Danışmana: `raporlar/H1_ilk_kosu_uzunluk_14_hata.md` (sınırdan bağımsız 14 uzunluk hatası, olgular, soru, cevap).
+- Çekirdekten bağımsız çıkarılabilirlik denetimi (V-048): kaba kuvvetle aynı; yön ters bölmesinde tohum başına ~2200 aday atılıyor, öteki bölmelerde 0.
+- Sınır seçimi aracı (V-049) hazır, henüz koşulmadı (son DNA bekleniyor).
+- Tohum 12–14 üretildi. Tohum 15 önsel-ters bölmesinde kısa yol kapısında (K-008) durdu; K-029 ile ilgisi yok (V-050, karar kullanıcıda).
+- Testler 315/315; mutasyon 11/11 (çıkarılabilirlik, üreteç, sınır seçimi).
+
 **Eksik:**
-- Kullanıcının H1 sonrası kararı (yeniden ön kayıt mı, sonuç olduğu gibi mi).
+- Tohum 15 kararı (V-050).
+- Danışmanın düzelttiği DNA (gelirse) ve onayı; sonra sınır seçimi, ÖK-003 eki, kapı koşusu.
 - Altın küme 2. parça cevapları.
 - Aşama sonu bağımsız inceleme (KODLAMA_PROMPTU §4).
 - ÖK-002 eki: config, DNA ve tohum manifest özetleri (DNA kilitlenince).
