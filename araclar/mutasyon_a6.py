@@ -12,6 +12,9 @@ from araclar.mutasyon_a0 import kopyada_kostur  # noqa: E402
 
 H2 = "degerlendirme/h2.py"
 DUN = "degerlendirme/dunya.py"
+GEC = "cekirdek/bellek_gecidi.py"
+BEL = "cekirdek/bellek.py"
+ICD = "cekirdek/ic_dil.py"
 
 MUTASYONLAR = [
     # K-032 §4: H2 kapısı
@@ -39,6 +42,30 @@ MUTASYONLAR = [
      "    if False:\n        return False"),
     ("aynı cinsten evli çift denetlenmiyor", DUN, "        if tipler[p] == tipler[q]:", "        if False:"),
     ("ikiden çok ebeveyn denetlenmiyor", DUN, "            if len(u) > EBEVEYN_SAYISI:", "            if False:"),
+    # V-054: bellek geçidi
+    ("destekte kök-ayrıklık aranmıyor", GEC, 'any(olgu_kimligi[u] not in v["kokler"] for v in vs)', "True"),
+    ("olguyla karşıtlık çelişki sayılıyor", GEC, "(karsitlik if a in epitop or b in epitop else celiski)",
+     "(celiski if a in epitop or b in epitop else karsitlik)"),
+    ("soy türeyenleri kapsamıyor", GEC, ' or soy.intersection(v["ebeveynler"])', ""),
+    ("en kötü ortam aranmıyor", GEC, "    if olculen and min(olculen) < esikler.dogruluk:", "    if False:"),
+    ("çelişki denetlenmiyor", GEC, '    if sum(o["celiski"] for o in olcum.values()):', "    if False:"),
+    ("katkı denetlenmiyor", GEC, '    if not sum(o["katki"] for o in olcum.values()):', "    if False:"),
+    ("müdahale eşiği uygulanmıyor", GEC, "    if sum(puanlar) / len(puanlar) < esikler.mudahale:", "    if False:"),
+    ("dış skor kanalı açık", GEC, "    if dis_kanit is not None:\n        raise NotImplementedError",
+     "    if False:\n        raise NotImplementedError"),
+    ("eşdeğerlikte halka sırası denenmiyor", GEC, "    for sira in itertools.permutations(hucre.halkalar):",
+     "    for sira in [hucre.halkalar]:"),
+    ("bellekteki kimlik denetlenmiyor", GEC, "    if aday.kimlik in {h.kimlik for h in bellek}:", "    if False:"),
+    ("gözden geçirme geri almıyor", GEC, "            bellek_deposu.geri_al(h.kimlik, k.neden)\n", "            pass\n"),
+    # V-056: bellek deposu
+    ("geri alma aktiften düşürmüyor", BEL, '            self._aktif.pop(veri["kimlik"], None)', "            pass"),
+    ("çift kabul denetlenmiyor", BEL, '        if hucre_verisi["kimlik"] in self._aktif:', "        if False:"),
+    ("bellek kopya vermiyor", BEL, "copy.deepcopy(self._aktif[k])", "self._aktif[k]"),
+    # V-055: iç dil
+    ("iç dil özeti denetlenmiyor", ICD, '    if kayit["ozet"] != _ozet(kayit, algoritma):', "    if False:"),
+    ("LLM karantinası yok", ICD, '    if kayit["kaynak"] == LLM_KAYNAGI:', "    if False:"),
+    ("olumsuz kutup havuza giriyor", ICD, '    if kayit["kutup"] != OLUMLU or ', "    if "),
+    ("onaysız ilişki kabul ediliyor", ICD, '    if kayit["iliski"] not in iliski_semasi:', "    if False:"),
 ]
 
 

@@ -134,3 +134,35 @@ class SinanamadiTesti(Ortam):
         hucreler = self.hucreler(KISAYOL_ZZ)
         k = gecit(hucreler[0], (), ORTAMLAR, self.sema, KK, t3.PRM, GUNLUK, gevsek)
         self.assertNotEqual(k.neden, KISAYOL)
+
+
+class AyrintiTesti(Ortam):
+    def test_kendini_dogrulama_destek_sayilmaz(self):
+        """Tek yönlü gözlenen frumb(i,j): bakışım kuralı frumb(j,i)'den frumb(i,j)'yi yeniden türetir ama kök kümesinde
+        frumb(i,j)'nin kendisi vardır; bu destek sayılmaz."""
+        tek_yon = {"tek_yon": [bolum([(1, "frumb", 2), (5, "blorp", 6)], (2, 1)) for _ in range(BOLUM_SAYISI)]}
+        k = self.gec(T3, ortamlar=tek_yon)
+        self.assertEqual(k.olcumler["tek_yon"]["destek"], 0)
+        self.assertEqual(k.karar, SINANAMADI)
+
+    def test_soydan_tureyen_kayit_da_sayilir(self):
+        """Adayın çıktısından bellekteki kuralla türeyen kayıt da adayın kanıtıdır."""
+        from cekirdek.bellek_gecidi import bolum_kaniti
+        hucreler = self.hucreler(T2, T1)
+        b = bolum([(1, "blorp", 2), (2, "blorp", 3), (3, "blorp", 4), (4, "blorp", 5), (2, "vonk", 5)], (1, 3))
+        k = bolum_kaniti(hucreler[1], hucreler[:1], b, self.sema, KK, t3.PRM, GUNLUK)
+        self.assertEqual(k["destek"], 1)
+
+    def test_mudahale_esigi_uygulanir(self):
+        """Müdahale ortalaması eşiğin altındaysa aday geçemez (eşik, ulaşılabilecek en yüksek puanın üstüne çekildi)."""
+        hucreler = self.hucreler(T1)
+        k = gecit(hucreler[0], (), ORTAMLAR, self.sema, KK, t3.PRM, GUNLUK,
+                  dataclasses.replace(ESIK, mudahale=1.5))
+        self.assertEqual((k.karar, k.neden), (RET, KISAYOL), k.olcumler)
+        self.assertTrue(all(o["dogruluk"] == 1.0 and o["mudahale"] for o in k.olcumler.values()))
+
+    def test_bellekteki_kimlikle_aday_reddedilir(self):
+        ayni_ad = dict(T2, kimlik=T1["kimlik"])
+        hucreler = self.hucreler(T1) + self.hucreler(ayni_ad)
+        with self.assertRaises(ValueError):
+            gecit(hucreler[1], hucreler[:1], ORTAMLAR, self.sema, KK, t3.PRM, GUNLUK, ESIK)
