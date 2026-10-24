@@ -51,3 +51,7 @@
 | sistem.md §13 (H1 hata incelemesi; ÖK-002 §6, V-047) | `degerlendirme/h1_inceleme.py` | `testler/test_a5_h1_inceleme.py` |
 | sistem.md §10, §11 (çıkarılabilirlik denetimi; K-029, V-048) | `degerlendirme/dunya.py`, `degerlendirme/uretec.py` | `testler/test_a5_cikarilabilirlik.py` |
 | sistem.md §13 (H1 sınır seçimi; ÖK-003 §3.4, V-049) | `degerlendirme/h1_sinir.py` | `testler/test_a5_h1_sinir.py` |
+| sistem.md §13 (H1 tohum değişimi; K-030) | `degerlendirme/h1.py` | `testler/test_a5_tohum_degisimi.py` |
+| sistem.md §3 (C hücre sınırından önce; K-031, V-051) | `cekirdek/dongu.py` | `testler/test_a5_sinir_c.py` |
+| sistem.md §13 (H2 kapısı: V-053 kapanmadan H2 yok; K-032 §4) | `degerlendirme/h2.py` | `testler/test_a6_h2_kapisi.py` |
+| KODLAMA_PROMPTU §6 (Mutasyon sınaması, A6) | `araclar/mutasyon_a6.py` | `testler/test_a6_h2_kapisi.py` |
