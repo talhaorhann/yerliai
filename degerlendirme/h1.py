@@ -7,7 +7,7 @@ Uzun koşu (KODLAMA_PROMPTU §5): her bölme-tohum sonucu aralıklarla atomik ya
 yerden sürer ve duvar saati dışında kesintisiz koşuyla aynı satırları verir.
 
 Kullanım (.venv/bin/python -m degerlendirme.h1 ...):
-  uret <klasör>                    H1 tohumlarıyla bölümleri üretir
+  uret <klasör>                    H1 tohumlarıyla bölümleri üretir (kapıda duran tohum değişir, K-030)
   ozetler <klasör> <dna>           ÖK-002 ekine yazılacak özetleri basar
   gelistir <klasör> <dna> <çıkış>  geliştirme bölmesini koşturur (ön kayıt gerekmez)
   kapi <klasör> <dna> <çıkış>      kapı bölmelerini koşturur ve kapı kararını verir (ön kayıt gerekir)
@@ -37,6 +37,7 @@ from cekirdek.plazma import cevapla
 from cekirdek.vektor_hizli import HizliKodKitabi
 from degerlendirme.altin import BILGI_YETMEZ, EMIN_DEGIL, HARFLER
 from degerlendirme.istatistik import bootstrap_araligi, clopper_pearson
+from degerlendirme.kisa_yol import KisaYolHatasi
 
 BOZUK_BOLME = "zincir_bozuk"  # sistem.md §10
 KUME_ANA, KUME_BOZUK = "ana", "bozuk"  # K-008
@@ -45,6 +46,7 @@ DEGERLENDIRME_ALANLARI = ("beklenen", "dogru", "sinif", "bolme", "tohum")
 SINIF_TUR, SINIF_HAVUZ, SINIF_BILMIYORUM, SINIF_YANLIS = "tur_siniri", "havuz", "bilmiyorum", "yanlis_iliski"  # ÖK-002 §6
 EK_BASLIGI = "### 9. Koşu öncesi ek"  # ÖK-002 §9
 DNA_BICIMLERI = {"1": "dna_v1.schema.json", "2": "dna_v2.schema.json"}  # V-032, V-043
+TOHUM_KAYDI = "tohumlar.json"  # K-030: üretimde kullanılan tohumlar ve değişimler
 
 
 class H1Hatasi(RuntimeError):
@@ -282,9 +284,53 @@ def _dna(kok, yol, sema):
 def gerekli_ozetler(kok, klasor, dna_yolu, tohumlar, algoritma):
     ozetler = {"config.json": _ozet((kok / "config.json").read_bytes(), algoritma),
                "dna": _ozet(Path(dna_yolu).read_bytes(), algoritma)}
+    if klasor is not None and (Path(klasor) / TOHUM_KAYDI).exists():
+        ozetler[TOHUM_KAYDI] = _ozet((Path(klasor) / TOHUM_KAYDI).read_bytes(), algoritma)
     for t in tohumlar:
         ozetler[f"tohum_{t}/ozet.json"] = _ozet((Path(klasor) / f"tohum_{t}" / "ozet.json").read_bytes(), algoritma)
     return ozetler
+
+
+def tohumlari_uret(uret, on_kayit, kullanilmis, sinir):
+    """K-030: kısa yol kapısında (K-008) duran tohumun yerine kullanılmamış ilk tohum geçer; eşik değişmez, `uret`
+    aynı ayarla çağrılır. En çok `sinir` değişim. Kapı dışındaki durmalar değişim sebebi değildir, olduğu gibi çıkar."""
+    kullanilan, degisimler = [], []
+    dolu = set(on_kayit) | set(kullanilmis)
+    siradaki = max(dolu) + 1
+    for tohum in on_kayit:
+        while True:
+            try:
+                uret(tohum)
+                break
+            except KisaYolHatasi as h:
+                if len(degisimler) == sinir:
+                    raise H1Hatasi(f"en çok {sinir} tohum değişimi (K-030): tohum {tohum} de kapıda durdu: {h}")
+                degisimler.append({"tohum": tohum, "yerine": siradaki, "neden": str(h)})
+                tohum = siradaki
+                siradaki += 1
+        kullanilan.append(tohum)
+    return kullanilan, degisimler
+
+
+def kapi_tohumlari(klasor, on_kayit, sinir):
+    """K-030: kapı koşusunun tohumları, üretim kaydı ön kayıtla ve değişim sınırıyla tutarlıysa."""
+    yol = Path(klasor) / TOHUM_KAYDI
+    if not yol.exists():
+        raise H1Hatasi(f"{yol} yok: tohumlar `uret` ile üretilmeli")
+    kayit = json.loads(yol.read_text(encoding="utf-8"))
+    if kayit["on_kayit"] != list(on_kayit):
+        raise H1Hatasi("tohum kaydı ön kayıttaki tohumlarla uyuşmuyor")
+    degisimler = kayit["degisimler"]
+    if len(degisimler) > sinir:
+        raise H1Hatasi(f"tohum kaydında {len(degisimler)} değişim var, en çok {sinir} (K-030)")
+    beklenen, yerine = [], {d["tohum"]: d["yerine"] for d in degisimler}
+    for tohum in on_kayit:
+        while tohum in yerine:
+            tohum = yerine[tohum]
+        beklenen.append(tohum)
+    if kayit["kullanilan"] != beklenen:
+        raise H1Hatasi("tohum kaydındaki kullanılan tohumlar değişimlerle tutarsız")
+    return beklenen
 
 
 def _uret(kok, klasor):
@@ -293,16 +339,28 @@ def _uret(kok, klasor):
     ayar, sema, _ = _ortam(kok)
     tanimlar = tanimlar_yukle(kok / "degerlendirme" / "veri" / "tanimlar_v1.json",
                               kok / "degerlendirme" / "veri" / "tanimlar_v1.schema.json", sema)
-    for t in ayar.deger("h1_tohumlar"):
+
+    def uret(t):
         prm = dataclasses.replace(Parametreler.ayardan(ayar), tohum=t, cikarilabilirlik=ayar.deger("h1_cikarilabilirlik"))
         manifest = hepsini_uret(Path(klasor) / f"tohum_{t}", prm, tanimlar, sema, kok / "sema" / "iliskiler_v1.json",
                                 kok / "kilit" / "kilitli_kumeler.json", kok)
-        print(f"tohum {t}: üretildi; çıkarılamadığı için atılan aday: {manifest.get('cikarilamaz_atilan')}")
+        print(f"tohum {t}: üretildi; çıkarılamadığı için atılan aday: {manifest.get('cikarilamaz_atilan')}", flush=True)
+
+    on_kayit = ayar.deger("h1_tohumlar")
+    kullanilan, degisimler = tohumlari_uret(uret, on_kayit, ayar.deger("h1_gelistirme_tohumlari"),
+                                            ayar.deger("h1_tohum_degisim_siniri"))
+    for d in degisimler:
+        print(f"tohum {d['tohum']} kapıda durdu, yerine {d['yerine']}: {d['neden']}")
+    atomik_yaz(Path(klasor) / TOHUM_KAYDI,
+               kanonik_json({"on_kayit": on_kayit, "kullanilan": kullanilan, "degisimler": degisimler}))
 
 
 def _kos(kok, klasor, dna_yolu, cikis, kapi_mi):
     ayar, sema, gunluk = _ortam(kok)
-    tohumlar = ayar.deger("h1_tohumlar" if kapi_mi else "h1_gelistirme_tohumlari")  # ÖK-003 §3.2–§3.3
+    if kapi_mi:  # ÖK-003 §3.2, K-030
+        tohumlar = kapi_tohumlari(klasor, ayar.deger("h1_tohumlar"), ayar.deger("h1_tohum_degisim_siniri"))
+    else:  # ÖK-003 §3.3
+        tohumlar = ayar.deger("h1_gelistirme_tohumlari")
     bolmeler = ayar.deger("h1_kapi_bolmeleri" if kapi_mi else "h1_gelistirme_bolmeleri")
     if kapi_mi:
         on_kayit_denetle((kok / "ONKAYIT.md").read_text(encoding="utf-8"),
@@ -376,7 +434,10 @@ def main(arg):
         _uret(kok, d["klasor"])
     elif komut == "ozetler":
         ayar, _, gunluk = _ortam(kok)
-        for ad, o in gerekli_ozetler(kok, d["klasor"], d["dna"], ayar.deger("h1_tohumlar"), gunluk["algoritma"]).items():
+        kayitli = (Path(d["klasor"]) / TOHUM_KAYDI).exists()
+        tohumlar = (kapi_tohumlari(d["klasor"], ayar.deger("h1_tohumlar"), ayar.deger("h1_tohum_degisim_siniri"))
+                    if kayitli else ayar.deger("h1_tohumlar"))
+        for ad, o in gerekli_ozetler(kok, d["klasor"], d["dna"], tohumlar, gunluk["algoritma"]).items():
             print(f"- `{ad}`: `{o}`")
     elif komut == "altin":
         _altin(kok, d["dna"], d["cikis"])

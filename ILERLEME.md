@@ -229,12 +229,14 @@
 - Danışmana: `raporlar/H1_ilk_kosu_uzunluk_14_hata.md` (sınırdan bağımsız 14 uzunluk hatası, olgular, soru, cevap).
 - Çekirdekten bağımsız çıkarılabilirlik denetimi (V-048): kaba kuvvetle aynı; yön ters bölmesinde tohum başına ~2200 aday atılıyor, öteki bölmelerde 0.
 - Sınır seçimi aracı (V-049) hazır, henüz koşulmadı (son DNA bekleniyor).
-- Tohum 12–14 üretildi. Tohum 15 önsel-ters bölmesinde kısa yol kapısında (K-008) durdu; K-029 ile ilgisi yok (V-050, karar kullanıcıda).
-- Testler 315/315; mutasyon 11/11 (çıkarılabilirlik, üreteç, sınır seçimi).
+- Tohum 15 önsel-ters bölmesinde kısa yol kapısında (K-008) durdu; K-029 ile ilgisi yok. Kural K-030: kullanılmamış ilk tohum, en çok 3 değişim. Tohum 15 yerine 17 geçti; kullanılan tohumlar 12, 13, 14, 17, 16 (`uretilen/h1_v2/tohumlar.json`). Özetler ÖK-003 ekinde.
+- V-050 incelemesi: önsel-ters bölmesinde Treg ayırması fiilen çalışmıyor (tohum başına 1–7 bölüm), ama ayırma dedektörünü q'dan eğitmek sızıntıyı azaltmıyor. Sızıntı K-010 ters ağırlığından geliyor; şimdilik değişiklik yok.
+- Danışman 14 uzunluk hatasını sınırsız kapanışla çözdü. DNA bayt bayt aynı. 14'ünün de nedeni hücre başına yazma sınırı (8): sınır C'den önce kesiyor, kopyalar yer harcıyor (V-051, `raporlar/H1_hucre_siniri_izleme.md`). Seçenek B (C sınırdan önce) geçici kopyada ölçüldü; çekirdek değişmedi, karar kullanıcıda.
+- Testler 328/328.
 
 **Eksik:**
-- Tohum 15 kararı (V-050).
-- Danışmanın düzelttiği DNA (gelirse) ve onayı; sonra sınır seçimi, ÖK-003 eki, kapı koşusu.
+- V-051 kararı (çekirdekte C ile hücre sınırının sırası).
+- Sonra sınır seçimi, ÖK-003 eki son kısmı (config, DNA, sınırlar), kapı koşusu.
 - Altın küme 2. parça cevapları.
 - Aşama sonu bağımsız inceleme (KODLAMA_PROMPTU §4).
 - ÖK-002 eki: config, DNA ve tohum manifest özetleri (DNA kilitlenince).

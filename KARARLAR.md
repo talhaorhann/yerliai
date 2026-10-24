@@ -158,3 +158,12 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
   3. Tur ve havuz sınırları eski test bölmelerinde (artık geliştirme verisi) belirlenir, yeni koşudan önce kilitlenir. sistem.md §5 (8 tur) ve §2 (64) değerlerinden sapma bu karara dayanır.
 - **Ek:** Danışman, ilk koşunun 14 sınırdan bağımsız uzunluk hatasını (olgular, soru, cevap) görür (`raporlar/H1_ilk_kosu_uzunluk_14_hata.md`). Eski bölümler artık geliştirme verisidir.
 - **Onaylayan:** kullanıcı.
+
+## K-030 (2026-10-24): Kısa yol kapısında duran tohumun değişimi (V-050'den)
+- **Karar:** H1 yeniden denemesinde bir tohumun üretimi kısa yol kapısında (K-008) durursa, yerine kullanılmamış ilk tohum geçer: ön kayıt ve geliştirme tohumlarının en büyüğünden sonraki ilk sayı; o da durursa bir sonraki.
+  - Eşik (şans + 0,05) gevşetilmez.
+  - En çok 3 değişim (`h1_tohum_degisim_siniri`); aşılırsa üretim durur, karar kullanıcıya gelir.
+  - Kapı dışındaki durmalar değişim sebebi değildir.
+  - Her değişim tarih ve nedeniyle ÖK-003 ekine yazılır. Kullanılan tohumlar üretim klasöründe `tohumlar.json`'a yazılır; kapı koşusu tohumları buradan alır ve bu dosyanın özeti ön kayıt ekinde aranır.
+- **Ek:** V-050 (önsel-ters bölmesinde kelime çantası sızıntısı) üreteç açığı olarak incelenir.
+- **Onaylayan:** kullanıcı.

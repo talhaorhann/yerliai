@@ -509,6 +509,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 - **Bölüm:** ÖK-002 §6 (hataların sınıflanması, kâhin tarafında).
 - **Uygulanan:** `degerlendirme/h1_inceleme.py`. Hatalı her bölüm sınırlar gevşetilerek yeniden koşturulur: tur sınırı ×4, havuz ×32, ikisi birden. Cevap doğrulaşırsa "tur yetmedi" / "havuz yetmedi" / "ikisi yetmedi" (§6 sınıf 1); hiçbirinde doğrulaşmazsa "sınırdan bağımsız" (§6 sınıf 2–4, elle incelenir). Önce olağan ayarla yeniden koşulur ve aynı cevap çıkmazsa durur (belirlenim denetimi).
 - **Kısıt:** Yalnız teşhistir; kapı sonucu, ayarlar ve DNA buna bakılarak değişmez. Rapor test cevapları içerir.
+- **Açık (2026-10-24):** Araç hücre sınırını (`hucre_tur_yazma_siniri`) ve tur bütçesini gevşetmiyor. Bu yüzden ilk koşudaki 14 uzunluk hatasına "sınırdan bağımsız" dedi; 14'ünün de nedeni hücre sınırı (V-051, `raporlar/H1_hucre_siniri_izleme.md`). İlk koşunun raporları değiştirilmedi.
 - **Felsefi:** hayır. **Durum:** ONAYSIZ.
 
 ## V-048: Çıkarılabilirlik denetiminin uygulanışı (K-029, ÖK-003 §3.1)
@@ -532,4 +533,23 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 - **Ölçüm (çekirdek hiç koşulmadı):** tohum 12–14 ve 16'nın altı bölmesi de kapıdan geçiyor; tohum 17 de altı bölmede geçiyor. Önsel-ters kapı değerleri (doğruluk/şans): 7: 0,295/0,295; 8: 0,535/0,575; 9: 0,235/0,23; 10: 0,215/0,185; 11: 0,225/0,205; 12: 0,36/0,33; 13: 0,345/0,30; 14: 0,61/0,63; 16: 0,30/0,275; 17: 0,315/0,325.
 - **Ön kayıtta kural yok:** ÖK-003 tohum durması için bir şey söylemiyor. Tohum değişikliği ön kaydı değiştirir.
 - **Öneri:** tohum 15 yerine kullanılmamış ilk tohum (17); 17 de durursa 18, ve böyle sürer. Durma, nedeni ve tarihi ÖK-003 ekine yazılır. Çekirdek tohum 15'te hiç koşmadı, bu yüzden değiştirme çekirdeğin sonucuna bakarak seçim değildir.
-- **Felsefi:** evet (kâhin, ön kayıt). **Durum:** AÇIK, kullanıcı kararı bekleniyor.
+- **Felsefi:** evet (kâhin, ön kayıt). **Durum:** Tohum değişimi KARARA BAĞLANDI (K-030, 2026-10-24): 15 yerine 17. Sızıntı incelemesi AÇIK (aşağıda).
+- **İnceleme (üreteç açığı, 2026-10-24, çekirdek koşmadı; betik geçici, bugünkü yolun kapı değerleri manifestlerle birebir aynı çıktı):**
+  - **Gözlem 1, Treg ayırması fiilen çalışmıyor:** Ayırma dedektörü doğal dağılımdan (p) eğitiliyor, ana küme ise ters dağılımdan (q ∝ 1/p) geliyor. Doğal dağılımda nadir olan cevapları dedektör neredeyse hiç tahmin etmiyor. Treg'e tohum başına yalnız 1–7 bölüm ayrılıyor; öteki bölmelerde 40–169.
+  - **Gözlem 2, düzeltme denemesi işe yaramadı:** Ayırma dedektörü aynı reddetme örneklemesiyle q'dan eğitildi. Treg 83–518'e çıktı ama sızıntı azalmadı: doğruluk − şans ortalaması 11 tohumda iki yolda da +0,014. İki yolda da 11 tohumun 1'i duruyor; bu kez tohum 15 geçiyor, tohum 8 duruyor (+0,060).
+  - **Neden (çıkarım):** Ters dağılım ağırlığı, doğal örnekte en az görülen birkaç cevaba yığılıyor (400 doğal örnekte 0–6 kez). Örnek: tohum 8'de damat 0 kez görülmüş, ana kümenin %28'i; tohum 7'de hala 2 kez, %15; tohum 15'te damat 2 kez, %14. Bunların çoğu hısımlık ya da uzak akrabalık (gelin, damat, kayınvalide, hala, kuzen); olgularında belirgin ilişki adları var (ör. eş + anne). Ana kümenin ikinci yarısında dedektörün doğru bildikleri de çoğunlukla bunlar.
+  - **Sonuç:** Sızıntı ayırma dedektöründen çok K-010 tasarımının kendisinden geliyor. Kapı değeri sınıra yakın dolaşıyor: bugünkü yolda 11 tohumun 1'i duruyor.
+  - **Öneri:** şimdilik değişiklik yok; K-030 ile ilerlenir. Tasarım değişikliği (ör. daha yumuşak ters ağırlık) kâhin kararıdır, istenirse ayrıca ölçülür.
+
+## V-051: Hücre başına yazma sınırı C kuralından önce kesiyor
+- **Bölüm:** sistem.md §3 ("Hücre başına tur başına ≤8 yazma"), K-028 (C), `cekirdek/dongu.py` `_tur_adaylari` / `_yaz`.
+- **Bulgu (2026-10-24, geliştirme verisi):** Bugünkü kod 8'i yazmalara değil adaylara uyguluyor. Sınır C süzgecinden önce kesiyor, bu yüzden C'nin atacağı kopyalar sekiz yeri dolduruyor.
+  - Güveni yüksek kopyalar (aynı üçlü, başka ebeveynler) sıralamada öne geçiyor. Güveni biraz düşük yeni üçlü sınır dışında kalıyor.
+  - Yarı-naif eşleşme onu sonraki turda yeniden denemiyor; impasse sonrasında da aynı şey oluyor.
+  - İlk koşunun 14 "sınırdan bağımsız" uzunluk hatasının 14'ü bu.
+  - DNA danışmanınkiyle bayt bayt aynı (170 kimlik). Eşik, bütçe, farklı kişi şartı ve eşleşme neden değil.
+- **Ölçülen seçenek B (çekirdek değişmedi, geçici kopya):** C süzgeci hücre sınırından önce uygulanır, sınır yalnız yazılabilecek adayları sayar.
+  - Eski verideki doğru sayıları: eğitim 2000 → 2000, uzunluk 1980 → 1994, önsel-ters 2000 → 2000, zincir-bozuk 2000 → 2000, yön ters 573 → 573.
+  - Kalan 6 uzunluk hatasının hepsi tur 8'de, havuz dolu (128); ÖK-003 §3.4 sınır seçiminin ölçeceği türden.
+  - Ayrıntı: `raporlar/H1_hucre_siniri_izleme.md`.
+- **Felsefi:** evet (çekirdek davranışı; kullanıcı "önce bana sor" dedi). ÖK-003 §3.5 "diğer bütün ayarlar aynen kalır" der, bu yüzden değişiklik ÖK-003 ekinde ayrıca onay ister. **Durum:** AÇIK, kullanıcı kararı bekleniyor.

@@ -119,6 +119,16 @@ MUTASYONLAR = [
      "tur = next(t for t in sorted(tur_adaylari, reverse=True)"),
     ("sınır ölçümü belleksiz", SIN, "        if (tur, havuz) not in olcum:", "        if True:"),
     ("sınır ölçümünde tur uygulanmıyor", SIN, "tur_siniri=tur, kapasite=havuz)", "kapasite=havuz)"),
+    # K-030: tohum değişimi
+    ("tohum değişimi sınırsız", H1, "                if len(degisimler) == sinir:", "                if False:"),
+    ("duran tohum yerine geçmiyor", H1, "                tohum = siradaki\n", "                pass\n"),
+    ("her durma değişim sebebi", H1, "            except KisaYolHatasi as h:", "            except Exception as h:"),
+    ("kullanılmış tohum atlanmıyor", H1, "    dolu = set(on_kayit) | set(kullanilmis)", "    dolu = set(on_kayit)"),
+    ("kapı tohum kaydı ön kayıtla denetlenmiyor", H1, '    if kayit["on_kayit"] != list(on_kayit):', "    if False:"),
+    ("kapı tohum kaydında sınır yok", H1, "    if len(degisimler) > sinir:", "    if False:"),
+    ("kapı tohum kaydı tutarlılığı denetlenmiyor", H1, '    if kayit["kullanilan"] != beklenen:', "    if False:"),
+    ("tohum kaydı özeti ön kayıtta aranmıyor", H1,
+     "    if klasor is not None and (Path(klasor) / TOHUM_KAYDI).exists():", "    if False:"),
 ]
 
 

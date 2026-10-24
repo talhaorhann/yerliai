@@ -35,6 +35,7 @@
     "impasse_esik_carpani": {"deger": 0.5, "kaynak": "K-017"},
     "torch_surumu": {"deger": "2.14.1+cpu", "kaynak": "K-022"},
     "h1_tohumlar": {"deger": [12, 13, 14, 15, 16], "kaynak": "K-029"},
+    "h1_tohum_degisim_siniri": {"deger": 3, "kaynak": "K-030"},
     "h1_gelistirme_tohumlari": {"deger": [7, 8, 9, 10, 11], "kaynak": "K-029"},
     "h1_on_kayit_eki": {"deger": "## ÖK-003 eki", "kaynak": "K-029"},
     "h1_tur_adaylari": {"deger": [8, 12, 16, 24, 32], "kaynak": "K-029"},
