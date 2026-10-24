@@ -45,6 +45,13 @@ class ElleTesti(unittest.TestCase):
         self.assertTrue(self.bak(olgular, (2, 6), "ust1"))
         self.assertTrue(self.bak(olgular, (2, 5), "ust0"))
 
+    def test_zorunlu_yapi_tek_evlilik(self):
+        """Bir kişinin çocukları aynı çiftindir: eşi bilinmese de iki çocuğun ebeveyn çifti aynıdır, evlilik bakışımlıdır."""
+        from degerlendirme.dunya import zorunlu_dunya
+        dunya, kimlik = zorunlu_dunya(TANIM, [(5, "alt1", 1), (5, "alt0", 2)], (1, 2))
+        self.assertEqual(dunya.ebeveynler[kimlik[1]], dunya.ebeveynler[kimlik[2]])
+        self.assertTrue(all(dunya.es[dunya.es[p]] == p for p in dunya.es))
+
     def test_cinsiyet_baska_olgudan(self):
         """ÖK-003'teki açıklanamayan 6 hatanın deseni: kişinin cinsiyeti zincir dışındaki bir olgudan gelir."""
         olgular = [(27, "alt0", 12), (13, "ess", 27), (8, "alt1", 27)]
