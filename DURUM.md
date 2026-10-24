@@ -4,5 +4,6 @@
   - Sonuçlar: `raporlar/H1_SONUC.md` (ilk koşu), `raporlar/H1_v2_SONUC.md` (ikinci koşu).
 - **Karar (K-032):** A6'ya geçildi. ÖK-004 ertelendi: önce V-053 (çıkarılabilirlik tanımı) kullanıcı onayına gelir, sonra H1 taze tohumlarla tek sefer yeniden koşar (tohum değişim hakkı 2).
 - **H2 kapısı:** V-053 kapanmadan ve H1 yeniden koşulmadan H2 komutu "V-053 açık" diye reddeder.
-- **Kullanıcıda:** V-053 tanım onayı; A6 onay listesi; altın küme 2. parça (H1 yeniden koşusundan önce).
+- **A6 (`asama-6`):** H2 kapısı yazıldı. V-053 tanımı önerildi ve sınandı. Bellek geçidi, bellek deposu ve iç dil önerisi testleriyle yazıldı (`raporlar/A6_ONERI.md`).
+- **Kullanıcıda:** V-053 tanım onayı; A6 onay listesi; altın küme 2. parça (H1 yeniden koşusundan önce). Danışmanda: `raporlar/V053_inceleme.md`'deki 6 hata.
 - İlk kurulum: `sh kur.sh`; testler: `.venv/bin/python araclar/kostur.py`.

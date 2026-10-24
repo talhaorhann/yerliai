@@ -610,6 +610,15 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Ret: yanlış sonuç, şemayla çelişen sonuç, kısayol (yalnız kaydırılmış ortamda yakalanır), yapıca eşdeğer, katkısız, bellekle çelişkili.
   - Sınanamadı: gözlenmeyen sonuç.
   - Cevap alanı okunmuyor; karar belirlenimli.
+- **Gerçek DNA ölçümü (2026-10-24, geçici betik; çekirdek değişmedi):** Ortamlar: eski eğitim bölümleri, tohum 7 ve 8; yalnız olgular, cevap okunmadı. Bozuk sürüm = temel ilişki sonuçlu 73 kuralın sonucunu başka bir temel ilişkiyle değiştirmek.
+
+  | | Bellek boş (her kural tek) | Bellek = öteki 169 DNA kuralı |
+  |---|---|---|
+  | 170 doğru kural | 170 sınanamadı | 122 sınanamadı, 48 gereksiz |
+  | 73 bozuk kural | 7 yanlış, 1 çelişkili, 65 sınanamadı | 62 yanlış, 8 çelişkili, 3 sınanamadı |
+
+  - Doğru hiçbir kural yanlış, kısayol ya da çelişkili denmedi. Bellekle birlikte bozukların 70'i reddedildi.
+  - Ama doğru hiçbir kural kabul edilemedi: sınanamadı kalan 122 kuralın hepsinde destek 0. Bu bölümlerde (seyrek zincir olguları) kuralın sonucu hiçbir zaman olgu olarak gözlenmiyor; dede, amca gibi türetilmiş ilişkiler hiç gözlenmiyor.
 - **Felsefi:** evet (bellek, kâhin, kalibrasyon). **Durum:** ONAYSIZ (öneri; A6 onay listesi).
 
 ## V-055: İç dil sürüm 1 (A6 önerisi)

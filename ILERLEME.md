@@ -253,3 +253,22 @@
 - Altın küme 2. parça cevapları (kullanıcıda).
 - Otomatik ayrılamayan hata sınıfları (ad yok / türetilemez / DNA / çekirdek) için inceleme aracı.
 - GPU (CUDA) sürümü: gerekirse konuşulacak (K-022).
+
+## A6: bellek geçidi + iç dil (dal `asama-6`, 2026-10-24)
+
+- **H2 kapısı (K-032 §4):** `degerlendirme/h2.py`. V-053 kapanmadan ve H1 taze tohumlarla yeniden koşulmadan H2 komutu "V-053 açık" diye reddediyor. Test önce; mutasyon 9/9.
+- **V-053 önerilen tanım (onay bekliyor):** `olgudan_cikarilabilir_mi`; dünya verilmez, yalnız olgular + üç dünya varsayımı.
+  - Kaba kuvvet: 152 küçük örnekte 152 aynı karar.
+  - ÖK-003 yön ters: 113/113 çıkarılamaz, 27/27 çıkarılabilir. 6 hata DNA kapsam açığı (cinsiyet başka olgudan); danışmana `raporlar/V053_inceleme.md`.
+  - Mutasyon 8/8. Üretece henüz bağlanmadı.
+- **A6 önerisi (onay bekliyor):** bellek geçidi (etiketsiz kanıt), bellek deposu, iç dil v1 (V-054, V-055, V-056; `raporlar/A6_ONERI.md`).
+  - Testte doğru kurallar kabul, bozuklar (yanlış, kısayol, gereksiz, çelişkili) ret.
+  - Gerçek DNA'da: bozukların 70/73'ü ret, doğruların hiçbiri yanlış sayılmadı; ama veride gözlem olmadığı için doğrular kabul de edilemedi (sınanamadı).
+- Testler 389/389.
+
+**Eksik:**
+- Kullanıcının onay listesi kararları (V-053 tanımı, geçidin kanıt kaynağı, eşikler/iç dil/bellek).
+- Danışmanın 6 hatayı görmesi (DNA, K-024).
+- Altın küme 2. parça.
+- ÖK-004 (H1 taze tohumlarla tek sefer).
+- A6 sonu bağımsız inceleme.
