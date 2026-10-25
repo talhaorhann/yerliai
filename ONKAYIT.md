@@ -263,3 +263,75 @@ Bu ek ÖK-003 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
 - 6 hatanın nedeni danışmanın incelemesiyle düzeltildi: DNA'dan silinmiş 6 kural (`kiz_ogul_baba` dahil). Danışman bunları yeni sürümde geri koydu (gelen dosya v8, 244 kural; 170 eski kural aynen içinde; `raporlar/DNA_v8_karsilastirma.md`). Bu dosya henüz kilitli değil. 8. bölümdeki "DNA kapsam açığı" yorumu bununla kesinleşti.
 - H1 "geçti" diye işaretlenmez. Tohum değişim hakkı: 3'ten 1'i kullanıldı, 2 kaldı.
 - **Sıra (K-033):** A6 tamamlanır. DNA "son sürüm" gelince V-053 tanımı üretece bağlanır, ÖK-004 yazılır ve kilitlenir. H1 taze tohumlarla tek sefer koşar. Bu, bu tür kapı koşusunun son denemesidir: geçmezse durulur, kapsamlı karar kullanıcıya gelir. Eşik gevşetilmez.
+
+
+## ÖK-004 (2026-10-25): H1 son deneme ön kaydı (K-033, K-034, K-038)
+
+**Durum:** Kullanıcı kararlarıyla (K-033, K-034, K-037, K-038) yazıldı ve kilitlendi. Yeni bölümler üretilmeden ve koşudan önce yazıldı. Koşu öncesi özetler "ÖK-004 eki"ne yazılır; ek dışındaki metin değişmez. **Bu, bu tür kapı koşusunun son denemesidir (K-033).**
+
+### 1. Önceki iki koşu (silinmez)
+
+- **Birinci koşu (ÖK-002, 2026-10-24):** kod `91591f3`, DNA `624b073c…` (170 kural), tohum 7–11.
+  - **KAPI GEÇMEDİ:** önsel-ters 2000/2000, zincir-bozuk 2000/2000, uzunluk 1980/2000, yön ters 573/2000. Yanlış ilişki 0; bütün hatalar "bilmiyorum".
+  - Nedenler: yön ters hatalarının neredeyse hepsi cevabı olgulardan çıkarılamayan sorular (üreteç bu şartı koymuyordu). Uzunluktaki 20 hatanın 14'ü hücre sınırının kopya kuralı C'den önce kesmesi (K-031 ile düzeltildi), 6'sı tur ve havuz sınırı (ÖK-003 eki §6 ile seçildi).
+  - Kayıtlar: ÖK-003 §1, ÖK-003 eki §3, `raporlar/H1_SONUC.md`, `raporlar/H1_kapi_ozet.json` (`f65b2611…`).
+- **İkinci koşu (ÖK-003, 2026-10-24):** kod `157c1fb`, aynı DNA, tohum 12, 13, 14, 17, 16 (15 yerine 17, K-030).
+  - **KAPI GEÇMEDİ:** uzunluk, önsel-ters ve zincir-bozuk 2000/2000; yön ters 1881/2000. Yanlış ilişki 0; 119 hatanın hepsi "bilmiyorum".
+  - Nedenler: 113'ü üretecin çıkarılabilirlik tanımının olgularda görünmeyen evliliği kullanması (V-053); 6'sı DNA'dan silinmiş 6 kural (danışman).
+  - Kayıtlar: ÖK-003 eki §8–§9, `raporlar/H1_v2_SONUC.md`, `raporlar/H1_v2_kapi_ozet.json` (`6e723c63…`), `raporlar/V053_inceleme.md`.
+- **Kullanıcının kaydı (K-033):** "H1 iki kez kapıyı geçmedi. İkinci koşuda uzunluk, önsel-ters ve zincir-bozuk bölmeleri 5 tohumda 2000/2000, yön ters 1881/2000 (ilk koşuda 573/2000). Yanlış ilişki iki koşuda da 0. 119 yön ters hatasının hepsi 'bilmiyorum'; 113'ü üretecin çıkarılabilirlik tanımının olgularda görünmeyen evliliği kullanmasından, 6'sı DNA'da silinmiş 6 kuraldan. H1 resmen KANITLANMAMIŞTIR; çekirdek lehine güçlü kanıt vardır."
+
+### 2. Hipotez
+
+ÖK-002 §1 ile aynı: elle yazılmış doğru DNA verilince LLM'siz çekirdek soruları kâhine bakmadan doğru cevaplar, zincir bozuksa "bilmiyorum" der.
+
+### 3. Değişiklikler (yalnız bunlar)
+
+1. **Üretecin çıkarılabilirlik tanımı V-053 (K-034).** Dünya verilmez. Olgular ve üç dünya varsayımı kullanılır:
+   - her kişinin ya hiç ebeveyni yoktur ya da birbiriyle evli iki ebeveyni vardır;
+   - en çok bir evlilik;
+   - evli çiftler karşı cinsten.
+   Bunların zorunlu kıldığı yapıda, cinsiyetlerin olgulara uyan bütün atamalarında sorgu çiftinin ilişkisi gerçek cevapla aynı değilse aday atılır. Çekirdek bu seçimde hiç çalışmaz. Zincir-bozuk bölümler denetime girmez. Atılan aday sayısı bölme başına raporlanır.
+   - Kod: `degerlendirme/dunya.py` `olgudan_cikarilabilir_mi`, `degerlendirme/uretec.py` `cikarilabilirlik_tanimi`. Config: `h1_cikarilabilirlik_tanimi` = "olgu". Commit `1d0b7d3`.
+2. **DNA v8, son sürüm (K-038):** `veri/dna/akrabalik_dna_v8.json`, 244 kural.
+   - 170 eski kural aynen içinde; 74 yeni kural. Yenilerin 6'sı ikinci koşudaki 6 hatanın nedeni olan silinmiş kurallar (`raporlar/DNA_v8_karsilastirma.md`).
+   - Danışman ölçümü: 16.000 rastgele kümede yanlış türetme 0; çıkarılabilir sorulardan kaçan %0,02.
+   - DNA bu ön kayıttan sonra değişmez; sorun çıkarsa danışmana bildirilir.
+3. **Tohumlar:** 18, 19, 20, 21, 22. Tohum 7–17 kullanıldı; H2 kapısı onları taze saymaz.
+   - Kısa yol kapısında (K-008) duran tohumun yerine kullanılmamış ilk tohum geçer (K-030). Eşik gevşetilmez. En çok 2 değişim (config `h1_tohum_degisim_siniri` = 2). Her değişim bu ekin tarihli satırına yazılır.
+4. **Sınırlar ve çekirdek:** ÖK-003 eki §6 aynen (tur 8, havuz 256). Eşleşme bütçesi 1024, hücre başına tur başına 8 yazma, kopya kuralı C hücre sınırından önce (K-031), θ = 0,5, güvenilirlik 1 aynen.
+5. Başka değişiklik yok. A6 kodu (bellek geçidi K-035/K-037, iç dil, bellek deposu) H1 koşusuna girmez.
+
+### 4. Bölmeler, ölçütler, kapı
+
+- ÖK-003 §4 ile aynı. Kapı bölmeleri: uzunluk, yön ters, önsel-ters, zincir-bozuk. Her bölmede ve her tohumda %100; tolerans yok.
+- Müdahale raporlanır, kapıya girmez; "sınanamadı" ayrı sayılır (K-021).
+- Yeni tohumların eğitim bölmesi ayrı satırda raporlanır, kapıya girmez.
+- Altın küme ayrı satır; iki parça kendi kaynak etiketleriyle.
+- Ek rapor (kapıya girmez): havuz ve eşleşme bütçesi baskısı. Tur sınırına ulaşan bölüm, havuzdan atılan ve havuz dolu diye yazılamayan kayıt, bütçe ve hücre sınırıyla atılan eşleşme sayıları.
+
+### 5. Sıra
+
+1. V-053 üretece bağlanır (test önce). Yapıldı: commit `1d0b7d3`.
+2. Bu ön kayıt yazılır ve kilitlenir. Ekine config ve DNA özetleri yazılır.
+3. Altın küme 2. parça kullanıcı cevapları gelir. **Gelmeden kapı koşmaz.**
+4. Yeni bölümler üretilir (tohum 18–22). Manifest ve tohum kaydı özetleri ekin 2. bölümüne yazılır.
+5. Kapı bölmeleri bir kez koşar. Sonra yeni tohumların eğitim satırı ve altın küme (iki parça).
+6. Sonuç "## ÖK-004 sonucu" başlığıyla yazılır. Kapı özeti `raporlar/H1_v3_kapi_ozet.json`'un sha256'sı da içinde olur (H2 kapısı bunu arar).
+
+### 6. Kapı geçmezse
+
+Bu son denemedir. Durulur. Ayarlar, DNA ve eşikler bu sonuca bakılarak değiştirilmez. Kapsamlı karar kullanıcıya gelir (K-033).
+
+
+## ÖK-004 eki
+
+Bu ek ÖK-004 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetlerin hepsi bu başlığın altında yazılı olmalı: config, DNA, yeni manifestler ve tohum kaydı. Biri eksikse kapı koşmaz (`degerlendirme/h1.py` `on_kayit_denetle`).
+
+### 1. Ön kayıt anındaki özetler (2026-10-25)
+
+- `config.json`: `9c5694fa3b0d97a6fb6c26609709b661cbd31879875d3f87476eeb89c36b9424`
+- `dna` (`veri/dna/akrabalik_dna_v8.json`): `4a4af6b83c58e33d9971f9d84ed6c440fbb2341d14ec70dc4710128d74bfaa75`
+- Kod: commit `1d0b7d3`.
+- Yeni manifestler ve `tohumlar.json`: üretimden sonra 2. bölüme yazılır.
+
