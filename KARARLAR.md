@@ -237,3 +237,10 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
 - **H2 tasarım taslağı:** yalnız belge (`H2_TASARIM_TASLAGI.md`), kod yok; `FIKIRLER.md`'ye işlenir.
 - **Değişmeyen kurallar:** kâhin eğitime girmez; `uretec_cevaplari.jsonl` ve `degerlendirme/altin/` cevap dosyaları açılmaz; LLM şema, tohum etiketi, kalibrasyon ya da altın küme kararı vermez; eşik sonuca bakarak değişmez; felsefi kararlar kullanıcıya sorulur.
 - **Onaylayan:** kullanıcı (danışmanın metnini iletti).
+
+## K-040 (2026-10-25): ÖK-004 sonucu yazıldı, H2 kapısı açıldı; H2 kodu koşullu
+- **Karar:** "## ÖK-004 sonucu" başlığı, kapı özetinin sha256'sıyla (`935cea7b…`) ÖK-004'e yazıldı (K-032 §4). H2 kapısı açık (`degerlendirme/h2.py`).
+- **Koşul:** H2 koduna başlanmaz. Önce: (a) A6 bağımsız incelemesinin sonucu; (b) H2 tasarım tartışması (danışman ve kullanıcı, literatür taraması ışığında); (c) H2 ön kayıt belgesi (yeni ÖK). Kapının açılması bunları atlamaya izin vermez.
+- DNA v8, config ve ÖK-004 kilitli kalır. Kalan tohum değişim hakkı 1; onaysız kullanılmaz.
+- Önsel-ters bölmesindeki iki kısa yol duruşu (tohum 15 ve 21) için teşhis notu yazılır; yalnız analiz, üreteç ve kapı değişmez; H2 tasarımına girdi olur.
+- **Onaylayan:** kullanıcı ve danışman.

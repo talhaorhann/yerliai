@@ -540,6 +540,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - **Neden (çıkarım):** Ters dağılım ağırlığı, doğal örnekte en az görülen birkaç cevaba yığılıyor (400 doğal örnekte 0–6 kez). Örnek: tohum 8'de damat 0 kez görülmüş, ana kümenin %28'i; tohum 7'de hala 2 kez, %15; tohum 15'te damat 2 kez, %14. Bunların çoğu hısımlık ya da uzak akrabalık (gelin, damat, kayınvalide, hala, kuzen); olgularında belirgin ilişki adları var (ör. eş + anne). Ana kümenin ikinci yarısında dedektörün doğru bildikleri de çoğunlukla bunlar.
   - **Sonuç:** Sızıntı ayırma dedektöründen çok K-010 tasarımının kendisinden geliyor. Kapı değeri sınıra yakın dolaşıyor: bugünkü yolda 11 tohumun 1'i duruyor.
   - **Öneri:** şimdilik değişiklik yok; K-030 ile ilerlenir. Tasarım değişikliği (ör. daha yumuşak ters ağırlık) kâhin kararıdır, istenirse ayrıca ölçülür.
+  - **İkinci duruş ve teşhis (2026-10-25):** tohum 21 (ÖK-004) aynı bölmede durdu (0,445 > 0,370 + 0,05); onayla 23 geçti. Teşhis notu: `raporlar/ONSEL_TERS_KISA_YOL_TESHIS.md`. Aşım, ters ağırlığın ana kümeyi doğal örnekte 0–4 kez görülen 2–3 cevaba yığmasından ve bunların ilişki adı çiftleriyle (ör. gelin: oğul + eş) ayrılabilmesinden geliyor; Treg süzgeci bu bölmede çalışmıyor. Üreteç değişmedi; H2 tasarımına girdi.
 
 ## V-051: Hücre başına yazma sınırı C kuralından önce kesiyor
 - **Bölüm:** sistem.md §3 ("Hücre başına tur başına ≤8 yazma"), K-028 (C), `cekirdek/dongu.py` `_tur_adaylari` / `_yaz`.

@@ -1,7 +1,7 @@
 {
   "algoritma": "sha256",
   "dosyalar": {
-    "ONKAYIT.md": "c374038b258301dfac0099648958b22fe1cc5ee018e882cdc21dd0d021a1cf1b",
+    "ONKAYIT.md": "69a3825aa357f12e8243da73bb033a20e34f6220c875c77a3aabfbe6ef7ab515",
     "config.json": "feae40960a4f24f24121bdf74cea782c384593fd2f31f87b0115ebc0ee32890f",
     "degerlendirme/altin/kullanici_cevaplari_1.json": "306ee0a0c54d3d6972695ae8a0c8c14e8dff12e2d6ef084884a9fd345a5c45ff",
     "degerlendirme/altin/kullanici_cevaplari_2.json": "dcfba77c711ac7320ae9180625a0f7bd24d5401f0e79818b0d0077808f5e1186",
@@ -44,7 +44,7 @@
     "testler/test_a6_gosterim.py": "9a7fa1f0df08f980c2be0b78b92f7c976ab8802f447c8fb8a4068e729ad26e7c",
     "testler/test_a6_gozlem_bolumu.py": "8c89efda5a17317fd163c87bd258dcba075d7a7e777e64f6e3ceaa354a99efe5",
     "testler/test_a6_h1_baski.py": "e0a23b270819740ae808796e8cb598985c97e188c87ed7c269bb725850827dc2",
-    "testler/test_a6_h2_kapisi.py": "318e680f0d0dfecb68d511fb9454d4aa3b1b741f67eec0caa0657243fc00c7d9",
+    "testler/test_a6_h2_kapisi.py": "51d6cd569217879347333bf5afdd7820fa7fc12df2e21019b50a7ce7e86c96a3",
     "testler/test_a6_ic_dil.py": "a5d28d7e187b0433d7e8aae9736880e93bcafda97410e97437141dd9b54f8f99",
     "testler/test_a6_olgudan_cikarilabilirlik.py": "13c9d53099f46321f7684e650d2d869056cb47987e472c42a3c4a26c3f62fd0c",
     "testler/yardimci.py": "3abd3a5fcb495d53e6b692a7cd095cabb7401e83a425aa9dcd0f18ce3e887b68",

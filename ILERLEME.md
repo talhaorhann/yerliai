@@ -316,3 +316,6 @@
 - **Kapı GEÇTİ:** 8000/8000, yanlış 0, "bilmiyorum" 0 (29 dk). Müdahale 5996 puanlı, 4 sınanamadı.
 - Eğitim satırı 2000/2000; altın küme 50/50 ve 50/50; baskı: tur, havuz, bütçe sınırına ulaşan 0.
 - H2 kapısı kapalı; açan başlık kullanıcı kararını bekliyor.
+- **K-040:** "## ÖK-004 sonucu" yazıldı (sha256 `935cea7b…`); H2 kapısı açık. H2 kodu koşullu: inceleme sonucu, tasarım tartışması, yeni ÖK.
+- Önsel-ters kısa yol duruşları için teşhis notu: `raporlar/ONSEL_TERS_KISA_YOL_TESHIS.md` (yalnız analiz).
+- Bekleyen iki mutant (onaydaki yerine tohum, kalan hak) yakalandı; A6 mutasyon listesi toplam 67 mutant, hepsi yakalandı (her biri en son kendi kodu üzerinde koşuldu).

@@ -389,3 +389,12 @@ Bu ek ÖK-004 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
 - Kapıya girmeyen satırlar: yeni tohumların eğitim bölmesi 2000/2000; altın küme parça 1 ve parça 2 kullanıcı cevabıyla 50/50 ve 50/50 aynı (parça 2'nin 50 cevabı LLM taslağı, kullanıcı onaylı; bağımsız insan cevabı değil); baskı ölçümünde tur, havuz ve bütçe sınırına ulaşan bölüm 0.
 - Ayarlar, DNA ve eşikler bu sonuca bakılarak değiştirilmedi. Ayrıntı: `raporlar/H1_v3_SONUC.md`.
 - **H2 kapısı:** "## ÖK-004 sonucu" başlığı (K-032 §4'e göre H2 kapısını açar) yazılmadı; kullanıcı kararı bekliyor.
+
+
+## ÖK-004 sonucu
+
+**Yazıldı:** 2026-10-25, kullanıcı ve danışman onayıyla (K-040). Bu başlık K-032 §4'e göre H2 kapısını açar. H2 koduna başlamak için ayrıca şunlar gerekir (K-040): A6 bağımsız incelemesinin sonucu, H2 tasarım tartışması (danışman ve kullanıcı, literatür taraması ışığında) ve H2 ön kayıt belgesi (yeni ÖK).
+
+- **Sonuç: KAPI GEÇTİ.** Uzunluk, yön ters, önsel-ters ve zincir-bozuk; tohum 18, 19, 20, 23, 22; her bölme-tohumda 400/400, toplam 8000/8000. Yanlış ilişki 0, "bilmiyorum" 0. Ayrıntı: ÖK-004 eki §6, `raporlar/H1_v3_SONUC.md`.
+- **Kapı özeti:** `raporlar/H1_v3_kapi_ozet.json`, sha256 `935cea7b47dcccb319e86bf68f02b3be7312cf9b924334ce9a449cc446cf11cf`.
+- **Önceki iki koşu (silinmez):** ÖK-002 (tohum 7–11) ve ÖK-003 (tohum 12, 13, 14, 17, 16) kapıyı geçmedi; K-033'teki kayıt geçerlidir.

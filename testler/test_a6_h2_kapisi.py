@@ -55,17 +55,17 @@ class KapiTesti(unittest.TestCase):
             h2.kapi_denetle(self.kok)
         self.assertTrue(str(h.exception).startswith("V-053 açık"), str(h.exception))
 
-    def test_bugunku_depoda_reddeder(self):
-        with self.assertRaises(h2.H2KapiHatasi) as h:
-            h2.kapi_denetle(KOK)
-        self.assertTrue(str(h.exception).startswith("V-053 açık"))
+    def test_bugunku_depoda_acik(self):
+        """K-040: ÖK-004 sonucu kullanıcı ve danışman onayıyla yazıldı; kapı taze tohumlarla açılır."""
+        self.assertEqual(h2.kapi_denetle(KOK), {"karar": "K-034", "tohumlar": [18, 19, 20, 22, 23]})
 
-    def test_komut_reddeder(self):
+    def test_komut_h2_deneyi_olmadan_basari_donmez(self):
+        """Kapı açık olsa da H2 deneyi yazılmadı (K-040: önce inceleme, tasarım ve yeni ön kayıt)."""
         cikti = io.StringIO()
         with redirect_stdout(cikti):
             kod = h2.main([])
         self.assertNotEqual(kod, 0)
-        self.assertIn("V-053 açık", cikti.getvalue())
+        self.assertIn("H2 kapısı açık; H2 deneyi henüz yazılmadı.", cikti.getvalue())
 
     def test_v053_acik(self):
         self.reddeder(varsayimlar=ACIK)

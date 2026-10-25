@@ -5,7 +5,7 @@ Oturum başında oku: `sistem.md` ilgili bölüm, `ILERLEME.md`, `VARSAYIMLAR.md
 - **Güncel durum (2026-10-25):** `DURUM.md`. K-037 (geçitte müdahale b·c; H2'de bozuk kural kabul edilirse yeniden açılır), K-038 (DNA v8 son sürüm, kilitli), ÖK-004 yazıldı ve kilitlendi.
 - **DNA:** v8 son sürüm ve kilitli (K-038). **DNA'ya dokunulmaz;** sorun çıkarsa danışmana bildirilir.
 - **H1 son deneme yapıldı ve KAPI GEÇTİ (ÖK-004 eki §6, `raporlar/H1_v3_SONUC.md`).** Aşağıdaki sıra izlendi: `.venv/bin/python -m degerlendirme.h1 uret uretilen/h1_v3` → `ozetler` çıktısını ÖK-004 eki §2'ye yaz, kilitle → `kapi uretilen/h1_v3 veri/dna/akrabalik_dna_v8.json uretilen/h1_v3_kapi_1` bir kez → `yeni_egitim`, `altin` → kapı özetini `raporlar/H1_v3_kapi_ozet.json`'a koy, "## ÖK-004 sonucu" bölümüne sha256'sıyla yaz. Sonuca bakarak ayar yapılmaz; geçmezse dur, kullanıcıya dön.
-- **H2 kapısı kapalı kalır;** kapıyı gevşeten kod yazılmaz. `asama-5-hizli-yol-dogrulanmadi` dalı silinmez.
+- **H2 kapısı açık (K-040), ama H2 koduna başlanmaz:** önce A6 bağımsız incelemesinin sonucu, H2 tasarım tartışması ve yeni ÖK. Kapıyı gevşeten kod yazılmaz. `asama-5-hizli-yol-dogrulanmadi` dalı silinmez.
 - **K-039 (danışman güncellemesi):**
   - Tohum değişimi ancak danışman ve kullanıcı onayıyla: kapıda duran tohumda `uret` durur; onaylanan tohum `h1_onayli_tohum_degisimleri`ne yazılır (config değişir: yeni özeti ÖK-004 ekine yaz, kilitle).
   - Altın küme 2. parça gelince: (a) biçimi doğrula (parça kaydı: `kaynak`, `onaylayan`, `bagimsiz_insan_cevabi`, `cevaplar` 1..N, A–D ya da ?), (b) "LLM taslağı, kullanıcı onaylı" etiketli kayıtları ayrı say ve raporla, (c) ÖK-004 sırası. Cevap dosyalarının içeriğini açıp okuma; yalnız kodla doğrula ve say.
