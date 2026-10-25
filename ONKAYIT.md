@@ -363,3 +363,19 @@ Bu ek ÖK-004 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
 - Config bu yüzden değişti; bundan sonra geçerli özet:
   - `config.json`: `feae40960a4f24f24121bdf74cea782c384593fd2f31f87b0115ebc0ee32890f`
 - 23 ya da başka bir tohum yine durursa üretim durur ve bildirilir. Yeni manifest özetleri bu ekin 5. bölümüne yazılır.
+
+### 5. Yeni bölümler ve kapı koşusu öncesi özetler (2026-10-25)
+
+- **Üretim:** `.venv/bin/python -m degerlendirme.h1 uret uretilen/h1_v3`, kod commit `d534dac`. Tohum 21 yine durdu ve onaylı değişimle 23 geçti; 23 bütün bölmelerden geçti. Kullanılan tohumlar: 18, 19, 20, 23, 22. Değişim hakkı: 2'den 1'i kullanıldı, 1 kaldı.
+- Tohum 18, 19, 20'nin manifestleri, onaydan önceki ilk üretimle bayt bayt aynı.
+- **Çıkarılamadığı için atılan aday:** yalnız yön ters bölmesinde; öteki bölmelerde 0. Tohum 18: 2311, 19: 2340, 20: 2590, 23: 2335, 22: 2539.
+- **Özetler (sha256):**
+  - `config.json`: `feae40960a4f24f24121bdf74cea782c384593fd2f31f87b0115ebc0ee32890f`
+  - `dna`: `4a4af6b83c58e33d9971f9d84ed6c440fbb2341d14ec70dc4710128d74bfaa75`
+  - `tohumlar.json`: `215814be7ebd9cfe482285ab47b3ca15d4b07a467d74ece6822fd63aa7c80545`
+  - `tohum_18/ozet.json`: `f1e7fe5caa423c7d61cc3c79476cb4ca77ba6931eb41748d2c6e0481cf5d33ea`
+  - `tohum_19/ozet.json`: `490ca61c977f66cff40456429106ed3724be3924f89eaa57504d4c70a9c7ab61`
+  - `tohum_20/ozet.json`: `0c4fc16d11c1e706dc67c2a9d73dee3abd8ae132394887943ed5b27a42c65fb1`
+  - `tohum_22/ozet.json`: `6f6a5ab522f3ed05b56e324050b8a555a4d8b88900f28e67480ef6a7a5652c67`
+  - `tohum_23/ozet.json`: `900355ca51975f76ba4dbfa5fa2325c6c5145c0e755ee44fca4d4f85260702b6`
+- Kapı bölmeleri bu ekten sonra tohum 18, 19, 20, 23, 22 ile bir kez koşar; sonra yeni tohumların eğitim satırı, altın küme ve baskı ölçümü. Kapı geçmezse ayarlar, DNA ve eşikler bu sonuca bakılarak değiştirilmez (§6).
