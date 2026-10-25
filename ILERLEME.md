@@ -306,4 +306,5 @@
 - **V-053 üretece bağlandı (K-034):** `uretec.Parametreler.cikarilabilirlik_tanimi` ("agac" K-029 varsayılan, "olgu" K-034); H1 config'i "olgu". Test önce; mutasyon 3/3.
 - **ÖK-004 yazıldı ve kilitlendi:** iki önceki koşuya atıf, tohumlar 18–22, değişim hakkı 2, eki §1'de config ve DNA özetleri.
 - **Altın küme 2. parça cevapları yok:** ÖK-004 §5'e göre yeni bölümler üretilmedi, kapı koşmadı.
-- **Baskı ölçüm aracı:** `degerlendirme/h1_baski.py` (test önce).
+- **Baskı ölçümü (geliştirme verisi, 10.000 bölüm, kapı sınırları; `raporlar/H1_baski_v8.md`):** tur sınırına ulaşan 0 (en çok 7/8), havuz dolan 0 (en çok 186/256), bütçe aşılan 0 (bütçeye giren en çok aday 232/1024), sınırla ilişkili hata 0. Araç `degerlendirme/h1_baski.py` (test önce; mutasyon 3/3).
+- Testler 428/428. A6 mutasyonu toplam 58 mutant, hepsi yakalandı.

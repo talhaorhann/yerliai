@@ -19,6 +19,7 @@ GOZ = "degerlendirme/gozlem_puani.py"
 HAT = "degerlendirme/bellek_hatti.py"
 URE = "degerlendirme/uretec.py"
 H1 = "degerlendirme/h1.py"
+BAS = "degerlendirme/h1_baski.py"
 
 MUTASYONLAR = [
     # K-032 §4: H2 kapısı
@@ -97,6 +98,12 @@ MUTASYONLAR = [
      ',\n                               cikarilabilirlik_tanimi=ayar.deger("h1_cikarilabilirlik_tanimi"))', ")"),
     ("gözlem ortamı tohuma girmiyor", URE, 'random.Random(f"{prm.tohum}:gozlem:{ortam}")',
      'random.Random(f"{prm.tohum}:gozlem")'),
+    # ÖK-004 §4: baskı ölçümü
+    ("tur sınırı sayılmıyor", BAS, '"tur_siniri": dongu.durma_nedeni == DURMA_TUR_SINIRI', '"tur_siniri": False'),
+    ("atma doluluğu düşürmüyor", BAS, "            doluluk -= 1", "            pass"),
+    ("kapı tohumları kayıttan alınmıyor", BAS,
+     '        return h1.kapi_tohumlari(klasor, ayar.deger("h1_tohumlar"), ayar.deger("h1_tohum_degisim_siniri"))',
+     '        return ayar.deger("h1_tohumlar")'),
     # V-056: bellek deposu
     ("geri alma aktiften düşürmüyor", BEL, '            self._aktif.pop(veri["kimlik"], None)', "            pass"),
     ("çift kabul denetlenmiyor", BEL, '        if hucre_verisi["kimlik"] in self._aktif:', "        if False:"),

@@ -8,8 +8,9 @@ olaylarından okunur:
   için atılan (C, K-028).
 Cevap ancak çekirdek koştuktan sonra kâhin cevabıyla karşılaştırılır. Doğru olmayan bölümde tur sınırına, havuz
 sınırına ya da bütçeye ulaşıldıysa hata "sınırla ilişkili" sayılır.
-Kullanım: .venv/bin/python -m degerlendirme.h1_baski <bölüm klasörü> <dna> <çıkış klasörü>
-(tohumlar: `h1_gelistirme_tohumlari`; bölmeler: geliştirme + kapı bölmeleri; geliştirme verisi)
+Kullanım: .venv/bin/python -m degerlendirme.h1_baski <bölüm klasörü> <dna> <çıkış klasörü> [gelistirme|kapi]
+(gelistirme: `h1_gelistirme_tohumlari`, varsayılan; kapi: kapı tohumları, tohum kaydından (K-030). Bölmeler:
+geliştirme + kapı bölmeleri.)
 """
 import json
 import sys
@@ -31,6 +32,7 @@ ATILDI = "ESLESME_ATILDI"  # cekirdek/dongu.py olay türü
 BUTCE, HUCRE = "butce", "hucre_siniri"  # cekirdek/dongu.py ESLESME_ATILDI nedenleri
 IS_SAYISI = 4  # V-057: paralel süreç sayısı (sonucu etkilemez)
 SINIR_ALANLARI = ("tur_siniri", "havuz_doldu", "butce_asildi")  # ÖK-004 §4: hata bunlardan biriyle "sınırla ilişkili"
+GELISTIRME, KAPI = "gelistirme", "kapi"  # ölçülecek tohumlar
 
 
 def bolum_baskisi(bolum, hucreler, iliski_semasi, kk, prm, gunluk_ayari):
@@ -80,6 +82,14 @@ def ozetle(satirlar):
     return ozet
 
 
+def olcum_tohumlari(ayar, klasor, kip):
+    if kip == GELISTIRME:
+        return ayar.deger("h1_gelistirme_tohumlari")
+    if kip == KAPI:
+        return h1.kapi_tohumlari(klasor, ayar.deger("h1_tohumlar"), ayar.deger("h1_tohum_degisim_siniri"))
+    raise ValueError(f"bilinmeyen tohum kipi: {kip}")
+
+
 def _bolme_olc(is_):
     import torch
     torch.set_num_threads(1)  # V-057: süreç başına tek iş parçacığı
@@ -95,14 +105,15 @@ def _bolme_olc(is_):
 
 def main(arg):
     kok = Path(__file__).resolve().parents[1]
-    klasor, dna_yolu, cikis = arg
+    klasor, dna_yolu, cikis, *kip = arg
     ayar, _, _ = h1._ortam(kok)
+    tohumlar = olcum_tohumlari(ayar, klasor, kip[0] if kip else GELISTIRME)
     prm = h1.kosu_parametreleri(ayar, h1.KIP_KAPI)
     bolmeler = ayar.deger("h1_gelistirme_bolmeleri") + ayar.deger("h1_kapi_bolmeleri")
-    isler = [(kok, klasor, dna_yolu, t, b) for t in ayar.deger("h1_gelistirme_tohumlari") for b in bolmeler]
+    isler = [(kok, klasor, dna_yolu, t, b) for t in tohumlar for b in bolmeler]
     with ProcessPoolExecutor(IS_SAYISI) as havuz:
         satirlar = [s for parca in havuz.map(_bolme_olc, isler) for s in parca]
-    rapor = {"dna": Path(dna_yolu).name, "sinirlar": {"tur": prm.tur_siniri, "havuz": prm.kapasite, "butce": prm.butce,
+    rapor = {"dna": Path(dna_yolu).name, "tohumlar": tohumlar, "sinirlar": {"tur": prm.tur_siniri, "havuz": prm.kapasite, "butce": prm.butce,
                                                       "hucre": prm.hucre_yazma_siniri},
              "ozet": ozetle(satirlar)}
     Path(cikis).mkdir(parents=True, exist_ok=True)

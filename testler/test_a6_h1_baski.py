@@ -1,6 +1,9 @@
 """ÖK-004 §4: havuz ve eşleşme bütçesi baskısı ölçümü. Ölçüm defterdeki olaylardan okunur; sınırlar değişmez.
 Küçük sınırlarla her baskı türünün sayıldığı, bol sınırlarla hiçbirinin sayılmadığı gösterilir (blorp şeması)."""
 import dataclasses
+import json
+import tempfile
+from pathlib import Path
 
 from degerlendirme import h1_baski
 from testler.test_a3_temel import halka, hucre
@@ -47,3 +50,18 @@ class BaskiTesti(t3.Ortam):
                     dict(self.olc(dataclasses.replace(t3.PRM, tur_siniri=1)), bolme="b", tohum=1, beklenen="vonk")]
         o = h1_baski.ozetle(satirlar)["b"]
         self.assertEqual((o["n"], o["dogru"], o["tur_siniri"], o["sinirla_iliskili_hata"]), (2, 1, 1, 1))
+
+
+class TohumSecimiTesti(t3.Ortam):
+    def test_gelistirme_ve_kapi_tohumlari(self):
+        self.assertEqual(h1_baski.olcum_tohumlari(t3.AYAR, None, h1_baski.GELISTIRME),
+                         t3.AYAR.deger("h1_gelistirme_tohumlari"))
+        on_kayit = t3.AYAR.deger("h1_tohumlar")
+        kullanilan = on_kayit[:-1] + [max(on_kayit) + 1]
+        with tempfile.TemporaryDirectory() as d:
+            (Path(d) / "tohumlar.json").write_text(json.dumps({
+                "on_kayit": on_kayit, "kullanilan": kullanilan,
+                "degisimler": [{"tohum": on_kayit[-1], "yerine": kullanilan[-1], "neden": "deneme"}]}), encoding="utf-8")
+            self.assertEqual(h1_baski.olcum_tohumlari(t3.AYAR, d, h1_baski.KAPI), kullanilan)
+        with self.assertRaises(ValueError):
+            h1_baski.olcum_tohumlari(t3.AYAR, None, "hepsi")
