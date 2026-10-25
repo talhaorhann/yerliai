@@ -7,7 +7,8 @@ from pathlib import Path
 
 from cekirdek.altyapi.olay_gunlugu import ZincirHatasi
 from cekirdek.bellek import BELLEK_GERI_ALMA, BELLEK_KABUL, Bellek, BellekHatasi
-from cekirdek.bellek_gecidi import KABUL, YANLIS, gecit, gozden_gecir
+from cekirdek.bellek_gecidi import KABUL, YANLIS
+from degerlendirme.bellek_hatti import degerlendir, gozden_gecir
 from testler.test_a5_h1 import GUNLUK
 from testler.test_a6_bellek_gecidi import ESIK, KK, ORTAMLAR, T1, T2, bolum
 import testler.test_a3_cekirdek as t3
@@ -29,6 +30,13 @@ class BellekTesti(t3.Ortam):
         yeniden = self.bellek()
         self.assertEqual((yeniden.aktif_veriler(), yeniden.surum), (b.aktif_veriler(), b.surum))
         self.assertEqual([h.kimlik for h in yeniden.hucreler(DNA_V2, self.sema)], ["t_qb"])
+
+    def test_bos_bellegin_hucresi_yok(self):
+        b = self.bellek()
+        self.assertEqual(tuple(b.hucreler(DNA_V2, self.sema)), ())
+        b.kabul_et(T1, {})
+        b.geri_al("t_bb", "deneme")
+        self.assertEqual(tuple(b.hucreler(DNA_V2, self.sema)), ())
 
     def test_gecmis_kayit_degismez(self):
         b = self.bellek()
@@ -66,12 +74,12 @@ class BellekTesti(t3.Ortam):
     def test_gecitten_bellege_ve_gozden_gecirmede_geri_alma(self):
         b = self.bellek()
         aday = self.hucreler(T1)[0]
-        k = gecit(aday, (), ORTAMLAR, self.sema, KK, t3.PRM, GUNLUK, ESIK)
+        k = degerlendir(aday, (), ORTAMLAR, self.sema, KK, t3.PRM, GUNLUK, ESIK)
         self.assertEqual(k.karar, KABUL)
         b.kabul_et(T1, k.olcumler)
         self.assertEqual(gozden_gecir(b, DNA_V2, ORTAMLAR, self.sema, KK, t3.PRM, GUNLUK, ESIK), [])
         # yeni veri: (a,c) için quax yerine frumb gözleniyor; kural bu veride yanlış çıkar ve geri alınır
-        yalanlayan = {"yeni": [bolum([(1, "blorp", 2), (2, "blorp", 3), (1, "frumb", 3), (7, "frumb", 8)], (1, 3))
+        yalanlayan = {"yeni": [bolum([(1, "blorp", 2), (2, "blorp", 3), (1, "frumb", 3), (7, "frumb", 8)])
                                for _ in range(ESIK.en_az_kanit)]}
         self.assertEqual(gozden_gecir(b, DNA_V2, yalanlayan, self.sema, KK, t3.PRM, GUNLUK, ESIK), ["t_bb"])
         self.assertEqual(b.aktif_veriler(), [])

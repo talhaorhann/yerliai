@@ -256,3 +256,10 @@ Bu ek ÖK-003 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
 - ÖK-004 iptal edilmedi, ertelendi. Yeniden deneme şu sırayla olur: önce V-053 kapanır (çıkarılabilirlik tanımı kullanıcı onayına gelir), sonra H1 taze tohumlarla tek sefer koşar. Bu yeniden denemede tohum değişim hakkı 2'dir (3'ten 1'i ÖK-003'te kullanıldı).
 - V-053 kapanmadan ve H1 taze tohumlarla yeniden koşulmadan H2 başlatılamaz; bu kural kodda bir kapıyla zorunludur.
 - Ayrıntı: `raporlar/H1_v2_SONUC.md`.
+
+### 9. Güncellenmiş kayıt ve kararlar (2026-10-24, kullanıcı; 8. bölümün yerine geçmez, onu tamamlar)
+
+- **Kayıt (kullanıcının metni):** "H1 iki kez kapıyı geçmedi. İkinci koşuda uzunluk, önsel-ters ve zincir-bozuk bölmeleri 5 tohumda 2000/2000, yön ters 1881/2000 (ilk koşuda 573/2000). Yanlış ilişki iki koşuda da 0. 119 yön ters hatasının hepsi 'bilmiyorum'; 113'ü üretecin çıkarılabilirlik tanımının olgularda görünmeyen evliliği kullanmasından, 6'sı DNA'da silinmiş 6 kuraldan. H1 resmen KANITLANMAMIŞTIR; çekirdek lehine güçlü kanıt vardır."
+- 6 hatanın nedeni danışmanın incelemesiyle düzeltildi: DNA'dan silinmiş 6 kural (`kiz_ogul_baba` dahil). Danışman bunları yeni sürümde geri koydu (gelen dosya v8, 244 kural; 170 eski kural aynen içinde; `raporlar/DNA_v8_karsilastirma.md`). Bu dosya henüz kilitli değil. 8. bölümdeki "DNA kapsam açığı" yorumu bununla kesinleşti.
+- H1 "geçti" diye işaretlenmez. Tohum değişim hakkı: 3'ten 1'i kullanıldı, 2 kaldı.
+- **Sıra (K-033):** A6 tamamlanır. DNA "son sürüm" gelince V-053 tanımı üretece bağlanır, ÖK-004 yazılır ve kilitlenir. H1 taze tohumlarla tek sefer koşar. Bu, bu tür kapı koşusunun son denemesidir: geçmezse durulur, kapsamlı karar kullanıcıya gelir. Eşik gevşetilmez.

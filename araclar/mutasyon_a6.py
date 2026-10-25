@@ -15,6 +15,9 @@ DUN = "degerlendirme/dunya.py"
 GEC = "cekirdek/bellek_gecidi.py"
 BEL = "cekirdek/bellek.py"
 ICD = "cekirdek/ic_dil.py"
+GOZ = "degerlendirme/gozlem_puani.py"
+HAT = "degerlendirme/bellek_hatti.py"
+URE = "degerlendirme/uretec.py"
 
 MUTASYONLAR = [
     # K-032 §4: H2 kapısı
@@ -42,25 +45,54 @@ MUTASYONLAR = [
      "    if False:\n        return False"),
     ("aynı cinsten evli çift denetlenmiyor", DUN, "        if tipler[p] == tipler[q]:", "        if False:"),
     ("ikiden çok ebeveyn denetlenmiyor", DUN, "            if len(u) > EBEVEYN_SAYISI:", "            if False:"),
-    # V-054: bellek geçidi
-    ("destekte kök-ayrıklık aranmıyor", GEC, 'any(olgu_kimligi[u] not in v["kokler"] for v in vs)', "True"),
-    ("olguyla karşıtlık çelişki sayılıyor", GEC, "(karsitlik if a in epitop or b in epitop else celiski)",
-     "(celiski if a in epitop or b in epitop else karsitlik)"),
+    # V-054, K-035: bellek geçidi (çekirdek tarafı)
+    ("maskelenen olgu çekirdeğe veriliyor", GEC, "    gorunen = [o for i, o in enumerate(olgular) if i != maske]",
+     "    gorunen = list(olgular)"),
     ("soy türeyenleri kapsamıyor", GEC, ' or soy.intersection(v["ebeveynler"])', ""),
+    ("olgu çelişkisi bellek çelişkisi sayılıyor", GEC, '        if epitop.intersection(k["veri"]["kayitlar"]):',
+     '        if not epitop.intersection(k["veri"]["kayitlar"]):'),
+    ("katkı belleksiz koşuyla karşılaştırılmıyor", GEC,
+     "    katki = sum(1 for u in soy_uclu if u not in tur0 or tur1[u] < tur0[u])", "    katki = len(soy_uclu)"),
+    ("az kanıtlı ortam ölçülmüş sayılıyor", GEC, 'if o["kanit"] >= esikler.en_az_kanit]', 'if o["kanit"]]'),
     ("en kötü ortam aranmıyor", GEC, "    if olculen and min(olculen) < esikler.dogruluk:", "    if False:"),
     ("çelişki denetlenmiyor", GEC, '    if sum(o["celiski"] for o in olcum.values()):', "    if False:"),
+    ("eşleşme denetlenmiyor", GEC, '    if not sum(o["eslesme"] for o in olcum.values()):', "    if False:"),
     ("katkı denetlenmiyor", GEC, '    if not sum(o["katki"] for o in olcum.values()):', "    if False:"),
     ("müdahale eşiği uygulanmıyor", GEC, "    if sum(puanlar) / len(puanlar) < esikler.mudahale:", "    if False:"),
-    ("dış skor kanalı açık", GEC, "    if dis_kanit is not None:\n        raise NotImplementedError",
-     "    if False:\n        raise NotImplementedError"),
     ("eşdeğerlikte halka sırası denenmiyor", GEC, "    for sira in itertools.permutations(hucre.halkalar):",
      "    for sira in [hucre.halkalar]:"),
     ("bellekteki kimlik denetlenmiyor", GEC, "    if aday.kimlik in {h.kimlik for h in bellek}:", "    if False:"),
-    ("gözden geçirme geri almıyor", GEC, "            bellek_deposu.geri_al(h.kimlik, k.neden)\n", "            pass\n"),
+    # K-035: doğruluk hesabı (çekirdek dışı)
+    ("bütün gözlemler maskeleniyor", GOZ, " if o[1] == aday.sonuc.gen]", "]"),
+    ("maskesiz koşu yapılmıyor", GOZ, "    for maske in [None] + maskelenecekler(aday, olgular):",
+     "    for maske in maskelenecekler(aday, olgular):"),
+    ("çelişki çifti tekilleştirilmiyor", GOZ, '        yanlis |= _ciftler(ham["olgu_celiskileri"])',
+     '        yanlis |= {(len(yanlis), c) for c in _ciftler(ham["olgu_celiskileri"])}'),
+    ("bellek çelişkisi toplanmıyor", GOZ, '        celiski |= _ciftler(ham["bellek_celiskileri"])', "        pass"),
+    ("yanlış kanıta katılmıyor", GOZ, '    toplam["kanit"] = toplam["dogru"] + toplam["yanlis"]',
+     '    toplam["kanit"] = toplam["dogru"]'),
+    # K-035: bellek hattı ve bağımsızlık
+    ("ortamsız değerlendirme kabul ediliyor", HAT, "    if not ortamlar:\n        raise ValueError",
+     "    if False:\n        raise ValueError"),
+    ("eşdeğer aday ölçülüyor", HAT, "    if esdeger_mi(aday, bellek):\n        return karar_ver(True, {}, esikler)",
+     "    if esdeger_mi(aday, bellek) and False:\n        return karar_ver(True, {}, esikler)"),
+    ("kabul edilen belleğe yazılmıyor", HAT, "            depo.kabul_et(veri, k.olcumler)\n", "            pass\n"),
+    ("anlatıcıya kopya verilmiyor", HAT, "    metin = anlatici(copy.deepcopy({", "    metin = anlatici(({"),
+    ("metin olmayan anlatıcı çıktısı alınıyor", HAT, "metin if isinstance(metin, str) else None", "metin"),
+    ("gözden geçirme geri almıyor", HAT, "            depo.geri_al(h.kimlik, k.neden)\n", "            pass\n"),
+    # K-035, V-057: gözlem bölümleri
+    ("gözlemde türetilmiş ilişki yok", URE, "for y, r in dunya.iliskiler(x, tanimlar).items() if y in kisiler",
+     "for y, r in dunya.iliskiler(x, tanimlar, tanimlar.olgu_iliskileri).items() if y in kisiler"),
+    ("dikkat dağıtıcı kişiler alınmıyor", URE,
+     "        kisiler = sorted(set(zincir) | {x for x, _r, y in dikkat} | {y for x, _r, y in dikkat})",
+     "        kisiler = sorted(set(zincir))"),
+    ("gözlem ortamı tohuma girmiyor", URE, 'random.Random(f"{prm.tohum}:gozlem:{ortam}")',
+     'random.Random(f"{prm.tohum}:gozlem")'),
     # V-056: bellek deposu
     ("geri alma aktiften düşürmüyor", BEL, '            self._aktif.pop(veri["kimlik"], None)', "            pass"),
     ("çift kabul denetlenmiyor", BEL, '        if hucre_verisi["kimlik"] in self._aktif:', "        if False:"),
     ("bellek kopya vermiyor", BEL, "copy.deepcopy(self._aktif[k])", "self._aktif[k]"),
+    ("boş bellek DNA kurucuya gidiyor", BEL, " if veriler else ()", ""),
     # V-055: iç dil
     ("iç dil özeti denetlenmiyor", ICD, '    if kayit["ozet"] != _ozet(kayit, algoritma):', "    if False:"),
     ("LLM karantinası yok", ICD, '    if kayit["kaynak"] == LLM_KAYNAGI:', "    if False:"),

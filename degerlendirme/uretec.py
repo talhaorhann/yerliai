@@ -164,6 +164,45 @@ def aday_uret(rng, tanimlar, prm, bolme, ad_esleme=None, kume="ana", sayac=None)
     raise UretimDurduHatasi(f"{bolme}: {prm.deneme_siniri} denemede uygun bölüm bulunamadı")
 
 
+@dataclasses.dataclass
+class Gozlem:
+    bolum: dict
+    dunya: Dunya
+    kimlik_esleme: dict
+
+
+def gozlem_bolumu(rng, tanimlar, prm, k_araligi):
+    """K-035, V-057: bellek geçidi için gözlem bölümü. Kişiler, `aday_uret`teki gibi bir zincir yürüyüşü ve dikkat
+    dağıtıcı bağlarla seçilir; bölüm, bu kişiler arasındaki BÜTÜN ilişkileri (türetilmiş olanlar dahil) bağımsız gözlem
+    olarak içerir. Sorgu ve cevap yoktur, kâhin kaydı yazılmaz."""
+    for _ in range(prm.deneme_siniri):
+        dunya = Dunya.uret(rng, prm.nesil_sayisi, prm.cocuk_en_az, prm.cocuk_en_cok)
+        baglar = dunya.olgu_baglari(tanimlar)
+        zincir = _yuru(rng, baglar, dunya.kisi_sayisi, rng.randint(*k_araligi))
+        if zincir is None:
+            continue
+        kullanilan = {frozenset(c) for c in zip(zincir, zincir[1:])}
+        dikkat = _dikkat_dagiticilar(rng, baglar, zincir, kullanilan, prm.dikkat_dagitici)
+        if dikkat is None:
+            continue
+        kisiler = sorted(set(zincir) | {x for x, _r, y in dikkat} | {y for x, _r, y in dikkat})
+        gozlemler = [(x, r, y) for x in kisiler for y, r in dunya.iliskiler(x, tanimlar).items() if y in kisiler]
+        esleme = dict(zip(kisiler, rng.sample(range(dunya.kisi_sayisi), len(kisiler))))
+        rng.shuffle(gozlemler)
+        bolum = {"sema_surumu": SURUM,
+                 "olgular": [uclu_kaydi(ozne=esleme[x], iliski=r, nesne=esleme[y], kaynak=KAYNAK, guven=TAM_GUVEN,
+                                        adim=0, algoritma=prm.algoritma) for x, r, y in gozlemler]}
+        bolum["ozet"] = ozet(kanonik_json(bolum), prm.algoritma)
+        return Gozlem(bolum, dunya, esleme)
+    raise UretimDurduHatasi(f"gözlem bölümü: {prm.deneme_siniri} denemede uygun bölüm bulunamadı")
+
+
+def gozlem_bolumleri(tanimlar, prm, ortam, sayi, k_araligi):
+    """Ortam adıyla tohumlanmış `sayi` gözlem bölümü (V-057)."""
+    rng = random.Random(f"{prm.tohum}:gozlem:{ortam}")
+    return [gozlem_bolumu(rng, tanimlar, prm, k_araligi).bolum for _ in range(sayi)]
+
+
 def ad_eslemesi(rng, iliski_semasi, prm):
     """Her ilişkiye tutarlı, anlamsız, benzersiz bir ad (sistem.md §10 ilişki yeniden adlandırma)."""
     esleme, kullanilan = {}, set(iliski_semasi.adlar)

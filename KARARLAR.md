@@ -183,3 +183,33 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
   4. **H2 kapısı:** V-053 kapanmadan ve H1 taze tohumlarla yeniden koşulmadan H2 çalıştırma komutu "V-053 açık" diye reddeder. Bu kuralı kapatan ya da gevşeten kod yazılmaz.
   5. Altın küme 2. parça cevapları H1 yeniden koşusundan önce gelir. Aşama sonu bağımsız inceleme A6 sonunda yapılır.
 - **Onaylayan:** kullanıcı.
+
+## K-033 (2026-10-24): H1 durumunun güncel kaydı ve sıra
+- **Kayıt:** "H1 iki kez kapıyı geçmedi. İkinci koşuda uzunluk, önsel-ters ve zincir-bozuk bölmeleri 5 tohumda 2000/2000, yön ters 1881/2000 (ilk koşuda 573/2000). Yanlış ilişki iki koşuda da 0. 119 yön ters hatasının hepsi 'bilmiyorum'; 113'ü üretecin çıkarılabilirlik tanımının olgularda görünmeyen evliliği kullanmasından, 6'sı DNA'da silinmiş 6 kuraldan. H1 resmen KANITLANMAMIŞTIR; çekirdek lehine güçlü kanıt vardır."
+- **Karar:**
+  - H1 "geçti" diye işaretlenmez. Tohum değişim hakkı 2.
+  - Sıra: (1) A6 tamamlanır. (2) DNA "son sürüm" gelince V-053 tanımı üretece bağlanır; ÖK-004 yazılır, ilk iki koşunun sonucunu ve nedenlerini içerir; DNA ve config özetleri eklenir, kilitlenir. (3) H1 taze tohumlarla tek sefer koşar; bu, bu tür kapı koşusunun son denemesidir; geçmezse durulur ve kapsamlı karar kullanıcıya gelir; eşik gevşetilmez. (4) H2 kapısı korunur (K-032 §4).
+  - DNA: danışmanın 176 kurallı sürümü depoya konur ve önceki 170 kurallı sürümle kimlik kimlik karşılaştırılır. Danışman "son sürüm" demeden kilitlenmez (danışman bağımsız bir çıkarılabilirlik kâhiniyle boşluk taraması yapıyor).
+- **Onaylayan:** kullanıcı.
+- **Not (2026-10-25, kodlayıcı):** Gelen ek v8 ve 244 kurallı (`veri/dna/akrabalik_dna_v8.json`); 170 eski kural aynen içinde, 74 yeni kural. Karşılaştırma: `raporlar/DNA_v8_karsilastirma.md`. Kilitli değil.
+
+## K-034 (2026-10-24): Çıkarılabilirlik tanımı (V-053'ten)
+- **Karar:** V-053'teki tanım onaylandı. Dünya verilmez; olgular ve üç dünya varsayımı kullanılır: her kişinin ya hiç ebeveyni yoktur ya da birbiriyle evli iki ebeveyni vardır; en çok bir evlilik; evli çiftler karşı cinsten. Bunların zorunlu kıldığı yapıda cinsiyetlerin bütün atamalarında cevap aynıysa soru çıkarılabilirdir. Üretece DNA "son sürüm" gelince bağlanır (K-033).
+- **Onaylayan:** kullanıcı.
+
+## K-035 (2026-10-24): Bellek geçidinin kanıt kaynağı (V-054'ten, seçenek A)
+- **Karar:**
+  - Geçit etiket ve kâhin kullanmaz.
+  - Eğitim verisine, kâhin etiketi olarak değil bağımsız gözlem olarak, olgu şeklinde geçen türetilmiş ilişkiler (dede, amca, …) eklenir.
+  - Geçit bir kuralı değerlendirirken kuralın tahmin ettiği olgu maskelenir; kural kendi kendini onaylayamaz.
+  - Doğruluk hesabı çekirdek dışındadır (`degerlendirme/`, kâhine dokunmadan); çekirdek yalnız ham çıktısını verir ve eşikleri uygular.
+  - Bağımsızlık testi (LLM'siz, sahte LLM'li, başka LLM'li) bit düzeyinde aynı sonucu vermelidir (sistem.md §16).
+- **Onaylayan:** kullanıcı.
+
+## K-036 (2026-10-24): Bellek eşikleri (geçici), iç dil, bellek deposu (V-054, V-055, V-056'dan)
+- **Karar:**
+  - Eşikler onaylandı ama GEÇİCİ: doğruluk 1,0; en az 3 kanıt; müdahale 0,9. H2 kalibrasyonunda yeniden bakılacak.
+  - İç dil sürüm 1 (V-055) onaylandı.
+  - Bellek deposu (V-056: yalnız ekleme, hash zinciri, geri alma) onaylandı.
+  - Bozuk 73 kuralın reddedilmeyen 3'ü raporlanır.
+- **Onaylayan:** kullanıcı.

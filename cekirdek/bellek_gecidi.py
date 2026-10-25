@@ -1,22 +1,22 @@
 """sistem.md §8 (bellek hücresi: müdahale + karşı-kısayol), §18 (kabul/ret çekirdeğin kendi kurallarıyla), EK A P7
-(mutlak bellek kapısı, kaydırılmış doğrulama, en kötü ortam); V-054: bellek geçidi.
+(mutlak bellek kapısı, kaydırılmış doğrulama, en kötü ortam); V-054, K-035: bellek geçidi, çekirdek tarafı.
 
-Geçit bir aday kuralı (hücre) yalnız veriyle sınar; etiket ve kâhin yoktur. Her ortamın her bölümünde çekirdek iki kez
-koşar: bellekle (R0) ve bellek + adayla (R1). Adayın soyu = adayın yazdığı kayıtlar ve onlardan türeyenler.
-- Destek: soydan bir kaydın üçlüsü bölümde gözlenmiş bir olguyla aynı ve o olgu kaydın kök kümesinde değil (kendini
-  doğrulamıyor, kök-ayrık).
-- Karşıtlık: soydan bir kayıt ile bir olgu arasında şema çelişkisi (dışlayıcı / işlevsel / ters; defterin CELISKI'si).
-- Çelişki: soydan bir kayıt ile bellekten türemiş (soy dışı) bir çıkarım ya da soyun kendi içinde şema çelişkisi.
-- Katkı: soyun yazdığı, R0'da hiç olmayan ya da R0'da daha geç turda çıkan üçlüler. Eşleşme: adayın ateşleme sayısı.
-- Müdahale: cevabı soydan gelen sorularda müdahale testinin puanı ("sınanamadı" sayılmaz, K-021).
-Ortam doğruluğu = destek / (destek + karşıtlık), en az `en_az_kanit` gözlemle. Karar sırası:
-1. Bellekteki bir kuralla yapıca aynı (değişken adı ve halka sırası dışında) → ret: gereksiz.
-2. Ölçülen her ortamda doğruluk < eşik → ret: yanlış. Bazı ortamlarda eşiği geçip en kötü ortamda geçmiyor → ret: kısayol.
-3. Çelişki > 0 → ret: çelişkili.
-4. Hiç eşleşme yoksa → sınanamadı (kanıt yok). Eşleşip katkı = 0 → ret: gereksiz.
-5. Bir ortam gözlemle ölçülemedi ya da müdahale kanıtı `en_az_kanit`'ten az → sınanamadı (kabul de ret de değil).
-6. Müdahale ortalaması < eşik → ret: kısayol. Değilse kabul.
-Gözlenmeyen ilişkiler için doğruluk kanıtı yoktur; dışarıdan skor (kâhin) kanalı kullanıcı kararıdır (V-054).
+Çekirdek tarafı iki iş yapar; doğruluğu hesaplamaz (K-035, hesap `degerlendirme/gozlem_puani.py`'de):
+1. `maskeli_kos`: bir bölümde bir gözlem maskelenmişken çekirdeği bellekle (R0) ve bellek + adayla (R1) koşar ve
+   adayın soyunun (yazdıkları ve onlardan türeyenler) ham çıktısını verir: türettiği üçlüler, gözlenen (maskelenmemiş)
+   olgularla ve bellekten türemiş kayıtlarla şema çelişkileri, katkı (R0'da olmayan ya da daha geç çıkan üçlüler),
+   eşleşme sayısı ve maskelenen çiftin cevabı soydan geliyorsa müdahale puanı ve a, b, c bileşenleri ("sınanamadı"
+   sayılmaz, K-021).
+   Maskelenen olgu çekirdeğe hiç verilmez: kural onu kendi kendine onaylayamaz.
+2. `karar_ver`: dışarıda hesaplanan ortam sayılarına eşikleri şu sırayla uygular:
+   1. Bellekte yapıca aynı kural (değişken adı ve halka sırası dışında) → ret: gereksiz.
+   2. Ölçülen (kanıtı `en_az_kanit`'e ulaşan) her ortamda doğruluk < eşik → ret: yanlış. Bir ortamda geçip en kötü
+      ortamda geçmiyor → ret: kısayol.
+   3. Bellekle çelişki → ret: çelişkili.
+   4. Hiç eşleşme yok → sınanamadı. Eşleşip katkı yok → ret: gereksiz.
+   5. Bir ortam ölçülemedi ya da müdahale kanıtı `en_az_kanit`'ten az → sınanamadı (kabul de ret de değil).
+   6. Müdahale ortalaması < eşik → ret: kısayol. Değilse kabul.
+Etiket ve kâhin yoktur: maskelenen şey bölümdeki bir gözlemdir (K-035).
 """
 import itertools
 from dataclasses import dataclass
@@ -64,6 +64,12 @@ def kanonik_bicim(hucre):
     return en_iyi
 
 
+def esdeger_mi(aday, bellek):
+    if aday.kimlik in {h.kimlik for h in bellek}:
+        raise ValueError(f"aday kimliği bellekte var: {aday.kimlik}")
+    return any(kanonik_bicim(aday) == kanonik_bicim(h) for h in bellek)
+
+
 def _kos(hucreler, olgular, sorgu, iliski_semasi, kk, prm, gunluk_ayari):
     havuz = Havuz(prm.kapasite, kk)
     for s, r, o, g in olgular:
@@ -73,73 +79,71 @@ def _kos(hucreler, olgular, sorgu, iliski_semasi, kk, prm, gunluk_ayari):
     return havuz, defter
 
 
-def _ilk_turlar(havuz, defter):
+def _ilk_turlar(olgular, defter):
     """Üçlü → ilk çıktığı tur (olgular 0)."""
-    tur = {k.uclu: 0 for k in havuz.kayitlar() if k.katman == EPITOP}
-    for k in defter.kayitlar():
-        if k["tur"] == YAZMA:
-            tur.setdefault(tuple(k["veri"]["uclu"]), k["veri"]["tur"])
+    tur = {(s, r, o): 0 for s, r, o, _ in olgular}
+    if defter is not None:
+        for k in defter.kayitlar():
+            if k["tur"] == YAZMA:
+                tur.setdefault(tuple(k["veri"]["uclu"]), k["veri"]["tur"])
     return tur
 
 
-def bolum_kaniti(aday, bellek, bolum, iliski_semasi, kk, prm, gunluk_ayari):
-    olgular = [(o["ozne"], o["iliski"], o["nesne"], o["guven"]) for o in bolum["olgular"]]
-    sorgu = (bolum["sorgu"]["ozne"], bolum["sorgu"]["nesne"]) if bolum.get("sorgu") else None
-    havuz0, defter0 = _kos(tuple(bellek), olgular, sorgu, iliski_semasi, kk, prm, gunluk_ayari)
-    hucreler = tuple(bellek) + (aday,)
-    havuz1, defter1 = _kos(hucreler, olgular, sorgu, iliski_semasi, kk, prm, gunluk_ayari)
+def maskeli_kos(aday, bellek, olgular, maske, iliski_semasi, kk, prm, gunluk_ayari):
+    """`olgular`: [(özne, ilişki, nesne, güven)]; `maske`: çekirdeğe verilmeyecek olgunun sırası ya da None.
+
+    Ham çıktı döner; hiçbir şey maskelenen gözlemle karşılaştırılmaz (karşılaştırma çekirdek dışında). Çelişkiler
+    üçlü çiftleridir: `olgu_celiskileri` [tahmin, gözlem], `bellek_celiskileri` sıralı [tahmin, kayıt]."""
+    gorunen = [o for i, o in enumerate(olgular) if i != maske]
+    if maske is None:
+        sorgu = None
+    else:
+        ozne, _iliski, nesne, _guven = olgular[maske]
+        sorgu = (ozne, nesne)
+    bellek = tuple(bellek)
+    defter0 = _kos(bellek, gorunen, sorgu, iliski_semasi, kk, prm, gunluk_ayari)[1] if bellek else None
+    hucreler = bellek + (aday,)
+    havuz1, defter1 = _kos(hucreler, gorunen, sorgu, iliski_semasi, kk, prm, gunluk_ayari)
     olaylar = defter1.kayitlar()
-    epitop = {k.kimlik: k.uclu for k in havuz1.kayitlar() if k.katman == EPITOP}
-    olgu_kimligi = {u: k for k, u in epitop.items()}
-    soy, soy_uclu = set(), {}
+    epitop = {k.kimlik for k in havuz1.kayitlar() if k.katman == EPITOP}
+    soy, soy_uclu = set(), set()
     for k in olaylar:
         v = k["veri"]
         if k["tur"] == YAZMA and (v["zincir"] == aday.kimlik or soy.intersection(v["ebeveynler"])):
             soy.add(v["kimlik"])
-            soy_uclu.setdefault(tuple(v["uclu"]), []).append(v)
-    destek = sorted(u for u, vs in soy_uclu.items()
-                    if u in olgu_kimligi and any(olgu_kimligi[u] not in v["kokler"] for v in vs))
-    karsitlik, celiski = set(), set()
+            soy_uclu.add(tuple(v["uclu"]))
+    olgu_celiskisi, bellek_celiskisi = set(), set()
     for k in olaylar:
-        if k["tur"] != CELISKI:
+        if k["tur"] != CELISKI or not soy.intersection(k["veri"]["kayitlar"]):
             continue
-        a, b = k["veri"]["kayitlar"]
-        if not soy.intersection((a, b)):
-            continue
-        cift = (k["veri"]["tur_adi"],) + tuple(sorted(map(tuple, k["veri"]["uclular"])))
-        (karsitlik if a in epitop or b in epitop else celiski).add(cift)
-    tur0, tur1 = _ilk_turlar(havuz0, defter0), _ilk_turlar(havuz1, defter1)
-    katki = sorted(u for u in soy_uclu if u not in tur0 or tur1[u] < tur0[u])
-    mudahale = None
+        ciftler = list(zip(k["veri"]["kayitlar"], map(tuple, k["veri"]["uclular"])))
+        if epitop.intersection(k["veri"]["kayitlar"]):
+            olgu_celiskisi.add(tuple(u for _, u in sorted(ciftler, key=lambda c: c[0] in epitop)))
+        else:
+            bellek_celiskisi.add(tuple(sorted(u for _, u in ciftler)))
+    tur0, tur1 = _ilk_turlar(gorunen, defter0), _ilk_turlar(gorunen, defter1)
+    katki = sum(1 for u in soy_uclu if u not in tur0 or tur1[u] < tur0[u])
+    mudahale = bilesenler = None
     if sorgu is not None:
         cevap = cevapla(havuz1, sorgu, defter1)
         if cevap.iliski is not None and soy.intersection(a["kimlik"] for a in cevap.gerekce):
-            m = mudahale_testi(havuz1, defter1, hucreler, olgular, kk, prm, iliski_semasi, sorgu)
-            mudahale = m.puan if m.durum == PUANLI else None
-    eslesme = sum(1 for k in olaylar if k["tur"] == ATESLEME and k["veri"]["hucre"] == aday.kimlik)
-    return {"destek": len(destek), "karsitlik": len(karsitlik), "celiski": len(celiski), "katki": len(katki),
-            "eslesme": eslesme, "mudahale": mudahale}
+            m = mudahale_testi(havuz1, defter1, hucreler, gorunen, kk, prm, iliski_semasi, sorgu)
+            if m.durum == PUANLI:
+                mudahale, bilesenler = m.puan, [m.a, m.b, m.c]
+    return {"tahminler": sorted(list(u) for u in soy_uclu),
+            "olgu_celiskileri": sorted([list(t), list(o)] for t, o in olgu_celiskisi),
+            "bellek_celiskileri": sorted([list(a), list(b)] for a, b in bellek_celiskisi), "katki": katki,
+            "eslesme": sum(1 for k in olaylar if k["tur"] == ATESLEME and k["veri"]["hucre"] == aday.kimlik),
+            "mudahale": mudahale, "mudahale_bilesenleri": bilesenler}
 
 
-def gecit(aday, bellek, ortamlar, iliski_semasi, kk, prm, gunluk_ayari, esikler, dis_kanit=None):
-    """`ortamlar`: {ad: [bölüm]}; bölümde yalnız olgular ve isteğe bağlı sorgu kullanılır (cevap okunmaz)."""
-    if dis_kanit is not None:
-        raise NotImplementedError("dışarıdan doğruluk skoru (kâhin kanalı) kullanıcı kararı bekliyor (V-054)")
-    if not ortamlar:
-        raise ValueError("bellek geçidi en az bir ortam ister")
-    if aday.kimlik in {h.kimlik for h in bellek}:
-        raise ValueError(f"aday kimliği bellekte var: {aday.kimlik}")
-    if any(kanonik_bicim(aday) == kanonik_bicim(h) for h in bellek):
+def karar_ver(esdeger, olcum, esikler):
+    """`olcum`: {ortam: {"kanit", "celiski", "katki", "eslesme": sayı, "dogruluk": oran ya da None,
+    "mudahale": [puan]}}, dışarıda hesaplanır (K-035). Yalnız eşikler uygulanır: doğruluk, kanıtı `en_az_kanit`'e
+    ulaşan ortamda ölçülmüş sayılır."""
+    if esdeger:
         return GecitKarari(RET, GEREKSIZ, {"esdeger": True})
-    olcum = {}
-    for ad in sorted(ortamlar):
-        kanitlar = [bolum_kaniti(aday, bellek, b, iliski_semasi, kk, prm, gunluk_ayari) for b in ortamlar[ad]]
-        toplam = {a: sum(k[a] for k in kanitlar) for a in ("destek", "karsitlik", "celiski", "katki", "eslesme")}
-        gozlem = toplam["destek"] + toplam["karsitlik"]
-        toplam["dogruluk"] = toplam["destek"] / gozlem if gozlem >= esikler.en_az_kanit else None
-        toplam["mudahale"] = [k["mudahale"] for k in kanitlar if k["mudahale"] is not None]
-        olcum[ad] = toplam
-    olculen = [o["dogruluk"] for o in olcum.values() if o["dogruluk"] is not None]
+    olculen = [o["dogruluk"] for o in olcum.values() if o["kanit"] >= esikler.en_az_kanit]
     if olculen and max(olculen) < esikler.dogruluk:
         return GecitKarari(RET, YANLIS, olcum)
     if olculen and min(olculen) < esikler.dogruluk:
@@ -156,16 +160,3 @@ def gecit(aday, bellek, ortamlar, iliski_semasi, kk, prm, gunluk_ayari, esikler,
     if sum(puanlar) / len(puanlar) < esikler.mudahale:
         return GecitKarari(RET, KISAYOL, olcum)
     return GecitKarari(KABUL, None, olcum)
-
-
-def gozden_gecir(bellek_deposu, bicim_yolu, ortamlar, iliski_semasi, kk, prm, gunluk_ayari, esikler):
-    """EK A P7 (geri alınabilir statü): her aktif bellek hücresi öteki bellek hücreleriyle yeniden sınanır; yanlış,
-    kısayol ya da çelişkili çıkan geri alınır (silinmez, olay yazılır). Geri alınan kimlikler döner."""
-    geri = []
-    for h in bellek_deposu.hucreler(bicim_yolu, iliski_semasi):
-        oteki = [x for x in bellek_deposu.hucreler(bicim_yolu, iliski_semasi) if x.kimlik != h.kimlik]
-        k = gecit(h, oteki, ortamlar, iliski_semasi, kk, prm, gunluk_ayari, esikler)
-        if k.karar == RET and k.neden in (YANLIS, KISAYOL, CELISKILI):
-            bellek_deposu.geri_al(h.kimlik, k.neden)
-            geri.append(h.kimlik)
-    return geri

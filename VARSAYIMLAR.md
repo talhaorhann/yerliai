@@ -580,7 +580,8 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - ÖK-003 yön ters (2000 soru): (a) 113 hatanın 113'ü çıkarılamaz; (c) çekirdeğin doğru bildiği ve geçici türün çıkarılamaz saydığı 27 sorunun 27'si çıkarılabilir; çekirdeğin doğru bildiği öteki 1854 sorunun hepsi çıkarılabilir.
   - (b) 6 açıklanamayan hata: yeni tanıma göre çıkarılabilir. Altısında da karar verdiren kişinin cinsiyeti zincir dışındaki ayrı bir olgudan geliyor (ör. "22, 23'ün oğlu" → 22 erkek). DNA'da cinsiyeti bir olgudan ötekine taşıyan kural yok; bu bir DNA kapsam açığı, çekirdek ya da tanım hatası değil. DNA'yı danışman düzeltir (K-024).
   - Etki: tohum 12'nin eğitim, uzunluk, önsel-ters ve yeniden adlandırma bölmelerinde yeni tanım hiçbir soruyu atmıyor; yalnız yön ters etkileniyor.
-- **Felsefi:** evet (kâhin, veri olarak dil: "olgulardan çıkarılabilir" ne demek). **Durum:** AÇIK; tanım onaya geldi (K-032 §3). Kapanmadan H2 başlamaz (K-032 §4). ÖK-003 §6'ya göre ayarlar ve DNA değişmedi.
+- **Felsefi:** evet (kâhin, veri olarak dil: "olgulardan çıkarılabilir" ne demek). **Durum:** KARARA BAĞLANDI (K-034, 2026-10-24). Üretece DNA "son sürüm" gelince bağlanır (K-033). H2, H1 taze tohumlarla yeniden koşulmadan başlamaz (K-032 §4).
+- **(b) 6 hata, kesin neden (2026-10-24, danışman):** DNA'dan silinmiş 6 kural (`kiz_ogul_baba` dahil); danışmanın yeni sürümünde (gelen dosya v8, 244 kural) geri konuldu (`raporlar/DNA_v8_karsilastirma.md`).
 
 ## V-054: Bellek geçidi (A6 önerisi)
 - **Bölüm:** sistem.md §8 (bellek: müdahale + karşı-kısayol), §18 (kabul/ret yalnız çekirdeğin kendi kurallarıyla), EK A P7 (mutlak bellek kapısı, kaydırılmış doğrulama, en kötü ortam), KODLAMA_PROMPTU §2 (kâhin yalıtımı: etiket çekirdeğe girmez).
@@ -619,7 +620,16 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 
   - Doğru hiçbir kural yanlış, kısayol ya da çelişkili denmedi. Bellekle birlikte bozukların 70'i reddedildi.
   - Ama doğru hiçbir kural kabul edilemedi: sınanamadı kalan 122 kuralın hepsinde destek 0. Bu bölümlerde (seyrek zincir olguları) kuralın sonucu hiçbir zaman olgu olarak gözlenmiyor; dede, amca gibi türetilmiş ilişkiler hiç gözlenmiyor.
-- **Felsefi:** evet (bellek, kâhin, kalibrasyon). **Durum:** ONAYSIZ (öneri; A6 onay listesi).
+- **K-035 ile değişen (2026-10-25):**
+  - Kanıt kaynağı: türetilmiş ilişkiler eğitim verisinde bağımsız gözlem (olgu) olarak geçer (V-057). Kuralın tahmin ettiği gözlem maskelenir: çekirdeğe hiç verilmez.
+  - Çekirdek tarafı (`cekirdek/bellek_gecidi.py`): `maskeli_kos` yalnız ham çıktı verir (soyun tahminleri, gözlemle ve bellekle şema çelişkileri, katkı, eşleşme, müdahale puanı ve a, b, c bileşenleri); `karar_ver` yalnız eşikleri uygular (karar sırası yukarıdaki gibi; doğruluk, kanıtı `bellek_en_az_kanit`'e ulaşan ortamda ölçülmüş sayılır).
+  - Doğruluk hesabı çekirdek dışında (`degerlendirme/gozlem_puani.py`, kâhinsiz): doğru = maskelenen gözlem soyca yeniden türetildi; yanlış = soydan bir tahmin görünen bir gözlemle şema çelişkisinde (bölümde tekil çift); doğruluk = doğru / (doğru + yanlış).
+  - Hat (`degerlendirme/bellek_hatti.py`): `degerlendir`, `bellege_al` (adaylar sırayla, kabul edilen belleğe), `gozden_gecir`. Eski "destek" ve dış skor kanalı kaldırıldı.
+  - Bağımsızlık (sistem.md §16): anlatıcı (LLM'in yeri) bütün kararlar belleğe yazıldıktan sonra kararın kopyasıyla çağrılır; metni "doğrulanmadı" işaretli geri döner. Anlatıcısız, sahte (rastgele) ve başka anlatıcıyla kararlar, bellek baytları ve sürüm aynı (`testler/test_a6_bellek_hatti.py`).
+  - Eşikler K-036 ile onaylı ama GEÇİCİ; H2 kalibrasyonunda yeniden bakılacak.
+  - Açık: müdahale (a) bileşeni artık (çok yollu) gözlemde doğru kuralları "kısayol" sayıyor (V-058).
+- **Doğrulama (K-035):** `testler/test_a6_bellek_gecidi.py`, `testler/test_a6_bellek_hatti.py`, `testler/test_a6_gozlem_bolumu.py`.
+- **Felsefi:** evet (bellek, kâhin, kalibrasyon). **Durum:** KARARA BAĞLANDI (K-035 kanıt kaynağı, K-036 eşikler geçici; 2026-10-24).
 
 ## V-055: İç dil sürüm 1 (A6 önerisi)
 - **Bölüm:** sistem.md §17 ("kapalı iç form"), §15 (LLM'den gelen üçlü onaysız öğrenmeye girmez), §18 (karantina).
@@ -629,7 +639,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Havuza yalnız olumlu + kesin + zamansız kayıt girer. Olumsuz kutup, olası kip ve zamanın anlamı NotImplementedError ile bekliyor.
   - LLM kaynaklı kayıt karantinasız girmez (KarantinaHatasi; karantina A7'de).
 - **Doğrulama:** `testler/test_a6_ic_dil.py`.
-- **Felsefi:** evet (veri olarak dil). **Durum:** ONAYSIZ (öneri; A6 onay listesi).
+- **Felsefi:** evet (veri olarak dil). **Durum:** KARARA BAĞLANDI (K-036, 2026-10-24).
 
 ## V-056: Bellek deposu (A6 önerisi)
 - **Bölüm:** sistem.md §8 (bellek hücresi), §15 (bellek salt okunur, sürüm kilitli), EK A P7 (sönümlü, geri alınabilir statü).
@@ -639,4 +649,23 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Şimdilik "sönüm", gözden geçirmede geri alma demektir; zamanla azalan güç yok.
   - Mutasyondan koruma ve hızlı tetiklenme H2/H3 ile gelir.
 - **Doğrulama:** `testler/test_a6_bellek.py`.
-- **Felsefi:** evet (bellek). **Durum:** ONAYSIZ (öneri; A6 onay listesi).
+- **Felsefi:** evet (bellek). **Durum:** KARARA BAĞLANDI (K-036, 2026-10-24).
+
+## V-057: Gözlem bölümü, maskeleme kapsamı ve A6 gösterimi (K-035 uygulaması)
+- **Bölüm:** sistem.md §10, §11 (veri), EK A P7 (kaydırılmış doğrulama); K-035.
+- **Uygulanan:**
+  - `degerlendirme/uretec.py` `gozlem_bolumu`: kişiler `aday_uret`teki gibi seçilir (eğitim ya da test uzunluğunda zincir yürüyüşü + dikkat dağıtıcı bağlar); bölüm bu kişiler arasındaki bütün ilişkileri (temel ve türetilmiş) bağımsız gözlem olarak içerir. Sorgu, cevap ve kâhin kaydı yoktur. `gozlem_bolumleri`: ortam adıyla tohumlanır.
+  - Maskeleme: adayın sonuç ilişkisindeki her gözlem birer birer maskelenir (adayın doğrudan tahmini). Soydan türeyen başka ilişkilerdeki gözlemler maskelenmez; onlar için "doğru" sayılmaz ama çelişki "yanlış" sayılır (temkinli yön).
+  - Maskelenen gözlemle çelişki ayrıca sayılmaz: çekirdek tekdüze olduğu için aynı çelişki maskesiz koşuda görünen gözlemle zaten çıkar.
+  - Gösterim (`degerlendirme/a6_gosterim.py`): ortamlar olağan (eğitim uzunluğu 2–3) ve kaydırılmış (test uzunluğu 4–10); ortam başına 8 bölüm (süreyi sınırlar); çekirdek sınırları H1 kapı koşusununkiler (K-029); bellek boş, her kural tek başına.
+- **Doğrulama:** `testler/test_a6_gozlem_bolumu.py`, `testler/test_a6_gosterim.py`.
+- **Felsefi:** hayır (K-035'in uygulama ayrıntısı). **Durum:** ONAYSIZ.
+
+## V-058: Müdahale (a) bileşeni artık gözlemde
+- **Bölüm:** sistem.md §8 (bellek hücresi: müdahale testi), §9 ((a) ilgili bağ kesilince yanıt güveni düşüyor mu); K-021, K-036.
+- **Bulgu (2026-10-25):** Gözlemli veride bir cevap çoğu kez birden çok bağımsız yoldan çıkar (ör. iki oğlu olan çiftin "eş" cevabı iki ayrı oğuldan). Bir kök silinince öteki yol kalır, güven düşmez: (a) 0–0,5 çıkar, puan a·b·c eşiğin (0,9) altına iner ve doğru kural "kısayol" diye reddedilir.
+  - Gerçek DNA ön ölçümü (ilk 16 kural, ortam başına 4 bölüm, bellek boş): 5 kabul, 7 sınanamadı, 4 kısayol; 4 kısayolun hepsinde b = 1 ve c = 1, düşük olan yalnız (a).
+  - Sentetik örnek: `testler/test_a6_bellek_gecidi.py` `ArtiklikTesti` (bugünkü davranışı sabitler).
+- **Öneri:** Bellek geçidinde müdahale puanı b·c olsun (ilgisiz bilgi değişince cevap aynı mı × ters/çelişki tutarlılığı); (a) ölçülüp kanıtta saklanır ama eşiğe girmez. H1'deki müdahale testi (K-021) değişmez. Kısayolu yakalayan (b) ve kaydırılmış ortam doğruluğudur.
+- **Şimdilik:** onaylı formül (a·b·c) uygulanıyor; b·c yalnız raporda (`mudahale_bc`, gösterimde "öneri" sütunu).
+- **Felsefi:** evet (bellek, kredi: müdahale). **Durum:** ONAYSIZ (onay listesinde).

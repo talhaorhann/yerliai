@@ -51,4 +51,5 @@ class Bellek(OlayGunlugu):
         return [copy.deepcopy(self._aktif[k]) for k in self._aktif]
 
     def hucreler(self, bicim_yolu, iliski_semasi):
-        return dna_kur({"sema_surumu": DNA_SURUMU, "hucreler": self.aktif_veriler()}, bicim_yolu, iliski_semasi)
+        veriler = self.aktif_veriler()
+        return dna_kur({"sema_surumu": DNA_SURUMU, "hucreler": veriler}, bicim_yolu, iliski_semasi) if veriler else ()
