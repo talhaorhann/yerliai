@@ -308,3 +308,11 @@
 - **Altın küme 2. parça cevapları yok:** ÖK-004 §5'e göre yeni bölümler üretilmedi, kapı koşmadı.
 - **Baskı ölçümü (geliştirme verisi, 10.000 bölüm, kapı sınırları; `raporlar/H1_baski_v8.md`):** tur sınırına ulaşan 0 (en çok 7/8), havuz dolan 0 (en çok 186/256), bütçe aşılan 0 (bütçeye giren en çok aday 232/1024), sınırla ilişkili hata 0. Araç `degerlendirme/h1_baski.py` (test önce; mutasyon 3/3).
 - Testler 428/428. A6 mutasyonu toplam 58 mutant, hepsi yakalandı.
+
+### H1 son deneme (ÖK-004), 2026-10-25
+
+- Altın küme 2. parça cevapları depoda ve kilitli; biçim kodla doğrulandı; 50/50 "LLM taslağı, kullanıcı onaylı".
+- Üretim: tohum 21 önsel-ters bölmesinde kısa yol kapısında durdu; onayla 23 geçti. Kullanılan tohumlar 18, 19, 20, 23, 22.
+- **Kapı GEÇTİ:** 8000/8000, yanlış 0, "bilmiyorum" 0 (29 dk). Müdahale 5996 puanlı, 4 sınanamadı.
+- Eğitim satırı 2000/2000; altın küme 50/50 ve 50/50; baskı: tur, havuz, bütçe sınırına ulaşan 0.
+- H2 kapısı kapalı; açan başlık kullanıcı kararını bekliyor.

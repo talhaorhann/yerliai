@@ -1,12 +1,7 @@
 # DURUM: nerede kaldık
 
-- **H1 (K-033):** "H1 iki kez kapıyı geçmedi. İkinci koşuda uzunluk, önsel-ters ve zincir-bozuk bölmeleri 5 tohumda 2000/2000, yön ters 1881/2000 (ilk koşuda 573/2000). Yanlış ilişki iki koşuda da 0. 119 yön ters hatasının hepsi 'bilmiyorum'; 113'ü üretecin çıkarılabilirlik tanımının olgularda görünmeyen evliliği kullanmasından, 6'sı DNA'da silinmiş 6 kuraldan. H1 resmen KANITLANMAMIŞTIR; çekirdek lehine güçlü kanıt vardır."
-- **H1 son deneme (ÖK-004, yazıldı ve kilitlendi):** V-053 üretece bağlandı (K-034); DNA v8 son sürüm ve kilitli (K-038); tohumlar 18–22, değişim hakkı 2.
-  - Altın küme 2. parça cevapları depoda ve kilitli: biçim geçerli, 50/50 "LLM taslağı, kullanıcı onaylı", bağımsız insan cevabı değil.
-  - **Bekleyen (K-039):** tohum 21 önsel-ters bölmesinde kısa yol kapısında durdu (0,445 > 0,370 + 0,05). Yerine 23 geçmesi danışman ve kullanıcı onayı bekliyor. Tohum 18–20 üretildi; 22 yalnız üreteçle sınandı, geçiyor. Kapı koşmadı.
-  - Sonra: üret → ÖK-004 eki §2 (manifestler) → kapı bir kez → eğitim satırı ve altın küme → "## ÖK-004 sonucu". Geçmezse dur, karar kullanıcıya.
-- **H2 kapısı:** kapalı ("V-053 açık: … ÖK-004 sonucu yok"). H2 tasarım taslağı (yalnız belge): `H2_TASARIM_TASLAGI.md`.
-- **Tohum değişimi (K-039):** ancak danışman ve kullanıcı onayıyla; onaysız duran tohumda üretim durur.
-- **A6:** maskeli bellek geçidi (K-035), müdahale b·c (K-037). Gerçek DNA v8: 244 doğru kuraldan 114 kabul, 0 yanlış; 112 bozuktan 93 ret, 0 kabul (`raporlar/A6_gosterim_v8.md`). Bağımsız inceleme isteği: `raporlar/A6_BAGIMSIZ_INCELEME_ISTEGI.md`.
-- **Baskı ölçümü (ÖK-004 §4, geliştirme verisi):** `raporlar/H1_baski_v8.md`.
+- **H1 son deneme (ÖK-004): KAPI GEÇTİ (2026-10-25).** Uzunluk, yön ters, önsel-ters ve zincir-bozuk bölmelerinde tohum 18, 19, 20, 23, 22 ile 8000/8000; yanlış 0, "bilmiyorum" 0. Eğitim satırı 2000/2000; altın küme 50/50 ve 50/50 (parça 2'nin cevapları LLM taslağı, kullanıcı onaylı). Sınırlara ulaşılmadı. `raporlar/H1_v3_SONUC.md`.
+  - Önceki iki koşu geçmedi (K-033). Değişenler: V-053 üreteçte (K-034), DNA v8 (K-038). Tohum 21 → 23 onaylı değişim (hak 1 kaldı).
+- **H2 kapısı:** kapalı. Açan başlık ("## ÖK-004 sonucu") kullanıcı kararıyla yazılır. H2'den önce tasarım tartışması (FIKIRLER 1, `H2_TASARIM_TASLAGI.md`).
+- **A6:** maskeli bellek geçidi (K-035, K-037); bağımsız inceleme isteği kullanıcıda (`raporlar/A6_BAGIMSIZ_INCELEME_ISTEGI.md`).
 - İlk kurulum: `sh kur.sh`; testler: `.venv/bin/python araclar/kostur.py`.

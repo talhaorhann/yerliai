@@ -379,3 +379,13 @@ Bu ek ÖK-004 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
   - `tohum_22/ozet.json`: `6f6a5ab522f3ed05b56e324050b8a555a4d8b88900f28e67480ef6a7a5652c67`
   - `tohum_23/ozet.json`: `900355ca51975f76ba4dbfa5fa2325c6c5145c0e755ee44fca4d4f85260702b6`
 - Kapı bölmeleri bu ekten sonra tohum 18, 19, 20, 23, 22 ile bir kez koşar; sonra yeni tohumların eğitim satırı, altın küme ve baskı ölçümü. Kapı geçmezse ayarlar, DNA ve eşikler bu sonuca bakılarak değiştirilmez (§6).
+
+### 6. Kapı koşusu sonucu (2026-10-25, koşudan sonra yazıldı)
+
+- **Komut:** `.venv/bin/python -m degerlendirme.h1 kapi uretilen/h1_v3 veri/dna/akrabalik_dna_v8.json uretilen/h1_v3_kapi_1`, bir kez, kod commit `60e38f3`. Ön kayıt denetimi (`on_kayit_denetle`) geçti.
+- **KAPI GEÇTİ:** uzunluk, yön ters, önsel-ters ve zincir-bozuk bölmelerinin her birinde, tohum 18, 19, 20, 23, 22'nin her birinde 400/400. Toplam 8000/8000; yanlış ilişki 0, "bilmiyorum" 0.
+- Müdahale (kapıya girmez): 5996 puanlı, 4 sınanamadı (ayrı sayıldı, K-021), zincir-bozukta 2000 cevapsız.
+- Kapı özeti: `raporlar/H1_v3_kapi_ozet.json`, sha256 `935cea7b47dcccb319e86bf68f02b3be7312cf9b924334ce9a449cc446cf11cf`.
+- Kapıya girmeyen satırlar: yeni tohumların eğitim bölmesi 2000/2000; altın küme parça 1 ve parça 2 kullanıcı cevabıyla 50/50 ve 50/50 aynı (parça 2'nin 50 cevabı LLM taslağı, kullanıcı onaylı; bağımsız insan cevabı değil); baskı ölçümünde tur, havuz ve bütçe sınırına ulaşan bölüm 0.
+- Ayarlar, DNA ve eşikler bu sonuca bakılarak değiştirilmedi. Ayrıntı: `raporlar/H1_v3_SONUC.md`.
+- **H2 kapısı:** "## ÖK-004 sonucu" başlığı (K-032 §4'e göre H2 kapısını açar) yazılmadı; kullanıcı kararı bekliyor.
