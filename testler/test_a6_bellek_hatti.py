@@ -65,6 +65,9 @@ class HatTesti(t3.Ortam):
         self.assertEqual([(k.karar, k.neden) for _, k in sonuc.kararlar], BEKLENEN)
         self.assertEqual([h["kimlik"] for h in depo.aktif_veriler()], ["t_bb", "t_qb", "t_ff"])
         self.assertEqual(depo.kayitlar()[1]["veri"]["kanit"], dict(sonuc.kararlar)["t_qb"].olcumler)
+        for o in depo.kayitlar()[1]["veri"]["kanit"].values():  # K-037: (a) ve a·b·c kanıtta saklanır
+            self.assertEqual(len(o["mudahale_a"]), len(o["mudahale"]))
+            self.assertEqual(len(o["mudahale_abc"]), len(o["mudahale"]))
         self.assertEqual(sonuc.anlatimlar, [])
 
     def test_bagimsizlik_anlaticisiz_sahte_ve_baska_ayni(self):

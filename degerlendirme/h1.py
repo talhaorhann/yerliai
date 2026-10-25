@@ -344,15 +344,22 @@ def kosu_parametreleri(ayar, kip):
     return dataclasses.replace(prm, tur_siniri=ayar.deger("h1_tur_siniri"), kapasite=ayar.deger("h1_havuz_kapasitesi"))
 
 
+def uretim_parametreleri(ayar, tohum):
+    """ÖK-003 §3.1, ÖK-004: H1 tohumunun üreteç ayarı; çıkarılabilirlik denetimi ve tanımı config'ten (K-029, K-034)."""
+    from degerlendirme.uretec import Parametreler
+    return dataclasses.replace(Parametreler.ayardan(ayar), tohum=tohum, cikarilabilirlik=ayar.deger("h1_cikarilabilirlik"),
+                               cikarilabilirlik_tanimi=ayar.deger("h1_cikarilabilirlik_tanimi"))
+
+
 def _uret(kok, klasor):
     from degerlendirme.dunya import tanimlar_yukle
-    from degerlendirme.uretec import Parametreler, hepsini_uret
+    from degerlendirme.uretec import hepsini_uret
     ayar, sema, _ = _ortam(kok)
     tanimlar = tanimlar_yukle(kok / "degerlendirme" / "veri" / "tanimlar_v1.json",
                               kok / "degerlendirme" / "veri" / "tanimlar_v1.schema.json", sema)
 
     def uret(t):
-        prm = dataclasses.replace(Parametreler.ayardan(ayar), tohum=t, cikarilabilirlik=ayar.deger("h1_cikarilabilirlik"))
+        prm = uretim_parametreleri(ayar, t)
         manifest = hepsini_uret(Path(klasor) / f"tohum_{t}", prm, tanimlar, sema, kok / "sema" / "iliskiler_v1.json",
                                 kok / "kilit" / "kilitli_kumeler.json", kok)
         print(f"tohum {t}: üretildi; çıkarılamadığı için atılan aday: {manifest.get('cikarilamaz_atilan')}", flush=True)

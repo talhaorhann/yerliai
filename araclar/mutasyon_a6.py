@@ -18,6 +18,7 @@ ICD = "cekirdek/ic_dil.py"
 GOZ = "degerlendirme/gozlem_puani.py"
 HAT = "degerlendirme/bellek_hatti.py"
 URE = "degerlendirme/uretec.py"
+H1 = "degerlendirme/h1.py"
 
 MUTASYONLAR = [
     # K-032 §4: H2 kapısı
@@ -58,6 +59,7 @@ MUTASYONLAR = [
     ("çelişki denetlenmiyor", GEC, '    if sum(o["celiski"] for o in olcum.values()):', "    if False:"),
     ("eşleşme denetlenmiyor", GEC, '    if not sum(o["eslesme"] for o in olcum.values()):', "    if False:"),
     ("katkı denetlenmiyor", GEC, '    if not sum(o["katki"] for o in olcum.values()):', "    if False:"),
+    ("geçit müdahalesinde (a) kullanılıyor", GEC, "mudahale, bilesenler = m.b * m.c,", "mudahale, bilesenler = m.puan,"),
     ("müdahale eşiği uygulanmıyor", GEC, "    if sum(puanlar) / len(puanlar) < esikler.mudahale:", "    if False:"),
     ("eşdeğerlikte halka sırası denenmiyor", GEC, "    for sira in itertools.permutations(hucre.halkalar):",
      "    for sira in [hucre.halkalar]:"),
@@ -86,6 +88,13 @@ MUTASYONLAR = [
     ("dikkat dağıtıcı kişiler alınmıyor", URE,
      "        kisiler = sorted(set(zincir) | {x for x, _r, y in dikkat} | {y for x, _r, y in dikkat})",
      "        kisiler = sorted(set(zincir))"),
+    # K-034: V-053 üretece bağlı
+    ("üreteç olgu tanımını kullanmıyor", URE, "    if prm.cikarilabilirlik_tanimi == OLGU_TANIMI:  # K-034",
+     "    if False:  # K-034"),
+    ("bilinmeyen çıkarılabilirlik tanımı kabul ediliyor", URE,
+     "    if prm.cikarilabilirlik_tanimi not in (AGAC_TANIMI, OLGU_TANIMI):", "    if False:"),
+    ("H1 üretimi tanımı config'ten almıyor", H1,
+     ',\n                               cikarilabilirlik_tanimi=ayar.deger("h1_cikarilabilirlik_tanimi"))', ")"),
     ("gözlem ortamı tohuma girmiyor", URE, 'random.Random(f"{prm.tohum}:gozlem:{ortam}")',
      'random.Random(f"{prm.tohum}:gozlem")'),
     # V-056: bellek deposu

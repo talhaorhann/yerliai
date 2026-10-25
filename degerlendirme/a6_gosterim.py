@@ -3,8 +3,9 @@
 DNA'nın her kuralı (bellek boş) ve sonucu bozulmuş sürümleri bellek geçidinden geçirilir. Bozma: sonucu temel bir ilişki
 olan kuralın sonucu, temel ilişkiler listesinde bir sonrakiyle değiştirilir (A6 önceki ölçümüyle aynı). Gözlem bölümleri
 iki ortamdan gelir: olağan (eğitim uzunluğu) ve kaydırılmış (test uzunluğu, sistem.md §10). Geçit etiket görmez:
-"dna"/"bozuk" ayrımı yalnız rapordadır. Her kural için onaylı karar (müdahale a·b·c, K-021) ve V-058 önerisinin kararı
-(müdahale b·c) birlikte yazılır; öneri uygulanmış sayılmaz.
+"dna"/"bozuk" ayrımı yalnız rapordadır. Her kural için geçidin kararı (müdahale b·c, K-037) ve karşılaştırma için
+müdahale K-021 puanıyla (a·b·c) alınacak karar birlikte yazılır; ikincisi karara girmez (K-037'nin yeniden açılma
+koşulunu izlemek için).
 
 Kullanım: .venv/bin/python -m degerlendirme.a6_gosterim <dna.json> <cikis.json> [bolum_sayisi] [is_sayisi]
 """
@@ -64,15 +65,15 @@ def kural_kos(is_):
     d = _DURUM
     hucre = dna_kur({"sema_surumu": "2", "hucreler": [veri]}, DNA_BICIMI, d["sema"])[0]
     k = degerlendir(hucre, (), d["ortamlar"], d["sema"], d["kk"], d["prm"], d["gunluk"], d["esik"])
-    oneri = k if "esdeger" in k.olcumler else karar_ver(
-        False, {a: dict(o, mudahale=o["mudahale_bc"]) for a, o in k.olcumler.items()}, d["esik"])
-    return {"etiket": etiket, "kimlik": veri["kimlik"], "karar": [k.karar, k.neden], "oneri": [oneri.karar, oneri.neden],
+    abc = k if "esdeger" in k.olcumler else karar_ver(
+        False, {a: dict(o, mudahale=o["mudahale_abc"]) for a, o in k.olcumler.items()}, d["esik"])
+    return {"etiket": etiket, "kimlik": veri["kimlik"], "karar": [k.karar, k.neden], "karar_abc": [abc.karar, abc.neden],
             "olcumler": k.olcumler}
 
 
 def ozet(sonuclar):
     tablo = {}
-    for alan in ("karar", "oneri"):
+    for alan in ("karar", "karar_abc"):
         for etiket in ("dna", "bozuk"):
             sayac = Counter("/".join(str(x) for x in s[alan] if x) for s in sonuclar if s["etiket"] == etiket)
             tablo[f"{alan}:{etiket}"] = dict(sorted(sayac.items()))

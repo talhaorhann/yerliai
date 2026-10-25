@@ -229,19 +229,34 @@ class AyrintiTesti(Ortam):
 
 
 class ArtiklikTesti(Ortam):
-    """V-058 (açık): ara adımı (quax(a,c)) hem gözlenen hem bellekten türetilebilen vonk(a,d) maskelenince cevabın iki
-    ispatı olur; bir kökü silmek güveni düşürmez, müdahale (a) bileşeni 1'in altına iner ve doğru T2 kısayol sayılır.
-    Bu test bugünkü davranışı sabitler; kullanıcı kararıyla değişecek."""
+    """K-037 (V-058'den): ara adımı (quax(a,c)) hem gözlenen hem bellekten türetilebilen vonk(a,d) maskelenince cevabın
+    iki ispatı olur; bir kökü silmek güveni düşürmez, müdahalenin (a) bileşeni 1'in altına iner. Geçitte müdahale puanı
+    yalnız b·c'dir: doğru T2 kabul edilir. (a) ve K-021 puanı (a·b·c) ölçülür ve kanıtta saklanır, eşiğe girmez."""
 
-    def test_artik_gozlemde_dogru_kural_kisayol_sayiliyor(self):
+    def test_artik_gozlemde_dogru_kural_kabul(self):
         artik = {ad: [dict(b, olgular=b["olgular"] + bolum([(20 * n, "vonk", 20 * n + 3)])["olgular"])
                       for n, b in enumerate(liste)] for ad, liste in ORTAMLAR.items()}
         k = self.gec(T2, [T1], ortamlar=artik)
-        self.assertEqual((k.karar, k.neden), (RET, KISAYOL), k.olcumler)
+        self.assertEqual((k.karar, k.neden), (KABUL, None), k.olcumler)
         for o in k.olcumler.values():
             self.assertEqual(o["dogruluk"], 1.0)
-            self.assertLess(min(o["mudahale"]), ESIK.mudahale)
-            self.assertEqual(set(o["mudahale_bc"]), {1.0})  # düşük olan yalnız (a) bileşeni
+            self.assertEqual(set(o["mudahale"]), {1.0})  # b·c
+            self.assertLess(min(o["mudahale_a"]), 1.0)  # (a) ölçüldü ve saklandı
+            self.assertLess(min(o["mudahale_abc"]), ESIK.mudahale)  # K-021 puanıyla eşiğin altında kalırdı
+            self.assertEqual(len(o["mudahale_a"]), len(o["mudahale"]))
+
+    def test_b_dusukse_kisayol(self):
+        """İlgisiz bilgi değişince cevap değişiyorsa (b < 1) geçit yine reddeder: b·c eşiğin altında."""
+        from cekirdek import bellek_gecidi
+        from cekirdek.mudahale import mudahale_testi
+        asil = mudahale_testi
+
+        def b_yarim(*a, **kw):
+            m = asil(*a, **kw)
+            return dataclasses.replace(m, b=m.b / 2) if m.b is not None else m
+        with mock.patch.object(bellek_gecidi, "mudahale_testi", b_yarim):
+            k = self.gec(T1)
+        self.assertEqual((k.karar, k.neden), (RET, KISAYOL), k.olcumler)
 
 
 def olcum(**ortamlar):

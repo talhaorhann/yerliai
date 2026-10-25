@@ -179,5 +179,51 @@ class KabaKuvvetTesti(unittest.TestCase):
         self.assertEqual(ikisi, {True, False})  # iki sonuç da sınandı
 
 
+class UretecBaglantiTesti(unittest.TestCase):
+    """K-033, K-034: H1 son denemesinde üreteç V-053 tanımını kullanır. Eski tanım (ağaç yapısı sabit, K-029) eski
+    koşuların yeniden üretilebilmesi için varsayılan kalır."""
+
+    def prm(self, tanim):
+        return dataclasses.replace(t1.KUCUK, tohum=12, cikarilabilirlik=True, cikarilabilirlik_tanimi=tanim)
+
+    def test_olgu_taniminda_her_bolum_olgudan_cikarilabilir(self):
+        with mock.patch.object(uretec, "cikarilabilir_mi", side_effect=AssertionError("ağaç tanımı kullanıldı")):
+            sonuc = uretec.bolme_uret("yon_ters", self.prm(uretec.OLGU_TANIMI), t1.TANIM, t1.SEMA, t1.SEMA_YOLU)
+        self.assertGreater(sonuc["cikarilamaz_atilan"], 0)
+        for a in sonuc["ana"] + sonuc["treg"]:
+            ters = {v: k for k, v in a.kimlik_esleme.items()}
+            olgular = [(ters[o["ozne"]], o["iliski"], ters[o["nesne"]]) for o in a.bolum["olgular"]]
+            with self.subTest(bolum=a.bolum["ozet"]):
+                self.assertTrue(olgudan_cikarilabilir_mi(t1.TANIM, olgular, a.sorgu_ham, a.cevap["cevap"]))
+
+    def test_agac_tanimi_varsayilan_ve_olgu_tanimini_kullanmaz(self):
+        self.assertEqual(uretec.Parametreler.ayardan(t1.AYAR).cikarilabilirlik_tanimi, uretec.AGAC_TANIMI)
+        with mock.patch.object(uretec, "olgudan_cikarilabilir_mi", side_effect=AssertionError("olgu tanımı kullanıldı")):
+            sonuc = uretec.bolme_uret("yon_ters", self.prm(uretec.AGAC_TANIMI), t1.TANIM, t1.SEMA, t1.SEMA_YOLU)
+        self.assertGreater(sonuc["cikarilamaz_atilan"], 0)
+
+    def test_tanimlar_farkli_bolum_secer(self):
+        """V-053'ün ağaç tanımından farkı: olgularda görünmeyen evliliği kullanan sorular yalnız olgu tanımında atılır."""
+        agac = uretec.bolme_uret("yon_ters", self.prm(uretec.AGAC_TANIMI), t1.TANIM, t1.SEMA, t1.SEMA_YOLU)
+        olgu = uretec.bolme_uret("yon_ters", self.prm(uretec.OLGU_TANIMI), t1.TANIM, t1.SEMA, t1.SEMA_YOLU)
+        self.assertNotEqual([a.bolum["ozet"] for a in agac["ana"]], [a.bolum["ozet"] for a in olgu["ana"]])
+
+    def test_bozuk_bolum_olgu_taniminda_da_denetime_girmez(self):
+        with mock.patch.object(uretec, "olgudan_cikarilabilir_mi", side_effect=AssertionError("bozukta denetim yapıldı")):
+            a = uretec.aday_uret(random.Random(3), t1.TANIM, self.prm(uretec.OLGU_TANIMI), "zincir_bozuk")
+        self.assertIsNone(a.cevap["cevap"])
+
+    def test_bilinmeyen_tanim_reddedilir(self):
+        with self.assertRaises(ValueError):
+            uretec.aday_uret(random.Random(3), t1.TANIM, self.prm("tahmin"), "egitim")
+
+    def test_h1_uretimi_configdeki_tanimi_kullanir(self):
+        from degerlendirme import h1
+        prm = h1.uretim_parametreleri(t1.AYAR, 18)
+        self.assertEqual((prm.tohum, prm.cikarilabilirlik, prm.cikarilabilirlik_tanimi),
+                         (18, t1.AYAR.deger("h1_cikarilabilirlik"), t1.AYAR.deger("h1_cikarilabilirlik_tanimi")))
+        self.assertEqual(t1.AYAR.deger("h1_cikarilabilirlik_tanimi"), uretec.OLGU_TANIMI)
+
+
 if __name__ == "__main__":
     unittest.main()

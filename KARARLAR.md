@@ -213,3 +213,17 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
   - Bellek deposu (V-056: yalnız ekleme, hash zinciri, geri alma) onaylandı.
   - Bozuk 73 kuralın reddedilmeyen 3'ü raporlanır.
 - **Onaylayan:** kullanıcı.
+
+## K-037 (2026-10-25): Bellek geçidinde müdahale puanı b·c (V-058'den)
+- **Karar:** Bellek geçidinde müdahale puanı yalnız b·c'dir (b: ilgisiz bilgi değişince cevap aynı mı; c: ters ilişki ve çelişki tutarlılığı). (a) bileşeni ölçülmeye ve kanıtta saklanmaya devam eder ama eşiğe girmez. H1'deki müdahale testi (K-021) değişmez.
+- **Koşul:** H2'de bozuk bir kural kabul edilirse bu karar yeniden açılır.
+- **Gerekçe:** Gözlemli veride aynı cevap çoğu kez birden çok bağımsız yoldan çıkıyor; bir kök silinince öteki yol kaldığı için (a) düşüyor. Gerçek DNA v8 gösteriminde 45 doğru kural yalnız bu yüzden "kısayol" sayıldı; hepsinde iki ortamda doğruluk 1,0 idi. b·c ile 114 doğru kural kabul, bozuklarda sonuç aynı (93 yanlış, 0 kabul) (`raporlar/A6_gosterim_v8.md`).
+- **Etkisi:** `cekirdek/bellek_gecidi.py` `maskeli_kos` (geçit puanı b·c; a, b, c ve a·b·c ham çıktıda), `degerlendirme/gozlem_puani.py` (`mudahale` = b·c, `mudahale_a`, `mudahale_abc` kanıtta). `cekirdek/mudahale.py` değişmedi.
+- **Onaylayan:** kullanıcı.
+
+## K-038 (2026-10-25): DNA v8 son sürüm ve kilit
+- **Karar:** `veri/dna/akrabalik_dna_v8.json` (244 kural) son sürümdür. Kilitlendi (`config.json` `kilitli_veri_dosyalari`).
+  - sha256: `4a4af6b83c58e33d9971f9d84ed6c440fbb2341d14ec70dc4710128d74bfaa75`.
+  - Danışman ölçümü: 16.000 rastgele kümede yanlış türetme 0; çıkarılabilir sorulardan kaçan %0,02.
+- **Kural:** Bundan sonra DNA'ya dokunulmaz. Bir sorun çıkarsa danışmana bildirilir (K-024).
+- **Onaylayan:** kullanıcı.

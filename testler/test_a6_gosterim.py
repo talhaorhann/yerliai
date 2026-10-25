@@ -1,5 +1,5 @@
 """V-057: A6 gösterim aracı. Bozma, sonucu temel ilişki olan kuralların sonucunu bir sonraki temel ilişkiyle değiştirir;
-araç her kural için onaylı kararı ve V-058 önerisinin kararını yazar. Küçük bir koşuyla sınanır (bir bölüm, iki kural).
+araç her kural için geçidin kararını (K-037) ve karşılaştırma için K-021 puanıyla alınacak kararı yazar. Küçük bir koşuyla sınanır (bir bölüm, iki kural).
 Testlerde ilişki adı yazılmaz: kurallar DNA dosyasından gelir."""
 import json
 import tempfile
@@ -37,6 +37,7 @@ class GosterimTesti(unittest.TestCase):
         self.assertEqual([k["etiket"] for k in rapor["kurallar"]], ["dna", "bozuk"])
         for k in rapor["kurallar"]:
             self.assertIn(k["karar"][0], {KABUL, RET, SINANAMADI})
+            self.assertIn(k["karar_abc"][0], {KABUL, RET, SINANAMADI})
             self.assertEqual(set(k["olcumler"]), {"olagan", "kaydirilmis"})
         self.assertEqual(rapor["bolum_sayisi"], 1)
 

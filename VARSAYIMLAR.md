@@ -627,7 +627,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Hat (`degerlendirme/bellek_hatti.py`): `degerlendir`, `bellege_al` (adaylar sırayla, kabul edilen belleğe), `gozden_gecir`. Eski "destek" ve dış skor kanalı kaldırıldı.
   - Bağımsızlık (sistem.md §16): anlatıcı (LLM'in yeri) bütün kararlar belleğe yazıldıktan sonra kararın kopyasıyla çağrılır; metni "doğrulanmadı" işaretli geri döner. Anlatıcısız, sahte (rastgele) ve başka anlatıcıyla kararlar, bellek baytları ve sürüm aynı (`testler/test_a6_bellek_hatti.py`).
   - Eşikler K-036 ile onaylı ama GEÇİCİ; H2 kalibrasyonunda yeniden bakılacak.
-  - Açık: müdahale (a) bileşeni artık (çok yollu) gözlemde doğru kuralları "kısayol" sayıyor (V-058).
+  - Müdahale: geçitte puan b·c (K-037, V-058'den); (a) ve a·b·c kanıtta saklanır, eşiğe girmez.
 - **Doğrulama (K-035):** `testler/test_a6_bellek_gecidi.py`, `testler/test_a6_bellek_hatti.py`, `testler/test_a6_gozlem_bolumu.py`.
 - **Felsefi:** evet (bellek, kâhin, kalibrasyon). **Durum:** KARARA BAĞLANDI (K-035 kanıt kaynağı, K-036 eşikler geçici; 2026-10-24).
 
@@ -659,14 +659,13 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Maskelenen gözlemle çelişki ayrıca sayılmaz: çekirdek tekdüze olduğu için aynı çelişki maskesiz koşuda görünen gözlemle zaten çıkar.
   - Gösterim (`degerlendirme/a6_gosterim.py`): ortamlar olağan (eğitim uzunluğu 2–3) ve kaydırılmış (test uzunluğu 4–10); ortam başına 8 bölüm (süreyi sınırlar); çekirdek sınırları H1 kapı koşusununkiler (K-029); bellek boş, her kural tek başına.
 - **Doğrulama:** `testler/test_a6_gozlem_bolumu.py`, `testler/test_a6_gosterim.py`. Gösterim sonucu: `raporlar/A6_gosterim_v8.md` (88 dk, 3 süreç).
-- **Felsefi:** hayır (K-035'in uygulama ayrıntısı). **Durum:** ONAYSIZ.
+- **Felsefi:** hayır (K-035'in uygulama ayrıntısı). **Durum:** KODLAYICI KARARI (kullanıcı, 2026-10-25: felsefi değil, kodlayıcının kararıyla kalır; yöntem `raporlar/A6_gosterim_v8.md` "Yöntem" bölümünde belgelenir).
 
 ## V-058: Müdahale (a) bileşeni artık gözlemde
 - **Bölüm:** sistem.md §8 (bellek hücresi: müdahale testi), §9 ((a) ilgili bağ kesilince yanıt güveni düşüyor mu); K-021, K-036.
 - **Bulgu (2026-10-25):** Gözlemli veride bir cevap çoğu kez birden çok bağımsız yoldan çıkar (ör. iki oğlu olan çiftin "eş" cevabı iki ayrı oğuldan). Bir kök silinince öteki yol kalır, güven düşmez: (a) 0–0,5 çıkar, puan a·b·c eşiğin (0,9) altına iner ve doğru kural "kısayol" diye reddedilir.
   - Gerçek DNA ön ölçümü (ilk 16 kural, ortam başına 4 bölüm, bellek boş): 5 kabul, 7 sınanamadı, 4 kısayol; 4 kısayolun hepsinde b = 1 ve c = 1, düşük olan yalnız (a).
   - Tam gösterim (v8, 244 doğru + 112 bozuk kural, ortam başına 8 bölüm; `raporlar/A6_gosterim_v8.md`): doğru kurallarda onaylı formülle 69 kabul, 45 kısayol, 130 sınanamadı; öneriyle 114 kabul, 130 sınanamadı. 45 kısayolun hepsinde iki ortamda doğruluk 1,0; hepsi öneriyle kabul. Bozuk kurallarda iki formülde de 93 yanlış, 19 sınanamadı, 0 kabul.
-  - Sentetik örnek: `testler/test_a6_bellek_gecidi.py` `ArtiklikTesti` (bugünkü davranışı sabitler).
+  - Sentetik örnek: `testler/test_a6_bellek_gecidi.py` `ArtiklikTesti` (K-037'den sonra: artık gözlemde doğru kural kabul; b < 1 ise ret).
 - **Öneri:** Bellek geçidinde müdahale puanı b·c olsun (ilgisiz bilgi değişince cevap aynı mı × ters/çelişki tutarlılığı); (a) ölçülüp kanıtta saklanır ama eşiğe girmez. H1'deki müdahale testi (K-021) değişmez. Kısayolu yakalayan (b) ve kaydırılmış ortam doğruluğudur.
-- **Şimdilik:** onaylı formül (a·b·c) uygulanıyor; b·c yalnız raporda (`mudahale_bc`, gösterimde "öneri" sütunu).
-- **Felsefi:** evet (bellek, kredi: müdahale). **Durum:** ONAYSIZ (onay listesinde).
+- **Felsefi:** evet (bellek, kredi: müdahale). **Durum:** KARARA BAĞLANDI (K-037, 2026-10-25). Koşul: H2'de bozuk bir kural kabul edilirse yeniden açılır.

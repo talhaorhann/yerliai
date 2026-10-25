@@ -17,7 +17,7 @@ from cekirdek.altyapi.ayar import ayar_yukle
 from cekirdek.altyapi.kanonik import kanonik_json, ozet
 from cekirdek.bilgi_tabani import uclu_kaydi
 from cekirdek.iliski_semasi import iliski_semasi_yukle
-from degerlendirme.dunya import Dunya, cikarilabilir_mi, tanimlar_yukle
+from degerlendirme.dunya import Dunya, cikarilabilir_mi, olgudan_cikarilabilir_mi, tanimlar_yukle
 from degerlendirme.kilitli_kumeler import KilitliKumeHatasi, kesisim_denetle, kilitli_ozetler
 from degerlendirme.kisa_yol import NaiveBayes, kapi_denetle, ozellikler
 
@@ -28,6 +28,7 @@ KAYNAK = "üreteç"  # KODLAMA_PROMPTU §5
 TAM_GUVEN = 1.0  # V-017: üreteç olgusu gerçek ağaçtan gelir
 HARFLER = "abcdefghijklmnopqrstuvwxyz"  # V-017: anlamsız ad alfabesi
 GENEL_OKUMA = "(A, r, B) = B, A'nın r'sidir."  # V-013
+AGAC_TANIMI, OLGU_TANIMI = "agac", "olgu"  # K-029 (ağaç yapısı sabit, V-048), K-034 (yalnız olgular, V-053)
 
 
 class UretimDurduHatasi(RuntimeError):
@@ -52,6 +53,7 @@ class Parametreler:
     sans_payi: float
     algoritma: str
     cikarilabilirlik: bool = False  # K-029, V-048: cevap olgulardan çıkarılabilir olmalı (H1 yeniden denemesi)
+    cikarilabilirlik_tanimi: str = AGAC_TANIMI  # K-034: H1 son denemesinde V-053 (OLGU_TANIMI)
 
     @classmethod
     def ayardan(cls, ayar):
@@ -114,9 +116,17 @@ def _dikkat_dagiticilar(rng, baglar, zincir, kullanilan, adet):
     return secilen
 
 
+def _cikarilabilir(prm, dunya, tanimlar, olgular, sorgu, cevap):
+    if prm.cikarilabilirlik_tanimi == OLGU_TANIMI:  # K-034: dünya verilmez, yalnız olgular (V-053)
+        return olgudan_cikarilabilir_mi(tanimlar, olgular, sorgu, cevap)
+    return cikarilabilir_mi(dunya, tanimlar, olgular, sorgu)  # K-029: ağaç yapısı sabit
+
+
 def aday_uret(rng, tanimlar, prm, bolme, ad_esleme=None, kume="ana", sayac=None):
     if bolme not in BOLMELER:
         raise ValueError(f"bilinmeyen bölme: {bolme}")
+    if prm.cikarilabilirlik_tanimi not in (AGAC_TANIMI, OLGU_TANIMI):
+        raise ValueError(f"bilinmeyen çıkarılabilirlik tanımı: {prm.cikarilabilirlik_tanimi}")
     k_araligi = prm.test_k if bolme == "uzunluk" else prm.egitim_k
     bozuk = bolme == "zincir_bozuk"
     for _ in range(prm.deneme_siniri):
@@ -146,7 +156,7 @@ def aday_uret(rng, tanimlar, prm, bolme, ad_esleme=None, kume="ana", sayac=None)
         kisiler = sorted({x for x, _r, y in hepsi} | {y for x, _r, y in hepsi})
         if sorgu[0] not in kisiler or sorgu[1] not in kisiler:
             continue  # V-017: sorgulanan kişi olgularda hiç geçmezse kolay bir kısa yol olur
-        if prm.cikarilabilirlik and not bozuk and not cikarilabilir_mi(dunya, tanimlar, hepsi, sorgu):
+        if prm.cikarilabilirlik and not bozuk and not _cikarilabilir(prm, dunya, tanimlar, hepsi, sorgu, cevap):
             if sayac is not None:
                 sayac["cikarilamaz"] += 1  # K-029: cevap olgulardan çıkarılamıyor, aday atılır
             continue

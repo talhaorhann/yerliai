@@ -5,8 +5,9 @@
 1. `maskeli_kos`: bir bölümde bir gözlem maskelenmişken çekirdeği bellekle (R0) ve bellek + adayla (R1) koşar ve
    adayın soyunun (yazdıkları ve onlardan türeyenler) ham çıktısını verir: türettiği üçlüler, gözlenen (maskelenmemiş)
    olgularla ve bellekten türemiş kayıtlarla şema çelişkileri, katkı (R0'da olmayan ya da daha geç çıkan üçlüler),
-   eşleşme sayısı ve maskelenen çiftin cevabı soydan geliyorsa müdahale puanı ve a, b, c bileşenleri ("sınanamadı"
-   sayılmaz, K-021).
+   eşleşme sayısı ve maskelenen çiftin cevabı soydan geliyorsa müdahale ölçümü ("sınanamadı" sayılmaz, K-021).
+   Geçidin müdahale puanı b·c'dir (K-037): cevap birden çok bağımsız yoldan çıkınca (a) düşer ama bu kısayol değildir.
+   (a) ve K-021 puanı (a·b·c) ham çıktıda kalır, eşiğe girmez. H1'deki müdahale testi değişmez.
    Maskelenen olgu çekirdeğe hiç verilmez: kural onu kendi kendine onaylayamaz.
 2. `karar_ver`: dışarıda hesaplanan ortam sayılarına eşikleri şu sırayla uygular:
    1. Bellekte yapıca aynı kural (değişken adı ve halka sırası dışında) → ret: gereksiz.
@@ -129,7 +130,7 @@ def maskeli_kos(aday, bellek, olgular, maske, iliski_semasi, kk, prm, gunluk_aya
         if cevap.iliski is not None and soy.intersection(a["kimlik"] for a in cevap.gerekce):
             m = mudahale_testi(havuz1, defter1, hucreler, gorunen, kk, prm, iliski_semasi, sorgu)
             if m.durum == PUANLI:
-                mudahale, bilesenler = m.puan, [m.a, m.b, m.c]
+                mudahale, bilesenler = m.b * m.c, [m.a, m.b, m.c, m.puan]  # K-037
     return {"tahminler": sorted(list(u) for u in soy_uclu),
             "olgu_celiskileri": sorted([list(t), list(o)] for t, o in olgu_celiskisi),
             "bellek_celiskileri": sorted([list(a), list(b)] for a, b in bellek_celiskisi), "katki": katki,

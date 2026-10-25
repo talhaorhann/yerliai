@@ -37,10 +37,10 @@
     "bellek_en_az_kanit": {"deger": 3, "kaynak": "V-054"},
     "bellek_mudahale_esigi": {"deger": 0.9, "kaynak": "V-054"},
     "torch_surumu": {"deger": "2.14.1+cpu", "kaynak": "K-022"},
-    "h1_tohumlar": {"deger": [12, 13, 14, 15, 16], "kaynak": "K-029"},
-    "h1_tohum_degisim_siniri": {"deger": 3, "kaynak": "K-030"},
+    "h1_tohumlar": {"deger": [18, 19, 20, 21, 22], "kaynak": "K-033"},
+    "h1_tohum_degisim_siniri": {"deger": 2, "kaynak": "K-033"},
     "h1_gelistirme_tohumlari": {"deger": [7, 8, 9, 10, 11], "kaynak": "K-029"},
-    "h1_on_kayit_eki": {"deger": "## ÖK-003 eki", "kaynak": "K-029"},
+    "h1_on_kayit_eki": {"deger": "## ÖK-004 eki", "kaynak": "K-033"},
     "h1_tur_adaylari": {"deger": [8, 12, 16, 24, 32], "kaynak": "K-029"},
     "h1_havuz_adaylari": {"deger": [128, 256, 512, 1024], "kaynak": "K-029"},
     "h1_tur_siniri": {"deger": 8, "kaynak": "K-029"},
@@ -48,11 +48,12 @@
     "h1_kapi_bolmeleri": {"deger": ["uzunluk", "yon_ters", "onsel_ters", "zincir_bozuk"], "kaynak": "K-023"},
     "h1_gelistirme_bolmeleri": {"deger": ["egitim"], "kaynak": "K-023"},
     "h1_cikarilabilirlik": {"deger": true, "kaynak": "K-029"},
+    "h1_cikarilabilirlik_tanimi": {"deger": "olgu", "kaynak": "K-034"},
     "guven_duzeyi": {"deger": 0.95, "kaynak": "KODLAMA_PROMPTU §5"},
     "bootstrap_tekrar": {"deger": 10000, "kaynak": "V-044"},
     "istatistik_tohum": {"deger": 2027, "kaynak": "V-044"},
     "ara_kayit_araligi": {"deger": 25, "kaynak": "V-044"},
-    "kilitli_veri_dosyalari": {"deger": ["degerlendirme/veri/tanimlar_v1.json", "ONKAYIT.md", "degerlendirme/altin/kullanici_cevaplari_1.json"], "kaynak": "V-008"}
+    "kilitli_veri_dosyalari": {"deger": ["degerlendirme/veri/tanimlar_v1.json", "ONKAYIT.md", "degerlendirme/altin/kullanici_cevaplari_1.json", "veri/dna/akrabalik_dna_v8.json"], "kaynak": "V-008"}
   },
   "bayraklar": {
     "deneysel": {"deger": false, "kaynak": "KODLAMA_PROMPTU §5"},
