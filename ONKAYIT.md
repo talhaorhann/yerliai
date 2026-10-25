@@ -342,3 +342,12 @@ Bu ek ÖK-004 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
 - Config bu yüzden değişti; ön kayıt anındaki 1. bölüm özetinin yerine bundan sonra bu geçerlidir:
   - `config.json`: `144a532865430d53b8b7e1d959609cc819cf565e294d8ebcf56c716d76a5ed9e`
 - Yeni manifest ve tohum kaydı özetleri, üretimden sonra bu ekin 3. bölümüne yazılır (1. bölümdeki "2. bölüm" atfının yerine).
+
+### 3. Üretim: tohum 21 kısa yol kapısında durdu, onay bekleniyor (2026-10-25)
+
+- **Komut:** `.venv/bin/python -m degerlendirme.h1 uret uretilen/h1_v3`, kod commit `3b5a6bc`.
+- Tohum 18, 19, 20 üretildi. Çıkarılamadığı için atılan aday yalnız yön ters bölmesinde: 18: 2311, 19: 2340, 20: 2590.
+- **Tohum 21 durdu:** önsel-ters bölmesinde kelime çantası dedektörü 0,445 > şans 0,370 + 0,05 (K-008). Öteki beş bölmesi kapıdan geçiyor. ÖK-003'teki tohum 15 duruşuyla aynı desen (V-050).
+- Çekirdek hiçbir tohumda koşmadı. Eşik gevşetilmedi.
+- Ön kayıtlı tohum 22, yalnız üreteçle sınandı: altı bölmenin hepsi kapıdan geçiyor (yön ters atılan aday 2539).
+- **K-039:** yerine tohum geçmesi danışman ve kullanıcı onayı ister. Onaylanırsa yerine kullanılmamış ilk tohum, 23 geçer (değişim hakkı 2'den 1'i). Onay gelmeden üretim tamamlanmaz, kapı koşmaz. Yeni manifest özetleri onaydan sonra bu ekin 4. bölümüne yazılır.
