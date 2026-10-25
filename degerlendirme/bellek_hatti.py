@@ -11,7 +11,6 @@
   bellek baytları aynıdır.
 Kâhin yoktur: üreteç, dünya ve altın küme içe aktarılmaz.
 """
-import copy
 import dataclasses
 from dataclasses import dataclass
 
@@ -43,7 +42,7 @@ def degerlendir(aday, bellek, ortamlar, iliski_semasi, kk, prm, gunluk_ayari, es
 
 
 def _anlat(anlatici, kimlik, karar):
-    metin = anlatici(copy.deepcopy({"kimlik": kimlik, **dataclasses.asdict(karar)}))
+    metin = anlatici({"kimlik": kimlik, **dataclasses.asdict(karar)})  # asdict derin kopya verir
     return {"kimlik": kimlik, "metin": metin if isinstance(metin, str) else None, "durum": DOGRULANMADI}
 
 

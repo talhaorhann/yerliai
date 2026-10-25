@@ -658,13 +658,14 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Maskeleme: adayın sonuç ilişkisindeki her gözlem birer birer maskelenir (adayın doğrudan tahmini). Soydan türeyen başka ilişkilerdeki gözlemler maskelenmez; onlar için "doğru" sayılmaz ama çelişki "yanlış" sayılır (temkinli yön).
   - Maskelenen gözlemle çelişki ayrıca sayılmaz: çekirdek tekdüze olduğu için aynı çelişki maskesiz koşuda görünen gözlemle zaten çıkar.
   - Gösterim (`degerlendirme/a6_gosterim.py`): ortamlar olağan (eğitim uzunluğu 2–3) ve kaydırılmış (test uzunluğu 4–10); ortam başına 8 bölüm (süreyi sınırlar); çekirdek sınırları H1 kapı koşusununkiler (K-029); bellek boş, her kural tek başına.
-- **Doğrulama:** `testler/test_a6_gozlem_bolumu.py`, `testler/test_a6_gosterim.py`.
+- **Doğrulama:** `testler/test_a6_gozlem_bolumu.py`, `testler/test_a6_gosterim.py`. Gösterim sonucu: `raporlar/A6_gosterim_v8.md` (88 dk, 3 süreç).
 - **Felsefi:** hayır (K-035'in uygulama ayrıntısı). **Durum:** ONAYSIZ.
 
 ## V-058: Müdahale (a) bileşeni artık gözlemde
 - **Bölüm:** sistem.md §8 (bellek hücresi: müdahale testi), §9 ((a) ilgili bağ kesilince yanıt güveni düşüyor mu); K-021, K-036.
 - **Bulgu (2026-10-25):** Gözlemli veride bir cevap çoğu kez birden çok bağımsız yoldan çıkar (ör. iki oğlu olan çiftin "eş" cevabı iki ayrı oğuldan). Bir kök silinince öteki yol kalır, güven düşmez: (a) 0–0,5 çıkar, puan a·b·c eşiğin (0,9) altına iner ve doğru kural "kısayol" diye reddedilir.
   - Gerçek DNA ön ölçümü (ilk 16 kural, ortam başına 4 bölüm, bellek boş): 5 kabul, 7 sınanamadı, 4 kısayol; 4 kısayolun hepsinde b = 1 ve c = 1, düşük olan yalnız (a).
+  - Tam gösterim (v8, 244 doğru + 112 bozuk kural, ortam başına 8 bölüm; `raporlar/A6_gosterim_v8.md`): doğru kurallarda onaylı formülle 69 kabul, 45 kısayol, 130 sınanamadı; öneriyle 114 kabul, 130 sınanamadı. 45 kısayolun hepsinde iki ortamda doğruluk 1,0; hepsi öneriyle kabul. Bozuk kurallarda iki formülde de 93 yanlış, 19 sınanamadı, 0 kabul.
   - Sentetik örnek: `testler/test_a6_bellek_gecidi.py` `ArtiklikTesti` (bugünkü davranışı sabitler).
 - **Öneri:** Bellek geçidinde müdahale puanı b·c olsun (ilgisiz bilgi değişince cevap aynı mı × ters/çelişki tutarlılığı); (a) ölçülüp kanıtta saklanır ama eşiğe girmez. H1'deki müdahale testi (K-021) değişmez. Kısayolu yakalayan (b) ve kaydırılmış ortam doğruluğudur.
 - **Şimdilik:** onaylı formül (a·b·c) uygulanıyor; b·c yalnız raporda (`mudahale_bc`, gösterimde "öneri" sütunu).

@@ -77,7 +77,7 @@ MUTASYONLAR = [
     ("eşdeğer aday ölçülüyor", HAT, "    if esdeger_mi(aday, bellek):\n        return karar_ver(True, {}, esikler)",
      "    if esdeger_mi(aday, bellek) and False:\n        return karar_ver(True, {}, esikler)"),
     ("kabul edilen belleğe yazılmıyor", HAT, "            depo.kabul_et(veri, k.olcumler)\n", "            pass\n"),
-    ("anlatıcıya kopya verilmiyor", HAT, "    metin = anlatici(copy.deepcopy({", "    metin = anlatici(({"),
+    ("anlatıcıya kararın kendisi veriliyor", HAT, "**dataclasses.asdict(karar)}", "**vars(karar)}"),
     ("metin olmayan anlatıcı çıktısı alınıyor", HAT, "metin if isinstance(metin, str) else None", "metin"),
     ("gözden geçirme geri almıyor", HAT, "            depo.geri_al(h.kimlik, k.neden)\n", "            pass\n"),
     # K-035, V-057: gözlem bölümleri

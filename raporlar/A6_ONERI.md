@@ -1,5 +1,7 @@
 # A6 önerisi: bellek geçidi + iç dil (2026-10-24, onay bekliyor)
 
+> **Not (2026-10-25):** Bu öneri K-035 ve K-036 ile karara bağlandı; geçidin kanıt kaynağı değişti (maskeli gözlem, çekirdek dışı doğruluk). Güncel tarif: `VARSAYIMLAR.md` V-054, V-057, V-058; gerçek DNA sonucu: `raporlar/A6_gosterim_v8.md`. Aşağısı tarihsel kayıttır.
+
 Kayıtlar: V-054 (bellek geçidi), V-055 (iç dil), V-056 (bellek deposu). Kod `cekirdek/bellek_gecidi.py`, `cekirdek/bellek.py`, `cekirdek/ic_dil.py`. Testler `testler/test_a6_*.py`.
 
 ## Bellek geçidi

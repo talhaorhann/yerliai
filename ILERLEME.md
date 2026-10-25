@@ -272,3 +272,28 @@
 - Altın küme 2. parça.
 - ÖK-004 (H1 taze tohumlarla tek sefer).
 - A6 sonu bağımsız inceleme.
+
+### A6 devamı: kullanıcı kararları ve maskeli geçit (2026-10-24/25)
+
+- **Kararlar:** K-033 (H1 kaydı ve sıra), K-034 (V-053 tanımı onaylı), K-035 (geçidin kanıt kaynağı: seçenek A), K-036 (eşikler geçici; iç dil ve bellek deposu onaylı). ÖK-003 eki §9 yazıldı ve kilitlendi.
+- **K-035 uygulandı (test önce):**
+  - Türetilmiş ilişkiler gözlem bölümlerinde olgu olarak geçiyor (`uretec.gozlem_bolumu`, V-057).
+  - Kuralın tahmin ettiği gözlem maskeleniyor: çekirdeğe hiç verilmiyor.
+  - Çekirdek yalnız ham çıktı veriyor ve eşikleri uyguluyor (`cekirdek/bellek_gecidi.py`); doğruluk çekirdek dışında ve kâhinsiz (`degerlendirme/gozlem_puani.py`).
+  - Hat: `degerlendirme/bellek_hatti.py`. Bağımsızlık testi: anlatıcısız, sahte ve başka anlatıcıyla kararlar, bellek baytları ve sürüm aynı; çöken anlatıcı belleği değiştirmiyor.
+- **Sentetik testte:** doğru 3 kural kabul. Ret: yanlış (2), kısayol, gereksiz (eşdeğer, katkısız), çelişkili. Sınanamadı: gözlenmeyen sonuç, hiç eşleşmeyen gövde, az kanıt.
+- **Gerçek DNA v8 (bellek boş, ortam başına 8 gözlem bölümü; `raporlar/A6_gosterim_v8.md`):**
+  - 244 doğru kural: 69 kabul, 45 kısayol, 130 sınanamadı. Hiçbiri yanlış ya da çelişkili değil.
+  - 112 bozuk kural: 93 yanlış, 19 sınanamadı. Hiçbiri kabul edilmedi.
+  - 45 kısayolun nedeni müdahale (a) bileşeni: cevap birden çok yoldan çıkıyor (V-058, onay bekliyor). b·c ile 114 kabul.
+- **Önceki ölçümde reddedilmeyen 3 bozuk kural (B5):** ikisi şimdi yanlış diye reddedildi; `baba_baba_ogul_bozuk` 3 yanlış tahminle kanıt eşiğinin altında kaldı (sınanamadı).
+- **DNA v8:** 244 kural; 170 eski kural aynen içinde, 74 yeni (`raporlar/DNA_v8_karsilastirma.md`). Kilitli değil.
+- Testler 415/415. Mutasyon (A6): 51/51. İki düzeltme gerekti: katkı testi eklendi; eşdeğer bir mutant (gereksiz derin kopya) gerçek bir hatayla değiştirildi.
+- Bağımsız inceleme isteği hazır: `raporlar/A6_BAGIMSIZ_INCELEME_ISTEGI.md`.
+
+**Eksik:**
+- V-058 kararı (kullanıcı).
+- DNA "son sürüm" (danışman). Sonra: V-053 üretece bağlanır, ÖK-004 yazılır ve kilitlenir.
+- Altın küme 2. parça (kullanıcı; H1 yeniden koşusundan önce).
+- H1 taze tohumlarla tek sefer (son deneme).
+- A6 bağımsız incelemesi (istek metni hazır).
