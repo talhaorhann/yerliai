@@ -118,6 +118,16 @@ class BozukRetTesti(Ortam):
         self.assertEqual(sum(o["katki"] for o in k.olcumler.values()), 0)
         self.assertEqual(self.gec(KATKISIZ).karar, KABUL)  # bellek boşken aynı kural katkı yapar
 
+    def test_bellekle_ayni_turda_uretilen_katki_degil(self):
+        """Soy bir üçlüyü yeni dayanakla yazsa da bellek onu aynı turda zaten üretiyorsa katkı sayılmaz."""
+        z_q = hucre("z_q", [halka("zindle", "X", "Y")], ("quax", "X", "Y"))
+        b = bolum([(1, "blorp", 2), (2, "blorp", 3), (1, "zindle", 3)])
+        hucreler = self.hucreler(T1, z_q)
+        ham = maskeli_kos(hucreler[1], hucreler[:1], gozlem_puani.bolum_olgulari(b), None, self.sema, KK, t3.PRM,
+                          GUNLUK)
+        self.assertEqual((ham["tahminler"], ham["katki"]), ([[1, "quax", 3]], 0))
+        self.assertEqual(self.olc(z_q, [], b)["katki"], 1)
+
     def test_bellekle_celiskili(self):
         gozlemsiz = {"gozlemsiz": ortam(gozlem=False)}
         k = self.gec(CELISKILI_BB, [T1], ortamlar=gozlemsiz)
