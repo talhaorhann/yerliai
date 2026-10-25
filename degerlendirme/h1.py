@@ -428,6 +428,17 @@ def altin_rapor_metni(ozet):
     return "\n".join(satirlar) + "\n"
 
 
+def kullanici_cevaplari_yukle(klasor, parca_sayisi, sorular):
+    """Var olan her parçanın kullanıcı cevap dosyası; biçimi denetlenir (K-039). Cevaplar çekirdeğe gitmez."""
+    kullanici = {}
+    for p in range(1, parca_sayisi + 1):
+        yol = Path(klasor) / f"kullanici_cevaplari_{p}.json"
+        if yol.exists():
+            kullanici[p] = json.loads(yol.read_text(encoding="utf-8"))
+            kullanici_cevaplarini_denetle(kullanici[p], p, sum(1 for s in sorular if s["parca"] == p))  # K-039
+    return kullanici
+
+
 def _altin(kok, dna_yolu, cikis):
     from degerlendirme.kilitli_kumeler import kilitli_ozetler
     ayar, sema, gunluk = _ortam(kok)
@@ -439,12 +450,7 @@ def _altin(kok, dna_yolu, cikis):
     kilitli = kilitli_ozetler(kok / "kilit" / "kilitli_kumeler.json", kok)
     if any(s["bolum"]["ozet"] not in kilitli for s in sorular):
         raise H1Hatasi("altın soru bölümü kilitli kümede yok")
-    kullanici = {}
-    for p in range(1, ayar.deger("altin_parca_sayisi") + 1):
-        yol = klasor / f"kullanici_cevaplari_{p}.json"
-        if yol.exists():
-            kullanici[p] = json.loads(yol.read_text(encoding="utf-8"))
-            kullanici_cevaplarini_denetle(kullanici[p], p, sum(1 for s in sorular if s["parca"] == p))  # K-039
+    kullanici = kullanici_cevaplari_yukle(klasor, ayar.deger("altin_parca_sayisi"), sorular)
     hucreler = _dna(kok, dna_yolu, sema)
     kk = HizliKodKitabi(ayar.deger("vektor_tohum"), ayar.deger("vektor_boyutu"))
     prm = kosu_parametreleri(ayar, KIP_ALTIN)

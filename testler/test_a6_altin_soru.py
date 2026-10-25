@@ -125,5 +125,19 @@ class CevapDenetimTesti(unittest.TestCase):
         self.assertIn("LLM taslağı", h1.altin_rapor_metni(h1.altin_ozeti([satir], kullanici)))
 
 
+class AltinYuklemeTesti(unittest.TestCase):
+    """H1 altın koşusu, cevap dosyasını yüklerken biçimini denetler (K-039)."""
+
+    def test_bozuk_cevap_dosyasi_altin_kosusunu_durdurur(self):
+        from degerlendirme import h1
+        sorular = [{"parca": 2, "no": n} for n in range(1, 4)]
+        with tempfile.TemporaryDirectory() as d:
+            (Path(d) / "kullanici_cevaplari_2.json").write_text(json.dumps(kayit(adet=2)), encoding="utf-8")
+            with self.assertRaises(ValueError):
+                h1.kullanici_cevaplari_yukle(Path(d), 2, sorular)
+            (Path(d) / "kullanici_cevaplari_2.json").write_text(json.dumps(kayit(adet=3)), encoding="utf-8")
+            self.assertEqual(set(h1.kullanici_cevaplari_yukle(Path(d), 2, sorular)), {2})
+
+
 if __name__ == "__main__":
     unittest.main()
