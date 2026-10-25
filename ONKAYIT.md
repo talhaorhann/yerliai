@@ -335,3 +335,10 @@ Bu ek ÖK-004 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
 - Kod: commit `1d0b7d3`.
 - Yeni manifestler ve `tohumlar.json`: üretimden sonra 2. bölüme yazılır.
 
+### 2. Tohum değişimi onay şartı ve güncel config özeti (K-039, 2026-10-25)
+
+- **Kural (danışman, kullanıcı iletti):** tohum değişimi ancak danışman ve kullanıcı onayıyla yapılır. Kısa yol kapısında duran tohumda üretim durur ve nedeni bildirilir; onaylanan tohum `h1_onayli_tohum_degisimleri` listesine yazılır. ÖK-004 §3.3'teki K-030 kuralı ve en çok 2 değişim sınırı aynen kalır; bu yalnız onay şartı ekler (sıkılaştırma).
+- Kod: `degerlendirme/h1.py` `tohumlari_uret`, `kapi_tohumlari` (test önce).
+- Config bu yüzden değişti; ön kayıt anındaki 1. bölüm özetinin yerine bundan sonra bu geçerlidir:
+  - `config.json`: `144a532865430d53b8b7e1d959609cc819cf565e294d8ebcf56c716d76a5ed9e`
+- Yeni manifest ve tohum kaydı özetleri, üretimden sonra bu ekin 3. bölümüne yazılır (1. bölümdeki "2. bölüm" atfının yerine).

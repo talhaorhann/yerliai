@@ -102,8 +102,13 @@ MUTASYONLAR = [
     ("tur sınırı sayılmıyor", BAS, '"tur_siniri": dongu.durma_nedeni == DURMA_TUR_SINIRI', '"tur_siniri": False'),
     ("atma doluluğu düşürmüyor", BAS, "            doluluk -= 1", "            pass"),
     ("kapı tohumları kayıttan alınmıyor", BAS,
-     '        return h1.kapi_tohumlari(klasor, ayar.deger("h1_tohumlar"), ayar.deger("h1_tohum_degisim_siniri"))',
+     '        return h1.kapi_tohumlari(klasor, ayar.deger("h1_tohumlar"), ayar.deger("h1_tohum_degisim_siniri"),\n'
+     '                                 ayar.deger("h1_onayli_tohum_degisimleri"))',
      '        return ayar.deger("h1_tohumlar")'),
+    # K-039: tohum değişimi onayı
+    ("onaysız tohum değişiyor", H1, "                if tohum not in onayli:\n                    raise H1Hatasi",
+     "                if False:\n                    raise H1Hatasi"),
+    ("kayıttaki onaysız değişim kabul ediliyor", H1, "    if onaysiz:\n        raise H1Hatasi", "    if False:\n        raise H1Hatasi"),
     # V-056: bellek deposu
     ("geri alma aktiften düşürmüyor", BEL, '            self._aktif.pop(veri["kimlik"], None)', "            pass"),
     ("çift kabul denetlenmiyor", BEL, '        if hucre_verisi["kimlik"] in self._aktif:', "        if False:"),

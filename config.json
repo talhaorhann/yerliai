@@ -39,6 +39,7 @@
     "torch_surumu": {"deger": "2.14.1+cpu", "kaynak": "K-022"},
     "h1_tohumlar": {"deger": [18, 19, 20, 21, 22], "kaynak": "K-033"},
     "h1_tohum_degisim_siniri": {"deger": 2, "kaynak": "K-033"},
+    "h1_onayli_tohum_degisimleri": {"deger": [], "kaynak": "K-039"},
     "h1_gelistirme_tohumlari": {"deger": [7, 8, 9, 10, 11], "kaynak": "K-029"},
     "h1_on_kayit_eki": {"deger": "## ÖK-004 eki", "kaynak": "K-033"},
     "h1_tur_adaylari": {"deger": [8, 12, 16, 24, 32], "kaynak": "K-029"},

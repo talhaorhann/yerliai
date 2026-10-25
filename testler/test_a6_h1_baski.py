@@ -5,7 +5,7 @@ import json
 import tempfile
 from pathlib import Path
 
-from degerlendirme import h1_baski
+from degerlendirme import h1, h1_baski
 from testler.test_a3_temel import halka, hucre
 from testler.test_a5_h1 import GUNLUK
 import testler.test_a3_cekirdek as t3
@@ -57,11 +57,17 @@ class TohumSecimiTesti(t3.Ortam):
         self.assertEqual(h1_baski.olcum_tohumlari(t3.AYAR, None, h1_baski.GELISTIRME),
                          t3.AYAR.deger("h1_gelistirme_tohumlari"))
         on_kayit = t3.AYAR.deger("h1_tohumlar")
-        kullanilan = on_kayit[:-1] + [max(on_kayit) + 1]
         with tempfile.TemporaryDirectory() as d:
-            (Path(d) / "tohumlar.json").write_text(json.dumps({
+            kayit = Path(d) / "tohumlar.json"
+            kayit.write_text(json.dumps({"on_kayit": on_kayit, "kullanilan": on_kayit, "degisimler": []}),
+                             encoding="utf-8")
+            self.assertEqual(h1_baski.olcum_tohumlari(t3.AYAR, d, h1_baski.KAPI), on_kayit)
+            # config'te onaylı değişim yokken (K-039) değişimli kayıt kabul edilmez
+            kullanilan = on_kayit[:-1] + [max(on_kayit) + 1]
+            kayit.write_text(json.dumps({
                 "on_kayit": on_kayit, "kullanilan": kullanilan,
                 "degisimler": [{"tohum": on_kayit[-1], "yerine": kullanilan[-1], "neden": "deneme"}]}), encoding="utf-8")
-            self.assertEqual(h1_baski.olcum_tohumlari(t3.AYAR, d, h1_baski.KAPI), kullanilan)
+            with self.assertRaises(h1.H1Hatasi):
+                h1_baski.olcum_tohumlari(t3.AYAR, d, h1_baski.KAPI)
         with self.assertRaises(ValueError):
             h1_baski.olcum_tohumlari(t3.AYAR, None, "hepsi")

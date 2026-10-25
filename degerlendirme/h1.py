@@ -293,9 +293,10 @@ def gerekli_ozetler(kok, klasor, dna_yolu, tohumlar, algoritma):
     return ozetler
 
 
-def tohumlari_uret(uret, on_kayit, kullanilmis, sinir):
+def tohumlari_uret(uret, on_kayit, kullanilmis, sinir, onayli):
     """K-030: kısa yol kapısında (K-008) duran tohumun yerine kullanılmamış ilk tohum geçer; eşik değişmez, `uret`
-    aynı ayarla çağrılır. En çok `sinir` değişim. Kapı dışındaki durmalar değişim sebebi değildir, olduğu gibi çıkar."""
+    aynı ayarla çağrılır. En çok `sinir` değişim. Kapı dışındaki durmalar değişim sebebi değildir, olduğu gibi çıkar.
+    K-039: değişim yalnız `onayli` (danışman ve kullanıcı onayı) içindeki tohum için yapılır; değilse üretim durur."""
     kullanilan, degisimler = [], []
     dolu = set(on_kayit) | set(kullanilmis)
     siradaki = max(dolu) + 1
@@ -305,6 +306,9 @@ def tohumlari_uret(uret, on_kayit, kullanilmis, sinir):
                 uret(tohum)
                 break
             except KisaYolHatasi as h:
+                if tohum not in onayli:
+                    raise H1Hatasi(f"tohum {tohum} kısa yol kapısında durdu: {h}. Yerine tohum geçmesi danışman ve "
+                                   f"kullanıcı onayı ister (K-039): onaylanırsa `h1_onayli_tohum_degisimleri`ne yazılır")
                 if len(degisimler) == sinir:
                     raise H1Hatasi(f"en çok {sinir} tohum değişimi (K-030): tohum {tohum} de kapıda durdu: {h}")
                 degisimler.append({"tohum": tohum, "yerine": siradaki, "neden": str(h)})
@@ -314,8 +318,8 @@ def tohumlari_uret(uret, on_kayit, kullanilmis, sinir):
     return kullanilan, degisimler
 
 
-def kapi_tohumlari(klasor, on_kayit, sinir):
-    """K-030: kapı koşusunun tohumları, üretim kaydı ön kayıtla ve değişim sınırıyla tutarlıysa."""
+def kapi_tohumlari(klasor, on_kayit, sinir, onayli):
+    """K-030, K-039: kapı koşusunun tohumları, üretim kaydı ön kayıtla, değişim sınırıyla ve onaylarla tutarlıysa."""
     yol = Path(klasor) / TOHUM_KAYDI
     if not yol.exists():
         raise H1Hatasi(f"{yol} yok: tohumlar `uret` ile üretilmeli")
@@ -325,6 +329,9 @@ def kapi_tohumlari(klasor, on_kayit, sinir):
     degisimler = kayit["degisimler"]
     if len(degisimler) > sinir:
         raise H1Hatasi(f"tohum kaydında {len(degisimler)} değişim var, en çok {sinir} (K-030)")
+    onaysiz = [d["tohum"] for d in degisimler if d["tohum"] not in onayli]
+    if onaysiz:
+        raise H1Hatasi(f"tohum kaydında onaysız değişim var (K-039): {onaysiz}")
     beklenen, yerine = [], {d["tohum"]: d["yerine"] for d in degisimler}
     for tohum in on_kayit:
         while tohum in yerine:
@@ -366,7 +373,7 @@ def _uret(kok, klasor):
 
     on_kayit = ayar.deger("h1_tohumlar")
     kullanilan, degisimler = tohumlari_uret(uret, on_kayit, ayar.deger("h1_gelistirme_tohumlari"),
-                                            ayar.deger("h1_tohum_degisim_siniri"))
+                                            ayar.deger("h1_tohum_degisim_siniri"), ayar.deger("h1_onayli_tohum_degisimleri"))
     for d in degisimler:
         print(f"tohum {d['tohum']} kapıda durdu, yerine {d['yerine']}: {d['neden']}")
     atomik_yaz(Path(klasor) / TOHUM_KAYDI,
@@ -379,7 +386,8 @@ def _kos(kok, klasor, dna_yolu, cikis, kip):
     if kip == KIP_GELISTIRME:  # ÖK-003 §3.3
         tohumlar = ayar.deger("h1_gelistirme_tohumlari")
     else:  # ÖK-003 §3.2, K-030
-        tohumlar = kapi_tohumlari(klasor, ayar.deger("h1_tohumlar"), ayar.deger("h1_tohum_degisim_siniri"))
+        tohumlar = kapi_tohumlari(klasor, ayar.deger("h1_tohumlar"), ayar.deger("h1_tohum_degisim_siniri"),
+                                  ayar.deger("h1_onayli_tohum_degisimleri"))
     bolmeler = ayar.deger("h1_kapi_bolmeleri" if kapi_mi else "h1_gelistirme_bolmeleri")
     if kip != KIP_GELISTIRME:
         on_kayit_denetle((kok / "ONKAYIT.md").read_text(encoding="utf-8"),
@@ -455,7 +463,8 @@ def main(arg):
     elif komut == "ozetler":
         ayar, _, gunluk = _ortam(kok)
         kayitli = (Path(d["klasor"]) / TOHUM_KAYDI).exists()
-        tohumlar = (kapi_tohumlari(d["klasor"], ayar.deger("h1_tohumlar"), ayar.deger("h1_tohum_degisim_siniri"))
+        tohumlar = (kapi_tohumlari(d["klasor"], ayar.deger("h1_tohumlar"), ayar.deger("h1_tohum_degisim_siniri"),
+                                   ayar.deger("h1_onayli_tohum_degisimleri"))
                     if kayitli else ayar.deger("h1_tohumlar"))
         for ad, o in gerekli_ozetler(kok, d["klasor"], d["dna"], tohumlar, gunluk["algoritma"]).items():
             print(f"- `{ad}`: `{o}`")

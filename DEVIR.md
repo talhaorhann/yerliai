@@ -6,6 +6,12 @@ Oturum başında oku: `sistem.md` ilgili bölüm, `ILERLEME.md`, `VARSAYIMLAR.md
 - **DNA:** v8 son sürüm ve kilitli (K-038). **DNA'ya dokunulmaz;** sorun çıkarsa danışmana bildirilir.
 - **H1 son deneme:** altın küme 2. parça cevapları gelince ÖK-004 §5 sırası: `.venv/bin/python -m degerlendirme.h1 uret uretilen/h1_v3` → `ozetler` çıktısını ÖK-004 eki §2'ye yaz, kilitle → `kapi uretilen/h1_v3 veri/dna/akrabalik_dna_v8.json uretilen/h1_v3_kapi_1` bir kez → `yeni_egitim`, `altin` → kapı özetini `raporlar/H1_v3_kapi_ozet.json`'a koy, "## ÖK-004 sonucu" bölümüne sha256'sıyla yaz. Sonuca bakarak ayar yapılmaz; geçmezse dur, kullanıcıya dön.
 - **H2 kapısı kapalı kalır;** kapıyı gevşeten kod yazılmaz. `asama-5-hizli-yol-dogrulanmadi` dalı silinmez.
+- **K-039 (danışman güncellemesi):**
+  - Tohum değişimi ancak danışman ve kullanıcı onayıyla: kapıda duran tohumda `uret` durur; onaylanan tohum `h1_onayli_tohum_degisimleri`ne yazılır (config değişir: yeni özeti ÖK-004 ekine yaz, kilitle).
+  - Altın küme 2. parça gelince: (a) biçimi doğrula (parça kaydı: `kaynak`, `onaylayan`, `bagimsiz_insan_cevabi`, `cevaplar` 1..N, A–D ya da ?), (b) "LLM taslağı, kullanıcı onaylı" etiketli kayıtları ayrı say ve raporla, (c) ÖK-004 sırası. Cevap dosyalarının içeriğini açıp okuma; yalnız kodla doğrula ve say.
+  - H1 sonrası: ayar yok; geçmezse bölme bazında, hata sınıflarıyla raporla, danışmana dön.
+  - Bağımsız inceleme sonucu: `raporlar/` altına, her bulguya KARŞILANDI / KARŞILANMADI / öneri; düzeltme önce danışmana.
+  - H2 tasarım taslağı: `H2_TASARIM_TASLAGI.md` (yalnız belge).
 - **FİKİRLER:** Her aşama kapanışında `FIKIRLER.md`'ye bak; yaklaşan madde varsa kullanıcıya hatırlat.
 
 - **Ne çalışıyor:** A0–A4 kapandı (etiketler yerel: `asama-0`…`asama-4`). A5'te hızlı yol kuruldu (V-040) ve çekirdek döngüsüne bağlandı (V-042), sonuçlar referansla bit-eşit. İlk kurulum `sh kur.sh`; sonra `.venv/bin/python araclar/kostur.py` → 389/389, 0 atlanan, 0 xfail (V-041).

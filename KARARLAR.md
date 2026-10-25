@@ -227,3 +227,13 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
   - Danışman ölçümü: 16.000 rastgele kümede yanlış türetme 0; çıkarılabilir sorulardan kaçan %0,02.
 - **Kural:** Bundan sonra DNA'ya dokunulmaz. Bir sorun çıkarsa danışmana bildirilir (K-024).
 - **Onaylayan:** kullanıcı.
+
+## K-039 (2026-10-25): Danışman güncellemesi (kullanıcı iletti)
+- **Kabul:** K-037, V-057 belgelemesi, K-038 (DNA v8 son sürüm), K-034'ün üretece bağlanması, ÖK-004, baskı ölçümü onaylandı. DNA'ya dokunulmaz; sorun yalnız danışmana bildirilir.
+- **Tohum değişimi:** ancak danışman ve kullanıcı onayıyla. Kısa yol kapısında duran tohum artık kendiliğinden değişmez; üretim durur ve nedenini bildirir. Onaylanan tohum `config.json` `h1_onayli_tohum_degisimleri` listesine yazılır (K-030'un sınırı ve kuralı aynen; ÖK-004 §3.3'teki hak 2).
+- **Altın küme 2. parça:** cevaplar kullanıcıdan gelir (danışman hazırlar, kullanıcı verir). `degerlendirme/altin/kullanici_cevaplari_2.json` depoya konmadan H1 koşmaz, bölüm üretilmez. Gelince: (a) biçim doğrulanır; (b) etiketi "LLM taslağı, kullanıcı onaylı" olan kayıtlar ayrı sayılır ve raporlanır; (c) ÖK-004 sırası izlenir, kapı tek sefer koşar.
+- **H1'den sonra:** sonuca bakarak ayar yapılmaz. Kapı geçmezse durulur; sonuç ve neden bölme bazında, hata sınıflarıyla raporlanır, danışmana dönülür. H2 kapısı kapalı kalır. `asama-5-hizli-yol-dogrulanmadi` dalı silinmez.
+- **Bağımsız inceleme:** sonuç gelince bulgular `raporlar/` altına kaydedilir; her bulgu için KARŞILANDI / KARŞILANMADI / düzeltme önerisi. Düzeltmeler kendi başına uygulanmaz; önce danışmana gösterilir.
+- **H2 tasarım taslağı:** yalnız belge (`H2_TASARIM_TASLAGI.md`), kod yok; `FIKIRLER.md`'ye işlenir.
+- **Değişmeyen kurallar:** kâhin eğitime girmez; `uretec_cevaplari.jsonl` ve `degerlendirme/altin/` cevap dosyaları açılmaz; LLM şema, tohum etiketi, kalibrasyon ya da altın küme kararı vermez; eşik sonuca bakarak değişmez; felsefi kararlar kullanıcıya sorulur.
+- **Onaylayan:** kullanıcı (danışmanın metnini iletti).
