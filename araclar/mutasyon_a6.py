@@ -113,6 +113,11 @@ MUTASYONLAR = [
     # K-039: altın küme soru dosyası
     ("JSON cevap biçimi eklenmiyor", ALT, "        satirlar += _json_bicimi(parca_no, len(sorular))", "        pass"),
     ("başka parçanın soruları alınıyor", ALT, ' if k["parca"] == parca_no]', "]"),
+    ("cevap kaynağı LLM taslağı sayılmıyor", ALT, "    llm = sum(1 for k in kaynaklar.values() if k == LLM_TASLAGI)",
+     "    llm = 0"),
+    ("geçersiz cevap harfi kabul ediliyor", ALT, "    gecerli = tuple(HARFLER + EMIN_DEGIL)", "    gecerli = tuple(HARFLER + EMIN_DEGIL + 'E')"),
+    ("H1 altın koşusu cevap dosyasını denetlemiyor", H1,
+     '            kullanici_cevaplarini_denetle(kullanici[p], p, sum(1 for s in sorular if s["parca"] == p))  # K-039\n', ""),
     # V-056: bellek deposu
     ("geri alma aktiften düşürmüyor", BEL, '            self._aktif.pop(veri["kimlik"], None)', "            pass"),
     ("çift kabul denetlenmiyor", BEL, '        if hucre_verisi["kimlik"] in self._aktif:', "        if False:"),

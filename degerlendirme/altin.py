@@ -29,7 +29,9 @@ ALGORITMA = "sha256"  # V-007
 KUME_ADI = "altin"  # V-023
 SOHBET_BICIMI, JSON_BICIMI = "sohbet", "json"  # V-023 (1. parça), K-039: cevap biçimi
 CEVAP_ALANLARI = ("parca", "kaynak", "onaylayan", "bagimsiz_insan_cevabi", "cevaplar", "cevap_kaynaklari")  # K-039
-CEVAP_KAYNAKLARI = ("kullanıcı", "LLM taslağı, kullanıcı onaylı")  # K-039: cevap başına kaynak
+KULLANICI_KAYNAGI, LLM_TASLAGI = "kullanıcı", "LLM taslağı, kullanıcı onaylı"  # K-039: cevap başına kaynak
+CEVAP_KAYNAKLARI = (KULLANICI_KAYNAGI, LLM_TASLAGI)  # K-039
+CEVAP_ZORUNLU = ("kaynak", "onaylayan", "bagimsiz_insan_cevabi", "cevaplar")  # ÖK-001: altın satırının okuduğu alanlar
 ORNEK_GIRINTISI = 2  # V-023: soru dosyasındaki örnek JSON okunur girintiyle
 
 
@@ -90,7 +92,7 @@ def _goster(ad):
 def _json_bicimi(parca_no, adet):
     ornek = {"parca": parca_no, "kaynak": "danışman", "onaylayan": "kullanıcı", "bagimsiz_insan_cevabi": False,
              "cevaplar": {"1": EMIN_DEGIL, "2": EMIN_DEGIL},
-             "cevap_kaynaklari": {"1": CEVAP_KAYNAKLARI[1], "2": CEVAP_KAYNAKLARI[0]}}
+             "cevap_kaynaklari": {"1": LLM_TASLAGI, "2": KULLANICI_KAYNAGI}}
     return [
         "## Cevap biçimi (JSON)", "",
         f"Dosya: `degerlendirme/altin/kullanici_cevaplari_{parca_no}.json` (UTF-8). Alanlar:", "",
@@ -197,6 +199,37 @@ def kullanici_cevaplarini_coz(metin, adet):
     if set(cevaplar) != set(range(1, adet + 1)):
         raise ValueError(f"1..{adet} arası her soru tam bir kez cevaplanmalı")
     return cevaplar
+
+
+def kullanici_cevaplarini_denetle(kayit, parca_no, adet):
+    """K-039: kullanıcı cevap dosyasının biçimi. Hata mesajına cevap değeri yazılmaz. Döner: cevap sayısı ve
+    "LLM taslağı, kullanıcı onaylı" kayıt sayısı (cevap başına kaynak yoksa None, 1. parçanın eski biçimi)."""
+    eksik = [a for a in CEVAP_ZORUNLU if a not in kayit]
+    if eksik:
+        raise ValueError(f"eksik alan: {eksik}")
+    if "parca" in kayit and kayit["parca"] != parca_no:
+        raise ValueError(f"dosya {parca_no}. parçanın değil")
+    if not isinstance(kayit["bagimsiz_insan_cevabi"], bool):
+        raise ValueError("bagimsiz_insan_cevabi true ya da false olmalı")
+    beklenen = {str(n) for n in range(1, adet + 1)}
+    if set(kayit["cevaplar"]) != beklenen:
+        raise ValueError(f"cevaplar 1..{adet} arası her soruyu tam bir kez içermeli ({len(kayit['cevaplar'])} anahtar var)")
+    gecerli = tuple(HARFLER + EMIN_DEGIL)
+    gecersiz = sorted((n for n, h in kayit["cevaplar"].items() if h not in gecerli), key=int)
+    if gecersiz:
+        raise ValueError(f"geçersiz cevap değeri olan sorular: {gecersiz}")
+    kaynaklar = kayit.get("cevap_kaynaklari")
+    if kaynaklar is None:
+        return {"n": adet, "llm_taslagi": None}
+    if set(kaynaklar) != beklenen:
+        raise ValueError("cevap_kaynaklari, cevaplar ile aynı soru numaralarını içermeli")
+    gecersiz = sorted((n for n, k in kaynaklar.items() if k not in CEVAP_KAYNAKLARI), key=int)
+    if gecersiz:
+        raise ValueError(f"geçersiz cevap kaynağı olan sorular: {gecersiz}")
+    llm = sum(1 for k in kaynaklar.values() if k == LLM_TASLAGI)
+    if llm and kayit["bagimsiz_insan_cevabi"]:
+        raise ValueError("LLM taslağı olan cevap varken bagimsiz_insan_cevabi true olamaz (ÖK-001)")
+    return {"n": adet, "llm_taslagi": llm}
 
 
 def karsilastir(kullanici, uretec):

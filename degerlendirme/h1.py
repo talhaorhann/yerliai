@@ -36,7 +36,7 @@ from cekirdek.iliski_semasi import iliski_semasi_yukle
 from cekirdek.mudahale import PUANLI, mudahale_ozeti, mudahale_testi
 from cekirdek.plazma import cevapla
 from cekirdek.vektor_hizli import HizliKodKitabi
-from degerlendirme.altin import BILGI_YETMEZ, EMIN_DEGIL, HARFLER
+from degerlendirme.altin import BILGI_YETMEZ, EMIN_DEGIL, HARFLER, LLM_TASLAGI, kullanici_cevaplarini_denetle
 from degerlendirme.istatistik import bootstrap_araligi, clopper_pearson
 from degerlendirme.kisa_yol import KisaYolHatasi
 
@@ -249,14 +249,23 @@ def _altin_etiketi(kayit):
     if kayit is None:
         return "kullanıcı cevap yok"
     etiket = f"kaynak={kayit['kaynak']}, onaylayan={kayit['onaylayan']}"
+    if "cevap_kaynaklari" in kayit:  # K-039: cevap başına kaynak
+        llm = sum(1 for k in kayit["cevap_kaynaklari"].values() if k == LLM_TASLAGI)
+        etiket += f"; {llm}/{len(kayit['cevap_kaynaklari'])} cevap LLM taslağı, kullanıcı onaylı"
     return etiket + ("" if kayit.get("bagimsiz_insan_cevabi") else " (bağımsız insan cevabı değil, ÖK-001)")
+
+
+def _llm_taslagi(kayit):
+    if kayit is None or "cevap_kaynaklari" not in kayit:
+        return None
+    return sum(1 for k in kayit["cevap_kaynaklari"].values() if k == LLM_TASLAGI)
 
 
 def altin_ozeti(satirlar, kullanici):
     parcalar = {}
     for s in satirlar:
         parcalar.setdefault(s["parca"], []).append(s)
-    return {str(p): {"etiket": _altin_etiketi(kullanici.get(p)), "n": len(g),
+    return {str(p): {"etiket": _altin_etiketi(kullanici.get(p)), "llm_taslagi": _llm_taslagi(kullanici.get(p)), "n": len(g),
                      "kullanici_cevapli": sum(1 for s in g if s["kullaniciyla_ayni"] is not None),
                      "kullaniciyla_ayni": sum(1 for s in g if s["kullaniciyla_ayni"]),
                      "emin_degil": sum(1 for s in g if s["kullanici_harfi"] == EMIN_DEGIL),
@@ -410,11 +419,12 @@ def _kos(kok, klasor, dna_yolu, cikis, kip):
 
 def altin_rapor_metni(ozet):
     satirlar = ["# H1 altın küme (kapıya girmez, ÖK-002 §4)", "", "LLM'siz çekirdek.", "",
-                "| Parça | Kaynak | N | Kullanıcı cevaplı | Kullanıcıyla aynı | Emin değil | Üreteçle aynı | "
-                "Seçenek dışı |", "|---|---|---|---|---|---|---|---|"]
+                "| Parça | Kaynak | LLM taslağı (kullanıcı onaylı) | N | Kullanıcı cevaplı | Kullanıcıyla aynı | "
+                "Emin değil | Üreteçle aynı | Seçenek dışı |", "|---|---|---|---|---|---|---|---|---|"]
     for p, s in ozet.items():
-        satirlar.append(f"| {p} | {s['etiket']} | {s['n']} | {s['kullanici_cevapli']} | {s['kullaniciyla_ayni']} | "
-                        f"{s['emin_degil']} | {s['uretecle_ayni']} | {s['secenek_disi']} |")
+        llm = "—" if s["llm_taslagi"] is None else s["llm_taslagi"]
+        satirlar.append(f"| {p} | {s['etiket']} | {llm} | {s['n']} | {s['kullanici_cevapli']} | "
+                        f"{s['kullaniciyla_ayni']} | {s['emin_degil']} | {s['uretecle_ayni']} | {s['secenek_disi']} |")
     return "\n".join(satirlar) + "\n"
 
 
@@ -434,6 +444,7 @@ def _altin(kok, dna_yolu, cikis):
         yol = klasor / f"kullanici_cevaplari_{p}.json"
         if yol.exists():
             kullanici[p] = json.loads(yol.read_text(encoding="utf-8"))
+            kullanici_cevaplarini_denetle(kullanici[p], p, sum(1 for s in sorular if s["parca"] == p))  # K-039
     hucreler = _dna(kok, dna_yolu, sema)
     kk = HizliKodKitabi(ayar.deger("vektor_tohum"), ayar.deger("vektor_boyutu"))
     prm = kosu_parametreleri(ayar, KIP_ALTIN)

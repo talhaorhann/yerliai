@@ -54,7 +54,7 @@
     "bootstrap_tekrar": {"deger": 10000, "kaynak": "V-044"},
     "istatistik_tohum": {"deger": 2027, "kaynak": "V-044"},
     "ara_kayit_araligi": {"deger": 25, "kaynak": "V-044"},
-    "kilitli_veri_dosyalari": {"deger": ["degerlendirme/veri/tanimlar_v1.json", "ONKAYIT.md", "degerlendirme/altin/kullanici_cevaplari_1.json", "veri/dna/akrabalik_dna_v8.json"], "kaynak": "V-008"}
+    "kilitli_veri_dosyalari": {"deger": ["degerlendirme/veri/tanimlar_v1.json", "ONKAYIT.md", "degerlendirme/altin/kullanici_cevaplari_1.json", "veri/dna/akrabalik_dna_v8.json", "degerlendirme/altin/kullanici_cevaplari_2.json"], "kaynak": "V-008"}
   },
   "bayraklar": {
     "deneysel": {"deger": false, "kaynak": "KODLAMA_PROMPTU §5"},

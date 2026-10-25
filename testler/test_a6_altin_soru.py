@@ -75,5 +75,55 @@ class SoruDosyasiTesti(unittest.TestCase):
             altin.soru_dosyasi_yaz(KLASOR, 9, Path(d) / "x.md")
 
 
+def kayit(adet=3, kaynaklar=None, **ek):
+    k = {"parca": 2, "kaynak": "deneme", "onaylayan": "kullanıcı", "bagimsiz_insan_cevabi": False,
+         "cevaplar": {str(n): "?" for n in range(1, adet + 1)}}
+    if kaynaklar is not None:
+        k["cevap_kaynaklari"] = {str(n): kaynaklar[(n - 1) % len(kaynaklar)] for n in range(1, adet + 1)}
+    return {**k, **ek}
+
+
+class CevapDenetimTesti(unittest.TestCase):
+    """K-039: kullanıcı cevap dosyası biçimi kodla denetlenir; içerik yazdırılmaz. Kayıtlar sentetiktir."""
+    LLM, KUL = altin.CEVAP_KAYNAKLARI[1], altin.CEVAP_KAYNAKLARI[0]
+
+    def test_gecerli_kayit_ve_llm_sayisi(self):
+        o = altin.kullanici_cevaplarini_denetle(kayit(kaynaklar=[self.LLM, self.KUL]), 2, 3)
+        self.assertEqual((o["n"], o["llm_taslagi"]), (3, 2))
+        o = altin.kullanici_cevaplarini_denetle(kayit(), 2, 3)  # eski biçim: cevap başına kaynak yok
+        self.assertEqual((o["n"], o["llm_taslagi"]), (3, None))
+
+    def test_bicim_hatalari_reddedilir(self):
+        kotuler = [
+            kayit(adet=2),  # eksik soru
+            kayit(adet=4),  # fazla soru
+            dict(kayit(), cevaplar={"1": "A", "2": "E", "3": "B"}),  # geçersiz harf
+            kayit(kaynaklar=["başka"]),  # geçersiz kaynak
+            dict(kayit(kaynaklar=[self.LLM]), cevap_kaynaklari={"1": self.LLM}),  # anahtarlar farklı
+            kayit(kaynaklar=[self.LLM], bagimsiz_insan_cevabi=True),  # LLM taslağı varken bağımsız denmiş
+            kayit(parca=1),  # yanlış parça
+            {k: v for k, v in kayit().items() if k != "onaylayan"},  # alan eksik
+            dict(kayit(), bagimsiz_insan_cevabi="hayır"),  # mantıksal değer değil
+        ]
+        for k in kotuler:
+            with self.subTest(kayit=k), self.assertRaises(ValueError):
+                altin.kullanici_cevaplarini_denetle(k, 2, 3)
+
+    def test_hata_mesajinda_cevap_yok(self):
+        k = dict(kayit(), cevaplar={"1": "A", "2": "E", "3": "B"})
+        with self.assertRaises(ValueError) as h:
+            altin.kullanici_cevaplarini_denetle(k, 2, 3)
+        self.assertNotIn("'A'", str(h.exception))
+
+    def test_altin_ozeti_llm_taslagini_acikca_yazar(self):
+        from degerlendirme import h1
+        kullanici = {2: kayit(kaynaklar=[self.LLM])}
+        satir = {"parca": 2, "kullaniciyla_ayni": True, "kullanici_harfi": "A", "uretecle_ayni": True, "cekirdek_harfi": "A"}
+        ozet = h1.altin_ozeti([satir], kullanici)["2"]
+        self.assertEqual(ozet["llm_taslagi"], 3)
+        self.assertIn("3/3 cevap LLM taslağı, kullanıcı onaylı", ozet["etiket"])
+        self.assertIn("LLM taslağı", h1.altin_rapor_metni(h1.altin_ozeti([satir], kullanici)))
+
+
 if __name__ == "__main__":
     unittest.main()
