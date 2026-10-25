@@ -20,6 +20,7 @@ HAT = "degerlendirme/bellek_hatti.py"
 URE = "degerlendirme/uretec.py"
 H1 = "degerlendirme/h1.py"
 BAS = "degerlendirme/h1_baski.py"
+ALT = "degerlendirme/altin.py"
 
 MUTASYONLAR = [
     # K-032 §4: H2 kapısı
@@ -109,6 +110,9 @@ MUTASYONLAR = [
     ("onaysız tohum değişiyor", H1, "                if tohum not in onayli:\n                    raise H1Hatasi",
      "                if False:\n                    raise H1Hatasi"),
     ("kayıttaki onaysız değişim kabul ediliyor", H1, "    if onaysiz:\n        raise H1Hatasi", "    if False:\n        raise H1Hatasi"),
+    # K-039: altın küme soru dosyası
+    ("JSON cevap biçimi eklenmiyor", ALT, "        satirlar += _json_bicimi(parca_no, len(sorular))", "        pass"),
+    ("başka parçanın soruları alınıyor", ALT, ' if k["parca"] == parca_no]', "]"),
     # V-056: bellek deposu
     ("geri alma aktiften düşürmüyor", BEL, '            self._aktif.pop(veri["kimlik"], None)', "            pass"),
     ("çift kabul denetlenmiyor", BEL, '        if hucre_verisi["kimlik"] in self._aktif:', "        if False:"),

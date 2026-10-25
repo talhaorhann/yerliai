@@ -1,12 +1,14 @@
 # Altın küme: Parça 2 (50 soru)
 
+Bu parça, çekirdeğin soy ağacı sorularına verdiği cevapların onaylı cevaplarla ne kadar örtüştüğünü ölçer; sonuç ayrı satırda raporlanır, kapı kararına girmez (ÖK-002 §4).
+
 **Nasıl okunur:** «Kişi 1 → r → Kişi 2» demek, Kişi 2, Kişi 1'in r'sidir.
 **Soru:** «Kişi 1 → ? → Kişi 3» demek, Kişi 3, Kişi 1'in nesidir?
 
 Verilen bilgiler soruyu cevaplamaya yetmiyorsa **D** seçin. Emin değilseniz **?** yazın.
 Her soru kendi içinde ayrı bir ailedir; kişi numaraları sorudan soruya değişir.
 
-**Cevapları sohbete tek satırda yazın.** Örnek: `1B 2A 3D 4? 5C ...`
+**Cevaplar bir JSON dosyasıyla verilir;** biçimi dosyanın sonunda (Cevap biçimi).
 
 ## Soru 1
 
@@ -584,3 +586,33 @@ A) oğul  ·  B) kız  ·  C) dayı  ·  D) Bilgi yetmez
 **Kişi 1 → ? → Kişi 4**
 
 A) gelin  ·  B) dede  ·  C) yeğen  ·  D) Bilgi yetmez
+
+## Cevap biçimi (JSON)
+
+Dosya: `degerlendirme/altin/kullanici_cevaplari_2.json` (UTF-8). Alanlar:
+
+- `parca`: 2 (tamsayı).
+- `kaynak`: cevapları kim hazırladı (serbest metin).
+- `onaylayan`: cevapları kim onayladı.
+- `bagimsiz_insan_cevabi`: `true` yalnız her cevap kullanıcının kendi bağımsız cevabıysa; bir cevap bile LLM taslağıysa `false` (ÖK-001).
+- `cevaplar`: `"1"`den `"50"`e her soru numarası tam bir kez; değer `"A"`, `"B"`, `"C"`, `"D"`, `"?"`.
+- `cevap_kaynaklari`: `cevaplar` ile aynı anahtarlar; değer `"kullanıcı"` ya da `"LLM taslağı, kullanıcı onaylı"`.
+
+Örnek (yalnız biçim; değerler gerçek cevap değildir, iki soru gösterilmiştir):
+
+```json
+{
+  "parca": 2,
+  "kaynak": "danışman",
+  "onaylayan": "kullanıcı",
+  "bagimsiz_insan_cevabi": false,
+  "cevaplar": {
+    "1": "?",
+    "2": "?"
+  },
+  "cevap_kaynaklari": {
+    "1": "LLM taslağı, kullanıcı onaylı",
+    "2": "kullanıcı"
+  }
+}
+```

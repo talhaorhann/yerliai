@@ -2,7 +2,8 @@
 
 Sorular üreteçten ayrı tohumla hazırlanır, kullanıcı üretecin cevabını görmeden A/B/C/D ile cevaplar.
 Altın kümede "beklenen" cevap kullanıcının cevabıdır; kodun cevabı yalnız karşılaştırma içindir.
-Kullanım: python3 -m degerlendirme.altin uret
+JSON cevap biçimi (K-039): parça soru dosyası yalnız soru kaydından (`altin_sorular.jsonl`) yeniden yazılır; cevap
+dosyaları okunmaz. Kullanım: python3 -m degerlendirme.altin uret | soru <parça_no>
 """
 import dataclasses
 import hashlib
@@ -26,6 +27,10 @@ BILGI_YETMEZ = "Bilgi yetmez"  # V-023
 EMIN_DEGIL = "?"  # V-023
 ALGORITMA = "sha256"  # V-007
 KUME_ADI = "altin"  # V-023
+SOHBET_BICIMI, JSON_BICIMI = "sohbet", "json"  # V-023 (1. parça), K-039: cevap biçimi
+CEVAP_ALANLARI = ("parca", "kaynak", "onaylayan", "bagimsiz_insan_cevabi", "cevaplar", "cevap_kaynaklari")  # K-039
+CEVAP_KAYNAKLARI = ("kullanıcı", "LLM taslağı, kullanıcı onaylı")  # K-039: cevap başına kaynak
+ORNEK_GIRINTISI = 2  # V-023: soru dosyasındaki örnek JSON okunur girintiyle
 
 
 @dataclasses.dataclass(frozen=True)
@@ -82,15 +87,43 @@ def _goster(ad):
     return ad.replace("_", " ")
 
 
-def parca_metni(parca_no, sorular):
+def _json_bicimi(parca_no, adet):
+    ornek = {"parca": parca_no, "kaynak": "danışman", "onaylayan": "kullanıcı", "bagimsiz_insan_cevabi": False,
+             "cevaplar": {"1": EMIN_DEGIL, "2": EMIN_DEGIL},
+             "cevap_kaynaklari": {"1": CEVAP_KAYNAKLARI[1], "2": CEVAP_KAYNAKLARI[0]}}
+    return [
+        "## Cevap biçimi (JSON)", "",
+        f"Dosya: `degerlendirme/altin/kullanici_cevaplari_{parca_no}.json` (UTF-8). Alanlar:", "",
+        f"- `parca`: {parca_no} (tamsayı).",
+        "- `kaynak`: cevapları kim hazırladı (serbest metin).",
+        "- `onaylayan`: cevapları kim onayladı.",
+        "- `bagimsiz_insan_cevabi`: `true` yalnız her cevap kullanıcının kendi bağımsız cevabıysa; bir cevap bile "
+        "LLM taslağıysa `false` (ÖK-001).",
+        f"- `cevaplar`: `\"1\"`den `\"{adet}\"`e her soru numarası tam bir kez; değer "
+        + ", ".join(f"`\"{h}\"`" for h in HARFLER + EMIN_DEGIL) + ".",
+        "- `cevap_kaynaklari`: `cevaplar` ile aynı anahtarlar; değer "
+        + " ya da ".join(f"`\"{k}\"`" for k in CEVAP_KAYNAKLARI) + ".", "",
+        "Örnek (yalnız biçim; değerler gerçek cevap değildir, iki soru gösterilmiştir):", "",
+        "```json", json.dumps(ornek, ensure_ascii=False, indent=ORNEK_GIRINTISI), "```", ""]
+
+
+def parca_metni(parca_no, sorular, bicim=SOHBET_BICIMI):
+    """Parça soru metni. Yalnız olgular, sorgu ve seçenekler yazılır; doğru cevap kullanılmaz."""
+    if bicim not in (SOHBET_BICIMI, JSON_BICIMI):
+        raise ValueError(f"bilinmeyen cevap biçimi: {bicim}")
+    cevap_satiri = ("**Cevapları sohbete tek satırda yazın.** Örnek: `1B 2A 3D 4? 5C ...`" if bicim == SOHBET_BICIMI
+                    else "**Cevaplar bir JSON dosyasıyla verilir;** biçimi dosyanın sonunda (Cevap biçimi).")
     satirlar = [
         f"# Altın küme: Parça {parca_no} ({len(sorular)} soru)", "",
         "**Nasıl okunur:** «Kişi 1 → r → Kişi 2» demek, Kişi 2, Kişi 1'in r'sidir.",
         "**Soru:** «Kişi 1 → ? → Kişi 3» demek, Kişi 3, Kişi 1'in nesidir?", "",
         f"Verilen bilgiler soruyu cevaplamaya yetmiyorsa **{HARFLER[-1]}** seçin. Emin değilseniz **{EMIN_DEGIL}** yazın.",
         "Her soru kendi içinde ayrı bir ailedir; kişi numaraları sorudan soruya değişir.", "",
-        "**Cevapları sohbete tek satırda yazın.** Örnek: `1B 2A 3D 4? 5C ...`", "",
+        cevap_satiri, "",
     ]
+    if bicim == JSON_BICIMI:
+        satirlar[1:1] = ["", "Bu parça, çekirdeğin soy ağacı sorularına verdiği cevapların onaylı cevaplarla ne kadar "
+                         "örtüştüğünü ölçer; sonuç ayrı satırda raporlanır, kapı kararına girmez (ÖK-002 §4)."]
     for no, s in enumerate(sorular, start=1):
         e = s["etiketler"]
         satirlar += [f"## Soru {no}", ""]
@@ -100,7 +133,19 @@ def parca_metni(parca_no, sorular):
         satirlar += ["", f"**Kişi {e[str(sorgu['ozne'])]} → ? → Kişi {e[str(sorgu['nesne'])]}**", ""]
         satirlar.append("  ·  ".join(f"{h}) {_goster(sec)}" for h, sec in zip(HARFLER, s["secenekler"])))
         satirlar.append("")
+    if bicim == JSON_BICIMI:
+        satirlar += _json_bicimi(parca_no, len(sorular))
     return "\n".join(satirlar)
+
+
+def soru_dosyasi_yaz(klasor, parca_no, cikis):
+    """K-039: parçanın soru dosyasını JSON cevap biçimiyle yazar. Yalnız `altin_sorular.jsonl` okunur."""
+    with open(Path(klasor) / "altin_sorular.jsonl", encoding="utf-8") as f:
+        sorular = [k for k in map(json.loads, f.read().splitlines()) if k["parca"] == parca_no]
+    if not sorular:
+        raise ValueError(f"altın kümede {parca_no}. parça yok")
+    atomik_yaz(Path(cikis), parca_metni(parca_no, sorular, JSON_BICIMI).encode("utf-8"))
+    return len(sorular)
 
 
 def _jsonl(kayitlar):
@@ -162,10 +207,16 @@ def karsilastir(kullanici, uretec):
 
 
 def main(arg):
+    kok = Path(__file__).resolve().parents[1]
+    match arg:
+        case ["soru", parca]:
+            klasor = kok / "degerlendirme" / "altin"
+            adet = soru_dosyasi_yaz(klasor, int(parca), klasor / f"altin_soru_{parca}.md")
+            print(f"altin_soru_{parca}.md yazıldı: {adet} soru")
+            return 0
     if arg != ["uret"]:
         print(__doc__)
         return 1
-    kok = Path(__file__).resolve().parents[1]
     ayar = ayar_yukle(kok / "config.json")
     sema = iliski_semasi_yukle(kok / "sema" / "iliskiler_v1.json", kok / "kilit" / "sema_onayi.json",
                                kok / "sema" / "iliski_semasi_v1.schema.json")
