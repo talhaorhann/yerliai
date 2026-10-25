@@ -351,3 +351,15 @@ Bu ek ÖK-004 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
 - Çekirdek hiçbir tohumda koşmadı. Eşik gevşetilmedi.
 - Ön kayıtlı tohum 22, yalnız üreteçle sınandı: altı bölmenin hepsi kapıdan geçiyor (yön ters atılan aday 2539).
 - **K-039:** yerine tohum geçmesi danışman ve kullanıcı onayı ister. Onaylanırsa yerine kullanılmamış ilk tohum, 23 geçer (değişim hakkı 2'den 1'i). Onay gelmeden üretim tamamlanmaz, kapı koşmaz. Yeni manifest özetleri onaydan sonra bu ekin 4. bölümüne yazılır.
+
+### 4. Tohum 21 → 23 değişimi onaylandı (2026-10-25, kullanıcı ve danışman)
+
+- **Kapı:** kelime çantası kısa yol kapısı (K-008, `degerlendirme/kisa_yol.py` `kapi_denetle`). Eşik: dedektör doğruluğu ≤ şans + 0,05 (V-018). Bölme: **önsel-ters**.
+  - Tohum 21: ölçülen 0,445; şans 0,370; eşik 0,420; aşım 0,025.
+  - Önceki durum, tohum 15 (ÖK-003 eki §1): yine önsel-ters bölmesi; ölçülen 0,250; şans 0,180; eşik 0,230; aşım 0,020.
+  - İkisinde de öteki beş bölme geçti. İkisinde de çıkarılabilirlik denetimi önsel-ters bölmesinde aday atmadı.
+- **Koşullar:** 23, öteki tohumlarla (18, 19, 20, 22) aynı config ve aynı üretim koşullarıyla üretilir; başka ayar yok, eşik değişmez. Bu bir kapı koşusu değil, yalnız üretimdir.
+- **Kayıt:** `config.json` `h1_onayli_tohum_degisimleri` = [21 → 23, neden, tarih 2026-10-25, kalan hak 1]. Kalan son hak ancak yeniden onayla kullanılır.
+- Config bu yüzden değişti; bundan sonra geçerli özet:
+  - `config.json`: `feae40960a4f24f24121bdf74cea782c384593fd2f31f87b0115ebc0ee32890f`
+- 23 ya da başka bir tohum yine durursa üretim durur ve bildirilir. Yeni manifest özetleri bu ekin 5. bölümüne yazılır.

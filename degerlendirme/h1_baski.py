@@ -87,7 +87,7 @@ def olcum_tohumlari(ayar, klasor, kip):
         return ayar.deger("h1_gelistirme_tohumlari")
     if kip == KAPI:
         return h1.kapi_tohumlari(klasor, ayar.deger("h1_tohumlar"), ayar.deger("h1_tohum_degisim_siniri"),
-                                 ayar.deger("h1_onayli_tohum_degisimleri"))
+                                 h1._onaylar(ayar))
     raise ValueError(f"bilinmeyen tohum kipi: {kip}")
 
 

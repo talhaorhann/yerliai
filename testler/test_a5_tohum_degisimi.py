@@ -2,6 +2,7 @@
 
 Eşik gevşemez (üretim aynı ayarla çağrılır); en çok `sinir` değişim; yalnız kapı durması değişim sebebidir.
 K-039: değişim ancak danışman ve kullanıcı onayıyla yapılır; onaysız duran tohumda üretim durur ve nedeni bildirir.
+Onay {duran tohum: yerine geçecek tohum} biçimindedir; yerine geçen tohum kuralın seçtiğiyle aynı olmalıdır.
 Kapı koşusu tohumları üretim klasöründeki kayıttan alır; kayıt ön kayıtla, sınırla ve onaylarla tutarlı olmalıdır.
 """
 import tempfile
@@ -16,7 +17,6 @@ from degerlendirme.uretec import UretimDurduHatasi
 
 ON_KAYIT = [12, 13, 14, 15, 16]
 GELISTIRME = [7, 8, 9, 10, 11]
-HEPSI_ONAYLI = range(7, 30)  # testte her tohumun değişimi onaylı sayılır
 
 
 def ureteci(duranlar, baska=()):
@@ -34,36 +34,36 @@ def ureteci(duranlar, baska=()):
 class SecimTesti(unittest.TestCase):
     def test_durma_yoksa_on_kayit_aynen(self):
         uret, cagrilar = ureteci(set())
-        kullanilan, degisimler = h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, HEPSI_ONAYLI)
+        kullanilan, degisimler = h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, {})
         self.assertEqual((kullanilan, degisimler, cagrilar), (ON_KAYIT, [], ON_KAYIT))
 
     def test_duran_tohum_yerine_kullanilmamis_ilk_tohum(self):
         uret, cagrilar = ureteci({15})
-        kullanilan, degisimler = h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, HEPSI_ONAYLI)
+        kullanilan, degisimler = h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, {15: 17})
         self.assertEqual(kullanilan, [12, 13, 14, 17, 16])
         self.assertEqual(cagrilar, [12, 13, 14, 15, 17, 16])
         self.assertEqual(degisimler, [{"tohum": 15, "yerine": 17, "neden": "tohum 15: kapı"}])
 
     def test_yerine_gecen_de_durursa_siradaki(self):
         uret, _ = ureteci({13, 17, 18})
-        kullanilan, degisimler = h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, HEPSI_ONAYLI)
+        kullanilan, degisimler = h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, {13: 17, 17: 18, 18: 19})
         self.assertEqual(kullanilan, [12, 19, 14, 15, 16])
         self.assertEqual([(d["tohum"], d["yerine"]) for d in degisimler], [(13, 17), (17, 18), (18, 19)])
 
     def test_kullanilmis_tohum_atlanir(self):
         uret, _ = ureteci({12})
-        kullanilan, _ = h1.tohumlari_uret(uret, [12, 13], [7, 14, 15], 3, HEPSI_ONAYLI)
+        kullanilan, _ = h1.tohumlari_uret(uret, [12, 13], [7, 14, 15], 3, {12: 16})
         self.assertEqual(kullanilan, [16, 13])
 
     def test_sinir_asilirsa_durur(self):
         uret, _ = ureteci({12, 17, 18, 19})
         with self.assertRaises(h1.H1Hatasi):
-            h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, HEPSI_ONAYLI)
+            h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, {12: 17, 17: 18, 18: 19, 19: 20})
 
     def test_kapi_disindaki_durma_degisim_sebebi_degildir(self):
         uret, cagrilar = ureteci(set(), baska={14})
         with self.assertRaises(UretimDurduHatasi):
-            h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, HEPSI_ONAYLI)
+            h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, {})
         self.assertEqual(cagrilar, [12, 13, 14])
 
 
@@ -73,7 +73,7 @@ class OnayTesti(unittest.TestCase):
     def test_onaysiz_duran_tohumda_uretim_durur(self):
         uret, cagrilar = ureteci({15})
         with self.assertRaises(h1.H1Hatasi) as h:
-            h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, onayli=())
+            h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, onayli={})
         self.assertIn("15", str(h.exception))
         self.assertIn("onay", str(h.exception))
         self.assertEqual(cagrilar, [12, 13, 14, 15])  # yerine başka tohum denenmedi
@@ -81,10 +81,16 @@ class OnayTesti(unittest.TestCase):
     def test_yalniz_onayli_tohum_degisir(self):
         uret, _ = ureteci({13, 17})
         with self.assertRaises(h1.H1Hatasi):  # 13 onaylı, yerine geçen 17 de durdu ama onaylı değil
-            h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, onayli=(13,))
+            h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, onayli={13: 17})
         uret, _ = ureteci({13, 17})
-        kullanilan, _ = h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, onayli=(13, 17))
+        kullanilan, _ = h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, onayli={13: 17, 17: 18})
         self.assertEqual(kullanilan, [12, 18, 14, 15, 16])
+
+    def test_onaydaki_yerine_tohum_kuralinkiyle_ayni_olmali(self):
+        uret, cagrilar = ureteci({15})
+        with self.assertRaises(h1.H1Hatasi):
+            h1.tohumlari_uret(uret, ON_KAYIT, GELISTIRME, 3, onayli={15: 20})
+        self.assertEqual(cagrilar, [12, 13, 14, 15])
 
     def test_kayittaki_onaysiz_degisim_reddedilir(self):
         with tempfile.TemporaryDirectory() as d:
@@ -92,13 +98,25 @@ class OnayTesti(unittest.TestCase):
                 "on_kayit": ON_KAYIT, "kullanilan": [12, 13, 14, 17, 16],
                 "degisimler": [{"tohum": 15, "yerine": 17, "neden": "kapı"}]}))
             with self.assertRaises(h1.H1Hatasi):
-                h1.kapi_tohumlari(d, ON_KAYIT, 3, onayli=())
-            self.assertEqual(h1.kapi_tohumlari(d, ON_KAYIT, 3, onayli=(15,)), [12, 13, 14, 17, 16])
+                h1.kapi_tohumlari(d, ON_KAYIT, 3, onayli={})
+            with self.assertRaises(h1.H1Hatasi):
+                h1.kapi_tohumlari(d, ON_KAYIT, 3, onayli={15: 18})
+            self.assertEqual(h1.kapi_tohumlari(d, ON_KAYIT, 3, onayli={15: 17}), [12, 13, 14, 17, 16])
 
-    def test_config_onay_listesi_bos_baslar(self):
+    def test_onay_kayitlari(self):
+        kayit = [{"tohum": 21, "yerine": 23, "neden": "kapı", "tarih": "2026-10-25", "kalan_hak": 1}]
+        self.assertEqual(h1.onay_haritasi(kayit, 2), {21: 23})
+        kotuler = [[{k: v for k, v in kayit[0].items() if k != "neden"}],  # alan eksik
+                   [dict(kayit[0], kalan_hak=2)],  # kalan hak tutmuyor
+                   kayit + [dict(kayit[0], kalan_hak=0)]]  # aynı tohum iki kez
+        for k in kotuler:
+            with self.subTest(kayit=k), self.assertRaises(h1.H1Hatasi):
+                h1.onay_haritasi(k, 2)
+
+    def test_config_onaylari_bicime_uyar(self):
         from cekirdek.altyapi.ayar import ayar_yukle
         ayar = ayar_yukle(Path(__file__).resolve().parents[1] / "config.json")
-        self.assertEqual(ayar.deger("h1_onayli_tohum_degisimleri"), [])
+        h1.onay_haritasi(ayar.deger("h1_onayli_tohum_degisimleri"), ayar.deger("h1_tohum_degisim_siniri"))
 
 
 class KayitTesti(unittest.TestCase):
@@ -115,34 +133,34 @@ class KayitTesti(unittest.TestCase):
     def test_gecerli_kayit(self):
         self.yaz({"on_kayit": ON_KAYIT, "kullanilan": [12, 13, 14, 17, 16],
                   "degisimler": [{"tohum": 15, "yerine": 17, "neden": "kapı"}]})
-        self.assertEqual(h1.kapi_tohumlari(self.klasor, ON_KAYIT, 3, HEPSI_ONAYLI), [12, 13, 14, 17, 16])
+        self.assertEqual(h1.kapi_tohumlari(self.klasor, ON_KAYIT, 3, {15: 17}), [12, 13, 14, 17, 16])
 
     def test_kayit_yoksa_durur(self):
         with self.assertRaises(h1.H1Hatasi):
-            h1.kapi_tohumlari(self.klasor, ON_KAYIT, 3, HEPSI_ONAYLI)
+            h1.kapi_tohumlari(self.klasor, ON_KAYIT, 3, {15: 17})
 
     def test_on_kayit_uyusmazsa_durur(self):
         """Kullanılan tohumlar ön kayıtla tutarlı görünse bile kaydın kendi ön kayıt listesi aynı olmalı."""
         self.yaz({"on_kayit": [12, 13, 14, 15, 17], "kullanilan": ON_KAYIT, "degisimler": []})
         with self.assertRaises(h1.H1Hatasi):
-            h1.kapi_tohumlari(self.klasor, ON_KAYIT, 3, HEPSI_ONAYLI)
+            h1.kapi_tohumlari(self.klasor, ON_KAYIT, 3, {15: 17})
 
     def test_degisimle_tutarsiz_kayit_durur(self):
         self.yaz({"on_kayit": ON_KAYIT, "kullanilan": [12, 13, 14, 18, 16],
                   "degisimler": [{"tohum": 15, "yerine": 17, "neden": "kapı"}]})
         with self.assertRaises(h1.H1Hatasi):
-            h1.kapi_tohumlari(self.klasor, ON_KAYIT, 3, HEPSI_ONAYLI)
+            h1.kapi_tohumlari(self.klasor, ON_KAYIT, 3, {15: 17})
 
     def test_degisimsiz_farkli_tohum_durur(self):
         self.yaz({"on_kayit": ON_KAYIT, "kullanilan": [12, 13, 14, 17, 16], "degisimler": []})
         with self.assertRaises(h1.H1Hatasi):
-            h1.kapi_tohumlari(self.klasor, ON_KAYIT, 3, HEPSI_ONAYLI)
+            h1.kapi_tohumlari(self.klasor, ON_KAYIT, 3, {15: 17})
 
     def test_sinirdan_fazla_degisim_durur(self):
         degisimler = [{"tohum": a, "yerine": b, "neden": "kapı"} for a, b in ((12, 17), (13, 18), (14, 19), (15, 20))]
         self.yaz({"on_kayit": ON_KAYIT, "kullanilan": [17, 18, 19, 20, 16], "degisimler": degisimler})
         with self.assertRaises(h1.H1Hatasi):
-            h1.kapi_tohumlari(self.klasor, ON_KAYIT, 3, HEPSI_ONAYLI)
+            h1.kapi_tohumlari(self.klasor, ON_KAYIT, 3, {15: 17})
 
     def test_kayit_ozeti_on_kayit_ekinde_aranir(self):
         self.yaz({"on_kayit": [12], "kullanilan": [12], "degisimler": []})

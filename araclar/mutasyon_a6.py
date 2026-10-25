@@ -104,11 +104,15 @@ MUTASYONLAR = [
     ("atma doluluğu düşürmüyor", BAS, "            doluluk -= 1", "            pass"),
     ("kapı tohumları kayıttan alınmıyor", BAS,
      '        return h1.kapi_tohumlari(klasor, ayar.deger("h1_tohumlar"), ayar.deger("h1_tohum_degisim_siniri"),\n'
-     '                                 ayar.deger("h1_onayli_tohum_degisimleri"))',
+     '                                 h1._onaylar(ayar))',
      '        return ayar.deger("h1_tohumlar")'),
     # K-039: tohum değişimi onayı
     ("onaysız tohum değişiyor", H1, "                if tohum not in onayli:\n                    raise H1Hatasi",
      "                if False:\n                    raise H1Hatasi"),
+    ("onaydaki yerine tohum denetlenmiyor", H1, "                if onayli[tohum] != siradaki:\n                    raise",
+     "                if False:\n                    raise"),
+    ("onay kaydında kalan hak denetlenmiyor", H1, '        if k["kalan_hak"] != sinir - len(harita) - 1:\n',
+     "        if False:\n"),
     ("kayıttaki onaysız değişim kabul ediliyor", H1, "    if onaysiz:\n        raise H1Hatasi", "    if False:\n        raise H1Hatasi"),
     # K-039: altın küme soru dosyası
     ("JSON cevap biçimi eklenmiyor", ALT, "        satirlar += _json_bicimi(parca_no, len(sorular))", "        pass"),
