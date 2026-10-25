@@ -22,7 +22,10 @@ KODLAMA_PROMPTU §4 "Bağımsız inceleme" kuralı: bu metni yazan oturumdan ba�
 8. K-034: V-053 çıkarılabilirlik tanımı (yalnız olgular + üç dünya varsayımı) kodda doğru mu, kaba kuvvetle denetleniyor mu? (`degerlendirme/dunya.py`, `testler/test_a6_olgudan_cikarilabilirlik.py`)
 9. K-036: eşikler (doğruluk 1,0; en az 3 kanıt; müdahale 0,9) config'ten mi geliyor, kodda gevşetilmiş bir yer var mı?
 10. KODLAMA_PROMPTU §2 (dil veridir, sihirli sayı, kâhin yalıtımı) ve §6 (mutasyon): A6 kodunda ihlal var mı?
-11. Açık varsayımlar V-057 ve V-058: kodda tarif edildiği gibi mi uygulanmış? V-058'de onaylı formül (a·b·c) mi kullanılıyor, b·c yalnız raporda mı?
+11. V-057 (gözlem bölümü ve maskeleme; `raporlar/A6_gosterim_v8.md` "Yöntem") kodda tarif edildiği gibi mi uygulanmış?
+12. K-037: bellek geçidinde müdahale puanı yalnız b·c mi; (a) ve a·b·c kanıtta saklanıyor ama eşiğe girmiyor mu? H1'deki müdahale testi (`cekirdek/mudahale.py`, K-021) değişmemiş mi?
+13. K-034 ve ÖK-004 §3.1: üreteç H1 için V-053 tanımını mı kullanıyor (`degerlendirme/uretec.py` `cikarilabilirlik_tanimi`, config `h1_cikarilabilirlik_tanimi`)? Eski tanım eski koşuları bayt bayt yeniden üretebiliyor mu?
+14. K-038: DNA v8 kilitli mi (`config.json` `kilitli_veri_dosyalari`, `kilit/kilitler.json`), özeti ÖK-004 ekindekiyle aynı mı?
 
 **Kasıtlı hata denemesi.** En az 5 kendi seçtiğin kasıtlı hatayı A6 koduna (yukarıdaki dosyalara) tek tek sok ve test takımının yakalayıp yakalamadığını yaz. `araclar/mutasyon_a6.py` listesindekileri tekrarlama.
 

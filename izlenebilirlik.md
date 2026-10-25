@@ -61,5 +61,6 @@
 | sistem.md §8, §15, §16, EK A P7 (bellek hattı, anlatıcı yeri, bağımsızlık testi; K-035, V-056) | `degerlendirme/bellek_hatti.py` | `testler/test_a6_bellek_hatti.py`, `testler/test_a6_bellek.py` |
 | sistem.md §10, §11 (gözlem bölümleri; K-035, V-057) | `degerlendirme/uretec.py` | `testler/test_a6_gozlem_bolumu.py` |
 | sistem.md §8, §18 (A6 gösterimi: gerçek DNA, gözlemli veri; K-035, V-057, V-058) | `degerlendirme/a6_gosterim.py` | `testler/test_a6_gosterim.py` |
+| sistem.md §2, §3, §5 (havuz ve eşleşme bütçesi baskısı ölçümü; ÖK-004 §4) | `degerlendirme/h1_baski.py` | `testler/test_a6_h1_baski.py` |
 | sistem.md §8, §15 (bellek deposu: salt ekleme, sürüm kilidi, geri alma; V-056) | `cekirdek/bellek.py` | `testler/test_a6_bellek.py` |
 | sistem.md §17, §15, §18 (iç dil sürüm 1; V-055) | `cekirdek/ic_dil.py`, `sema/ic_dil_v1.schema.json` | `testler/test_a6_ic_dil.py` |

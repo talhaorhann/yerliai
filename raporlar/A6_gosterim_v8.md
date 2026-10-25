@@ -7,9 +7,39 @@ Araç: `degerlendirme/a6_gosterim.py` (V-057). Ham sonuç: `raporlar/A6_gosterim
 - **Geçit:** bellek boş, her kural tek başına. Kuralın sonuç ilişkisindeki her gözlem birer birer maskelendi. Eşikler K-036 (geçici): doğruluk 1,0; en az 3 kanıt; müdahale 0,9.
 - Geçit "doğru/bozuk" etiketini görmez; ayrım yalnız bu rapordadır.
 
+> **Karar (2026-10-25):** K-037 ile V-058 önerisi kabul edildi. Bellek geçidinin kararı artık aşağıdaki tablonun sağ sütunudur (müdahale b·c). Sol sütun (a·b·c) yalnız karşılaştırma için kalır. Koşul: H2'de bozuk bir kural kabul edilirse K-037 yeniden açılır. Ham sonuç K-037'den önce üretildi; b·c değerleri orada `mudahale_bc` alanındadır.
+
+## Yöntem (V-057, kodlayıcı kararı)
+
+### Gözlem bölümü nasıl kurulur (`degerlendirme/uretec.py` `gozlem_bolumu`)
+
+1. Üreteçle (V-017) bir soy ağacı kurulur: 4 nesil, çift başına 2–4 çocuk.
+2. Kişiler, sorulu bölümlerdeki gibi seçilir:
+   - ağaçta rastgele bir zincir yürüyüşü (olağan ortamda 2–3, kaydırılmış ortamda 4–10 adım; sistem.md §10);
+   - artı 4 dikkat dağıtıcı doğrudan bağ (V-017); bunların uçları da kişilere katılır.
+3. Bölüm, seçilen kişiler arasındaki **bütün** ilişkileri içerir: temel ilişkiler (ebeveyn, çocuk, eş, kardeş) ve türetilmiş ilişkiler (dede, amca, kuzen, …). Her biri gerçek ağaçta doğrudur ve olgu olarak yazılır.
+   - Bunlar kâhin etiketi değil, bağımsız gözlemdir (K-035): bölümde sorgu yok, cevap yok, kâhin kaydı yazılmaz.
+   - Bir çift için en çok bir gözlem olur.
+4. Kişi numaraları rastgele karıştırılır; olguların sırası karıştırılır. Bölüm özeti (sha256) bölüme yazılır.
+5. Her ortamın bölümleri, ortam adıyla tohumlanmış ayrı bir rastgele sayı üretecinden gelir (`gozlem_bolumleri`); aynı tohum aynı bölümleri verir.
+
+### Maskeleme kuralı (`degerlendirme/gozlem_puani.py`, `cekirdek/bellek_gecidi.py` `maskeli_kos`)
+
+1. Her bölümde çekirdek önce maskesiz koşar.
+2. Sonra adayın sonuç ilişkisindeki her gözlem **birer birer** maskelenir. Maskelenen gözlem çekirdeğe hiç verilmez; kural onu kendi kendine onaylayamaz. Her maske için çekirdek iki kez koşar: yalnız bellekle ve bellek + adayla (bellek boşsa yalnız bir kez).
+3. Adayın soyu: adayın yazdığı kayıtlar ve onlardan (bellekteki kurallarla) türeyenler.
+4. Sayım çekirdek dışında yapılır:
+   - **doğru:** maskelenen gözlem soyca yeniden türetildi;
+   - **yanlış:** soydan bir tahmin görünen bir gözlemle şema çelişkisinde (dışlayıcı, işlevsel ya da ters). Aynı (tahmin, gözlem) çifti bölümde bir kez sayılır. Maskelenen gözlemle çelişki ayrıca sayılmaz: çekirdek tekdüze olduğundan aynı çelişki maskesiz koşuda zaten görünür;
+   - **çelişki:** soydan bir tahmin bellekten türemiş bir kayıtla ya da soyun kendisiyle çelişiyor;
+   - **katkı:** soyun ürettiği, bellekte olmayan ya da bellekte daha geç turda çıkan üçlüler;
+   - **müdahale:** cevabı soydan gelen maskeli sorularda b·c (K-037); (a) ve a·b·c kanıtta saklanır.
+5. Soydan türeyen başka ilişkilerdeki gözlemler maskelenmez. Bu yüzden onlar için "doğru" sayılmaz ama çelişkiler "yanlış" sayılır (temkinli yön).
+6. Ortam doğruluğu = doğru / (doğru + yanlış). Kanıt (doğru + yanlış) 3'ten azsa ortam "ölçülmedi" sayılır. Kararı çekirdeğin `karar_ver`'i verir: en kötü ortam esas alınır (EK A P7).
+
 ## Sonuç
 
-| | Onaylı formül (müdahale a·b·c) | V-058 önerisi (müdahale b·c) |
+| | Eski formül (müdahale a·b·c, karşılaştırma) | **Geçidin kararı (müdahale b·c, K-037)** |
 |---|---|---|
 | 244 doğru kural | **69 kabul**, 45 kısayol, 130 sınanamadı | **114 kabul**, 130 sınanamadı |
 | 112 bozuk kural | **93 yanlış**, 19 sınanamadı | 93 yanlış, 19 sınanamadı |

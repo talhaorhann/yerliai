@@ -297,3 +297,13 @@
 - Altın küme 2. parça (kullanıcı; H1 yeniden koşusundan önce).
 - H1 taze tohumlarla tek sefer (son deneme).
 - A6 bağımsız incelemesi (istek metni hazır).
+
+### A6 sonrası kararlar ve H1 son deneme hazırlığı (2026-10-25)
+
+- **K-037 (V-058 EVET):** bellek geçidinde müdahale puanı b·c; (a) ve a·b·c kanıtta saklanır, eşiğe girmez; H1'deki K-021 değişmedi. Koşul: H2'de bozuk bir kural kabul edilirse yeniden açılır. Test önce; mutasyon 1/1.
+- **V-057:** kodlayıcı kararı; yöntem `raporlar/A6_gosterim_v8.md` "Yöntem" bölümünde.
+- **K-038:** DNA v8 (244 kural) son sürüm, kilitli (`4a4af6b8…`). DNA'ya dokunulmaz.
+- **V-053 üretece bağlandı (K-034):** `uretec.Parametreler.cikarilabilirlik_tanimi` ("agac" K-029 varsayılan, "olgu" K-034); H1 config'i "olgu". Test önce; mutasyon 3/3.
+- **ÖK-004 yazıldı ve kilitlendi:** iki önceki koşuya atıf, tohumlar 18–22, değişim hakkı 2, eki §1'de config ve DNA özetleri.
+- **Altın küme 2. parça cevapları yok:** ÖK-004 §5'e göre yeni bölümler üretilmedi, kapı koşmadı.
+- **Baskı ölçüm aracı:** `degerlendirme/h1_baski.py` (test önce).

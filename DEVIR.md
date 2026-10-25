@@ -2,8 +2,10 @@
 
 Oturum başında oku: `sistem.md` ilgili bölüm, `ILERLEME.md`, `VARSAYIMLAR.md`, `KARARLAR.md`, `ONKAYIT.md`.
 
-- **Güncel durum (2026-10-25):** `DURUM.md`. A6'da K-035 maskeli bellek geçidi yazıldı; gerçek DNA gösterimi `raporlar/A6_gosterim_v8.md`. Açık: V-058 (kullanıcı), DNA "son sürüm" (danışman), altın küme 2. parça, A6 bağımsız incelemesi.
-- **DNA:** v8 depoda ama kilitli değil; danışman "son sürüm" demeden kilitlenmez. "Son sürüm" gelince sıra K-033'te: V-053'ü üretece bağla, ÖK-004'ü (ilk iki koşunun sonuçları ve nedenleri, DNA ve config özetleri) yaz ve kilitle, H1'i taze tohumlarla (≥ 18) tek sefer koş. Geçmezse dur, kullanıcıya dön.
+- **Güncel durum (2026-10-25):** `DURUM.md`. K-037 (geçitte müdahale b·c; H2'de bozuk kural kabul edilirse yeniden açılır), K-038 (DNA v8 son sürüm, kilitli), ÖK-004 yazıldı ve kilitlendi.
+- **DNA:** v8 son sürüm ve kilitli (K-038). **DNA'ya dokunulmaz;** sorun çıkarsa danışmana bildirilir.
+- **H1 son deneme:** altın küme 2. parça cevapları gelince ÖK-004 §5 sırası: `.venv/bin/python -m degerlendirme.h1 uret uretilen/h1_v3` → `ozetler` çıktısını ÖK-004 eki §2'ye yaz, kilitle → `kapi uretilen/h1_v3 veri/dna/akrabalik_dna_v8.json uretilen/h1_v3_kapi_1` bir kez → `yeni_egitim`, `altin` → kapı özetini `raporlar/H1_v3_kapi_ozet.json`'a koy, "## ÖK-004 sonucu" bölümüne sha256'sıyla yaz. Sonuca bakarak ayar yapılmaz; geçmezse dur, kullanıcıya dön.
+- **H2 kapısı kapalı kalır;** kapıyı gevşeten kod yazılmaz. `asama-5-hizli-yol-dogrulanmadi` dalı silinmez.
 - **FİKİRLER:** Her aşama kapanışında `FIKIRLER.md`'ye bak; yaklaşan madde varsa kullanıcıya hatırlat.
 
 - **Ne çalışıyor:** A0–A4 kapandı (etiketler yerel: `asama-0`…`asama-4`). A5'te hızlı yol kuruldu (V-040) ve çekirdek döngüsüne bağlandı (V-042), sonuçlar referansla bit-eşit. İlk kurulum `sh kur.sh`; sonra `.venv/bin/python araclar/kostur.py` → 389/389, 0 atlanan, 0 xfail (V-041).

@@ -41,6 +41,7 @@
     "testler/test_a6_bellek_hatti.py": "26295a312718bf48fcafbddc964fb7929f96f87586fb85a8ff66c791bd2588d8",
     "testler/test_a6_gosterim.py": "9a7fa1f0df08f980c2be0b78b92f7c976ab8802f447c8fb8a4068e729ad26e7c",
     "testler/test_a6_gozlem_bolumu.py": "8c89efda5a17317fd163c87bd258dcba075d7a7e777e64f6e3ceaa354a99efe5",
+    "testler/test_a6_h1_baski.py": "733731b068a1256edd24361408ad132f895c8e9549f8765989c691e5e4265cf2",
     "testler/test_a6_h2_kapisi.py": "318e680f0d0dfecb68d511fb9454d4aa3b1b741f67eec0caa0657243fc00c7d9",
     "testler/test_a6_ic_dil.py": "a5d28d7e187b0433d7e8aae9736880e93bcafda97410e97437141dd9b54f8f99",
     "testler/test_a6_olgudan_cikarilabilirlik.py": "13c9d53099f46321f7684e650d2d869056cb47987e472c42a3c4a26c3f62fd0c",
