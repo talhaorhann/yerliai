@@ -26,6 +26,7 @@ class KilitTesti(unittest.TestCase):
         beklenen = {p.relative_to(KOK).as_posix() for p in (KOK / "testler").rglob("*") if p.is_file()
                     and "__pycache__" not in p.parts}
         beklenen.add("config.json")
+        beklenen.add("config_h2.json")  # V-060
         self.assertEqual(sorted(beklenen - kilitli), [], "kilitsiz test/eşik dosyası var")
 
 

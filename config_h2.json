@@ -1,0 +1,48 @@
+{
+  "surum": "h2-1",
+  "degerler": {
+    "kirmizi_gizli_aile_sayisi": {
+      "deger": 4,
+      "kaynak": "K-041"
+    },
+    "kirmizi_aile_basina": {
+      "deger": 40,
+      "kaynak": "K-041"
+    },
+    "kirmizi_gorunur_aileler": {
+      "deger": [
+        "G1",
+        "G2",
+        "G3",
+        "G4"
+      ],
+      "kaynak": "K-041"
+    },
+    "aday_halka_esigi": {
+      "deger": 0.5,
+      "kaynak": "V-060"
+    },
+    "aday_guvenilirligi": {
+      "deger": 1.0,
+      "kaynak": "V-060"
+    },
+    "h2_kilitli_veri_dosyalari": {
+      "deger": [],
+      "kaynak": "V-060"
+    }
+  },
+  "bayraklar": {
+    "deneysel": {
+      "deger": false,
+      "kaynak": "KODLAMA_PROMPTU §5"
+    },
+    "kahin": {
+      "deger": false,
+      "kaynak": "KODLAMA_PROMPTU §5"
+    },
+    "api_yedegi": {
+      "deger": false,
+      "kaynak": "KODLAMA_PROMPTU §5"
+    }
+  }
+}

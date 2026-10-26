@@ -688,3 +688,19 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - **Şablon ailesi T = K5/21 (S-1):** 35.544.873 aday. Sayım iki yoldan, biri depodaki `kanonik_bicim` ile, doğrulandı. Taslaktaki 124.068 çift sayımdı; 7 temel ilişkili zincir uzayı 62.027'dir.
 - **Felsefi:** kısmen. Kullanıcıya giden sorular ÖK-005 taslağı §14'tedir: geri bulma tanımı, gövde-merkezli bölüm, aileler, gizli mutantlar, Hawaii/Iroquois/Omaha, Z12 şeması. Kalanlar teknik.
 - **Durum:** KARARA BAĞLANDI (K-041, 2026-10-26: Kapı 0 onayı, altı soruya evet).
+
+## V-060: H2 B0'da kodlayıcının teknik seçimleri
+- **Bölüm:** sistem.md §13; KODLAMA_PROMPTU §2 (Özgünlük), §5 (Config); K-041.
+- **Uygulanan:**
+  - **Ayrı H2 ayar dosyası:** `config_h2.json`. Yapısı `config.json` ile aynıdır; her değerin kaynağı yazılı ve hash kilidindedir. `config.json` değişmez, çünkü onun özeti ÖK-004 ekinde H1'in ayarı olarak kayıtlı (K-040: config kilitli kalır). Bu, KODLAMA_PROMPTU §5'teki "tek config" kuralından dar bir sapmadır: H1 bir dosyada, H2 bir dosyada.
+  - **Keşif hattı `kesif/` paketinde (K-041 istisnası):**
+    - `degerlendirme/` ve `tercuman/` import edilmez.
+    - `cekirdek/` onu import edemez (`CekirdekImportTesti`).
+    - Yapı testleri bu paketi de tarar: başlık, sihirli sayı, dil veridir, izlenebilirlik.
+  - **Aday hücresi:** çekirdek geçidine giden adayın halka eşiği 0,5, güvenilirliği 1,0. DNA v8'deki bütün kurallar böyledir; A6 gösterimi bu değerlerle ölçüldü.
+  - **Gizli kırmızı takım dosyası:**
+    - Sohbete ek olarak gönderilmez, çünkü ekler kodlayıcıya otomatik gösterilir. Depoya doğrudan konur: `degerlendirme/kirmizi_gizli/kirmizi_gizli_v1.json`, `asama-6` dalı.
+    - Kodlayıcı yalnız `python3 -m kesif.aday <dosya> kirmizi_gizli` ile denetler. Araç yalnız sayıları ve özeti yazar; hata iletilerinde değer yoktur.
+    - Özet `config_h2.json` `h2_kilitli_veri_dosyalari` listesine girer ve kilitlenir.
+- **Doğrulama:** `testler/test_b0_aday.py`.
+- **Felsefi:** hayır (dosya yeri, ayar dosyası adı, teslim yolu). **Durum:** KODLAYICI KARARI (2026-10-26); raporda bildirilir.

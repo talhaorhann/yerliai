@@ -6,7 +6,7 @@ from pathlib import Path
 KOK = Path(__file__).resolve().parents[1]
 
 # Kod paketleri (testler hariç, V-004)
-KOD_KLASORLERI = ("cekirdek", "tercuman", "degerlendirme", "karsilastirma", "araclar")
+KOD_KLASORLERI = ("cekirdek", "tercuman", "degerlendirme", "karsilastirma", "araclar", "kesif")  # K-041: kesif
 
 # V-002
 ETIKET = r"(sistem\.md §\d+|KODLAMA_PROMPTU §\d+|V-\d{3}|K-\d{3})"

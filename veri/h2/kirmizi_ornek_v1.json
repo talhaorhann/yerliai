@@ -1,0 +1,122 @@
+{
+  "sema_surumu": "1",
+  "dosya_turu": "kirmizi_gorunur",
+  "yazan": "kodlayıcı (örnek dosya)",
+  "tarih": "2026-10-26",
+  "aileler": [
+    {
+      "ad": "G1",
+      "aciklama": "Bozuk sonuç: doğru görünen gövde, aynı dışlayıcı gruptan yanlış sonuç ilişkisi."
+    },
+    {
+      "ad": "G2",
+      "aciklama": "Aşırı genel: gerekli bir halkası (ör. cinsiyet tanığı) silinmiş kural."
+    },
+    {
+      "ad": "G3",
+      "aciklama": "Kapsam artefaktı: geliştirme havuzunda yalnız A1 ailesinde tutan, A2 ya da A3'te yanlışlanan kural."
+    },
+    {
+      "ad": "G4",
+      "aciklama": "Gizli ters: baş çiftine dokunmadan, simetrik ve işlevsel bir ilişkinin iki adımlık geri dönüşüyle başın tersini okuyan kural."
+    }
+  ],
+  "adaylar": [
+    {
+      "sema_surumu": "1",
+      "kimlik": "ornek_g1_bozuk_sonuc",
+      "halkalar": [
+        {
+          "gen": "baba",
+          "sol": "X",
+          "sag": "Y"
+        },
+        {
+          "gen": "baba",
+          "sol": "Y",
+          "sag": "Z"
+        }
+      ],
+      "sonuc": {
+        "gen": "dayı",
+        "sol": "X",
+        "sag": "Z"
+      },
+      "farkli": [],
+      "oi": false,
+      "kaynak": {
+        "tur": "kirmizi_gorunur",
+        "aile": "G1",
+        "tohum": null,
+        "ust": []
+      },
+      "tanik_ozeti": null,
+      "surum": 1,
+      "okunus": "Y, X'in babası; Z, Y'nin babası ise Z, X'in dayısıdır. (Sahte: Z, X'in dedesidir.)"
+    },
+    {
+      "sema_surumu": "1",
+      "kimlik": "ornek_g2_asiri_genel",
+      "halkalar": [
+        {
+          "gen": "kız",
+          "sol": "X",
+          "sag": "Y"
+        }
+      ],
+      "sonuc": {
+        "gen": "baba",
+        "sol": "Y",
+        "sag": "X"
+      },
+      "farkli": [],
+      "oi": false,
+      "kaynak": {
+        "tur": "kirmizi_gorunur",
+        "aile": "G2",
+        "tohum": null,
+        "ust": []
+      },
+      "tanik_ozeti": null,
+      "surum": 1,
+      "okunus": "Y, X'in kızı ise X, Y'nin babasıdır. (Sahte: X kadın olabilir; cinsiyeti gösteren halka yok.)"
+    },
+    {
+      "sema_surumu": "1",
+      "kimlik": "ornek_g4_gizli_ters",
+      "halkalar": [
+        {
+          "gen": "oğul",
+          "sol": "Z",
+          "sag": "X"
+        },
+        {
+          "gen": "eş",
+          "sol": "Z",
+          "sag": "W"
+        },
+        {
+          "gen": "eş",
+          "sol": "W",
+          "sag": "Y"
+        }
+      ],
+      "sonuc": {
+        "gen": "baba",
+        "sol": "X",
+        "sag": "Y"
+      },
+      "farkli": [],
+      "oi": false,
+      "kaynak": {
+        "tur": "kirmizi_gorunur",
+        "aile": "G4",
+        "tohum": null,
+        "ust": []
+      },
+      "tanik_ozeti": null,
+      "surum": 1,
+      "okunus": "X, Z'nin oğlu; W, Z'nin eşi; Y, W'nin eşi ise Y, X'in babasıdır. (Sahte: eşin eşi Z'nin kendisidir; Z, X'in annesi de olabilir.)"
+    }
+  ]
+}

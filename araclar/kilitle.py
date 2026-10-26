@@ -24,6 +24,11 @@ def kilitlenecekler():
     # K-009: onaylı veri dosyaları (ör. gizli tanımlar) config'teki listeden; araç yalnız hash alır, içeriği kullanmaz
     ayar = json.loads((KOK / "config.json").read_text(encoding="utf-8"))
     dosyalar.extend(KOK / y for y in ayar["degerler"]["kilitli_veri_dosyalari"]["deger"])
+    h2 = KOK / "config_h2.json"  # V-060: H2 ayarı ve H2'nin kilitli veri dosyaları (ör. gizli kırmızı takım dosyası)
+    if h2.is_file():
+        dosyalar.append(h2)
+        h2_ayar = json.loads(h2.read_text(encoding="utf-8"))
+        dosyalar.extend(KOK / y for y in h2_ayar["degerler"]["h2_kilitli_veri_dosyalari"]["deger"])
     return sorted(p.relative_to(KOK).as_posix() for p in dosyalar)
 
 

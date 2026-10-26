@@ -7,7 +7,7 @@ import unittest
 from testler.yardimci import (ETIKET_DESENI, KIMLIK_DESENI, KOK, agac, goreli, importlar, kayitli_kimlikler,
                               kod_dosyalari)
 
-PROJE_PAKETLERI = {"cekirdek", "tercuman", "degerlendirme", "karsilastirma", "araclar", "testler"}
+PROJE_PAKETLERI = {"cekirdek", "tercuman", "degerlendirme", "karsilastirma", "araclar", "testler", "kesif"}
 
 
 def ayar_degeri(ad):
@@ -59,10 +59,18 @@ class CekirdekImportTesti(unittest.TestCase):
 class BagimlilikYonuTesti(unittest.TestCase):
     def test_kahin_yalnizca_degerlendirmede(self):
         """degerlendirme/ yalnız kendisi ve testler tarafından import edilebilir (kâhin yalıtımı)."""
-        for paket in ("cekirdek", "tercuman", "karsilastirma", "araclar"):
+        for paket in ("cekirdek", "tercuman", "karsilastirma", "araclar", "kesif"):
             for yol in paket_dosyalari(paket):
                 for kok, tam, _, satir in importlar(yol):
                     self.assertNotEqual(kok, "degerlendirme", f"{goreli(yol)}:{satir}")
+
+    def test_kesif_llm_ve_karsilastirmaya_baglanmaz(self):
+        """K-041: keşif hattı (sayaç, M0) kâhine, LLM tercümanına ve taban hatlara bağlanmaz; H2'de LLM önerici yok."""
+        dosyalar = paket_dosyalari("kesif")
+        self.assertTrue(dosyalar)
+        for yol in dosyalar:
+            for kok, _, _, satir in importlar(yol):
+                self.assertNotIn(kok, {"degerlendirme", "tercuman", "karsilastirma", "<dinamik>"}, f"{goreli(yol)}:{satir}")
 
     def test_karsilastirma_kimseye_sizmaz(self):
         for paket in ("cekirdek", "tercuman", "degerlendirme"):

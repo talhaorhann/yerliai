@@ -6,7 +6,7 @@ import unittest
 from testler.yardimci import (BASLIK_DESENI, KIMLIK_DESENI, KOK, agac, goreli, kayitli_kimlikler,
                               kod_dosyalari)
 
-PAKETLER = ("cekirdek", "cekirdek/altyapi", "tercuman", "degerlendirme", "karsilastirma")
+PAKETLER = ("cekirdek", "cekirdek/altyapi", "tercuman", "degerlendirme", "karsilastirma", "kesif")
 VERI_KLASORLERI = ("veri", "sema", "kilit")
 KAYIT_DOSYALARI = ("VARSAYIMLAR.md", "KARARLAR.md", "ILERLEME.md", "DEVIR.md", "DURUM.md",
                    "izlenebilirlik.md", "BAGIMLILIKLAR.md", "LISANSLAR.md", "ONKAYIT.md",
