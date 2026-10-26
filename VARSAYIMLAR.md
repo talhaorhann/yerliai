@@ -768,3 +768,15 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - **Çekirdek özeti** (`araclar/cekirdek_ozeti.py`): `cekirdek/` altındaki bütün .py dosyalarının (göreli yol, içerik özeti) sıralı listesinin sha256 özeti; __pycache__ sayılmaz.
 - **Doğrulama:** `testler/test_b0_butce_bagla.py`.
 - **Felsefi:** hayır (kodlanabilirlik ayrıntısı; ölçütler K-041 ile onaylı). **Durum:** KODLAYICI KARARI (2026-10-26).
+
+## V-064: M0 koşucusu
+- **Bölüm:** sistem.md §13; K-041 (ÖK-005 taslağı §4 madde 22; B0 bitişi: M0 üç kez bit-aynı).
+- **Uygulanan:** `degerlendirme/h2_m0.py`.
+  - Yalnız geliştirme havuzunu kurar; final ve kontrol havuzları açılmaz.
+  - M0'ı üretim kademesinde (K5) koşar; aday listesini (`m0_adaylar.jsonl`) ve özeti (`m0_ozet.json`: M0 özeti + 16 dünya özeti) atomik yazar.
+  - Süre yalnız ekrana yazılır; dosyalar bit-aynı kalır.
+  - Süreç başına 4 iş parçacığı; sonucu değiştirmez.
+  - Aday listesi büyük olabileceği için depoya girmez; özeti ve dosya özeti `raporlar/` altına yazılır.
+  - DNA v8 bu adımda kullanılmaz (M0'ın DNA kurallarından kaçını bulduğuna bakılmaz; o yalnız B2b finalinde).
+- **Doğrulama:** `testler/test_b0_m0_kosucu.py`.
+- **Felsefi:** hayır. **Durum:** KODLAYICI KARARI (2026-10-26).
