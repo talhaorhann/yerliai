@@ -8,6 +8,10 @@ SEKILLER = {
     "boyut": "vektör boyutu d (K-014)",
     "kayit": "üçlü kaydı sırası (bilgi tabanı / havuz satırları)",
     "aday": "karşılaştırılan aday sırası (benzerlik matrisinin sütunları, kod kitabı girdileri)",
+    "iliski": "ilişki sırası (şemadaki sıra; H2 sembolik sayaç tensörleri, K-041)",
+    "kisi": "dünya ya da gözlem bölümündeki kişi sırası (H2 sembolik sayaç, K-041)",
+    "govde": "aynı biçimli şablon gövdelerinin toplu sırası (H2 sembolik sayaç, K-041)",
+    "bas": "baş ilişkisi sırası (H2 sembolik sayaç, K-041)",
 }
 
 

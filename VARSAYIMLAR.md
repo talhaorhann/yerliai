@@ -705,3 +705,22 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - **Şablonda yazım düzeltmesi:** ÖK-005 taslağı §6'da "tek halkalı gövde başla aynı olamaz" yazıyordu. Onaylı sayılar (§6, `H2_TASARIM.md` §6.1) ise baştan beri daha geniş kuralla hesaplanmıştı: gövde başın kendisini (aynı ilişki, X'ten Y'ye) içeremez. Böyle bir kural kendi sonucunu varsayar. Metin sayılara uyduruldu; sayılar değişmedi (`testler/test_b0_sablon.py`).
 - **Doğrulama:** `testler/test_b0_aday.py`, `testler/test_b0_sablon.py`.
 - **Felsefi:** hayır (dosya yeri, ayar dosyası adı, teslim yolu, yazım düzeltmesi). **Durum:** KODLAYICI KARARI (2026-10-26); raporda bildirilir.
+
+## V-061: Sembolik sayaç ve M0'ın uygulama ayrıntıları
+- **Bölüm:** sistem.md §3, §13; K-041 (ÖK-005 taslağı §4 madde 5, §6, §7, §13.2); V-059 (kapalı dünya).
+- **Uygulanan:**
+  - **Tahmin kümesi:** gövdenin X ile Y'ye bağladığı (A, B) çiftlerinin kümesi. Bir çift kaç yoldan gelirse gelsin bir kez sayılır (tanık).
+  - **Doğru ve yanlış (kapalı dünya):** doğru = (A, baş, B) olgusu var; yanlış = tahmin − doğru.
+  - **X = Y bağlaması:** OI kapalıyken X ile Y aynı kişiye bağlanabilir; bu (A, A) bir tahmindir ve kapalı dünyada yanlış sayılır.
+  - **OI:** birebir bağlama sayısı, değişken kümesinin bölüntüleri üzerinden Möbius tersinmesiyle hesaplanır. Yalnız OI'siz eşleşmesi boş olmayan gövdelerde hesaplanır (OI eşleşmesi onun altkümesidir).
+  - **İki yol:**
+    - referans: açık geri izleme, tek gövde;
+    - hızlı: aynı biçimli gövdeler toplu tensörle, açgözlü çift kasılımı, ara sonuç en çok iki kişi ekseni.
+    - İkisi rastgele dünyalarda birebir aynı sayıları verir. Bağlama sayıları float32'de tam sayıdır (2²⁴ altı); toplama sırası sonucu değiştirmez.
+  - **Parça boyu:** `config_h2.json` `sayac_parca_boyu` = 1024. Yalnız belleği sınırlar, sonucu değiştirmez (testli).
+  - **SEKILLER:** `cekirdek/sekiller.py` tablosuna yalnız eksen adları eklendi (iliski, kisi, govde, bas). Çekirdek davranışı değişmedi; çekirdek özeti B0 sonunda mühürlenir.
+  - **M0'ın girdisi:** geliştirme havuzunda her dünyanın tam olgu kümesi tek gözlem olarak verilir (kapalı dünya). Dünya ve olgu sırası sonucu değiştirmez.
+  - **PCA paydası hesaplanmaz.** Tasarımda "hesaplanır" denmişti, ama hiçbir eşik kullanmıyor.
+  - **Hız:** 38 kişilik bir A1 dünyasında K5/21 (903.203 gövde) 4 çekirdekle ≈23 s.
+- **Doğrulama:** `testler/test_b0_sayac.py`, `testler/test_b0_m0.py`.
+- **Felsefi:** hayır (uygulama ayrıntısı; ölçütler ÖK-005'te). **Durum:** KODLAYICI KARARI (2026-10-26).

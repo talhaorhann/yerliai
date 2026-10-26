@@ -68,3 +68,5 @@
 | sistem.md §13 (H2 tek aday şeması, kanonik kimlik, kırmızı takım dosyası denetimi; K-041, V-060) | `kesif/aday.py`, `sema/aday_v1.schema.json`, `sema/kirmizi_dosyasi_v1.schema.json`, `veri/h2/kirmizi_ornek_v1.json` | `testler/test_b0_aday.py` |
 | sistem.md §13 (H2 tohum türetme; K-041, ÖK-005 taslağı §5) | `kesif/tohum.py` | `testler/test_b0_sablon.py` |
 | sistem.md §3, §13 (tipli şablon ailesi T ve kademeleri K1–K5; K-041, ÖK-005 taslağı §6) | `kesif/sablon.py` | `testler/test_b0_sablon.py` |
+| sistem.md §3, §13 (sembolik sayaç: tanık, kapalı dünya, OI; referans + hızlı; K-041, V-061) | `kesif/sayac.py`, `cekirdek/sekiller.py` | `testler/test_b0_sayac.py` |
+| sistem.md §13 (M0: şablon uzayının kaba kuvvet sayımı, süzgeç, sıra, bit-aynı çıktı; K-041, V-061) | `kesif/m0.py` | `testler/test_b0_m0.py` |

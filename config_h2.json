@@ -75,6 +75,18 @@
     "sablon_uretim_kademesi": {
       "deger": "K5",
       "kaynak": "K-041"
+    },
+    "m0_en_az_tanik": {
+      "deger": 3,
+      "kaynak": "K-041"
+    },
+    "m0_en_cok_yanlis": {
+      "deger": 0,
+      "kaynak": "K-041"
+    },
+    "sayac_parca_boyu": {
+      "deger": 1024,
+      "kaynak": "V-061"
     }
   },
   "bayraklar": {

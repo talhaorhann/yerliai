@@ -3,7 +3,7 @@
   "dosyalar": {
     "ONKAYIT.md": "69a3825aa357f12e8243da73bb033a20e34f6220c875c77a3aabfbe6ef7ab515",
     "config.json": "feae40960a4f24f24121bdf74cea782c384593fd2f31f87b0115ebc0ee32890f",
-    "config_h2.json": "4cd7eecf2b0003a9e3062b57ac9ffb4286d82d20cfe7430411a434aa3c2b1022",
+    "config_h2.json": "97975959bd98fd9ecae2685b32c6170b2cda25438ee6846cb8cedb746ebac14e",
     "degerlendirme/altin/kullanici_cevaplari_1.json": "306ee0a0c54d3d6972695ae8a0c8c14e8dff12e2d6ef084884a9fd345a5c45ff",
     "degerlendirme/altin/kullanici_cevaplari_2.json": "dcfba77c711ac7320ae9180625a0f7bd24d5401f0e79818b0d0077808f5e1186",
     "degerlendirme/veri/tanimlar_v1.json": "8f62d7ecf2ff39624f86bda8a5a3f48773afbd5e7a1084fd6a2ce058e96064e4",
@@ -49,7 +49,9 @@
     "testler/test_a6_ic_dil.py": "a5d28d7e187b0433d7e8aae9736880e93bcafda97410e97437141dd9b54f8f99",
     "testler/test_a6_olgudan_cikarilabilirlik.py": "13c9d53099f46321f7684e650d2d869056cb47987e472c42a3c4a26c3f62fd0c",
     "testler/test_b0_aday.py": "b83fde17ccad542594bfe4fa8da144b0ca2d0e8367a4bc55b32d7badc7059726",
+    "testler/test_b0_m0.py": "ba6e6887ab9016ab7c04d6b6d0c2cd76dd722d7fa9a52cf5af0cbb026a80da38",
     "testler/test_b0_sablon.py": "b1e220d041c788c2bb4cdc6349566de28a368ca394800b206b646e0003dcf756",
+    "testler/test_b0_sayac.py": "6c904f718c89a7e2c2168067ae2c210c38fd2dcb9fb76cdce01fd0c7bc916b86",
     "testler/yardimci.py": "94d60b0f98ae9fc0ac0474ab16418a2bd317610a64a57e01fdae996131ba959c",
     "testler/yardimci_senaryo.py": "df814a14803e2a60765b2fd127d456baabcce1d6032a2c7f173eba27f3da1580",
     "testler/yardimci_uzun_kosu.py": "0b43bf29ff8a16564668b6c3e5823c749082347dab534716c62e1e201ee74a6d",
