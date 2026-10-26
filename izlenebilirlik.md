@@ -76,3 +76,4 @@
 | sistem.md §10, §13 (derece-koruyan yeniden bağlama, boş dünya, boş-dünya sayacı; K-041, V-063) | `degerlendirme/h2_bagla.py` | `testler/test_b0_butce_bagla.py` |
 | sistem.md §13 (çekirdek dondurma sözleşmesi: çekirdek kod özeti; K-041, V-063) | `araclar/cekirdek_ozeti.py` | `testler/test_b0_butce_bagla.py` |
 | sistem.md §13 (M0 koşucusu, geliştirme havuzu, bit-aynı çıktı; K-041, V-064) | `degerlendirme/h2_m0.py` | `testler/test_b0_m0_kosucu.py` |
+| KODLAMA_PROMPTU §6 (Mutasyon sınaması, H2 B0; V-064) | `araclar/mutasyon_b0.py` | `testler/test_b0_aday.py` |

@@ -15,9 +15,7 @@ ALGORITMA = "sha256"  # V-007
 def ozet_al(klasor):
     klasor = Path(klasor)
     satirlar = []
-    for yol in sorted(klasor.rglob("*.py")):
-        if "__pycache__" in yol.parts:
-            continue
+    for yol in sorted(klasor.rglob("*.py")):  # __pycache__ yalnız .pyc içerir, sayılmaz
         icerik = hashlib.new(ALGORITMA, yol.read_bytes()).hexdigest()
         satirlar.append(f"{yol.relative_to(klasor).as_posix()} {icerik}\n")
     return hashlib.new(ALGORITMA, "".join(satirlar).encode("utf-8")).hexdigest()

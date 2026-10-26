@@ -115,6 +115,12 @@ class HavuzTesti(unittest.TestCase):
         self.assertEqual(len(ozetler["kontrol"]), 8)
         self.assertEqual(len(set(ozetler["kontrol"])), 8)
 
+    def test_yinelenen_dunya_durdurur(self):
+        from unittest import mock
+        tek = h2_dunya.havuz("kontrol", H2, TANIMLAR)[:1]
+        with mock.patch.object(h2_dunya, "havuz", return_value=tek * 2), self.assertRaises(ValueError):
+            h2_dunya.havuz_ozetleri(H2, TANIMLAR, ("kontrol",))
+
     def test_bilinmeyen_uretec_reddedilir(self):
         with self.assertRaises(ValueError):
             h2_dunya.aile_dunyasi("A9", {"uretec": "yok", "parametreler": {}}, 1, TANIMLAR)

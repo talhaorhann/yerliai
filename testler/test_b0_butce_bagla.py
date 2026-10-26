@@ -145,6 +145,15 @@ class BosDunyaSayaciTesti(unittest.TestCase):
         self.assertEqual((s.kosu, s.kabullu_kosu), (3, 2))
 
 
+class KilitKapsamiTesti(unittest.TestCase):
+    def test_h2_ayari_ve_kilitli_verileri_kilitlenir(self):
+        from araclar import kilitle
+        liste = kilitle.kilitlenecekler()
+        self.assertIn("config_h2.json", liste)
+        for y in H2.deger("h2_kilitli_veri_dosyalari"):
+            self.assertIn(y, liste)
+
+
 class CekirdekOzetiTesti(unittest.TestCase):
     def test_belirlenimci_ve_degisiklige_duyarli(self):
         self.assertEqual(cekirdek_ozeti.ozet_al(KOK / "cekirdek"), cekirdek_ozeti.ozet_al(KOK / "cekirdek"))
