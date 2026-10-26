@@ -72,3 +72,6 @@
 | sistem.md §13 (M0: şablon uzayının kaba kuvvet sayımı, süzgeç, sıra, bit-aynı çıktı; K-041, V-061) | `kesif/m0.py` | `testler/test_b0_m0.py` |
 | sistem.md §11, §13 (H2 dünya aileleri A1–A3, havuzlar, tam dünya olguları; K-041, V-062) | `degerlendirme/h2_dunya.py`, `degerlendirme/dunya.py` | `testler/test_b0_dunyalar.py` |
 | sistem.md §11, §13 (A3 ikinci bağımsız üretici, kendi tanım yorumlayıcısı; K-041, V-062) | `degerlendirme/ikinci_uretec.py` | `testler/test_b0_dunyalar.py` |
+| sistem.md §13 (H2 aşama 5 sorgu bütçesi defteri, tur anahtarı; K-041, V-063) | `degerlendirme/h2_butce.py` | `testler/test_b0_butce_bagla.py` |
+| sistem.md §10, §13 (derece-koruyan yeniden bağlama, boş dünya, boş-dünya sayacı; K-041, V-063) | `degerlendirme/h2_bagla.py` | `testler/test_b0_butce_bagla.py` |
+| sistem.md §13 (çekirdek dondurma sözleşmesi: çekirdek kod özeti; K-041, V-063) | `araclar/cekirdek_ozeti.py` | `testler/test_b0_butce_bagla.py` |

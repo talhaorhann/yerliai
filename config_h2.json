@@ -146,6 +146,38 @@
         }
       },
       "kaynak": "K-041"
+    },
+    "sorgu_tur_basina_aday": {
+      "deger": 200,
+      "kaynak": "K-041"
+    },
+    "sorgu_tur_basina_aday_genis": {
+      "deger": 400,
+      "kaynak": "K-041"
+    },
+    "sorgu_tur_siniri": {
+      "deger": 12,
+      "kaynak": "K-041"
+    },
+    "sorgu_basinc_boleni": {
+      "deger": 2,
+      "kaynak": "K-041"
+    },
+    "sorgu_defteri_kaynagi": {
+      "deger": "geçit",
+      "kaynak": "V-063"
+    },
+    "bagla_deneme_carpani": {
+      "deger": 10,
+      "kaynak": "K-041"
+    },
+    "bos_dunya_kosu_sayisi": {
+      "deger": 100,
+      "kaynak": "K-041"
+    },
+    "bos_dunya_tetik": {
+      "deger": 2,
+      "kaynak": "K-041"
     }
   },
   "bayraklar": {

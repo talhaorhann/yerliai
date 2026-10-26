@@ -749,3 +749,22 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
 
 - **Doğrulama:** `testler/test_b0_dunyalar.py`.
 - **Felsefi:** hayır (uygulama ayrıntısı; aileler K-041 ile onaylı). **Durum:** KODLAYICI KARARI (2026-10-26).
+
+## V-063: Sorgu defteri, yeniden bağlama, boş dünya ve çekirdek özeti
+- **Bölüm:** sistem.md §10, §13; K-041 (ÖK-005 taslağı §2.2, §4 madde 2, 3, 7, 13, 20, 27; §13.6).
+- **Uygulanan:**
+  - **Sorgu defteri** (`degerlendirme/h2_butce.py`):
+    - `OlayGunlugu` alt sınıfı; olay kaynağı "geçit".
+    - Tur sınırı 12; turda aday sınırı `tur_basina_aday` (anahtar kuralıyla 200 ya da 400, P\* tavanıyla).
+    - Önceki turda kullanılan taze dünya yanmıştır; grup sorgusu yoktur.
+    - Kaldığı yerden devam eder; kurcalanmış defter açılmaz.
+  - **Yeniden bağlama** (`degerlendirme/h2_bagla.py`): ÖK-005 taslağı §13.6.
+    - **Boş dünyada ileri taraf:** taslaktaki "her ters sınıfının bir temsilcisi" ikiden çok ilişkili sınıflarda kodlanamıyordu (ör. ebeveyn sınıfında iki ileri ilişki var). Kural şöyle kesinleştirildi:
+      - sınıf ikiye ayrılıyorsa sözlük sırasında ilk ilişkinin yanındaki bütün ilişkiler yeniden bağlanır, karşı yan onlardan yeniden yazılır;
+      - ayrılmıyorsa sınıfın tamamı yeniden bağlanır.
+    - **Ters adı:** ters olgunun adı, A'nın özgün dünyadaki ters adıdır; takas yalnız ters adı aynı iki olgu arasında yapılır. Böylece bütün ilişkilerin dereceleri ve şemanın ters tutarlılığı korunur (test).
+  - **Şemadan okunabilir kural:** tek halkalı, gövdesi başın tersi ya da simetriği olan, X ile Y'yi ters yönde bağlayan kural. Boş-dünya sayacı bunları saymaz.
+  - **Boş-dünya sayacı:** koşu sayısı ve kabullü koşu sayısı; kabullü koşu `bos_dunya_tetik` (2) olunca arama donar.
+  - **Çekirdek özeti** (`araclar/cekirdek_ozeti.py`): `cekirdek/` altındaki bütün .py dosyalarının (göreli yol, içerik özeti) sıralı listesinin sha256 özeti; __pycache__ sayılmaz.
+- **Doğrulama:** `testler/test_b0_butce_bagla.py`.
+- **Felsefi:** hayır (kodlanabilirlik ayrıntısı; ölçütler K-041 ile onaylı). **Durum:** KODLAYICI KARARI (2026-10-26).

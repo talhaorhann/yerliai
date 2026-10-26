@@ -50,7 +50,10 @@
   - Mevcut şemada bu bijeksiyonlardan 1536 tane vardır: 2⁶ × 4! (temel ilişkiler temele gider).
   - Takaslar: anne↔baba, oğul↔kız, erkek_kardeş↔kız_kardeş, babaanne↔anneanne, kayınpeder↔kayınvalide, gelin↔damat, ve {amca, dayı, hala, teyze} içinde her sıra.
 - **Yeniden bağlı ikiz:** adayın yalnız baş ilişkisi derece koruyarak yeniden bağlanır, tersleri yeniden yazılmaz (§13.6).
-- **Boş dünya:** her ters sınıfının bir temsilcisi (sözlük sırasında ilki) bağımsız yeniden bağlanır, tersleri ondan yeniden yazılır. Şema korunur, ilişkiler arası yapı bozulur.
+- **Boş dünya:** her ters sınıfının ileri tarafındaki ilişkiler bağımsız yeniden bağlanır, tersleri onlardan yeniden yazılır. Şema korunur, ilişkiler arası yapı bozulur.
+  - İleri taraf: sınıf ikiye ayrılıyorsa, sözlük sırasında ilk ilişkinin yanı (ör. ebeveyn yanı); ayrılmıyorsa (kendi tersi olan sınıf) sınıfın tamamı.
+  - Takas yalnız ters adı aynı iki olgu arasında yapılır; böylece ters ilişkilerin dereceleri de korunur.
+  - 2026-10-26, V-063: "bir temsilci" yazımı, ikiden çok ilişkili sınıflar için kodlanabilir hâle getirildi.
 
 ### 2.3 Z12/mod-n (B3 aktarım; ikinci alan, kullanıcı kararı 4)
 
