@@ -331,3 +331,15 @@
   - Toplam ≈ 360–750 süreç-saati.
 - **Bulgular:** yol-kesme aynen uygulansa 81 DNA kuralı sınanamaz (tavan %66,8); kural başına aile kümesiyle Wilson alt sınırı en çok %44.
 - Kod, deney ve çekirdek koşusu yok. Yalnız depoda olmayan sayma betikleri çalıştı. V-059 açık.
+
+### H2 B0, 2026-10-26 (K-041)
+
+- **Kapı 0:** altı soruya evet; sayaç + çekirdek hakem hattı; A6 incelemesi Kapı 2'ye. Danışmana gizli sahte kural isteği gönderildi (şema, 3 örnek, G1–G4, teslim yolu).
+- **Kurulan altyapı:**
+  - `kesif/`: aday, tohum, şablon, sayaç, M0;
+  - `degerlendirme/`: A2 evlilik oranı, A3 ikinci üretici, havuzlar, sorgu defteri, yeniden bağlama ve boş dünya, M0 koşucusu;
+  - çekirdek özeti; `config_h2.json`.
+- **M0:** üç koşu bit-aynı (885/901/907 s); aday uzayı 35.544.873; süzgeçten geçen 203.124.
+- **Mutasyon:** 48/48.
+- **Kapı 1:** mühür metni hazır, onay bekleniyor.
+- V-060…V-064 kayıtlı.

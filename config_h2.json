@@ -27,7 +27,9 @@
       "kaynak": "V-060"
     },
     "h2_kilitli_veri_dosyalari": {
-      "deger": [],
+      "deger": [
+        "ONKAYIT_H2_TASLAK.md"
+      ],
       "kaynak": "V-060"
     },
     "tohum_oneki": {

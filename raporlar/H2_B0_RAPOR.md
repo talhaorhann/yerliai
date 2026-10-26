@@ -18,7 +18,7 @@
 | Sorgu bütçesi defteri | `degerlendirme/h2_butce.py` | testli |
 | Derece-koruyan yeniden bağlama, boş dünya, boş-dünya sayacı | `degerlendirme/h2_bagla.py` | testli |
 | Çekirdek kod özeti (dondurma) | `araclar/cekirdek_ozeti.py` | testli |
-| Mutasyon sınaması | `araclar/mutasyon_b0.py` | bkz. aşağı |
+| Mutasyon sınaması | `araclar/mutasyon_b0.py` | 48/48 yakalandı (ilk turda 3 kaçtı; test eklendi, kod değişmedi) |
 
 ## M0 (geliştirme havuzu, 16 dünya, K5/21)
 
@@ -52,6 +52,11 @@ M0 tam koşu süresinin (ortanca 901 s) %1, %3, %10, %30 ve %100'ü, aşağı yu
 2. **A3'te çift terim:** taslakta "eş adayı atlanır" yazıyordu; "üretim durur" oldu (daha temkinli; V-062).
 3. **Boş dünyada "temsilci":** ikiden çok ilişkili sınıflarda kodlanamıyordu; "ileri taraf" kuralı yazıldı (V-063).
 4. **Aracın komut satırı:** var olmayan bir ayar anahtarını okuyordu; elle denemede yakalandı, düzeltildi, test eklendi.
+5. **Testlerdeki boşluklar (mutasyonla bulundu):**
+   - M0 sıra testi tek anahtarlı bir dünyada boş kalıyordu;
+   - M0'da OI sayımını sınayan test yoktu;
+   - havuz tohumunun ailesi denetlenmiyordu.
+   - Üçü için test eklendi.
 
 ## Kapı 1 için
 

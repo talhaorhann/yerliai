@@ -105,6 +105,13 @@ class HavuzTesti(unittest.TestCase):
         self.assertEqual([d.aile for d in dunyalar], ["A1"] * 3 + ["A2"] * 3 + ["A3"] * 2)
         self.assertEqual(h2_dunya.havuz("kontrol", H2, TANIMLAR), dunyalar)
 
+    def test_havuz_tohumu_etiketten(self):
+        from kesif import tohum
+        aileler, dagilim = H2.deger("dunya_aileleri"), H2.deger("havuz_dagilimi")["kontrol"]
+        beklenen = [h2_dunya.aile_dunyasi(a, aileler[a], tohum.tohum(H2, "havuz", "kontrol", a, i), TANIMLAR)
+                    for a in sorted(dagilim) for i in range(1, dagilim[a] + 1)]
+        self.assertEqual(h2_dunya.havuz("kontrol", H2, TANIMLAR), beklenen)
+
     def test_dunya_olgulari_tam(self):
         d = Dunya.uret(random.Random(1), 4, 2, 4)
         olg = h2_dunya.dunya_olgulari(d, TANIMLAR)

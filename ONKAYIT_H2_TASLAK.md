@@ -1,6 +1,6 @@
 # ÖK-005 TASLAĞI: H2 ön kaydı (mühürsüz)
 
-**Durum:** TASLAK, 2026-10-26. Mühürlü değildir. **Kapı 0 onaylandı (K-041, 2026-10-26):** altı soruya evet; sayaç + çekirdek hakem hattı; A6 bağımsız incelemesi Kapı 2'den önce.
+**Durum:** 2026-10-26. **Kapı 0 onaylandı (K-041):** altı soruya evet; sayaç + çekirdek hakem hattı; A6 bağımsız incelemesi Kapı 2'den önce. **B0 tamam:** M0 üç koşu bit-aynı. Bu metin B0 sonunda kilide alındı (`config_h2.json` `h2_kilitli_veri_dosyalari`); Kapı 1 onayıyla `ONKAYIT.md`'ye "## ÖK-005" olarak özetiyle mühürlenir (mühür metni: `raporlar/h2_b0/OK005_MUHUR_METNI.md`). Bundan sonraki değişiklikler yalnız "ÖK-005 eki" olarak yazılır.
 
 - **Kapı 0:** kullanıcı bu taslağı ve `H2_TASARIM.md`'yi okuyup onaylar. Sonra B0 başlar.
 - **Kapı 1:** B0 sonunda nihai ÖK-005 `ONKAYIT.md`'ye "## ÖK-005" başlığıyla yazılır ve kilitlenir. Yalnız hash'ler ve B0'da ölçülen süre eklenir; buradaki sayılar değişmez.

@@ -94,5 +94,32 @@ class M0Testi(unittest.TestCase):
             m0.m0(DUNYALAR, ADLAR, H2, kademe="K9")
 
 
+class M0SiraVeOiTesti(unittest.TestCase):
+    """Sıranın anlamlı olduğu (farklı tanık ve halka sayıları) ve OI'nin ayrı sayıldığı dünyalar."""
+
+    def test_siralama_farkli_anahtarlarla(self):
+        n = 9
+        olgular = ({(i, ADLAR[0], i + 1) for i in range(n - 1)} | {(i, ADLAR[1], i + 2) for i in range(n - 2)}
+                   | {(i + 1, ADLAR[2], i) for i in range(n - 1)})
+        s = m0.m0([m0.Dunya("F1", tuple(range(n)), tuple(sorted(olgular)))], ADLAR, H2, kademe="K3")
+        anahtar = [(-sum(a["dogru"].values()), a["halka_sayisi"], a["kanonik_kimlik"]) for a in s.adaylar]
+        self.assertGreaterEqual(len({k[:2] for k in anahtar}), 2)
+        self.assertEqual(anahtar, sorted(anahtar))
+
+    def test_oi_adayi_ayri_sayilir(self):
+        c = ADLAR[2]
+        olgular = {(a, c, b) for grup in ((0, 1, 2), (3, 4, 5)) for a in grup for b in grup if a != b}
+        s = m0.m0([m0.Dunya("F1", tuple(range(6)), tuple(sorted(olgular)))], ADLAR, H2, kademe="K3")
+        kayit = {"sema_surumu": "1", "kimlik": "x", "halkalar": [{"gen": c, "sol": "X", "sag": "Z"},
+                                                                 {"gen": c, "sol": "Z", "sag": "Y"}],
+                 "sonuc": {"gen": c, "sol": "X", "sag": "Y"}, "farkli": [], "oi": True,
+                 "kaynak": {"tur": "m0", "aile": None, "tohum": None, "ust": []}, "tanik_ozeti": None, "surum": 1}
+        kimlikler = {a["kanonik_kimlik"]: a for a in s.adaylar}
+        oili = ad.kanonik_kimlik(kayit, "sha256")
+        self.assertIn(oili, kimlikler)  # OI'li: X, Z, Y farklı → hep doğru
+        self.assertEqual(kimlikler[oili]["dogru"], {"F1": 12})
+        self.assertNotIn(ad.kanonik_kimlik(dict(kayit, oi=False), "sha256"), kimlikler)  # OI'siz: X = Y yanlış
+
+
 if __name__ == "__main__":
     unittest.main()
