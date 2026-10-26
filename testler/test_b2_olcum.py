@@ -38,9 +38,12 @@ class SinifTesti(Ortak):
                          {"h1": O.OZDES})  # uyutulmuş da özdeş sayılır
 
     def test_bozuk_genel_kapsamaz(self):
-        genel_ama_yanlis = tg.k([(tg.B, "X", "Z")], (tg.V, "X", "Z"))  # θ-kapsar ama finalde yanlış
-        self.assertTrue(kural.kapsar_mi(genel_ama_yanlis, tg.DOGRU) or True)
-        s = O.hedef_siniflari({"h": tg.DOGRU}, {"g": genel_ama_yanlis}, {}, self.final, self.sema, 8)
+        hedef = tg.k([(tg.B, "X", "Z"), (tg.B, "Z", "Y"), (tg.F, "X", "W")], (tg.V, "X", "Y"))
+        genel_ama_yanlis = tg.k([(tg.F, "X", "W"), (tg.B, "Z", "Y")], (tg.V, "X", "Y"))  # θ-kapsar, finalde yanlış
+        self.assertTrue(kural.kapsar_mi(genel_ama_yanlis, hedef))
+        self.assertFalse(O.yanlissiz_mi(genel_ama_yanlis, self.final))
+        self.assertTrue(O.yanlissiz_mi(hedef, self.final))
+        s = O.hedef_siniflari({"h": hedef}, {"g": genel_ama_yanlis}, {}, self.final, self.sema, 8)
         self.assertNotEqual(s["h"], O.GENEL)
 
     def test_kabul_siniflari(self):

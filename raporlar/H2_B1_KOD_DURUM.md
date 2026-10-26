@@ -25,8 +25,8 @@ H2'nin bütün kodu yazıldı ve sınandı. Kod yalnız geliştirme havuzunda ve
 8. Z12 adlarındaki rakamlar şema biçimi yüzünden yazıyla yazıldı (ör. kalan_üç_eş); "altı_öte" n = 24'te tek değerli olmadığı için alan şemasında tek değerli sayılmadı.
 
 ## Sınama
-- Yeni testler: B1–B3 için 14 test modülü. Tüm takım: (mutasyon sonrası yazılacak).
-- Mutasyon sınaması: (sonuç yazılacak).
+- Yeni testler: B1–B3 için 14 test modülü. Tüm takım: 619 test, hepsi geçti.
+- Mutasyon sınaması (koda bilerek hata sokup testlerin yakalayıp yakalamadığına bakmak): 55 mutantın 55'i yakalandı. İlk turda 2'si kaçtı: biri testin boş olmasındandı (test düzeltildi), öteki etkisiz bir değişiklikti (anlamlı bir mutantla değiştirildi).
 
 ## Sınır (raporlara yazılır)
 Gizli sahte kural ailelerinin yazarı danışmandır; danışman kodlayıcıyla aynı model ailesindendir. Bu yüzden gizli aileler tam bağımsız bir sınama sayılmaz.
