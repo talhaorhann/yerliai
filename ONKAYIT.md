@@ -456,3 +456,42 @@ Bu ek ÖK-004 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
    - Gizli kırmızı takım dosyası: B1'den önce danışmandan gelir; özeti §2 olarak eklenir.
    - K değerleri: B1 kalibrasyonundan sonra §3 olarak eklenir.
    - A6 bağımsız inceleme: Kapı 2'nin ön şartı.
+
+### ÖK-005 eki §2: gizli kırmızı takım dosyası ve B1 öncesi kod (2026-10-26, K-043)
+
+1. **Gizli sahte kural dosyası (danışman yazdı; K-041, K-043):**
+   - Yol: `degerlendirme/kirmizi_gizli/kirmizi_gizli_v1.json` (adı içerik açılmadan `git mv` ile değişti; eski ad "kirmizi gizli v1.json").
+   - Biçim denetimi (`python3 -m kesif.aday ... kirmizi_gizli`): 4 aile, 180 kural, en küçük aile 45.
+   - sha256 `c8adb6855a4b20c853f32d7e12f254712f49cf4ee97fb9464108b3614c8d565b`; beklenenle aynı.
+   - İçerik açılmadı, okunmadı, yazdırılmadı. Özet `config_h2.json` `kirmizi_gizli_dosyasi` alanına yazıldı; dosya `h2_kilitli_veri_dosyalari` ile kilitli.
+   - **Sınır:** gizli ailelerin yazarı danışmandır; danışman kodlayıcıyla aynı model ailesindendir.
+2. **B1 öncesi kod ve ayar (ek §1 tablosundaki özetlerin yerine geçenler ve yeni dosyalar):**
+   - `degerlendirme/h2_bagla.py` değişti: veto/null kipinde simetrik ilişki yönsüz bağlanır; ÖK §13.6'ya uyum düzeltmesidir (V-065 madde 10). Bu koddan önce hiçbir sonuç üretilmemişti.
+   - `config_h2.json` değişti: geçit sabitleri (ÖK §4, §2.1, §8), K başlangıcı ve ızgarası, B1/B2 sayıları, Z12 alanı, gizli dosya özeti. Eşik değerlerinin hiçbiri ÖK'tekinden farklı değil.
+   - Kodlayıcının küçük kararları: V-065, V-066.
+   - Çekirdek özeti ve keşif paketi özeti ek §1'dekiyle aynıdır (çekirdek kodu ve `kesif/` değişmedi).
+
+   | Dosya | sha256 |
+   |---|---|
+   | `config_h2.json` | `82a66030e75003d0a907dd862fee03d0c1fe522393b7385c8d09e091ceae67cc` |
+   | `degerlendirme/h2_bagla.py` | `2cdf1008c090cbb083bbec74d93ffcef784628c1537dc862b0c65812dd5a1c31` |
+   | `degerlendirme/kural.py` | `082d450b91839e25fbf1b8e72ca527a67318e185d24b74e0cb9c99613d1f6805` |
+   | `degerlendirme/h2_bolum.py` | `143322561e887b60f1553cedf5d91cf6182fa161540bc59a391c9d6e4bd6d7c7` |
+   | `degerlendirme/h2_gecit.py` | `869cd87a2d0866da727b9c859c0af0715344512c686575045661fd98df17fe2a` |
+   | `degerlendirme/h2_ikiz.py` | `5dd13a83a3441ae08e0b60dd4b0e68e740f97122e9d467912e235ee17a88f3b6` |
+   | `degerlendirme/h2_tur.py` | `53be994a9b7eb51da07625385baf5af2fca0a2b8104258ba795a74db8122ae8f` |
+   | `degerlendirme/h2_kirmizi.py` | `f93f644027a6c843719e043e9a23e3e4b76e1b7d68dea7aa295b8c39bc6cfcf6` |
+   | `degerlendirme/h2_kalibrasyon.py` | `793dfed61a5de454ec4ee241714f7aee2e90e200e3e83ab8f778fb3af9c3069d` |
+   | `degerlendirme/h2_b1.py` | `393ab1d97fb37751ce9a9de3ff51e3518ddaad35a479970b7a2ef33bee3799fa` |
+   | `degerlendirme/h2_b2.py` | `2f79d9e0cd8d968cef6a5afdac0d4a0c8ae9f2f56c46e6650c892d3950fbcd41` |
+   | `degerlendirme/h2_olcum.py` | `bc2a92e1e1da758bf80690c6ed5faabbdbe80ceef7369b6569f6823314e47506` |
+   | `degerlendirme/h2_onkayit.py` | `aa9834a7d7c3c76e954235969f7e36fd0a83e9449b02b3fc75b2b16cb67c3807` |
+   | `degerlendirme/h2_aktarim.py` | `19b7ea01e1baea2fb33af7c2eb4227768a4e2faeaab181bf38a89bd9c8d4af23` |
+   | `degerlendirme/z12.py` | `9f054a7494fe5dcec0114035310ea278134c25027a8dbef0d54701c74f4b51d9` |
+   | `degerlendirme/z12_ikinci.py` | `0ff66b6611c704f0f39442f8584742257e3c405e3ce9fa8605f5745cfb1307cb` |
+   | `degerlendirme/h2_rapor.py` | `d4eafe0eb088888cf97be63e2a652661f310309410aaab93b35f8d162805f585` |
+   | `degerlendirme/istatistik.py` | `7279e6d5450abdf05bf1d951eeec45e920e6913357dc2852d649fd547b25ffef` |
+   | `sema/z12_iliskiler_v1.json` | `487886a20da4cb77b5cf0d42ef55200b57fbd00480abebade21093dd50a5595a` |
+   | `veri/h2/z12_tanimlar_v1.json` | `a862689d727181214fc60f2f821da9876e51cbc0421eb35263c4585ab70a6e5a` |
+   | `kilit/z12_sema_onayi.json` | `0f5f393d4e1fed12e695631a55834d0660f56409a11afa43af9ea1d9f84d230f` |
+

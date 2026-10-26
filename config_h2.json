@@ -30,7 +30,8 @@
       "deger": [
         "ONKAYIT_H2_TASLAK.md",
         "veri/h2/z12_tanimlar_v1.json",
-        "sema/z12_iliskiler_v1.json"
+        "sema/z12_iliskiler_v1.json",
+        "degerlendirme/kirmizi_gizli/kirmizi_gizli_v1.json"
       ],
       "kaynak": "V-060"
     },
@@ -347,6 +348,16 @@
         "tanimlar": "veri/h2/z12_tanimlar_v1.json"
       },
       "kaynak": "V-066"
+    },
+    "kirmizi_gizli_dosyasi": {
+      "deger": {
+        "yol": "degerlendirme/kirmizi_gizli/kirmizi_gizli_v1.json",
+        "ozet": "c8adb6855a4b20c853f32d7e12f254712f49cf4ee97fb9464108b3614c8d565b",
+        "aile_sayisi": 4,
+        "kural_sayisi": 180,
+        "en_kucuk_aile": 45
+      },
+      "kaynak": "K-043"
     }
   },
   "bayraklar": {

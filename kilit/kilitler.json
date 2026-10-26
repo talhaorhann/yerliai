@@ -1,12 +1,13 @@
 {
   "algoritma": "sha256",
   "dosyalar": {
-    "ONKAYIT.md": "d8939c3687f4e191c8c6b035e38aa75cac425cb5f104091152c5457f201aedf6",
+    "ONKAYIT.md": "8dc65b1a46e26944a3d7f19b61604b13f6257fc055e15258eb367ae5a1943d81",
     "ONKAYIT_H2_TASLAK.md": "38833917d2b75a3bac89e7520edff8f79ce07c86b2da26bb1785b2ee84d397ea",
     "config.json": "feae40960a4f24f24121bdf74cea782c384593fd2f31f87b0115ebc0ee32890f",
-    "config_h2.json": "8f7c74d3cb95e42f19a3409430a120866ef6dcbaf347961600efaacc7104598e",
+    "config_h2.json": "82a66030e75003d0a907dd862fee03d0c1fe522393b7385c8d09e091ceae67cc",
     "degerlendirme/altin/kullanici_cevaplari_1.json": "306ee0a0c54d3d6972695ae8a0c8c14e8dff12e2d6ef084884a9fd345a5c45ff",
     "degerlendirme/altin/kullanici_cevaplari_2.json": "dcfba77c711ac7320ae9180625a0f7bd24d5401f0e79818b0d0077808f5e1186",
+    "degerlendirme/kirmizi_gizli/kirmizi_gizli_v1.json": "c8adb6855a4b20c853f32d7e12f254712f49cf4ee97fb9464108b3614c8d565b",
     "degerlendirme/veri/tanimlar_v1.json": "8f62d7ecf2ff39624f86bda8a5a3f48773afbd5e7a1084fd6a2ce058e96064e4",
     "sema/z12_iliskiler_v1.json": "487886a20da4cb77b5cf0d42ef55200b57fbd00480abebade21093dd50a5595a",
     "testler/__init__.py": "85bf82b388ec555748bf51e7c7f49f7d1896ad8c38f1480d781b4f854873cca9",
