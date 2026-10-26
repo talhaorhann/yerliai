@@ -126,6 +126,19 @@ def olgu_olcusu(kume, idx, sema, tur):
     return sayi
 
 
+def aileye_gore(dunya_olculeri, aileler):
+    """Dünya başına sayılar → aile başına sayılar ve kapanış geri bulması (doğru / toplam)."""
+    sonuc = {}
+    for o, aile in zip(dunya_olculeri, aileler):
+        s = sonuc.setdefault(aile, {DOGRU: 0, YANLIS: 0, BILMIYORUM: 0})
+        for a in s:
+            s[a] += o[a]
+    for s in sonuc.values():
+        s["toplam"] = s[DOGRU] + s[YANLIS] + s[BILMIYORUM]
+        s["geri_bulma"] = s[DOGRU] / s["toplam"] if s["toplam"] else 0.0
+    return sonuc
+
+
 def bilmiyorum_olcusu(kume, dunyalar, sema, tur):
     dunya = [olgu_olcusu(kume, idx, sema, tur) for _, idx in dunyalar]
     toplam = {a: sum(d[a] for d in dunya) for a in (DOGRU, YANLIS, BILMIYORUM)}

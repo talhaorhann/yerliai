@@ -799,3 +799,17 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   12. **Kesilen koşu:** ölçümler aday kimliğiyle JSONL'e yazılır, yeniden açılınca okunur; yarım son satır yeniden hesaplanır.
 - **Doğrulama:** `testler/test_b1_kural.py`, `test_b1_bolum.py`, `test_b1_istatistik.py`, `test_b1_gecit.py`, `test_b1_bagla.py`, `test_b1_tur.py`.
 - **Felsefi:** hayır. **Durum:** KODLAYICI KARARI (2026-10-26).
+
+## V-066: Z12/mod-n alanı ve aktarım ölçümünün uygulama ayrıntıları
+- **Bölüm:** sistem.md §11, §13; K-041 madde 6 (Z12 on ilişkilik liste onaylı), K-043 (ÖK-005 taslağı §2.3, §4.4, §5).
+- **Uygulanan:** `sema/z12_iliskiler_v1.json` (onay kaydı `kilit/z12_sema_onayi.json`, karar K-041), `veri/h2/z12_tanimlar_v1.json`, `degerlendirme/z12.py` (doğrudan üretici), `degerlendirme/z12_ikinci.py` (Çin kalan teoremiyle ayrı üretici), `degerlendirme/h2_aktarim.py`.
+- **Kodlayıcının küçük kararları:**
+  1. **Ad yazımı:** şema biçimi adlarda rakam kabul etmediği için "kalan3_eş" → "kalan_üç_eş", "kalan4_eş" → "kalan_dört_eş". Tanımlar değişmedi.
+  2. **Alan şeması tek:** "altı_öte" n = 12'de işlevsel, n = 24'te değil; alanın bütün dünyalarında tutması gerektiği için alan şemasında işlevsel değildir (işlevsel bayrağı yalnız çelişki denetimi ekler; kaldırmak yanlış çelişki üretmez).
+  3. **Tanımlar veri dosyasında:** kodda ilişki adı yoktur; üreticiler tanım türünü (öteleme, iki yönlü öteleme, toplam sıfır, kalan eşitliği) okur.
+  4. **Dünya:** n eleman arasındaki bütün olgular; kimlikler tohumla 0..n−1 içinde karıştırılır. Tohumlar `havuzB3|z12|<havuz>|<aile>|<i>` ve `taze|B3|<tur>|<aile>|<j>`.
+  5. **Bölüm:** dikkat dağıtıcı bağ 2 (ÖK §2.3); öteki geçit sayıları ve K değerleri akrabalıkla aynı (dondurma sözleşmesi).
+  6. **Aktarım ölçüsü:** kapanış geri bulması (bilmiyorum ölçüsündeki doğru oranı) aile başına; A3 aktarımı B2b final ölçümünde aile kırılımıdır.
+  7. **B3 onayı:** Z12 koşusu yalnız KARARLAR.md'de "B3" geçen ve "Onaylayan: kullanıcı" yazan bir kararla başlar (K-043: B3'e onaysız geçilmez).
+- **Doğrulama:** `testler/test_b3_z12.py`, `testler/test_b2_kosucu.py`.
+- **Felsefi:** hayır. **Durum:** KODLAYICI KARARI (2026-10-26).

@@ -234,3 +234,20 @@ def gelistirme_sayimi(kayitlar, gelistirme):
         if yanlis > 0:
             etkin.append(k)
     return sayim, etkin
+
+
+def main(arg):
+    """Gizli dosyanın geliştirme havuzundaki sayımı: yalnız aile sırası ve sayılar yazılır (K-043 adım 3)."""
+    import sys
+    from degerlendirme import h2_tur
+    kok = Path(__file__).resolve().parents[1]
+    ortam, _ = h2_tur.ortam_kur(h2_tur.Kurulum(str(kok)))
+    kayitlar = gizli_yukle(arg[0], frozenset(ortam.sema.adlar), ortam.h2)
+    sayim, _ = gelistirme_sayimi(kayitlar, ortam.gelistirme)
+    sys.stdout.write(json.dumps({"aile_basina": sayim}, ensure_ascii=False) + "\n")  # V-057: yalnız sayılar
+    return 0
+
+
+if __name__ == "__main__":
+    import sys
+    sys.exit(main(sys.argv[1:]))

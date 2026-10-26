@@ -89,3 +89,9 @@
 | sistem.md §13, §18 (B2 ölçümü: hedef ve kabul sınıfları, bilmiyorum, kapı kararı, makas; ÖK-005 taslağı §8, V-065) | `degerlendirme/h2_olcum.py` | `testler/test_b2_olcum.py` |
 | sistem.md §13 (ön kayıt tutmazsa koşu başlamaz; ÖK-005 taslağı §9 madde 1, V-065) | `degerlendirme/h2_onkayit.py` | `testler/test_b1_onkayit.py` |
 | sistem.md §13, §18 (B1 koşucusu: C, kırmızı takım, kalibrasyon, P*, boş koşular; ÖK-005 taslağı §4 madde 3, 9–12, 19, 20; V-065) | `degerlendirme/h2_b1.py` | `testler/test_b1_kosucu.py` |
+| sistem.md §13, §18 (B2 koşucusu: B2a duman testi, B2b tek atış, makas, final ölçümü; ÖK-005 taslağı §8, V-065) | `degerlendirme/h2_b2.py` | `testler/test_b2_kosucu.py` |
+| sistem.md §11, §13 (Z12/mod-n dünyaları, doğrudan üretici; ÖK-005 taslağı §2.3, V-066) | `degerlendirme/z12.py`, `sema/z12_iliskiler_v1.json`, `veri/h2/z12_tanimlar_v1.json` | `testler/test_b3_z12.py` |
+| sistem.md §11, §13 (Z12-b ikinci üretici, Çin kalan teoremi; ÖK-005 taslağı §2.3, V-066) | `degerlendirme/z12_ikinci.py` | `testler/test_b3_z12.py` |
+| sistem.md §11, §13, §18 (A3 ve Z12 aktarım ölçümü, B3 onay şartı; ÖK-005 taslağı §4.4, V-066) | `degerlendirme/h2_aktarim.py` | `testler/test_b3_z12.py` |
+| sistem.md §13, §18 (H2 rapor metinleri: ek §3, B1 raporu, Kapı 2 ham raporu; yasak iddialar; V-065) | `degerlendirme/h2_rapor.py` | `testler/test_b1_rapor.py` |
+| KODLAMA_PROMPTU §6 (Mutasyon sınaması, H2 B1–B3; V-065) | `araclar/mutasyon_b1.py` | `testler/test_b1_gecit.py` |

@@ -30,7 +30,7 @@ def kayit(k):
 
 
 def taze_fn(basamak, tur):
-    sira = {"B1": 1, "B2b": 2}[basamak]
+    sira = {"B1": 1, "B2b": 2, "B2a": 3}[basamak]
     return [G.dunya_kaydi(f"taze|{basamak}|{tur}|{a}|{j}", tg.dunya(a, 30, 10000 * sira + 100 * tur + 10 * i + j))
             for i, a in enumerate(("F1", "F2", "F3")) for j in (1, 2)]
 
@@ -90,6 +90,13 @@ class TurTesti(tg.Ortak):
         yol = Path(self._d.name) / "B1_tur01" / h2_tur.OZET
         self.assertEqual(json.loads(yol.read_text(encoding="utf-8"))["kabul"], oz1["kabul"])
 
+    def test_tembel_kuyruk_listeyle_ayni(self):
+        kayitlar = [kayit(k) for k in (tg.YANLIS, tg.FAZLA, tg.DOGRU)]
+        oz1, _ = self.kosucu().tur_kos(list(kayitlar), h2_tur.TurIsi("B1", 1, 5, ESIK), h2_tur.Bellek())
+        oz2, _ = h2_tur.Kosucu(self._d.name + "/t", self.ortam, taze_fn).tur_kos(
+            h2_tur.TembelKuyruk(kayitlar), h2_tur.TurIsi("B1", 1, 5, ESIK), h2_tur.Bellek())
+        self.assertEqual(oz1, oz2)
+
     def test_kalibrasyon_kipi(self):
         dogru = kayit(tg.DOGRU)
         oz, olc = self.kosucu().tur_kos([dogru], h2_tur.TurIsi("B1", 1, 5, None), h2_tur.Bellek())
@@ -113,6 +120,17 @@ class TurTesti(tg.Ortak):
         bellek.kabul_et("b", ZINDLE_YOLU)
         self.assertEqual(bellek.tabu(["a", "b"], self.ortam), ["b"])
         self.assertEqual(list(bellek.kabul), ["a"])
+
+
+class TembelKuyrukTesti(unittest.TestCase):
+    def test_islemler(self):
+        q = h2_tur.TembelKuyruk([{"kimlik": c} for c in "abcde"], atla=lambda k: k["kimlik"] == "c")
+        self.assertEqual([k["kimlik"] for k in q[:3]], ["a", "b", "d"])
+        self.assertEqual(q.pop(0)["kimlik"], "a")
+        q[0:0] = [{"kimlik": "x"}]
+        self.assertEqual(q[0]["kimlik"], "x")
+        self.assertEqual([q.pop(0)["kimlik"] for _ in range(4)], ["x", "b", "d", "e"])
+        self.assertFalse(q)
 
 
 class KodKitabiTesti(tg.Ortak):

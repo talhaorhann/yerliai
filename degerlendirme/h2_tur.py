@@ -78,13 +78,17 @@ def onbellekli_kod_kitabi(tohum_, boyut, sinir=KOD_KITABI_ONBELLEGI):
 
 @dataclasses.dataclass(frozen=True)
 class Kurulum:
-    """Çalışan süreçlerin ortamı: kök ve boş koşu sırası (None: gerçek dünyalar)."""
+    """Çalışan süreçlerin ortamı: kök, boş koşu sırası (None: gerçek dünyalar) ve alan (akrabalık ya da Z12)."""
     kok: str
     bos: object = None
+    alan: str = "akrabalik"  # V-066
 
 
 def ortam_kur(kurulum):
     """(ortam, taze dünya işlevi): gerçek depo ayarlarıyla."""
+    if kurulum.alan != Kurulum.alan:
+        from degerlendirme import h2_aktarim
+        return h2_aktarim.z12_ortam_kur(kurulum)
     from cekirdek.altyapi.ayar import ayar_yukle
     from cekirdek.dongu import CekirdekParametreleri
     from degerlendirme import h1, h2_ikiz
@@ -242,6 +246,58 @@ class Bellek:
 
 # ---- koşucu ----
 
+class TembelKuyruk:
+    """Uzun aday listesinden (M0) tembel sıra: baştan okunur; başa eklenebilir (obiterin indirgenmişleri).
+    `Kosucu.on_eleme`'nin kullandığı işlemler: doğruluk, `[:n]`, `[0]`, `pop(0)`, `[0:0] = yeni`."""
+
+    def __init__(self, kaynak, atla=None):
+        self.kaynak, self.i, self.on, self.atla = kaynak, 0, [], atla
+        self._kimlikler = None
+
+    def kimlikler(self):
+        """Sıradaki (ve sıradan geçmiş) bütün adayların kimlikleri (obiter yinelemesini önlemek için)."""
+        if self._kimlikler is None:
+            self._kimlikler = {self.kaynak[j]["kimlik"] for j in range(len(self.kaynak))}
+        return self._kimlikler | {k["kimlik"] for k in self.on}
+
+    def _ilerle(self):
+        while self.atla is not None and self.i < len(self.kaynak) and self.atla(self.kaynak[self.i]):
+            self.i += 1
+
+    def __bool__(self):
+        self._ilerle()
+        return bool(self.on) or self.i < len(self.kaynak)
+
+    def __getitem__(self, s):
+        self._ilerle()
+        if isinstance(s, slice):
+            if s.start not in (None, 0) or s.step is not None:
+                raise ValueError("yalnız [:n]")
+            bas, j, sonuc = self.on[:s.stop], self.i, []
+            while len(bas) + len(sonuc) < s.stop and j < len(self.kaynak):
+                if self.atla is None or not self.atla(self.kaynak[j]):
+                    sonuc.append(self.kaynak[j])
+                j += 1
+            return bas + sonuc
+        if s != 0:
+            raise ValueError("yalnız [0]")
+        return self.on[0] if self.on else self.kaynak[self.i]
+
+    def __setitem__(self, s, yeni):
+        if s != slice(0, 0):
+            raise ValueError("yalnız [0:0]")
+        self.on[0:0] = yeni
+
+    def pop(self, j):
+        if j != 0:
+            raise ValueError("yalnız pop(0)")
+        self._ilerle()
+        if self.on:
+            return self.on.pop(0)
+        self.i += 1
+        return self.kaynak[self.i - 1]
+
+
 @dataclasses.dataclass
 class TurIsi:
     basamak: str
@@ -301,7 +357,7 @@ class Kosucu:
     def on_eleme(self, kuyruk, is_, bellek):
         """Sıradan adayları aşama 1–4 ve yedeklilikten geçirir; sorgulanacakları (en çok aday_siniri) döner."""
         sabit = self.ortam.sabit
-        gorulen = {k["kimlik"] for k in kuyruk} | set(self.on.veri)
+        gorulen = (kuyruk.kimlikler() if isinstance(kuyruk, TembelKuyruk) else {k["kimlik"] for k in kuyruk}) | set(self.on.veri)
         hukumler, sorgulanacak = {}, []
         while kuyruk and len(sorgulanacak) < is_.aday_siniri:
             parca = {k["kimlik"] for k in kuyruk[:ON_PARCA]}

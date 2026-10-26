@@ -1,0 +1,17 @@
+{
+  "sema_surumu": "1",
+  "aciklama": "ÖK-005 taslağı §2.3 (K-041 madde 6 ile onaylı on ilişki). Elemanlar 0..n-1. öteleme: B ≡ A + fark; iki_yonlu_oteleme: B ≡ A + fark ya da B ≡ A - fark; toplam_sifir: A + B ≡ 0 ve A ≠ B; kalan_esit: A ≡ B (mod modul) ve A ≠ B. Adlardaki rakamlar şema biçimine uysun diye yazıyla (V-066).",
+  "tanimlar": {
+    "ardıl": {"tur": "oteleme", "fark": 1},
+    "öncül": {"tur": "oteleme", "fark": -1},
+    "iki_ileri": {"tur": "oteleme", "fark": 2},
+    "iki_geri": {"tur": "oteleme", "fark": -2},
+    "üç_ileri": {"tur": "oteleme", "fark": 3},
+    "üç_geri": {"tur": "oteleme", "fark": -3},
+    "altı_öte": {"tur": "iki_yonlu_oteleme", "fark": 6},
+    "karşıt": {"tur": "toplam_sifir"},
+    "kalan_üç_eş": {"tur": "kalan_esit", "modul": 3},
+    "kalan_dört_eş": {"tur": "kalan_esit", "modul": 4}
+  },
+  "temel": ["ardıl", "öncül", "karşıt"]
+}

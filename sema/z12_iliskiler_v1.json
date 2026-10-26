@@ -1,0 +1,17 @@
+{
+  "sema_surumu": "1",
+  "okuma": "(A, r, B) = B, A'nın r'sidir.",
+  "iliskiler": [
+    {"ad": "ardıl", "ters": ["öncül"], "simetrik": false, "islevsel": true},
+    {"ad": "öncül", "ters": ["ardıl"], "simetrik": false, "islevsel": true},
+    {"ad": "iki_ileri", "ters": ["iki_geri"], "simetrik": false, "islevsel": true},
+    {"ad": "iki_geri", "ters": ["iki_ileri"], "simetrik": false, "islevsel": true},
+    {"ad": "üç_ileri", "ters": ["üç_geri"], "simetrik": false, "islevsel": true},
+    {"ad": "üç_geri", "ters": ["üç_ileri"], "simetrik": false, "islevsel": true},
+    {"ad": "altı_öte", "ters": ["altı_öte"], "simetrik": true, "islevsel": false},
+    {"ad": "karşıt", "ters": ["karşıt"], "simetrik": true, "islevsel": true},
+    {"ad": "kalan_üç_eş", "ters": ["kalan_üç_eş"], "simetrik": true, "islevsel": false},
+    {"ad": "kalan_dört_eş", "ters": ["kalan_dört_eş"], "simetrik": true, "islevsel": false}
+  ],
+  "dislayici_gruplar": [["ardıl", "öncül", "iki_ileri", "iki_geri", "üç_ileri", "üç_geri", "altı_öte"]]
+}

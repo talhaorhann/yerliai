@@ -28,7 +28,9 @@
     },
     "h2_kilitli_veri_dosyalari": {
       "deger": [
-        "ONKAYIT_H2_TASLAK.md"
+        "ONKAYIT_H2_TASLAK.md",
+        "veri/h2/z12_tanimlar_v1.json",
+        "sema/z12_iliskiler_v1.json"
       ],
       "kaynak": "V-060"
     },
@@ -293,6 +295,58 @@
         "guven": 0.95
       },
       "kaynak": "K-041"
+    },
+    "z12_aileleri": {
+      "deger": {
+        "Z12-a": {
+          "uretec": "dogrudan",
+          "n": 12
+        },
+        "Z12-b": {
+          "uretec": "cin_kalan",
+          "moduller": [
+            3,
+            4
+          ]
+        },
+        "Z24": {
+          "uretec": "dogrudan",
+          "n": 24
+        }
+      },
+      "kaynak": "K-041"
+    },
+    "z12_havuz_dagilimi": {
+      "deger": {
+        "gelistirme": {
+          "Z12-a": 4,
+          "Z12-b": 4,
+          "Z24": 4
+        },
+        "final": {
+          "Z12-a": 8,
+          "Z12-b": 8,
+          "Z24": 8
+        },
+        "kontrol": {
+          "Z12-a": 2,
+          "Z12-b": 2,
+          "Z24": 2
+        }
+      },
+      "kaynak": "K-041"
+    },
+    "z12_dikkat_sayisi": {
+      "deger": 2,
+      "kaynak": "K-041"
+    },
+    "z12_dosyalari": {
+      "deger": {
+        "sema": "sema/z12_iliskiler_v1.json",
+        "onay": "kilit/z12_sema_onayi.json",
+        "tanimlar": "veri/h2/z12_tanimlar_v1.json"
+      },
+      "kaynak": "V-066"
     }
   },
   "bayraklar": {

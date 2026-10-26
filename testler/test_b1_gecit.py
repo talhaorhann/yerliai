@@ -108,6 +108,14 @@ class GelistirmeTesti(Ortak):
         self.assertEqual(G.hukum(o, ESIK, SABIT), (G.BILMIYORUM, "obiter"))
         self.assertNotIn("taze", o)  # aşama 5'e gitmez
 
+    def test_gerekli_farklilik_obiter_degil(self):
+        """Farklılık şartı çıkarılınca X = Y bağlaması yanlış tahmin verir: şart gereklidir, obiter değildir."""
+        kardes = k([(B, "X", "Z"), (ZN, "Z", "Y")], (F, "X", "Y"), [("X", "Y")])
+        g = G.gelistirme_sayilari(kardes, self.ortam)
+        self.assertEqual(g["yanlis"], 0)
+        self.assertGreaterEqual(g["tanik"], SABIT.en_az_tanik)
+        self.assertEqual(G.obiterler(kardes, g["tanik"], self.ortam), [])
+
     def test_farklilik_sarti_obiter(self):
         oi = k(DOGRU.halkalar, DOGRU.bas, [("X", "Y"), ("X", "Z"), ("Y", "Z")])
         self.assertIn(G.kural_ozu(DOGRU), G.obiterler(oi, G.gelistirme_sayilari(oi, self.ortam)["tanik"], self.ortam))
