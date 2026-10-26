@@ -180,6 +180,119 @@
     "bos_dunya_tetik": {
       "deger": 2,
       "kaynak": "K-041"
+    },
+    "gecit_sabitleri": {
+      "deger": {
+        "en_az_tanik": 3,
+        "kapsam_en_az_aile": 2,
+        "ret_aile_sayisi": 2,
+        "wilson_z": 1.96,
+        "fwer": 0.01,
+        "wy_cekilis": 10000,
+        "bolum_sayisi": 8,
+        "taze_aile_basina": 2,
+        "adim_araligi": [
+          2,
+          3
+        ],
+        "dikkat_sayisi": 4,
+        "kapanis_tur_siniri": 8
+      },
+      "kaynak": "K-041"
+    },
+    "gecit_secimleri": {
+      "deger": {
+        "pi_bolum_sayisi": 8,
+        "mudahale_en_az_kanit": 3
+      },
+      "kaynak": "V-065"
+    },
+    "esik_baslangic": {
+      "deger": {
+        "tau": 0.85,
+        "mudahale": 0.9,
+        "T": 0.04,
+        "sigma": 0.01
+      },
+      "kaynak": "K-041"
+    },
+    "esik_izgarasi": {
+      "deger": {
+        "tau": [
+          0.8,
+          0.85,
+          0.9
+        ],
+        "mudahale": [
+          0.8,
+          0.9,
+          1.0
+        ],
+        "T": [
+          0.02,
+          0.04,
+          0.06
+        ],
+        "sigma": [
+          0.005,
+          0.01,
+          0.02
+        ]
+      },
+      "kaynak": "K-041"
+    },
+    "kalibrasyon_aday_sayisi": {
+      "deger": 200,
+      "kaynak": "K-041"
+    },
+    "p_yildiz_aday_sayisi": {
+      "deger": 4800,
+      "kaynak": "K-041"
+    },
+    "bos_dunya_saat_siniri": {
+      "deger": 120,
+      "kaynak": "K-041"
+    },
+    "bos_dunya_yedek": {
+      "deger": {
+        "kosu_sayisi": 50,
+        "tetik": 1
+      },
+      "kaynak": "K-041"
+    },
+    "makas": {
+      "deger": {
+        "en_az_olgu": 2000,
+        "genis_olgu": 4000,
+        "yari_genislik_siniri": 0.02,
+        "tetik": 0.03,
+        "bootstrap": 10000,
+        "guven": 0.95
+      },
+      "kaynak": "K-041"
+    },
+    "b2a_silinen": {
+      "deger": 20,
+      "kaynak": "K-041"
+    },
+    "b2_kapi": {
+      "deger": {
+        "geri_bulma": 0.9,
+        "kumeli_wilson": 0.85,
+        "cp_ust": 0.02,
+        "cp_guven": 0.95,
+        "ara_bolge_alt": 0.5,
+        "bilmiyorum_farki": 0.1,
+        "hedef_sayisi": 244
+      },
+      "kaynak": "K-041"
+    },
+    "kirmizi_alt_sinir": {
+      "deger": {
+        "oran": 0.98,
+        "guven": 0.95
+      },
+      "kaynak": "K-041"
     }
   },
   "bayraklar": {

@@ -5,7 +5,10 @@ Yeniden bağlama (bir ilişki r için): r olgularından (A, r, B) ve (C, r, D) t
 (C, r, B) yazılır. Kendine bağ, var olan olgunun yinelenmesi ve aynı çiftte aynı dışlayıcı gruptan ikinci ilişki doğuran
 takas reddedilir; r olgu sayısının `bagla_deneme_carpani` katı kadar denenir. Her kişinin r'deki giriş ve çıkış sayısı
 korunur.
-- Veto ikizi ve null: yalnız istenen ilişkiler yeniden bağlanır, tersleri yeniden yazılmaz.
+- Veto ikizi ve null: yalnız istenen ilişkiler yeniden bağlanır, tersleri yeniden yazılmaz (`kenar_bagla`). Simetrik
+  ilişkide kenar yönsüz alınır, takasın yönü tohumla seçilir ve iki yön birlikte yazılır (ÖK-005 taslağı §13.6). Öteki
+  ilişkiler sabit olduğundan bir ilişkinin takası yalnız kendi kenarlarına ve öteki ilişkilerin dolu çiftlerine bakar;
+  null çekilişleri bu yüzden dünyayı kopyalamadan yalnız baş ilişkisini bağlar (V-065).
 - Boş dünya: her ters sınıfının ileri tarafındaki ilişkiler yeniden bağlanır, tersleri onlardan yeniden yazılır.
   - Ters olgunun adı, A'nın özgün dünyadaki ters adıdır; takas yalnız ters adları aynı iki olgu arasında yapılır. Böylece
     ters ilişkilerin dereceleri de korunur ve şema tutarlı kalır.
@@ -30,7 +33,49 @@ def _cakisir(cift, a, b, r, sema, cikan):
     return False
 
 
+def dolu_ciftler(olgular, r, sema):
+    """r dışındaki, r ile aynı dışlayıcı gruptaki ilişkilerin çiftleri (r takasında yazılamaz)."""
+    return {(a, b) for a, rr, b in olgular if rr != r and sema.dislayici_mi(rr, r)}
+
+
+def kenar_bagla(kenarlar, dolu, simetrik, rng, deneme_carpani):
+    """Bir ilişkinin (sıralı) kenarları → yeniden bağlanmış kenarlar; dereceler korunur."""
+    if simetrik:
+        kenar = sorted({(min(a, b), max(a, b)) for a, b in kenarlar})
+    else:
+        kenar = list(kenarlar)
+    var = set(kenar)
+    for _ in range(deneme_carpani * len(kenarlar)):
+        if len(kenar) < 2:  # V-063: takas için iki olgu gerekir
+            break
+        i, j = rng.sample(range(len(kenar)), 2)  # V-063: iki olgu
+        (a, b), (c, d) = kenar[i], kenar[j]
+        if simetrik and rng.random() < 1 / 2:  # V-065: yönsüz kenarda takasın iki biçimi eşit olasılıklı
+            c, d = d, c
+        if a == d or c == b:
+            continue
+        giren = [(a, d), (c, b)]
+        anahtar = [(min(x, y), max(x, y)) for x, y in giren] if simetrik else giren
+        if anahtar[0] == anahtar[1] or any(x in var for x in anahtar):
+            continue
+        if any((x, y) in dolu or (simetrik and (y, x) in dolu) for x, y in giren):
+            continue
+        var -= {kenar[i], kenar[j]}
+        var |= set(anahtar)
+        kenar[i], kenar[j] = anahtar
+    if simetrik:
+        return sorted({e for a, b in kenar for e in ((a, b), (b, a))})
+    return sorted(kenar)
+
+
 def yeniden_bagla(olgular, iliskiler, sema, rng, tersleri_yaz, deneme_carpani):
+    if not tersleri_yaz:
+        olgu = set(olgular)
+        for r in [x for x in sema.adlar if x in iliskiler]:
+            kenarlar = sorted((a, b) for a, rr, b in olgu if rr == r)
+            yeni = kenar_bagla(kenarlar, dolu_ciftler(olgu, r, sema), sema.simetrik(r), rng, deneme_carpani)
+            olgu = {o for o in olgu if o[1] != r} | {(a, r, b) for a, b in yeni}
+        return sorted(olgu)
     olgu = set(olgular)
     ters_adi = {}
     if tersleri_yaz:

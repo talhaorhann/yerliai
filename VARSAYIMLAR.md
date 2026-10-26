@@ -780,3 +780,22 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - DNA v8 bu adımda kullanılmaz (M0'ın DNA kurallarından kaçını bulduğuna bakılmaz; o yalnız B2b finalinde).
 - **Doğrulama:** `testler/test_b0_m0_kosucu.py`.
 - **Felsefi:** hayır. **Durum:** KODLAYICI KARARI (2026-10-26).
+
+## V-065: H2 kabul geçidi, tur koşucusu ve B1–B3 koşucularının uygulama ayrıntıları
+- **Bölüm:** sistem.md §8, §10, §13, §18; K-041, K-043 (ÖK-005 taslağı §2.1, §4, §5, §7, §8, §13).
+- **Uygulanan:** `degerlendirme/kural.py` (geçit tarafının değerlendiricisi; mühürlü keşif paketi özeti değişmesin diye `kesif/` dışında), `degerlendirme/h2_bolum.py`, `h2_gecit.py`, `h2_ikiz.py`, `h2_tur.py`, `istatistik.py` (Wilson, kümeli Wilson, Laplace, kümeli bootstrap); `h2_bagla.py` düzeltmesi.
+- **Kodlayıcının küçük kararları (her biri raporda tek satır):**
+  1. **Çekirdek adımı bellek boş:** aday tek hücre olarak koşar (A6 gösterimindeki gibi); uyum şartı böylece iyi tanımlıdır. Bellek (kabul kümesi) yalnız yedeklilikte kullanılır.
+  2. **Sembolik doğru:** maskelenen (A, r, B), yol-kesme maskesiyle, çift kısıtlı kapanışla (yalnız o çiftin olguları maskeli olduğundan yalnız o çiftte, iki yönde, en çok 8 tur) yeniden türetiliyorsa doğrudur. Sembolik yanlış: maskesiz bölümde gözlenmemiş tek adımlık tahmin (kapalı dünya).
+  3. **Çekirdek havuzuna sığmayan bölüm** (olgu sayısı ≥ havuz kapasitesi, V-031) ölçülemez: uyum yok → BİLMİYORUM. Dikkat dağıtıcı bağ sayısı ÖK §2.1'deki gibi 4 kalır; geliştirme havuzunda ölçülen en büyük bölüm 132 olgudur, sayısı raporlanır.
+  4. **π-ikizi:** geliştirme havuzunda, dünya başına bir gövde-merkezli bölüm, en çok 8 bölüm; π `ikiz|<dünya etiketi>|<aday kimliği>` tohumuyla 1536 otomorfizmden seçilir (şema sırasıyla sıralı liste). Koşul: çekirdek (doğru, yanlış) sayıları ve müdahale hükmü aynı.
+  5. **Müdahale kanıtı:** en az 3 ölçüm (A6 ile aynı, V-054); azsa BİLMİYORUM.
+  6. **Thresholdout T_gel:** geliştirme havuzunda her ailenin ilk 2 dünyasında 8'er gövde-merkezli bölüm (taze akışla aynı biçim, aynı istatistik).
+  7. **Westfall–Young:** aile = turda K'dan bağımsız aşamaları (1–4, veto, kapsam) geçenler; istatistik bölüm-düzeyi Wilson, bölüm başarılı = bütün tek adımlık tahminler doğru; çekilişte yalnız ailenin baş ilişkileri, öteki ilişkiler sabitken, her taze dünyada bağımsız yeniden bağlanır (öteki ilişkilerin bağlanması istatistiği değiştirmez).
+  8. **Obiter:** bir halkası ya da farklılık şartları çıkarılmış kural bağlı kalıyor, X ile Y'yi içeriyor, yanlış 0 ve en az aynı tanıkla geçiyorsa aday aşama 5'e gitmez; indirgenmiş kurallar sırada hemen arkasına girer.
+  9. **Yedeklilik ve tabu:** tek adımlık tahminlerle geliştirme havuzunda; adayın tanıklarının hepsi kabul kümesince tahmin ediliyorsa uyutulur (fazlalık-doğru). Tur sonunda yeni kabuller ters sırayla, kendileri çıkarılınca da kapsanıyorsa uyutulur.
+  10. **Yeniden bağlama düzeltmesi:** B0'daki `yeniden_bagla` veto/null kipinde simetrik ilişkiyi yönlü bağlıyordu; ÖK §13.6'ya ("simetrik r'de kenar yönsüz alınır ve iki yönü birlikte yazılır") uyduruldu (test önce kırmızı). Hiçbir sonuç bu koddan önce üretilmemişti. Sonuç: simetrik ve şemadan okunur kurallar yeniden bağlı ikizde de doğru kalır → BİLMİYORUM (ÖK §8'in 235 paydası bunu karşılar).
+  11. **İç içe tohum etiketi:** `bolum|<dünya etiketi>|...` dizgisinde dünya etiketi kendi parçalarıyla yazılır (ÖK §5'teki dizgiyle birebir).
+  12. **Kesilen koşu:** ölçümler aday kimliğiyle JSONL'e yazılır, yeniden açılınca okunur; yarım son satır yeniden hesaplanır.
+- **Doğrulama:** `testler/test_b1_kural.py`, `test_b1_bolum.py`, `test_b1_istatistik.py`, `test_b1_gecit.py`, `test_b1_bagla.py`, `test_b1_tur.py`.
+- **Felsefi:** hayır. **Durum:** KODLAYICI KARARI (2026-10-26).

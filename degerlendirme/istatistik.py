@@ -58,3 +58,53 @@ def bootstrap_araligi(degerler, tekrar, guven, tohum):
     ortalamalar = sorted(math.fsum(rng.choices(degerler, k=n)) / n for _ in range(tekrar))
     yari = (1 - guven) / KUYRUK
     return ortalamalar[math.floor(yari * tekrar)], ortalamalar[math.ceil((1 - yari) * tekrar) - 1]
+
+
+def wilson_alt(basari, n, z):
+    """Wilson aralığının alt ucu; n tam sayı olmak zorunda değil (kümeli etkin n). n = 0 → 0."""
+    if n <= 0:
+        return 0.0
+    p = basari / n
+    payda = 1 + z * z / n
+    merkez = p + z * z / (KUYRUK * n)
+    yari = z * math.sqrt(max(p * (1 - p) / n + z * z / (KUYRUK * KUYRUK * n * n), 0.0))
+    return max((merkez - yari) / payda, 0.0)
+
+
+def kumeli_wilson_alt(kumeler, z):
+    """ÖK-005 taslağı §4 madde 16: kümeler [(başarı, boy)]; ICC ANOVA (Fleiss) kestiricisi, negatifse 0;
+    tasarım etkisi = 1 + (m₀ − 1)ρ̂, m₀ = (N − Σmᵢ²/N)/(k − 1); n_etkin = N / tasarım etkisi; Wilson(p̂, n_etkin)."""
+    kumeler = [(x, m) for x, m in kumeler if m > 0]
+    N = sum(m for _, m in kumeler)
+    k = len(kumeler)
+    if N == 0:
+        return 0.0
+    p = sum(x for x, _ in kumeler) / N
+    if k < KUYRUK or N == k:  # V-065: tek küme ya da hepsi birer gözlem → küme etkisi kestirilemez, ρ̂ = 0
+        return wilson_alt(p * N, N, z)
+    msb = sum(m * (x / m - p) ** KUYRUK for x, m in kumeler) / (k - 1)  # V-065: ANOVA (Fleiss), kare
+    msw = sum(x * (1 - x / m) for x, m in kumeler) / (N - k)
+    m0 = (N - sum(m * m for _, m in kumeler) / N) / (k - 1)
+    payda = msb + (m0 - 1) * msw
+    rho = max((msb - msw) / payda, 0.0) if payda > 0 else 0.0
+    n_etkin = N / (1 + (m0 - 1) * rho)
+    return wilson_alt(p * n_etkin, n_etkin, z)
+
+
+def laplace(rng, olcek):
+    """Laplace(0, ölçek) çekilişi (Thresholdout gürültüsü, ÖK-005 taslağı §4 madde 12)."""
+    u = rng.random() - 1 / KUYRUK
+    return -olcek * math.copysign(1.0, u) * math.log(1 - KUYRUK * abs(u))
+
+
+def kumeli_bootstrap_fark(kumeler_a, kumeler_b, tekrar, guven, tohum):
+    """İki tarafın oranları farkı (a − b) için küme (dünya) yeniden örneklemeli yüzdelik aralık."""
+    rng = random.Random(tohum)
+
+    def oran(kumeler):
+        n = sum(m for _, m in kumeler)
+        return sum(x for x, _ in kumeler) / n if n else 0.0
+    farklar = sorted(oran(rng.choices(kumeler_a, k=len(kumeler_a))) - oran(rng.choices(kumeler_b, k=len(kumeler_b)))
+                     for _ in range(tekrar))
+    yari = (1 - guven) / KUYRUK
+    return farklar[math.floor(yari * tekrar)], farklar[math.ceil((1 - yari) * tekrar) - 1]

@@ -77,3 +77,15 @@
 | sistem.md §13 (çekirdek dondurma sözleşmesi: çekirdek kod özeti; K-041, V-063) | `araclar/cekirdek_ozeti.py` | `testler/test_b0_butce_bagla.py` |
 | sistem.md §13 (M0 koşucusu, geliştirme havuzu, bit-aynı çıktı; K-041, V-064) | `degerlendirme/h2_m0.py` | `testler/test_b0_m0_kosucu.py` |
 | KODLAMA_PROMPTU §6 (Mutasyon sınaması, H2 B0; V-064) | `araclar/mutasyon_b0.py` | `testler/test_b0_aday.py` |
+| sistem.md §3, §13 (genel kural değerlendiricisi: farklılık şartı, OI, çift kısıtlı kapanış, θ-kapsama; K-043, V-065) | `degerlendirme/kural.py` | `testler/test_b1_kural.py` |
+| sistem.md §10, §13 (aşama 5 gövde-merkezli gözlem bölümü; K-041, ÖK-005 taslağı §2.1, V-065) | `degerlendirme/h2_bolum.py` | `testler/test_b1_bolum.py` |
+| sistem.md §13 (Wilson, kümeli Wilson, Laplace, kümeli bootstrap; ÖK-005 taslağı §4 madde 9, 12, 16, 21) | `degerlendirme/istatistik.py` | `testler/test_b1_istatistik.py` |
+| sistem.md §8, §10, §13, §18 (H2 kabul geçidi aşama 1–5, Westfall–Young, çekirdek adımı, hüküm sırası; K-041, K-043, V-065) | `degerlendirme/h2_gecit.py` | `testler/test_b1_gecit.py` |
+| sistem.md §13 (π-ikizi: ters-çift koruyan bijeksiyonlar; ÖK-005 taslağı §13.4, V-065) | `degerlendirme/h2_ikiz.py` | `testler/test_b1_gecit.py` |
+| sistem.md §10, §13 (veto ikizi ve null için yeniden bağlama, simetrik ilişki yönsüz; ÖK-005 taslağı §13.6, V-065) | `degerlendirme/h2_bagla.py` | `testler/test_b1_bagla.py` |
+| sistem.md §13, §18 (H2 tur koşucusu: sıra, yedeklilik, sorgu defteri, kaldığı yerden devam; K-043, V-065) | `degerlendirme/h2_tur.py` | `testler/test_b1_tur.py` |
+| sistem.md §13, §18 (kırmızı takım: görünür G1–G4, gizli dosyanın sayımı; ÖK-005 taslağı §4 madde 19, V-065) | `degerlendirme/h2_kirmizi.py` | `testler/test_b1_kirmizi.py` |
+| sistem.md §13 (K kalibrasyonu, C, P*, boş koşu sayısı; ÖK-005 taslağı §4 madde 3, 9, 10, 12, 20; V-065) | `degerlendirme/h2_kalibrasyon.py` | `testler/test_b1_kalibrasyon.py` |
+| sistem.md §13, §18 (B2 ölçümü: hedef ve kabul sınıfları, bilmiyorum, kapı kararı, makas; ÖK-005 taslağı §8, V-065) | `degerlendirme/h2_olcum.py` | `testler/test_b2_olcum.py` |
+| sistem.md §13 (ön kayıt tutmazsa koşu başlamaz; ÖK-005 taslağı §9 madde 1, V-065) | `degerlendirme/h2_onkayit.py` | `testler/test_b1_onkayit.py` |
+| sistem.md §13, §18 (B1 koşucusu: C, kırmızı takım, kalibrasyon, P*, boş koşular; ÖK-005 taslağı §4 madde 3, 9–12, 19, 20; V-065) | `degerlendirme/h2_b1.py` | `testler/test_b1_kosucu.py` |
