@@ -221,7 +221,7 @@
 - gövde sözlüğü 21 ilişki;
 - gövde bağlı ve X ile Y'yi içerir;
 - iki ucu aynı değişken olan halka yok;
-- tek halkalı gövde başla aynı olamaz;
+- gövde başın kendisini (aynı ilişki, X'ten Y'ye) içeremez. Bu yazım 2026-10-26'da sayılara uyduruldu; §6'daki sayılar baştan beri bu kuralla hesaplanmıştı (V-060);
 - OI bayrağı (bütün değişken çiftleri farklı kişi) yalnız bitişik olmayan bir çifti olan gövdelerde ayrı aday;
 - tip: tek tür (kişi), tip budaması yok.
 

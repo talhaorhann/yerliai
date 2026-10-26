@@ -66,3 +66,5 @@
 | sistem.md §8, §15 (bellek deposu: salt ekleme, sürüm kilidi, geri alma; V-056) | `cekirdek/bellek.py` | `testler/test_a6_bellek.py` |
 | sistem.md §17, §15, §18 (iç dil sürüm 1; V-055) | `cekirdek/ic_dil.py`, `sema/ic_dil_v1.schema.json` | `testler/test_a6_ic_dil.py` |
 | sistem.md §13 (H2 tek aday şeması, kanonik kimlik, kırmızı takım dosyası denetimi; K-041, V-060) | `kesif/aday.py`, `sema/aday_v1.schema.json`, `sema/kirmizi_dosyasi_v1.schema.json`, `veri/h2/kirmizi_ornek_v1.json` | `testler/test_b0_aday.py` |
+| sistem.md §13 (H2 tohum türetme; K-041, ÖK-005 taslağı §5) | `kesif/tohum.py` | `testler/test_b0_sablon.py` |
+| sistem.md §3, §13 (tipli şablon ailesi T ve kademeleri K1–K5; K-041, ÖK-005 taslağı §6) | `kesif/sablon.py` | `testler/test_b0_sablon.py` |

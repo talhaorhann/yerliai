@@ -29,6 +29,52 @@
     "h2_kilitli_veri_dosyalari": {
       "deger": [],
       "kaynak": "V-060"
+    },
+    "tohum_oneki": {
+      "deger": "ÖK-005|",
+      "kaynak": "K-041"
+    },
+    "tohum_hex_uzunlugu": {
+      "deger": 8,
+      "kaynak": "K-041"
+    },
+    "sablon_degiskenleri": {
+      "deger": [
+        "X",
+        "Y",
+        "Z",
+        "W"
+      ],
+      "kaynak": "K-041"
+    },
+    "sablon_kademeleri": {
+      "deger": {
+        "K1": [
+          1,
+          false
+        ],
+        "K2": [
+          2,
+          true
+        ],
+        "K3": [
+          2,
+          false
+        ],
+        "K4": [
+          3,
+          true
+        ],
+        "K5": [
+          3,
+          false
+        ]
+      },
+      "kaynak": "K-041"
+    },
+    "sablon_uretim_kademesi": {
+      "deger": "K5",
+      "kaynak": "K-041"
     }
   },
   "bayraklar": {

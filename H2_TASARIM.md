@@ -292,7 +292,7 @@ Aşama 1–4 geliştirme havuzunda sembolik değerlendiriciyle çalışır. Aşa
 
 **Sayım kuralları:**
 - Baş: şemanın 21 ilişkisinden biri, X'ten Y'ye. Başın yönü değişken adlandırmasına katılır; iki kez sayılmaz.
-- Tek halkalı gövde başla aynıysa atıldı.
+- Gövdesi başın kendisini (aynı ilişki, X'ten Y'ye) içeren aday atıldı. Bu satır 2026-10-26'da sayılara uyduruldu; sayılar baştan beri bu kuralla hesaplanmıştı (V-060).
 - OI bayrağı yalnız bitişik olmayan bir değişken çifti olan gövdelerde ayrı aday sayılır.
 
 | Kademe | 7 temel ilişkili gövde: gövde / kural / OI'li | 21 ilişkili gövde: gövde / kural / OI'li | DNA v8 biçim kapsamı (7 / 21) |

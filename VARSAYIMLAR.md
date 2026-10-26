@@ -702,5 +702,6 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
     - Sohbete ek olarak gönderilmez, çünkü ekler kodlayıcıya otomatik gösterilir. Depoya doğrudan konur: `degerlendirme/kirmizi_gizli/kirmizi_gizli_v1.json`, `asama-6` dalı.
     - Kodlayıcı yalnız `python3 -m kesif.aday <dosya> kirmizi_gizli` ile denetler. Araç yalnız sayıları ve özeti yazar; hata iletilerinde değer yoktur.
     - Özet `config_h2.json` `h2_kilitli_veri_dosyalari` listesine girer ve kilitlenir.
-- **Doğrulama:** `testler/test_b0_aday.py`.
-- **Felsefi:** hayır (dosya yeri, ayar dosyası adı, teslim yolu). **Durum:** KODLAYICI KARARI (2026-10-26); raporda bildirilir.
+  - **Şablonda yazım düzeltmesi:** ÖK-005 taslağı §6'da "tek halkalı gövde başla aynı olamaz" yazıyordu. Onaylı sayılar (§6, `H2_TASARIM.md` §6.1) ise baştan beri daha geniş kuralla hesaplanmıştı: gövde başın kendisini (aynı ilişki, X'ten Y'ye) içeremez. Böyle bir kural kendi sonucunu varsayar. Metin sayılara uyduruldu; sayılar değişmedi (`testler/test_b0_sablon.py`).
+- **Doğrulama:** `testler/test_b0_aday.py`, `testler/test_b0_sablon.py`.
+- **Felsefi:** hayır (dosya yeri, ayar dosyası adı, teslim yolu, yazım düzeltmesi). **Durum:** KODLAYICI KARARI (2026-10-26); raporda bildirilir.
