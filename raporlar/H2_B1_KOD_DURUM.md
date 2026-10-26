@@ -31,5 +31,19 @@ H2'nin bütün kodu yazıldı ve sınandı. Kod yalnız geliştirme havuzunda ve
 ## Sınır (raporlara yazılır)
 Gizli sahte kural ailelerinin yazarı danışmandır; danışman kodlayıcıyla aynı model ailesindendir. Bu yüzden gizli aileler tam bağımsız bir sınama sayılmaz.
 
+## Adım 2–3 (gizli dosya)
+- Ad, içerik açılmadan `git mv` ile değişti (`kirmizi_gizli_v1.json`).
+- Biçim denetimi beklenenle aynı: 4 aile, 180 kural, en küçük aile 45, sha256 c8adb685…565b. Özet `config_h2.json`'a yazıldı, dosya kilitlendi, ÖK-005 eki §2 eklendi; ön kayıt denetimi tutuyor.
+- Geliştirme dünyalarında (A1, A2, A3) yalnız sayılar:
+
+  | Gizli aile (sıra) | Kural | Yanlış veren | Hiç tetiklenmeyen |
+  |---|---|---|---|
+  | 1 | 45 | 45 | 0 |
+  | 2 | 45 | 45 | 0 |
+  | 3 | 45 | 45 | 0 |
+  | 4 | 45 | 44 | 0 |
+
+  Hiçbir aile 40'ın altına düşmedi; kırmızı takımda etkin gizli kural 179 (4. ailedeki bir kural geliştirme dünyalarında yanlış vermiyor; ayrı raporlanacak, sahte sayılmayacak).
+
 ## Sıradaki adım
-Adım 2: gizli dosyanın adını içeriğine dokunmadan değiştirmek ve yalnız biçim denetimini çalıştırmak (beklenen: 4 aile, 180 kural, en küçük aile 45, sha256 c8adb685…).
+Adım 4: B1'in otomatik koşusu (C, görünür kırmızı takım, boş adaylar, K kalibrasyonu, gizli kırmızı takım, P\*, boş dünya koşuları). Uzun sürecek (boş koşular baskın); her evre diske yazılır.
