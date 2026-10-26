@@ -1,0 +1,6911 @@
+{
+ "sema_surumu": "1",
+ "dosya_turu": "kirmizi_gizli",
+ "yazan": "danışman",
+ "tarih": "2026-10-26",
+ "aileler": [
+  {
+   "ad": "H1_yan_adim_tasima",
+   "aciklama": "Yan adım taşıma: eş ya da kuzen halkası üzerinden geçince ilişkinin aynı kaldığını varsayan kural (eşin annesi = annem gibi)."
+  },
+  {
+   "ad": "H2_gecislilik_yanilgisi",
+   "aciklama": "Geçişlilik yanılgısı: iki halkanın bileşimi, halkalardan birinin ilişkisini aynen verir sanılır (babanın annesi = annem gibi)."
+  },
+  {
+   "ad": "H3_ortak_komsu_kapanisi",
+   "aciklama": "Ortak komşu kapanışı: aynı kişiye bağlanan iki kişi arasında belli bir ilişki varsayan kural."
+  },
+  {
+   "ad": "H4_yakin_hata_uzun_zincir",
+   "aciklama": "Yakın hata uzun zincir: üç halkalı, çoğu durumda doğru ama nadir durumlarda yanlış çıkan kural."
+  }
+ ],
+ "adaylar": [
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_001",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "dede",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kuzen ; Y = Z.dede ise Y = X.dede. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %59.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_002",
+   "halkalar": [
+    {
+     "gen": "torun",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kuzen",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.torun ; Y = Z.kuzen ise Y = X.torun. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %59.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_003",
+   "halkalar": [
+    {
+     "gen": "yeğen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kuzen",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.yeğen ; Y = Z.kuzen ise Y = X.yeğen. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %42.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_004",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "babaanne",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "babaanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kuzen ; Y = Z.babaanne ise Y = X.babaanne. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %38.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_005",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "amca",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "amca",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kuzen ; Y = Z.amca ise Y = X.amca. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %34.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_006",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anneanne",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anneanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kuzen ; Y = Z.anneanne ise Y = X.anneanne. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %31.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_007",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "teyze",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "teyze",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kuzen ; Y = Z.teyze ise Y = X.teyze. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %23.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_008",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "dayı",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dayı",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kuzen ; Y = Z.dayı ise Y = X.dayı. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %21.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_009",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "hala",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "hala",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kuzen ; Y = Z.hala ise Y = X.hala. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %16.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_010",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.eş ; Y = Z.anne ise Y = X.anne. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_011",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.eş ise Y = X.anne. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_012",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.eş ; Y = Z.baba ise Y = X.baba. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_013",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.eş ise Y = X.baba. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_014",
+   "halkalar": [
+    {
+     "gen": "oğul",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "oğul",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.oğul ; Y = Z.eş ise Y = X.oğul. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_015",
+   "halkalar": [
+    {
+     "gen": "kız",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kız",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kız ; Y = Z.eş ise Y = X.kız. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_016",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.eş ; Y = Z.erkek_kardeş ise Y = X.erkek_kardeş. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_017",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.erkek_kardeş ; Y = Z.eş ise Y = X.erkek_kardeş. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_018",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.eş ; Y = Z.kız_kardeş ise Y = X.kız_kardeş. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_019",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kız_kardeş ; Y = Z.eş ise Y = X.kız_kardeş. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_020",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "dede",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.eş ; Y = Z.dede ise Y = X.dede. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_021",
+   "halkalar": [
+    {
+     "gen": "dede",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.dede ; Y = Z.eş ise Y = X.dede. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_022",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "babaanne",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "babaanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.eş ; Y = Z.babaanne ise Y = X.babaanne. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_023",
+   "halkalar": [
+    {
+     "gen": "babaanne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "babaanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.babaanne ; Y = Z.eş ise Y = X.babaanne. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_024",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anneanne",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anneanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.eş ; Y = Z.anneanne ise Y = X.anneanne. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_025",
+   "halkalar": [
+    {
+     "gen": "anneanne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anneanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anneanne ; Y = Z.eş ise Y = X.anneanne. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_026",
+   "halkalar": [
+    {
+     "gen": "torun",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.torun ; Y = Z.eş ise Y = X.torun. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_027",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "amca",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "amca",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.eş ; Y = Z.amca ise Y = X.amca. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_028",
+   "halkalar": [
+    {
+     "gen": "amca",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "amca",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.amca ; Y = Z.eş ise Y = X.amca. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_029",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "dayı",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dayı",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.eş ; Y = Z.dayı ise Y = X.dayı. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_030",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dayı",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.dayı ; Y = Z.eş ise Y = X.dayı. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_031",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "hala",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "hala",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.eş ; Y = Z.hala ise Y = X.hala. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_032",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "hala",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.hala ; Y = Z.eş ise Y = X.hala. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_033",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "teyze",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "teyze",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.eş ; Y = Z.teyze ise Y = X.teyze. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_034",
+   "halkalar": [
+    {
+     "gen": "teyze",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "teyze",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.teyze ; Y = Z.eş ise Y = X.teyze. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_035",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.eş ; Y = Z.yeğen ise Y = X.yeğen. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_036",
+   "halkalar": [
+    {
+     "gen": "yeğen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.yeğen ; Y = Z.eş ise Y = X.yeğen. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_037",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kuzen",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.eş ; Y = Z.kuzen ise Y = X.kuzen. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_038",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kuzen ; Y = Z.eş ise Y = X.kuzen. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_039",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kayınpeder",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kayınpeder",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.eş ; Y = Z.kayınpeder ise Y = X.kayınpeder. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_040",
+   "halkalar": [
+    {
+     "gen": "kayınpeder",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kayınpeder",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kayınpeder ; Y = Z.eş ise Y = X.kayınpeder. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_041",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kayınvalide",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kayınvalide",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.eş ; Y = Z.kayınvalide ise Y = X.kayınvalide. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_042",
+   "halkalar": [
+    {
+     "gen": "kayınvalide",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kayınvalide",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kayınvalide ; Y = Z.eş ise Y = X.kayınvalide. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_043",
+   "halkalar": [
+    {
+     "gen": "gelin",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "gelin",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.gelin ; Y = Z.eş ise Y = X.gelin. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_044",
+   "halkalar": [
+    {
+     "gen": "damat",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "damat",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.damat ; Y = Z.eş ise Y = X.damat. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h1_045",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H1_yan_adim_tasima",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kuzen ; Y = Z.anne ise Y = X.anne. (Sahte: H1_yan_adim_tasima; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_001",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.erkek_kardeş ; Y = Z.yeğen ise Y = X.yeğen. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %52.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_002",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kız_kardeş ; Y = Z.yeğen ise Y = X.yeğen. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %52.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_003",
+   "halkalar": [
+    {
+     "gen": "amca",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "amca",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.amca ; Y = Z.erkek_kardeş ise Y = X.amca. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %41.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_004",
+   "halkalar": [
+    {
+     "gen": "teyze",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "teyze",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.teyze ; Y = Z.kız_kardeş ise Y = X.teyze. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %37.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_005",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.anne ise Y = X.anne. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_006",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.baba ise Y = X.anne. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_007",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.baba ise Y = X.baba. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_008",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "oğul",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.oğul ise Y = X.anne. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_009",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "oğul",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "oğul",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.oğul ise Y = X.oğul. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_010",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.kız ise Y = X.anne. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_011",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kız",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.kız ise Y = X.kız. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_012",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.erkek_kardeş ise Y = X.anne. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_013",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.erkek_kardeş ise Y = X.erkek_kardeş. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_014",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.kız_kardeş ise Y = X.kız_kardeş. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_015",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.kız_kardeş ise Y = X.anne. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_016",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "dede",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.dede ise Y = X.dede. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_017",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "babaanne",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "babaanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.babaanne ise Y = X.babaanne. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_018",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anneanne",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anneanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.anneanne ise Y = X.anneanne. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_019",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "torun",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.torun ise Y = X.torun. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_020",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "amca",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "amca",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.amca ise Y = X.amca. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_021",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "dayı",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dayı",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.dayı ise Y = X.dayı. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_022",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "hala",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "hala",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.hala ise Y = X.hala. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_023",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "teyze",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "teyze",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.teyze ise Y = X.teyze. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_024",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.yeğen ise Y = X.yeğen. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_025",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kayınpeder",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kayınpeder",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.kayınpeder ise Y = X.kayınpeder. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_026",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kayınvalide",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kayınvalide",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.kayınvalide ise Y = X.kayınvalide. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_027",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "gelin",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "gelin",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.gelin ise Y = X.gelin. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_028",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "damat",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "damat",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Y = Z.damat ise Y = X.damat. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_029",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.anne ise Y = X.baba. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_030",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.baba ise Y = X.baba. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_031",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "oğul",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.oğul ise Y = X.baba. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_032",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "oğul",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "oğul",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.oğul ise Y = X.oğul. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_033",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kız",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.kız ise Y = X.kız. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_034",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.kız ise Y = X.baba. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_035",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.erkek_kardeş ise Y = X.erkek_kardeş. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_036",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.erkek_kardeş ise Y = X.baba. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_037",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.kız_kardeş ise Y = X.kız_kardeş. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_038",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "dede",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.dede ise Y = X.dede. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_039",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "babaanne",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "babaanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.babaanne ise Y = X.babaanne. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_040",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anneanne",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anneanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.anneanne ise Y = X.anneanne. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_041",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "torun",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.torun ise Y = X.torun. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_042",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "amca",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "amca",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.amca ise Y = X.amca. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_043",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "dayı",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dayı",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.dayı ise Y = X.dayı. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_044",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "hala",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "hala",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.hala ise Y = X.hala. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h2_045",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "teyze",
+     "sol": "Z",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "teyze",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H2_gecislilik_yanilgisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Y = Z.teyze ise Y = X.teyze. (Sahte: H2_gecislilik_yanilgisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_001",
+   "halkalar": [
+    {
+     "gen": "dede",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "dede",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.dede ; Z = Y.dede ise Y = X.kuzen. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %58.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_002",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "babaanne",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Z = Y.babaanne ise Y = X.yeğen. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %58.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_003",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "dede",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Z = Y.dede ise Y = X.yeğen. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %58.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_004",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anneanne",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Z = Y.anneanne ise Y = X.yeğen. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %58.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_005",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "amca",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Z = Y.erkek_kardeş ise Y = X.amca. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %58.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_006",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "amca",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.erkek_kardeş ; Z = Y.amca ise Y = X.yeğen. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %53.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_007",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "teyze",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kız_kardeş ; Z = Y.teyze ise Y = X.yeğen. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %53.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_008",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kız_kardeş ; Z = Y.kız_kardeş ise Y = X.erkek_kardeş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %52.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_009",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anne",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Z = Y.anne ise Y = X.erkek_kardeş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %52.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_010",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "baba",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Z = Y.baba ise Y = X.erkek_kardeş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %52.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_011",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "hala",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kız_kardeş ; Z = Y.hala ise Y = X.yeğen. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %51.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_012",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.erkek_kardeş ; Z = Y.erkek_kardeş ise Y = X.erkek_kardeş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %51.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_013",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "dayı",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Z = Y.kız_kardeş ise Y = X.dayı. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %50.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_014",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kuzen",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kuzen ; Z = Y.kuzen ise Y = X.kuzen. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %46.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_015",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "hala",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.hala ; Z = Y.hala ise Y = X.kız_kardeş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %44.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_016",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kayınvalide",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "eş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Z = Y.kayınvalide ise Y = X.eş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %43.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_017",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kayınpeder",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "eş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Z = Y.kayınpeder ise Y = X.eş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %43.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_018",
+   "halkalar": [
+    {
+     "gen": "amca",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "amca",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.amca ; Z = Y.amca ise Y = X.kuzen. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %41.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_019",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "dayı",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.dayı ; Z = Y.dayı ise Y = X.erkek_kardeş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %37.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_020",
+   "halkalar": [
+    {
+     "gen": "teyze",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "teyze",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.teyze ; Z = Y.teyze ise Y = X.kız_kardeş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %37.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_021",
+   "halkalar": [
+    {
+     "gen": "babaanne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "babaanne",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.babaanne ; Z = Y.babaanne ise Y = X.kuzen. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %37.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_022",
+   "halkalar": [
+    {
+     "gen": "anneanne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anneanne",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anneanne ; Z = Y.anneanne ise Y = X.erkek_kardeş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %35.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_023",
+   "halkalar": [
+    {
+     "gen": "torun",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "torun",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "eş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.torun ; Z = Y.torun ise Y = X.eş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %34.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_024",
+   "halkalar": [
+    {
+     "gen": "kız_kardeş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "amca",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kız_kardeş ; Z = Y.yeğen ise Y = X.amca. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %31.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_025",
+   "halkalar": [
+    {
+     "gen": "erkek_kardeş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "amca",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.erkek_kardeş ; Z = Y.yeğen ise Y = X.amca. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %30.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_026",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "teyze",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.dayı ; Z = Y.erkek_kardeş ise Y = X.teyze. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %27.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_027",
+   "halkalar": [
+    {
+     "gen": "yeğen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.yeğen ; Z = Y.oğul ise Y = X.kız_kardeş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %25.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_028",
+   "halkalar": [
+    {
+     "gen": "yeğen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.yeğen ; Z = Y.kız ise Y = X.kız_kardeş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %23.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_029",
+   "halkalar": [
+    {
+     "gen": "yeğen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.yeğen ; Z = Y.yeğen ise Y = X.kız_kardeş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %23.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_030",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "amca",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kuzen ; Z = Y.kız ise Y = X.amca. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %18.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_031",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "amca",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kuzen ; Z = Y.oğul ise Y = X.amca. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %18.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_032",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "amca",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kuzen ; Z = Y.yeğen ise Y = X.amca. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %16.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_033",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "kız_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Z = Y.kız ise Y = X.kız_kardeş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_034",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Z = Y.eş ise Y = X.kuzen. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_035",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "torun",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Z = Y.torun ise Y = X.kuzen. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_036",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "hala",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "eş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Z = Y.hala ise Y = X.eş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_037",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "teyze",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "eş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Z = Y.teyze ise Y = X.eş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_038",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "eş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Z = Y.yeğen ise Y = X.eş. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_039",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kuzen",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "dayı",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Z = Y.kuzen ise Y = X.dayı. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_040",
+   "halkalar": [
+    {
+     "gen": "anne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "gelin",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "dayı",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anne ; Z = Y.gelin ise Y = X.dayı. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_041",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "oğul",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "dayı",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Z = Y.oğul ise Y = X.dayı. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_042",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "eş",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "dayı",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Z = Y.eş ise Y = X.dayı. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_043",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "torun",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "dayı",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Z = Y.torun ise Y = X.dayı. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_044",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "amca",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "hala",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Z = Y.amca ise Y = X.hala. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h3_045",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "dayı",
+     "sol": "Y",
+     "sag": "Z"
+    }
+   ],
+   "sonuc": {
+    "gen": "hala",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H3_ortak_komsu_kapanisi",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; Z = Y.dayı ise Y = X.hala. (Sahte: H3_ortak_komsu_kapanisi; danışman simülasyonunda doğruluk %0.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_001",
+   "halkalar": [
+    {
+     "gen": "anneanne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "torun",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "dayı",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dayı",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anneanne ; V = Z.torun ; Y = V.dayı ise Y = X.dayı. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %93.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_002",
+   "halkalar": [
+    {
+     "gen": "amca",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "babaanne",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "babaanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.amca ; V = Z.yeğen ; Y = V.babaanne ise Y = X.babaanne. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %92.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_003",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "anneanne",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anneanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.dayı ; V = Z.yeğen ; Y = V.anneanne ise Y = X.anneanne. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %91.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_004",
+   "halkalar": [
+    {
+     "gen": "torun",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "dayı",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.torun ; V = Z.dayı ; Y = V.yeğen ise Y = X.torun. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %89.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_005",
+   "halkalar": [
+    {
+     "gen": "teyze",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "anneanne",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anneanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.teyze ; V = Z.yeğen ; Y = V.anneanne ise Y = X.anneanne. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %89.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_006",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "dede",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.dayı ; V = Z.yeğen ; Y = V.dede ise Y = X.dede. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %89.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_007",
+   "halkalar": [
+    {
+     "gen": "torun",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "hala",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.torun ; V = Z.hala ; Y = V.yeğen ise Y = X.torun. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %89.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_008",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "kayınpeder",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.hala ; V = Z.erkek_kardeş ; Y = V.kayınpeder ise Y = X.dede. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %87.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_009",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "kayınvalide",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anneanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.hala ; V = Z.erkek_kardeş ; Y = V.kayınvalide ise Y = X.anneanne. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %87.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_010",
+   "halkalar": [
+    {
+     "gen": "babaanne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "torun",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "hala",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "hala",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.babaanne ; V = Z.torun ; Y = V.hala ise Y = X.hala. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %87.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_011",
+   "halkalar": [
+    {
+     "gen": "anneanne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "damat",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "amca",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anneanne ; V = Z.damat ; Y = V.erkek_kardeş ise Y = X.amca. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %87.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_012",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "dayı",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dayı",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.dayı ; V = Z.yeğen ; Y = V.dayı ise Y = X.dayı. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %86.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_013",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "dede",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.hala ; V = Z.yeğen ; Y = V.dede ise Y = X.dede. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %85.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_014",
+   "halkalar": [
+    {
+     "gen": "teyze",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anneanne",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "damat",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.teyze ; V = Z.anneanne ; Y = V.damat ise Y = X.dede. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %85.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_015",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kuzen",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "kuzen",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kuzen ; V = Z.kuzen ; Y = V.kuzen ise Y = X.kuzen. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %85.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_016",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "kayınpeder",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dede",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.dayı ; V = Z.kız_kardeş ; Y = V.kayınpeder ise Y = X.dede. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %85.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_017",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "kayınvalide",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "babaanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.dayı ; V = Z.kız_kardeş ; Y = V.kayınvalide ise Y = X.babaanne. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %85.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_018",
+   "halkalar": [
+    {
+     "gen": "torun",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "amca",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.torun ; V = Z.amca ; Y = V.yeğen ise Y = X.torun. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %85.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_019",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "babaanne",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "babaanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.hala ; V = Z.yeğen ; Y = V.babaanne ise Y = X.babaanne. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %84.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_020",
+   "halkalar": [
+    {
+     "gen": "amca",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "hala",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "hala",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.amca ; V = Z.yeğen ; Y = V.hala ise Y = X.hala. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %83.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_021",
+   "halkalar": [
+    {
+     "gen": "torun",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "teyze",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.torun ; V = Z.teyze ; Y = V.yeğen ise Y = X.torun. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %83.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_022",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "gelin",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.hala ; V = Z.anne ; Y = V.gelin ise Y = X.anne. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %83.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_023",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "gelin",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.hala ; V = Z.baba ; Y = V.gelin ise Y = X.anne. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %83.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_024",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "eş",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "anne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.hala ; V = Z.erkek_kardeş ; Y = V.eş ise Y = X.anne. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %83.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_025",
+   "halkalar": [
+    {
+     "gen": "baba",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "amca",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "amca",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.baba ; V = Z.yeğen ; Y = V.amca ise Y = X.amca. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %82.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_026",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "hala",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "hala",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.hala ; V = Z.yeğen ; Y = V.hala ise Y = X.hala. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %82.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_027",
+   "halkalar": [
+    {
+     "gen": "babaanne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "gelin",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "dayı",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.babaanne ; V = Z.gelin ; Y = V.erkek_kardeş ise Y = X.dayı. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %82.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_028",
+   "halkalar": [
+    {
+     "gen": "torun",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kuzen",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "kuzen",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "torun",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.torun ; V = Z.kuzen ; Y = V.kuzen ise Y = X.torun. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %82.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_029",
+   "halkalar": [
+    {
+     "gen": "anneanne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "damat",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "hala",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anneanne ; V = Z.damat ; Y = V.kız_kardeş ise Y = X.hala. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %82.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_030",
+   "halkalar": [
+    {
+     "gen": "hala",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "erkek_kardeş",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "oğul",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "erkek_kardeş",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.hala ; V = Z.erkek_kardeş ; Y = V.oğul ise Y = X.erkek_kardeş. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %81.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_031",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "amca",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "amca",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.dayı ; V = Z.yeğen ; Y = V.amca ise Y = X.amca. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %81.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_032",
+   "halkalar": [
+    {
+     "gen": "babaanne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "gelin",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "teyze",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.babaanne ; V = Z.gelin ; Y = V.kız_kardeş ise Y = X.teyze. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %81.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_033",
+   "halkalar": [
+    {
+     "gen": "yeğen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anneanne",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.yeğen ; V = Z.anneanne ; Y = V.yeğen ise Y = X.kuzen. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %81.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_034",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "hala",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kuzen ; V = Z.hala ; Y = V.yeğen ise Y = X.kuzen. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %81.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_035",
+   "halkalar": [
+    {
+     "gen": "kuzen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "oğul",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "teyze",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kuzen ; V = Z.oğul ; Y = V.teyze ise Y = X.kuzen. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %81.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_036",
+   "halkalar": [
+    {
+     "gen": "anneanne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "kayınvalide",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "babaanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anneanne ; V = Z.kız ; Y = V.kayınvalide ise Y = X.babaanne. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %81.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_037",
+   "halkalar": [
+    {
+     "gen": "anneanne",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "damat",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "anne",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "babaanne",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.anneanne ; V = Z.damat ; Y = V.anne ise Y = X.babaanne. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %81.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_038",
+   "halkalar": [
+    {
+     "gen": "teyze",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "yeğen",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "kuzen",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kuzen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.teyze ; V = Z.yeğen ; Y = V.kuzen ise Y = X.kuzen. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %80.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_039",
+   "halkalar": [
+    {
+     "gen": "yeğen",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kuzen",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "kuzen",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "yeğen",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.yeğen ; V = Z.kuzen ; Y = V.kuzen ise Y = X.yeğen. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %80.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_040",
+   "halkalar": [
+    {
+     "gen": "eş",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anneanne",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "damat",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kayınpeder",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.eş ; V = Z.anneanne ; Y = V.damat ise Y = X.kayınpeder. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %80.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_041",
+   "halkalar": [
+    {
+     "gen": "kayınvalide",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "damat",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kayınpeder",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kayınvalide ; V = Z.anne ; Y = V.damat ise Y = X.kayınpeder. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %80.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_042",
+   "halkalar": [
+    {
+     "gen": "kayınvalide",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "damat",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "kayınpeder",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.kayınvalide ; V = Z.baba ; Y = V.damat ise Y = X.kayınpeder. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %80.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_043",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "anne",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "damat",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.dayı ; V = Z.anne ; Y = V.damat ise Y = X.baba. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %80.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_044",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "baba",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "damat",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.dayı ; V = Z.baba ; Y = V.damat ise Y = X.baba. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %80.)"
+  },
+  {
+   "sema_surumu": "1",
+   "kimlik": "h4_045",
+   "halkalar": [
+    {
+     "gen": "dayı",
+     "sol": "X",
+     "sag": "Z"
+    },
+    {
+     "gen": "kız_kardeş",
+     "sol": "Z",
+     "sag": "V"
+    },
+    {
+     "gen": "eş",
+     "sol": "V",
+     "sag": "Y"
+    }
+   ],
+   "sonuc": {
+    "gen": "baba",
+    "sol": "X",
+    "sag": "Y"
+   },
+   "farkli": [
+    [
+     "X",
+     "Y"
+    ]
+   ],
+   "oi": false,
+   "kaynak": {
+    "tur": "kirmizi_gizli",
+    "aile": "H4_yakin_hata_uzun_zincir",
+    "tohum": null,
+    "ust": []
+   },
+   "tanik_ozeti": null,
+   "surum": 1,
+   "okunus": "Z = X.dayı ; V = Z.kız_kardeş ; Y = V.eş ise Y = X.baba. (Sahte: H4_yakin_hata_uzun_zincir; danışman simülasyonunda doğruluk %80.)"
+  }
+ ]
+}
