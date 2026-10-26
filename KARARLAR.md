@@ -265,3 +265,35 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
   - **(3) Gizli sahte kurallar:** danışman yazar. Kodlayıcı ona aday kayıt biçimini (JSON şeması), 3 örnek kaydı ve görünür ailelerin listesini verir. Gizli aileler B1'den önce mühürlü dosya olarak gelir; kodlayıcı açmaz, yalnız biçimini kodla doğrular ve özetini kaydeder.
 - **Sonuç:** B0 başlar. ÖK-005'in nihai mühürü B0 sonundadır (Kapı 1).
 - **Onaylayan:** kullanıcı.
+
+## K-042 (2026-10-26): Kapı 1, ÖK-005 mühürlendi
+- **Karar:** `raporlar/h2_b0/OK005_MUHUR_METNI.md` metni `ONKAYIT.md`'ye aynen "## ÖK-005" olarak eklendi ve kilitlendi.
+- **Mühürlü metin:** `ONKAYIT_H2_TASLAK.md`, sha256 `38833917…`.
+- **Kural:** bundan sonraki her değişiklik yalnız "ÖK-005 eki" olarak yazılır. Sonuçtan sonra eşik, aile ya da kural değişmez.
+- **Onaylayan:** kullanıcı.
+
+## K-043 (2026-10-26): H2'nin geri kalanı tek akışta
+- **Sıra:**
+  1. Bütün H2 kodu ve testleri yazılır: B1 kabul geçidi, kırmızı takım sınaması, kalibrasyon, B2a/B2b geri bulma, A3 ve Z12 aktarım ölçümü, raporlama.
+     - Yalnız geliştirme havuzunda ve küçük sentetik girdilerle denenir.
+     - Final ve kontrol havuzlarına, DNA v8'e ve gizli sahte kural dosyasına dokunulmaz.
+  2. Gizli dosyanın yalnız adı değiştirilir (`git mv`, içerik açılmadan), sonra yalnız `python3 -m kesif.aday … kirmizi_gizli` denetimi çalışır.
+     - Beklenen: 4 aile, 180 kural, en küçük aile 45, sha256 `c8adb685…`.
+     - Özet farklıysa dur.
+  3. Özet `config_h2.json`'a yazılır, kilitlenir, ÖK-005 eki §2 olur.
+     - Tek ek kontrol: gizli kuralların geliştirme dünyalarında kaçı yanlış veriyor, kaçı hiç tetiklenmiyor. Yalnız aile başına sayı yazılır; içerik ve kimlik yazılmaz.
+     - Bir aile 40'ın altına düşerse dur.
+  4. B1 otomatik koşar. K değerleri önkayıttaki kurala göre hesaplanır, ek §3 olur.
+  5. B1 başarı aralığındaysa B2a ve B2b otomatik koşar; değilse dur.
+- **Her zaman dur:**
+  - önkayıtta olmayan ya da felsefeye dokunan karar;
+  - sızıntı şüphesi;
+  - üç koşunun aynı çıkmaması.
+- **Kapılar:**
+  - Kapı 2'de dur: A6 bağımsız inceleme sonucu ve B2 ham raporu. B3 onaysız başlamaz.
+  - Kapı 3'te dur: H2 kapanış raporu.
+- **Yöntem:**
+  - Küçük kararları kodlayıcı verir ve raporda tek satırla belirtir.
+  - Her büyük adımda bir sayfalık sade Türkçe durum raporu yazılır.
+- **Sınır (raporlara yazılır):** gizli ailelerin yazarı danışmandır ve danışman da kodlayıcıyla aynı model ailesindendir.
+- **Onaylayan:** kullanıcı.
