@@ -670,3 +670,21 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - Sentetik örnek: `testler/test_a6_bellek_gecidi.py` `ArtiklikTesti` (K-037'den sonra: artık gözlemde doğru kural kabul; b < 1 ise ret).
 - **Öneri:** Bellek geçidinde müdahale puanı b·c olsun (ilgisiz bilgi değişince cevap aynı mı × ters/çelişki tutarlılığı); (a) ölçülüp kanıtta saklanır ama eşiğe girmez. H1'deki müdahale testi (K-021) değişmez. Kısayolu yakalayan (b) ve kaydırılmış ortam doğruluğudur.
 - **Felsefi:** evet (bellek, kredi: müdahale). **Durum:** KARARA BAĞLANDI (K-037, 2026-10-25). Koşul: H2'de bozuk bir kural kabul edilirse yeniden açılır.
+
+## V-059: H2 tasarımında kodlayıcı varsayımları (ÖK-005 taslağı)
+- **Bölüm:** sistem.md §13 (H2), §10 (ezber önleme), §16 (bağımsızlık); v1 (`H2_ORTAK_TASARIM_v1.md`, depoda değil); `H2_TASARIM.md` §11 (S-1…S-20), `ONKAYIT_H2_TASLAK.md`.
+- **Varsayımlar (kod yok; hepsi Kapı 0 onayına bağlı):**
+  - **Kapalı dünya (S-9):** gözlem bölümü seçilen kişiler arasındaki bütün doğru olguları içerdiği için (V-057), bölümde yazılmamış bir çift için yapılan tahmin "yanlış" sayılır. Gerekçe: K-035'teki "yanlış = görünür olguyla şema çelişkisi" tanımı, ilişkisiz çiftlere ilişki uyduran aşırı genel kuralları cezasız bırakır. V-057'nin (kodlayıcı kararı) kapsamında bir ektir; H2 koduyla gelir, bugünkü geçit değişmedi.
+  - **Yol-kesme maskesi daraltıldı (S-4):** ters olgular yalnız gövdesi baş çiftine sözdizimsel olarak dokunmayan adaylarda maskelenir. DNA v8'in 81 kuralı ters-dayanaklıdır; v1'deki gibi uygulansa B2b tavanı %66,8 olurdu.
+  - **Kümeler (S-5):**
+
+    | Kullanım | Küme |
+    |---|---|
+    | Kural başına Wilson | gözlem bölümü |
+    | B2 kapısı | sonuç ilişkisi (21) |
+    | Aile | yalnız kapsam ve veto |
+
+  - **Sembolik değerlendirici (S-2):** M0, aşama 1–4, null ve boş dünya, çekirdek yerine tam sayılı sembolik sayaçla çalışır. Çekirdek ile sembolik sayaç ayrışırsa BİLMİYORUM.
+  - **Şablon ailesi T = K5/21 (S-1):** 35.544.873 aday. Sayım iki yoldan, biri depodaki `kanonik_bicim` ile, doğrulandı. Taslaktaki 124.068 çift sayımdı; 7 temel ilişkili zincir uzayı 62.027'dir.
+- **Felsefi:** kısmen. Kullanıcıya giden sorular ÖK-005 taslağı §14'tedir: geri bulma tanımı, gövde-merkezli bölüm, aileler, gizli mutantlar, Hawaii/Iroquois/Omaha, Z12 şeması. Kalanlar teknik.
+- **Durum:** AÇIK (Kapı 0 bekliyor, 2026-10-26).

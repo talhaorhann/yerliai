@@ -319,3 +319,15 @@
 - **K-040:** "## ÖK-004 sonucu" yazıldı (sha256 `935cea7b…`); H2 kapısı açık. H2 kodu koşullu: inceleme sonucu, tasarım tartışması, yeni ÖK.
 - Önsel-ters kısa yol duruşları için teşhis notu: `raporlar/ONSEL_TERS_KISA_YOL_TESHIS.md` (yalnız analiz).
 - Bekleyen iki mutant (onaydaki yerine tohum, kalan hak) yakalandı; A6 mutasyon listesi toplam 67 mutant, hepsi yakalandı (her biri en son kendi kodu üzerinde koşuldu).
+
+### H2 tasarımı ve ÖK-005 taslağı (yalnız belge), 2026-10-26
+
+- `H2_TASARIM.md`: v1 ile taslak, kod ve DNA v8 karşılaştırıldı; mimari, kâğıt üstü hesaplar, 20 gerekçeli sapma (S-1…S-20). "Genel zekâ" ve yasak iddialar v1'den aynen geçti.
+- `ONKAYIT_H2_TASLAK.md`: havuzlar 16/24/8, aileler (A1–A3, Z, isteğe bağlı H/I/O), eksiksiz eşik tablosu (D/K), tohum türetme, durma kuralları, kapılar, sızıntı tablosu, 6 kodlanabilir tanım, 6 soru.
+- **Hesaplar:**
+  - Aday uzayı K5/21 = 35.544.873 (DNA biçim kapsamı 244/244). Dar zincir uzayı 62.027 (kapsam 118/244).
+  - M0 ≈ 5–35 dk, ≤3 GB.
+  - B2b'de çekirdek geçidi 3–45 saat.
+  - Toplam ≈ 360–750 süreç-saati.
+- **Bulgular:** yol-kesme aynen uygulansa 81 DNA kuralı sınanamaz (tavan %66,8); kural başına aile kümesiyle Wilson alt sınırı en çok %44.
+- Kod, deney ve çekirdek koşusu yok. Yalnız depoda olmayan sayma betikleri çalıştı. V-059 açık.

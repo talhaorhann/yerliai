@@ -1,5 +1,7 @@
 # H2 tasarım taslağı (yalnız belge; kod yok)
 
+> **2026-10-26 notu:** Bu taslağın yerini `H2_TASARIM.md` ve `ONKAYIT_H2_TASLAK.md` aldı. §a'daki 124.068 baş yönünü iki kez sayıyordu; 7 temel ilişkili zincir uzayı 62.027 kuraldır (`H2_TASARIM.md` §6.1). Geçmiş kayıt olarak değiştirilmeden duruyor.
+
 **Durum:** TASLAK (2026-10-25). Danışmanın maddelerinden (K-039) kodlayıcı yazdı. Hiçbir karar içermez. H2 başlamadan önceki tasarım tartışmasının (FIKIRLER.md madde 1) girdisidir. H2 kapısı kapalıdır (K-032 §4): H1 son denemesi (ÖK-004) sonuçlanmadan H2 kodu yazılmaz.
 
 **H2'nin sorusu (sistem.md §13):** Klonal seçilim, doğru kuralları sıfırdan bulabiliyor mu?
