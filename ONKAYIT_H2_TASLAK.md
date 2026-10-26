@@ -1,6 +1,6 @@
 # ÖK-005 TASLAĞI: H2 ön kaydı (mühürsüz)
 
-**Durum:** TASLAK, 2026-10-26. Mühürlü değildir.
+**Durum:** TASLAK, 2026-10-26. Mühürlü değildir. **Kapı 0 onaylandı (K-041, 2026-10-26):** altı soruya evet; sayaç + çekirdek hakem hattı; A6 bağımsız incelemesi Kapı 2'den önce.
 
 - **Kapı 0:** kullanıcı bu taslağı ve `H2_TASARIM.md`'yi okuyup onaylar. Sonra B0 başlar.
 - **Kapı 1:** B0 sonunda nihai ÖK-005 `ONKAYIT.md`'ye "## ÖK-005" başlığıyla yazılır ve kilitlenir. Yalnız hash'ler ve B0'da ölçülen süre eklenir; buradaki sayılar değişmez.
@@ -42,7 +42,7 @@
 **Gözlem bölümü (V-057 + kapalı dünya):**
 - Kişiler seçilir, seçilen kişiler arasındaki bütün ilişkiler yazılır. Yazılmamış çift ilişkisizdir.
 - **Rastgele bölüm:** 2–3 adımlık zincir yürüyüşü + 4 dikkat dağıtıcı bağ.
-- **Gövde-merkezli bölüm (soru 2 onaylanırsa):** adayın gövdesinin dünyadaki eşleşmelerinden tohumla biri seçilir. Kişileri, bunlardan başlayan 2–3 adımlık yürüyüş ve 4 dikkat dağıtıcı bağ eklenir. Maskelenen olgu çekirdeğe verilmez.
+- **Gövde-merkezli bölüm (aşama 5; K-041 ile onaylı):** adayın gövdesinin dünyadaki eşleşmelerinden tohumla biri seçilir. Kişileri, bunlardan başlayan 2–3 adımlık yürüyüş ve 4 dikkat dağıtıcı bağ eklenir. Maskelenen olgu çekirdeğe verilmez.
 
 ### 2.2 Türetilmiş dünyalar (aile değildir; veto ve null)
 
@@ -123,7 +123,7 @@
 | 1 | Havuzlar | 16 / 24 / 8 (dağılım §3) | D |
 | 2 | Sorgu birimi | (aday, taze dünya); ≤200 aday/tur; ≤12 tur; grup sorgusu yok | D |
 | 3 | Tur anahtarı | C ≤ 2400 → 200/tur; C > 2400 → 400/tur (fazlası "bütçede sınanmadı"); her durumda tur başına ≤ ⌊P\*/24⌋. C ve P\* B1'de ölçülür. | D (kural) |
-| 4 | Aşama 5 dünya ve bölüm | Aday başına tur içinde 6 taze dünya (ailede 2) × dünyada 8 bölüm; gövde-merkezli bölüm onaylanmazsa 32 bölüm | D |
+| 4 | Aşama 5 dünya ve bölüm | Aday başına tur içinde 6 taze dünya (ailede 2) × dünyada 8 gövde-merkezli bölüm (K-041) | D |
 | 5 | M0 süzgeci | Geliştirme havuzunda yanlış 0 VE tanık ≥3 (kapalı dünya) | D |
 | 6 | Aşama 1–3 | 0 kongrüans, 0 işlevsel, 0 ters ihlali; obiter halka 0; yol-kesmeli tanık ≥3 | D |
 | 7 | Aşama 4 veto | π-ikizinde hüküm aynı; yeniden bağlı ikizde (≥3 tanık VE 0 yanlış) → BİLMİYORUM; bir ailede yanlış > 0 → o aile veto; RET için ≥2 aile vetosu | D |
@@ -152,6 +152,19 @@
 - |T_gel − T_taze| > T + η₁ ise kullanılan değer T_taze + η₂'dir; değilse T_gel.
 - η₁ ~ Laplace(0, 2σ), η₂ ~ Laplace(0, σ).
 - "Yanlış 0" vetosu gürültüsüzdür.
+
+**Görünür kırmızı takım aileleri (madde 19; kodlayıcı yazar, DNA kullanılmaz):**
+
+| Aile | Ne | Nasıl üretilir |
+|---|---|---|
+| G1 bozuk sonuç | Doğru görünen gövde, yanlış sonuç | M0 süzgecini geçen adaylardan tohumla seçilir; baş ilişkisi aynı dışlayıcı gruptan tohumla seçilen başka bir ilişkiyle değiştirilir |
+| G2 aşırı genel | Gerekli bir halkası (ör. cinsiyet tanığı) silinmiş kural | M0 süzgecini geçen, ≥2 halkalı adaylardan bir halka silinir; kalan kural bağlı olmalı ve geliştirme havuzunda yanlış > 0 vermeli |
+| G3 kapsam artefaktı | Yalnız bir ailede tutan kural | Geliştirme havuzunda A1'de 0 yanlış ve ≥3 tanıklı, A2 ya da A3'te yanlışlı T adayları |
+| G4 gizli ters | Baş çiftine sözdizimsel olarak dokunmayan, ama simetrik-işlevsel bir ilişkinin iki adımlık geri dönüşüyle (ör. eşin eşi = kendisi) başın tersini okuyan kural | t(Z,X) ∧ s(Z,W) ∧ s(W,Y) → r(X,Y); t ∈ ters(r), ters(t) birden çok, s simetrik ve işlevsel; OI kapalı. Yarı yarıya yanlıştır ve yol-kesme maskesini sınar. |
+
+- Her aile 40 mutanttır. Bir aile 40'tan az üretebiliyorsa hepsi alınır, eksik G1'den doldurulur; sayı raporlanır.
+- G1–G3 B1'de M0 çıktısından, G4 şemadan üretilir.
+- **Gizli aileler (G5–G8):** danışman yazar ve bu dört türden farklı türlerden olur; biçim `sema/aday_v1.schema.json` + `sema/kirmizi_dosyasi_v1.schema.json`.
 
 **K kalibrasyon kuralı (madde 9, 10, 12):**
 - **Ortam:** B1'de, yalnız geliştirme havuzu ve B1 taze akışında.
@@ -262,7 +275,7 @@ Tam tanım `H2_TASARIM.md` §4.2'dedir; eşikler §4'tedir.
 5. **Bulunamadı.**
 
 **Geri bulma oranı:**
-- **Birincil:** (1 + 2 + 3) / 244, eğer kullanıcı sorusu 1 "evet" ise. "Hayır" ise (1 + 2) / 244. İkisi de her durumda raporlanır.
+- **Birincil:** (1 + 2 + 3) / 244 (K-041). Biçimce özdeş ve daha genel olanların oranı, (1 + 2) / 244, ayrıca raporlanır.
 - **İkincil paydalar:**
   - 235: şemadan okunabilir 9 kural hariç;
   - örneği olanlar.
@@ -276,7 +289,7 @@ Tam tanım `H2_TASARIM.md` §4.2'dedir; eşikler §4'tedir.
 - Türetemezse "bilmiyorum", çelişen bir şey türetirse "yanlış".
 - Aynı ölçü DNA v8 ile de yapılır ve fark raporlanır.
 
-**Rapor kalıbı:** "K5/21 şablon ailesi içinde, M0 sayımı ve geçit kabulüyle X/244". "Kendi buldu" yazılmaz.
+**Rapor kalıbı (K-041):** "Sayaç + çekirdek hakem hattı, K5/21 şablon ailesi içinde, X/244 kuralı geri buldu". "Çekirdeğin tek başına keşfi" ve "kendi buldu" yazılmaz.
 
 ## 9. Durma kuralları
 
@@ -294,10 +307,10 @@ Tam tanım `H2_TASARIM.md` §4.2'dedir; eşikler §4'tedir.
 
 | Kapı | Ne zaman | Ne onaylanır |
 |---|---|---|
-| 0 | Şimdi | Bu taslak, `H2_TASARIM.md`, §14'teki sorular. Ayrıca A6 bağımsız inceleme sonucu gelmiş olmalı (K-040 (a)). |
+| 0 | **Geçti (K-041, 2026-10-26)** | Bu taslak, `H2_TASARIM.md`, §14'teki sorular |
 | 1 | B0 sonu | Nihai ÖK-005 (hash'ler eklenmiş, sayılar aynı) |
 | B1 sonu | Yalnız bildirim | K değerleri, C, P\*, tur anahtarının konumu. Sahte kabul > 0 ise kullanıcı kararı. |
-| 2 | B2b sonu | Sonuç; ara bölgede devam kararı |
+| 2 | B2b sonu | Sonuç; ara bölgede devam kararı. **Ön şart: A6 bağımsız inceleme sonucu** (K-041) |
 | 3 | H2 sonu | H3 açılsın mı |
 
 **Ön şartlar:**
@@ -353,7 +366,7 @@ Yasak: "kendi buldu" (şablon/tohum ön bilgisi sıfırlanmadan); "genel zekâ" 
 7. §9 durma kuralları.
 8. §10 kapılar.
 
-**Sorular (evet/hayır; önerim parantezde):**
+**Sorular (evet/hayır; önerim parantezde). Kullanıcı cevabı: altısına da EVET (K-041).**
 1. Sistem bir kuralı tam yazılan biçimde değil de başka kurallarla aynı sonuçları çıkararak bulursa, bu "bulundu" sayılsın mı? Aynı biçimde bulunanlar ayrıca sayılacak. **(Evet)**
 2. Sistem bir kuralı sınarken, rastgele bir aile parçası yerine, o kuralın "eğer" kısmının gerçekten geçtiği bir aile parçasını isteyebilsin mi? Sorulan şeyin cevabı yine gizli kalır. **(Evet.** Hayır olursa nadir kuralların çoğu "bilmiyorum" kalır ve sınama yaklaşık dört kat uzar.)
 3. Bir kuralın kabulü için şu üç aile türünün en az ikisinde doğru çıkması şart olsun mu? **(Evet)**

@@ -687,4 +687,4 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - **Sembolik değerlendirici (S-2):** M0, aşama 1–4, null ve boş dünya, çekirdek yerine tam sayılı sembolik sayaçla çalışır. Çekirdek ile sembolik sayaç ayrışırsa BİLMİYORUM.
   - **Şablon ailesi T = K5/21 (S-1):** 35.544.873 aday. Sayım iki yoldan, biri depodaki `kanonik_bicim` ile, doğrulandı. Taslaktaki 124.068 çift sayımdı; 7 temel ilişkili zincir uzayı 62.027'dir.
 - **Felsefi:** kısmen. Kullanıcıya giden sorular ÖK-005 taslağı §14'tedir: geri bulma tanımı, gövde-merkezli bölüm, aileler, gizli mutantlar, Hawaii/Iroquois/Omaha, Z12 şeması. Kalanlar teknik.
-- **Durum:** AÇIK (Kapı 0 bekliyor, 2026-10-26).
+- **Durum:** KARARA BAĞLANDI (K-041, 2026-10-26: Kapı 0 onayı, altı soruya evet).

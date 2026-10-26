@@ -244,3 +244,24 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
 - DNA v8, config ve ÖK-004 kilitli kalır. Kalan tohum değişim hakkı 1; onaysız kullanılmaz.
 - Önsel-ters bölmesindeki iki kısa yol duruşu (tohum 15 ve 21) için teşhis notu yazılır; yalnız analiz, üreteç ve kapı değişmez; H2 tasarımına girdi olur.
 - **Onaylayan:** kullanıcı ve danışman.
+
+## K-041 (2026-10-26): H2 Kapı 0 onayı; sayaç + çekirdek hakem hattı; B0 başlar
+- **Karar:** `H2_TASARIM.md` ve `ONKAYIT_H2_TASLAK.md` (ÖK-005 taslağı) onaylandı. Altı sorunun hepsine **evet**:
+  1. **Geri bulma:** başka kurallarla aynı sonuçları çıkaran kural "bulundu" sayılır. Birincil oran özdeş + daha genel + kapanış-eşdeğer; biçimce özdeş olanlar ayrıca raporlanır.
+  2. **Gövde-merkezli gözlem bölümü:** dünyada 8 bölüm.
+  3. **Kapsam aileleri:** A1, A2, A3; en az ikisinde doğru.
+  4. **Gizli sahte kurallar:** danışman yazar, kodlayıcı açmaz.
+  5. **Hawaii, Iroquois, Omaha:** B3'te yalnız ölçüm; tanımları kullanıcı ya da danışman onaylar.
+  6. **Z12:** on ilişkilik liste onaylı.
+- **Ek kararlar:**
+  - **(1) Hat yapısı:** sembolik ön eleme + HRR çekirdeği son hakem yapısı onaylı.
+    - Raporlarda H2 "çekirdeğin tek başına keşfi" diye değil, **"sayaç + çekirdek hakem hattının keşfi"** diye yazılır.
+    - Bu, KODLAMA_PROMPTU §2 (Özgünlük: bilinen yöntemler yalnız `karsilastirma/`) için kullanıcının açık istisnasıdır, şu sınırlarla:
+      - sayaç ve M0 ayrı pakettedir (`kesif/`);
+      - çekirdek (`cekirdek/`) onları import etmez;
+      - `kesif/` kâhine bağlanmaz (`degerlendirme/`'yi import etmez);
+      - kabul yalnız çekirdek geçidinden sonra olur.
+  - **(2) A6 bağımsız inceleme:** B0'ı ve B1'i engellemez. B2b sonucu kabul edilmeden önce (Kapı 2) yapılmış olmalıdır. K-040 (a) buna göre değişti.
+  - **(3) Gizli sahte kurallar:** danışman yazar. Kodlayıcı ona aday kayıt biçimini (JSON şeması), 3 örnek kaydı ve görünür ailelerin listesini verir. Gizli aileler B1'den önce mühürlü dosya olarak gelir; kodlayıcı açmaz, yalnız biçimini kodla doğrular ve özetini kaydeder.
+- **Sonuç:** B0 başlar. ÖK-005'in nihai mühürü B0 sonundadır (Kapı 1).
+- **Onaylayan:** kullanıcı.

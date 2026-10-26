@@ -1,6 +1,6 @@
 # H2 tasarımı (nihai öneri; yalnız belge, kod yok)
 
-**Durum:** NİHAİ TASARIM ÖNERİSİ, 2026-10-26. Kullanıcı ve danışman onayı bekliyor (Kapı 0, §7). Onay gelmeden B0 başlamaz, H2 kodu yazılmaz.
+**Durum:** NİHAİ TASARIM, 2026-10-26. **Kapı 0 onaylandı (K-041):** altı soruya evet; sembolik ön eleme + HRR çekirdeği son hakem; A6 bağımsız incelemesi Kapı 2'den önce. B0 başladı.
 
 **Kaynaklar:**
 - `H2_ORTAK_TASARIM_v1.md` (v1): kullanıcı iletti, depoda değil.
@@ -437,9 +437,7 @@ B2b'de 220–244 kabul beklendiğine göre bu, fiilen "en çok 1 bozuk" demektir
 
 ## 7. Basamaklar ve kapılar
 
-- **Kapı 0 (yeni, S-12):** bu belge, ÖK-005 taslağı ve kullanıcı sorularının cevapları onaylanır.
-  - Önceki şart da sağlanmalı: A6 bağımsız inceleme sonucu (K-040 (a)).
-  - Sonra B0 başlar.
+- **Kapı 0 (yeni, S-12): GEÇTİ (K-041).** A6 bağımsız inceleme şartı Kapı 2'ye taşındı.
 - **B0:**
   - şablon dosyası ve hash;
   - sembolik değerlendirici ve M0 (önce test);
@@ -458,7 +456,7 @@ B2b'de 220–244 kabul beklendiğine göre bu, fiilen "en çok 1 bozuk" demektir
 - **B2:**
   - B2a: 20 silinmiş kural, yalnız duman testi, kapı değil.
   - B2b: 244'ün tamamı silinmiş, sıfır tohum, final havuzunda tek atış.
-  - → **Kapı 2:** sonuç ve ara bölge.
+  - → **Kapı 2:** sonuç ve ara bölge. Ön şart: A6 bağımsız inceleme sonucu (K-041).
 - **B3:**
   - kesişim eğrisi (054), sıfır-şablon, şablon bütçesi eğrisi (088), makas;
   - Z12; (isteğe bağlı) Hawaii, Iroquois, Omaha; (isteğe bağlı) terfi deneyi.
@@ -472,7 +470,7 @@ Yasak: "kendi buldu" (şablon/tohum ön bilgisi sıfırlanmadan); "genel zekâ" 
 Önkayıt: eşikler/dünya aileleri/şemalar veriye bakmadan; tohum/şablon/ad listesi hash'i; LLM altın küme, kalibrasyon, şema seçmez; negatif sonuçlar aynı biçimde raporlanır; oracle (gizli kural/etiket) eğitime asla girmez.
 
 **Bu tasarıma özgü ek not (yasak listesini değiştirmez):**
-- B2b sonucu yalnız şu kalıpla yazılır: "K5/21 şablon ailesi içinde, M0 sayımı ve geçit kabulüyle, X/244".
+- B2b sonucu yalnız şu kalıpla yazılır (K-041): "Sayaç + çekirdek hakem hattı, K5/21 şablon ailesi içinde, X/244 kuralı geri buldu". "Çekirdeğin tek başına keşfi" yazılmaz.
 - A3'ü aynı kodlayıcı yazdığı için "bağımsız üretici" iddiası "ayrı kod, aynı yazar" diye sınırlanır.
 
 ## 9. Kanıt düzeyi (v1 §8 + bu belgenin hesapları)
@@ -529,7 +527,7 @@ Yasak: "kendi buldu" (şablon/tohum ön bilgisi sıfırlanmadan); "genel zekâ" 
 
 ## 12. Kullanıcıya sorular
 
-Sade metin ve öneriler raporda ve ÖK-005 taslağı §14'tedir. Altı soru, evet/hayır:
+Sade metin ÖK-005 taslağı §14'tedir. **Kullanıcı altısına da evet dedi (K-041).** Altı soru:
 1. Başka kurallarla aynı sonuç "bulundu" sayılsın mı?
 2. Gövde-merkezli bölüm?
 3. A1/A2/A3?
