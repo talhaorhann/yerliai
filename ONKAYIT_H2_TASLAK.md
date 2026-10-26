@@ -35,7 +35,7 @@
 **A3'ün evlilik kuralları:**
 - Eş önce öteki soylardan, aynı nesilden, evlenmemiş, karşı cinsten biri olur; yoksa dışarıdan biri.
 - Aynı soydan evlilik yok. Yeniden evlilik ve boşanma yok.
-- Bir evlilik bir çifte iki akrabalık terimi verecekse o eş adayı atlanır. Tohum değişmez.
+- Evlilik yalnız soyları ortak olmayanlar arasında olduğu için bir çifte iki akrabalık terimi düşmesi beklenmez. Düşerse üretim durur ve bildirilir; tohum değişmez. (2026-10-26, V-062: "aday atlanır" yerine "durur"; daha temkinli.)
 
 **Ortak varsayımlar (ölçülmez; yasak iddia §12):** iki ebeveyn, tek eşlilik, karşı cins evlilik, boşanma yok.
 

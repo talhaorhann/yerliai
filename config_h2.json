@@ -87,6 +87,65 @@
     "sayac_parca_boyu": {
       "deger": 1024,
       "kaynak": "V-061"
+    },
+    "dunya_aileleri": {
+      "deger": {
+        "A1": {
+          "uretec": "agac",
+          "parametreler": {
+            "nesil_sayisi": 4,
+            "cocuk_en_az": 2,
+            "cocuk_en_cok": 4,
+            "evlilik_orani": 1.0
+          }
+        },
+        "A2": {
+          "uretec": "agac",
+          "parametreler": {
+            "nesil_sayisi": 5,
+            "cocuk_en_az": 1,
+            "cocuk_en_cok": 4,
+            "evlilik_orani": 0.8
+          }
+        },
+        "A3": {
+          "uretec": "nufus",
+          "parametreler": {
+            "kurucu_cift": 3,
+            "nesil_sayisi": 4,
+            "kurucu_cocuk": [
+              2,
+              4
+            ],
+            "cocuk": [
+              0,
+              4
+            ],
+            "evlilik_orani": 0.8
+          }
+        }
+      },
+      "kaynak": "K-041"
+    },
+    "havuz_dagilimi": {
+      "deger": {
+        "gelistirme": {
+          "A1": 6,
+          "A2": 5,
+          "A3": 5
+        },
+        "final": {
+          "A1": 8,
+          "A2": 8,
+          "A3": 8
+        },
+        "kontrol": {
+          "A1": 3,
+          "A2": 3,
+          "A3": 2
+        }
+      },
+      "kaynak": "K-041"
     }
   },
   "bayraklar": {

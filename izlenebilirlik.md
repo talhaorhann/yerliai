@@ -70,3 +70,5 @@
 | sistem.md §3, §13 (tipli şablon ailesi T ve kademeleri K1–K5; K-041, ÖK-005 taslağı §6) | `kesif/sablon.py` | `testler/test_b0_sablon.py` |
 | sistem.md §3, §13 (sembolik sayaç: tanık, kapalı dünya, OI; referans + hızlı; K-041, V-061) | `kesif/sayac.py`, `cekirdek/sekiller.py` | `testler/test_b0_sayac.py` |
 | sistem.md §13 (M0: şablon uzayının kaba kuvvet sayımı, süzgeç, sıra, bit-aynı çıktı; K-041, V-061) | `kesif/m0.py` | `testler/test_b0_m0.py` |
+| sistem.md §11, §13 (H2 dünya aileleri A1–A3, havuzlar, tam dünya olguları; K-041, V-062) | `degerlendirme/h2_dunya.py`, `degerlendirme/dunya.py` | `testler/test_b0_dunyalar.py` |
+| sistem.md §11, §13 (A3 ikinci bağımsız üretici, kendi tanım yorumlayıcısı; K-041, V-062) | `degerlendirme/ikinci_uretec.py` | `testler/test_b0_dunyalar.py` |

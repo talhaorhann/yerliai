@@ -724,3 +724,28 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   - **Hız:** 38 kişilik bir A1 dünyasında K5/21 (903.203 gövde) 4 çekirdekle ≈23 s.
 - **Doğrulama:** `testler/test_b0_sayac.py`, `testler/test_b0_m0.py`.
 - **Felsefi:** hayır (uygulama ayrıntısı; ölçütler ÖK-005'te). **Durum:** KODLAYICI KARARI (2026-10-26).
+
+## V-062: H2 dünya aileleri ve havuzlarının uygulanışı
+- **Bölüm:** sistem.md §11, §13; K-041 (ÖK-005 taslağı §2.1, §3, §5).
+- **Uygulanan:**
+  - **A2:** `Dunya.uret`'e `evlilik_orani` eklendi, varsayılan 1,0. Oran 1 iken rastgele sayı çekilmez; H1 dünyaları bit-aynıdır (`testler/test_b0_dunyalar.py` ve H1 testleri).
+  - **A3:** `degerlendirme/ikinci_uretec.py`, ayrı kod, ≤300 satır, `dunya.py`'den bir şey almaz.
+    - Kendi tanım yorumlayıcısı A1 soy ağaçlarında eski yorumlayıcıyla birebir aynı olguları verir (test).
+    - Kurucu çiftin tip-1 kişisi soyun ilk kişisidir, eşi dışarıdandır.
+    - Bir çifte iki terim düşerse üretim durur. ÖK-005 taslağında "aday atlanır" yazıyordu; evlilik yalnız soyları ortak olmayanlar arasında olduğu için beklenmez, durmak daha temkinli.
+  - **Dünya:** soy ağacındaki bütün kişiler arasındaki bütün olgular (kapalı dünya). Kişi kimlikleri 0…N−1; M0 için sıra önemsizdir. Gözlem bölümlerinde (aşama 5) kimlikler karıştırılır.
+  - **Havuz:**
+    - aileler ad sırasıyla, her ailede i = 1…n;
+    - tohum = `kesif.tohum`("havuz", havuz, aile, i);
+    - dünya özetleri havuzlar arasında tekil olmalıdır, yinelenme durdurur.
+    - H1 kilitli kümeleriyle kesişim denetimi gözlem bölümleri üretilirken yapılır (B1); tam dünyalar H1 bölümleriyle aynı nesne olamaz.
+  - **Geliştirme havuzu boyları (kişi sayısı):**
+
+    | Aile | Kişi sayıları | Ortalama |
+    |---|---|---|
+    | A1 | 28, 73, 68, 34, 53, 67 | 54 |
+    | A2 | 50, 22, 69, 12, 56 | 42 |
+    | A3 | 53, 62, 73, 38, 39 | 53 |
+
+- **Doğrulama:** `testler/test_b0_dunyalar.py`.
+- **Felsefi:** hayır (uygulama ayrıntısı; aileler K-041 ile onaylı). **Durum:** KODLAYICI KARARI (2026-10-26).

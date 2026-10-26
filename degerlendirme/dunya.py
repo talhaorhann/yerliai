@@ -69,9 +69,11 @@ class Dunya:
         return len(self.tip)
 
     @classmethod
-    def uret(cls, rng, nesil_sayisi, cocuk_en_az, cocuk_en_cok):
+    def uret(cls, rng, nesil_sayisi, cocuk_en_az, cocuk_en_cok, evlilik_orani=1.0):
         """Kök çift; her çiftin cocuk_en_az..cocuk_en_cok çocuğu; son nesil dışındaki her çocuk ağaç dışından
-        karşı tipte biriyle evlenir (V-017). Akraba evliliği yoktur, her çocuğun iki ebeveyni birbiriyle evlidir."""
+        karşı tipte biriyle evlenir (V-017). Akraba evliliği yoktur, her çocuğun iki ebeveyni birbiriyle evlidir.
+        evlilik_orani < 1 (H2 A2 ailesi, K-041, V-062): son nesil dışındaki çocuk bu olasılıkla evlenir; oran 1 iken
+        rastgele sayı çekilmez, H1 dünyaları bit-aynı kalır."""
         tip, ebeveynler, es = [], {}, {}
 
         def yeni(t):
@@ -87,7 +89,8 @@ class Dunya:
                 for _ in range(rng.randint(cocuk_en_az, cocuk_en_cok)):
                     cocuk = yeni(rng.randint(0, 1))
                     ebeveynler[cocuk] = (a, b)
-                    if nesil < nesil_sayisi - 2:  # V-017: son nesil (sonuncu çocuklar) evlenmez
+                    # son nesil (sonuncu çocuklar) evlenmez; oran 1'de çekiliş yok (V-062)
+                    if nesil < nesil_sayisi - 2 and (evlilik_orani >= 1 or rng.random() < evlilik_orani):  # V-017
                         eslik = yeni(1 - tip[cocuk])
                         es[cocuk], es[eslik] = eslik, cocuk
                         sonraki.append((cocuk, eslik))
