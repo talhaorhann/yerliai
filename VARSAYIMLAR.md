@@ -797,6 +797,8 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   10. **Yeniden bağlama düzeltmesi:** B0'daki `yeniden_bagla` veto/null kipinde simetrik ilişkiyi yönlü bağlıyordu; ÖK §13.6'ya ("simetrik r'de kenar yönsüz alınır ve iki yönü birlikte yazılır") uyduruldu (test önce kırmızı). Hiçbir sonuç bu koddan önce üretilmemişti. Sonuç: simetrik ve şemadan okunur kurallar yeniden bağlı ikizde de doğru kalır → BİLMİYORUM (ÖK §8'in 235 paydası bunu karşılar).
   11. **İç içe tohum etiketi:** `bolum|<dünya etiketi>|...` dizgisinde dünya etiketi kendi parçalarıyla yazılır (ÖK §5'teki dizgiyle birebir).
   12. **Kesilen koşu:** ölçümler aday kimliğiyle JSONL'e yazılır, yeniden açılınca okunur; yarım son satır yeniden hesaplanır.
+  13. **Makas örnek sayısı (ÖK §4 madde 21 K kuralı):** örnekleme yapılmaz; her iki taraftaki bütün olgular maskelenir. Kural "≥2000, yarı genişlik 2 puanı aşarsa 4000" olduğundan, olgu sayısı 4000'in altındaysa ve yarı genişlik 2 puanı aşıyorsa bu raporda ayrıca belirtilir; tetik (3 puan) değişmez. Her makas çıktısında iki tarafın olgu sayısı ve yarı genişlik yazılır.
+  14. **C'nin "uyutulmamış" tanımı:** C sayımında bir aday, M0 sırasında kendinden önce aşama 1–4'ü geçenlerin tahminleriyle tanıkları tamamen kapsanıyorsa sayılmaz (yedeklilik kuralının B1'deki karşılığı; kabul kümesi henüz yoktur).
 - **Doğrulama:** `testler/test_b1_kural.py`, `test_b1_bolum.py`, `test_b1_istatistik.py`, `test_b1_gecit.py`, `test_b1_bagla.py`, `test_b1_tur.py`.
 - **Felsefi:** hayır. **Durum:** KODLAYICI KARARI (2026-10-26).
 
