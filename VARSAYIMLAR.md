@@ -798,6 +798,7 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   11. **İç içe tohum etiketi:** `bolum|<dünya etiketi>|...` dizgisinde dünya etiketi kendi parçalarıyla yazılır (ÖK §5'teki dizgiyle birebir).
   12. **Kesilen koşu:** ölçümler aday kimliğiyle JSONL'e yazılır, yeniden açılınca okunur; yarım son satır yeniden hesaplanır.
   13. **Makas örnek sayısı (ÖK §4 madde 21 K kuralı):** örnekleme yapılmaz; her iki taraftaki bütün olgular maskelenir. Kural "≥2000, yarı genişlik 2 puanı aşarsa 4000" olduğundan, olgu sayısı 4000'in altındaysa ve yarı genişlik 2 puanı aşıyorsa bu raporda ayrıca belirtilir; tetik (3 puan) değişmez. Her makas çıktısında iki tarafın olgu sayısı ve yarı genişlik yazılır.
+  15. **Boş aday akışında yalnız sahteler ölçülür:** K seçiminin girdisi sahte adaylar ve M0'ın ilk adaylarıdır; P* ilk sahte kabuldür. Sahte olmayan bir akış adayının hükmü ikisini de değiştirmez, bu yüzden geçitte ölçülmez (sonuç aynı, süre kısalır). B1'de akışın ilk 4800 adayının hiçbiri sahte çıkmadı (raporda yazılır).
   14. **C'nin "uyutulmamış" tanımı:** C sayımında bir aday, M0 sırasında kendinden önce aşama 1–4'ü geçenlerin tahminleriyle tanıkları tamamen kapsanıyorsa sayılmaz (yedeklilik kuralının B1'deki karşılığı; kabul kümesi henüz yoktur).
 - **Doğrulama:** `testler/test_b1_kural.py`, `test_b1_bolum.py`, `test_b1_istatistik.py`, `test_b1_gecit.py`, `test_b1_bagla.py`, `test_b1_tur.py`.
 - **Felsefi:** hayır. **Durum:** KODLAYICI KARARI (2026-10-26).

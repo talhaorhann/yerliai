@@ -495,3 +495,13 @@ Bu ek ÖK-004 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
    | `veri/h2/z12_tanimlar_v1.json` | `a862689d727181214fc60f2f821da9876e51cbc0421eb35263c4585ab70a6e5a` |
    | `kilit/z12_sema_onayi.json` | `0f5f393d4e1fed12e695631a55834d0660f56409a11afa43af9ea1d9f84d230f` |
 
+
+### ÖK-005 eki §2a: B1 koşucusunda akış kısaltması (2026-10-30, V-065 madde 15)
+
+- Boş aday (P*) akışında yalnız sahte adaylar geçitte ölçülür; sahte olmayanların hükmü ne K seçimine ne P*'a girer. Sonuç aynıdır, süre kısalır. Değişiklik B1'in kalibrasyon turları başlamadan önce yapıldı; hiçbir hüküm henüz verilmemişti.
+- B1'de akışın ilk 4800 adayının hiçbiri gerçek geliştirme havuzunda yanlış vermedi (sahte sayısı 0).
+
+   | Dosya | sha256 |
+   |---|---|
+   | `degerlendirme/h2_b1.py` | `39ee2f09da54c82425c043e30e2b8b5baa294e4b137cd5297079b5a544acf30f` |
+

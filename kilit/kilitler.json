@@ -1,7 +1,7 @@
 {
   "algoritma": "sha256",
   "dosyalar": {
-    "ONKAYIT.md": "8dc65b1a46e26944a3d7f19b61604b13f6257fc055e15258eb367ae5a1943d81",
+    "ONKAYIT.md": "232002a257cfc8c3fc52164b9022da657fb0ecee003ae2d29361bc11f751a280",
     "ONKAYIT_H2_TASLAK.md": "38833917d2b75a3bac89e7520edff8f79ce07c86b2da26bb1785b2ee84d397ea",
     "config.json": "feae40960a4f24f24121bdf74cea782c384593fd2f31f87b0115ebc0ee32890f",
     "config_h2.json": "82a66030e75003d0a907dd862fee03d0c1fe522393b7385c8d09e091ceae67cc",
@@ -64,7 +64,7 @@
     "testler/test_b1_istatistik.py": "c552702b184bb775f78663a00b7ead1c2015d79899346145628cef44bf54f84f",
     "testler/test_b1_kalibrasyon.py": "54fbc9048ab057aad147bd145c47d1d567a6d6c79ed0b583aa519fd1eb57893a",
     "testler/test_b1_kirmizi.py": "4728a08e300d3d6a6bb9dbe59bee9164655ac86eb0199b21df6808c14c52f871",
-    "testler/test_b1_kosucu.py": "6c9cfd0294b79f15a9e439e2996017cf5f36205eaa00cef67d2a71408a69f222",
+    "testler/test_b1_kosucu.py": "da43121d08155ae18ad5b1fc3f8c54ee6a8f62932050270240e42a8cd13ee2f6",
     "testler/test_b1_kural.py": "0ba5278c90506220a4dcae729bd1793c80ddea58785039e69bc08b93eae109e5",
     "testler/test_b1_onkayit.py": "4a7aa0b8863b1b5bb03af887324b1e65f2f510867f53d79137ecf92a8f7bab26",
     "testler/test_b1_rapor.py": "4270fee6504a42212b12153825fbc2ba3febc3a282c3abab1cfa9928a259eb3a",

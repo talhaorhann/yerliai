@@ -38,9 +38,9 @@ class B1Testi(tg.Ortak):
             g["kaynak"] = {"tur": KR.GORUNUR, "aile": "G1", "tohum": 1, "ust": []}
         b._jsonl_yaz("kirmizi_gorunur.jsonl", gor)
         atomik_yaz(b.cikis / "kirmizi_gorunur.json", kanonik_json({"sahte": [gor[0]["kimlik"]], "sayilar": {}}))
-        bos = [kayit(c) for c in (tg.YANLIS, tg.TERS)]
+        bos = [kayit(c) for c in (tg.YANLIS, tg.TERS, tg.DOGRU)]  # DOGRU sahte değil: ölçülmez (V-065 madde 15)
         b._jsonl_yaz("bos_adaylar.jsonl", bos)
-        atomik_yaz(b.cikis / "bos_adaylar.json", kanonik_json({"sahte": [k["kimlik"] for k in bos], "akis": 2,
+        atomik_yaz(b.cikis / "bos_adaylar.json", kanonik_json({"sahte": [k["kimlik"] for k in bos[:2]], "akis": 3,
                                                                "m0_sure_s": 10}))
 
     def tearDown(self):
@@ -62,7 +62,8 @@ class B1Testi(tg.Ortak):
         olc = b._olcumler()["ilk"][dogru]
         self.assertEqual(G.hukum(olc, b._esik(), SABIT)[0], G.KABUL)
         p = b.evre("p_yildiz", b.p_yildiz)
-        self.assertEqual((p["P*"], p["sansurlu"]), (3, True))
+        self.assertEqual((p["P*"], p["sansurlu"]), (4, True))
+        self.assertNotIn(dogru, b._olcumler()["bos"])
 
     def test_kirmizi_gizli_yalniz_sayilar(self):
         b = self.b1

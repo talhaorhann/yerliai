@@ -4,7 +4,9 @@ B1 koşucusu.
 Evreler (her biri `<çıkış>/<evre>.json`'a yazılır; koşu kesilirse kaldığı yerden sürer):
 1. talep: C (geliştirme havuzunda M0 sırasıyla aşama 1–4'ü geçen, öncekilerce kapsanmayan; 4801'de durur).
 2. kirmizi_gorunur: G1–G4 (G3 için şablon sayacı geliştirme havuzunda aile başına koşar).
-3. bos_adaylar: 1. boş koşunun M0'ı (boş geliştirme havuzu); ilk `p_yildiz_aday_sayisi` aday P* akışıdır.
+3. bos_adaylar: 1. boş koşunun M0'ı (boş geliştirme havuzu); ilk `p_yildiz_aday_sayisi` aday P* akışıdır. Akışta
+   yalnız sahte (gerçek geliştirme havuzunda yanlış veren) adaylar geçitte ölçülür: sahte olmayanın hükmü ne K
+   seçimine (girdisi yalnız sahteler ve ilk adaylar) ne P*'a (ilk sahte kabul) girer (V-065 madde 15).
 4. kalibrasyon_olcum: B1 taze akışında kalibrasyon kipinde turlar: tur 1 M0'ın ilk 200 adayı, tur 2 görünür kırmızı
    takım, sonra boş aday akışı. Obiterin indirgenmişleri sıraya girmez (ölçüm akışıdır, arama değil). B1'de sorgu
    bütçesi yoktur (kalibrasyon bütçeden düşmez); taze dünyalar tur özetlerine özetleriyle yazılır ve yinelenmez.
@@ -191,7 +193,9 @@ class B1:
             ilk = self._m0_kayitlari(self.h2.deger("kalibrasyon_aday_sayisi"))
             tur, ilk_olc, _ = self._turlar(kos, list(ilk), 1, None)
             tur, gorunur_olc, _ = self._turlar(kos, self._jsonl_oku("kirmizi_gorunur.jsonl"), tur, None)
-            tur, bos_olc, _ = self._turlar(kos, self._jsonl_oku("bos_adaylar.jsonl"), tur, None)
+            sahte = set(self.evre("bos_adaylar", self.bos_adaylar)["sahte"])  # V-065 madde 15
+            tur, bos_olc, _ = self._turlar(kos, [k for k in self._jsonl_oku("bos_adaylar.jsonl") if k["kimlik"] in sahte],
+                                           tur, None)
         finally:
             kos.kapat()
         self._jsonl_yaz("kalibrasyon_olcumleri.jsonl", [{"grup": g, "kimlik": k, "olcum": o}
@@ -284,8 +288,8 @@ class B1:
         olc = self._olcumler()["bos"]
         b = self.evre("bos_adaylar", self.bos_adaylar)
         sahte = set(b["sahte"])
-        sira = [(k["kimlik"], G.hukum(olc[k["kimlik"]], esik, self.sabit)[0])
-                for k in self._jsonl_oku("bos_adaylar.jsonl")]
+        sira = [(k["kimlik"], G.hukum(olc[k["kimlik"]], esik, self.sabit)[0] if k["kimlik"] in sahte else None)
+                for k in self._jsonl_oku("bos_adaylar.jsonl")]  # V-065 madde 15: sahte olmayanın hükmü P*'ı değiştirmez
         p, sansur = KAL.p_yildiz(sira, lambda k: k in sahte, b["akis"])
         c = self.evre("talep", self.talep)
         return {"P*": p, "sansurlu": sansur, "tur_basina_aday": h2_butce.tur_basina_aday(c["C"], p, self.h2)}
