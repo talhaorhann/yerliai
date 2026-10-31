@@ -546,3 +546,16 @@ Bu ek ÖK-004 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
    |---|---|
    | `degerlendirme/h2_tur.py` | `afb47255da21fdee241c40028b26a6c330528d634af60dba29b2d916367b6647` |
 
+
+### ÖK-005 eki §3: B1 sonuçları ve K değerleri
+
+1. **K değerleri (kalibrasyon kuralıyla):** τ = 0.85, müdahale = 0.9, T = 0.04, σ = 0.01. Başlangıç: τ = 0.85, müdahale = 0.9, T = 0.04, σ = 0.01. Kalibrasyonda sahte aday sayısı 160; seçilen noktada sahte kabul 0.
+2. **Talep C:** 22. **P\*:** > 4800 (sansürlü; akışta sahte kabul yok). **Tur başına aday:** 200 (12 tur).
+3. **Boş dünya:** 100 koşu kuralı, tetik 2; yapılan 2, kabullü koşu 2; tetik oldu.
+4. **B1 sonucu:** başarı aralığı dışında (alt_sinir: True, bos_tetik_yok: False, k_secildi: True, kacak_0: True).
+5. Bu değerler bundan sonra donar; sonuçtan sonra değişirse sonuç "keşif" damgası taşır.
+6. **Boş dünya ayrıntısı:** koşu 1'de 190, koşu 2'de 187 kural şemadan okunabilir sınıfın dışında kabul edildi (ayrıca her koşuda 7 okunur kabul, sayılmadı). Hepsi ters-dayanaklıdır: başı gövdedeki ters ilişkiden ve bir cinsiyet tanığı halkasından okuyan 2–3 halkalı kurallar; 11 baş ilişkisi. Koşu 1'in ölçülen süresi 2283 sn (önbellekten yeniden sayımı 965 sn); her iki değer de "100 koşu, tetik 2" kuralını verir. Tetik 2 koşuda doldu; kalan 98 koşu yapılmadı.
+7. **Kırmızı takım:** 160 görünür + 179 etkin gizli sahte kural; kaçak 0; tek yanlı %95 alt sınır 0,9912.
+8. **Kalibrasyon:** M0'ın ilk 200 adayından çekirdek adımına ulaşan 6 adayın 6'sı uyum şartında düştü (çekirdeğin hücre başına tur yazma sınırı 8; çok eşleşmeli kurallar); 81 noktanın hepsinde KABUL 0, sahte kabul 0 → başlangıç değerleri kaldı.
+9. **Durma (§9 madde 3):** boş-dünya tetiği nedeniyle B1 başarı aralığı dışındadır; B2'ye geçilmedi. Onarım turunun ne olacağı önkayıtta yazmadığı için kullanıcı kararı beklenir (K-043: durma koşulu).
+
