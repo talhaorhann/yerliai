@@ -57,11 +57,22 @@ def taze_kayitlari(h2, tanimlar, basamak, tur, aile_basina):
             for a in sorted(aileler) for j in range(1, aile_basina + 1)]
 
 
-def bos_kaydi(h2, sema, k, etiket, d):
-    """Boş dünya (ÖK-005 taslağı §2.2, §5 `bos|<k>|<dünya etiketi>`): ileri taraflar yeniden bağlanır, tersler yazılır."""
+def bos_kaydi(h2, sema, k, etiket, d, ikiz=None):
+    """Boş dünya (ÖK-005 taslağı §2.2, §5 `bos|<k>|<dünya etiketi>`): ileri taraflar yeniden bağlanır, tersler yazılır.
+    `ikiz` verilirse (K-044 (c) tanısı) olgular `cinsiyet|<k>|<dünya etiketi>` tohumuyla cinsiyet bakımından karıştırılır."""
     rng = random.Random(tohum.tohum(h2, BOS, k, *etiket.split(tohum.AYIRICI)))
-    return etiket, dataclasses.replace(d, olgular=tuple(h2_bagla.bos_dunya(d.olgular, sema, rng,
-                                                                           h2.deger("bagla_deneme_carpani"))))
+    olg = tuple(h2_bagla.bos_dunya(d.olgular, sema, rng, h2.deger("bagla_deneme_carpani")))
+    if ikiz is not None:
+        from degerlendirme import h2_sematurevi
+        olg = h2_sematurevi.cinsiyet_karistir(olg, ikiz, random.Random(
+            tohum.tohum(h2, h2_sematurevi.CINSIYET, k, *etiket.split(tohum.AYIRICI))))
+    return etiket, dataclasses.replace(d, olgular=olg)
+
+
+def cinsiyet_ikizleri(kok):
+    from degerlendirme import h2_sematurevi
+    veri = json.loads((Path(kok) / "degerlendirme" / "veri" / "tanimlar_v1.json").read_text(encoding="utf-8"))
+    return h2_sematurevi.cinsiyet_ikizleri(veri["tanimlar"])
 
 
 # ---- çalışan süreç ----
@@ -82,6 +93,7 @@ class Kurulum:
     kok: str
     bos: object = None
     alan: str = "akrabalik"  # V-066
+    cinsiyet: bool = False  # K-044: (c) tanısı, boş dünyada olgu başına cinsiyet karıştırma (kapıya girmez)
 
 
 def ortam_kur(kurulum):
@@ -100,8 +112,9 @@ def ortam_kur(kurulum):
                               kok / "degerlendirme" / "veri" / "tanimlar_v1.schema.json", sema)
     sabit = G.Sabitler.ayardan(h2)
     gel = havuz_kayitlari(h2, tanimlar, GELISTIRME)
+    ikiz = cinsiyet_ikizleri(kok) if kurulum.cinsiyet else None
     if kurulum.bos is not None:
-        gel = [bos_kaydi(h2, sema, kurulum.bos, e, d) for e, d in gel]
+        gel = [bos_kaydi(h2, sema, kurulum.bos, e, d, ikiz) for e, d in gel]
     temel = tuple(tanimlar.olgu_iliskileri)
     ortam = G.Ortam(sema, temel, sabit, h2, [(e, d, kural.Indeks(d.olgular)) for e, d in gel],
                     h2_ikiz.bijeksiyonlar(sema, temel),
@@ -111,7 +124,7 @@ def ortam_kur(kurulum):
     def taze_fn(basamak, tur):
         kayitlar = taze_kayitlari(h2, tanimlar, basamak, tur, sabit.taze_aile_basina)
         if kurulum.bos is not None:
-            kayitlar = [bos_kaydi(h2, sema, kurulum.bos, e, d) for e, d in kayitlar]
+            kayitlar = [bos_kaydi(h2, sema, kurulum.bos, e, d, ikiz) for e, d in kayitlar]
         return [G.dunya_kaydi(e, d) for e, d in kayitlar]
 
     return ortam, taze_fn

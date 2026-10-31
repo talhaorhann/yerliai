@@ -559,3 +559,24 @@ Bu ek ÖK-004 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
 8. **Kalibrasyon:** M0'ın ilk 200 adayından çekirdek adımına ulaşan 6 adayın 6'sı uyum şartında düştü (çekirdeğin hücre başına tur yazma sınırı 8; çok eşleşmeli kurallar); 81 noktanın hepsinde KABUL 0, sahte kabul 0 → başlangıç değerleri kaldı.
 9. **Durma (§9 madde 3):** boş-dünya tetiği nedeniyle B1 başarı aralığı dışındadır; B2'ye geçilmedi. Onarım turunun ne olacağı önkayıtta yazmadığı için kullanıcı kararı beklenir (K-043: durma koşulu).
 
+
+### ÖK-005 eki §4: B1 onarım turu 1, "şema-türevi" tanımı (2026-10-31, K-044) — KEŞİF DAMGASI
+
+1. **Damga:** boş-dünya tetiğinin tanımı B1 sonucundan sonra değişti. Bu nedenle B1'in yeniden koşusu ve sonraki bütün H2 sonuçları **"keşif"** damgası taşır; ÖK-005'e göre başarı sayılmaz. §9 madde 3'teki **iki onarım turundan biri harcandı** (kalan: 1).
+2. **Tanım (kullanıcı, K-044):** bir kural "şema-türevi"dir, eğer tetik testinde kullanılmamış, birbirinden bağımsız en az 20 taze boş dünyanın hepsinde sıfır ihlal verir. Boş-dünya tetiği yalnız şema-türevi olmayan (ve şemadan okunabilir olmayan) kabulleri sayar. Şema-türevi sınıfı sonuçtan sonra elle genişletilemez.
+3. **Dünyalar (önkayıtlı, sonuca bakılmadan):** her aileden (A1, A2, A3) 7, toplam 21 taze boş dünya. Taban dünya tohumu `sematurevi|<aile>|<i>`, boş dönüşüm tohumu `bos|sematurevi|<aile>|<i>`, i = 1…7. İhlal: kapalı dünyaya göre yanlış tahmin. Hiç tetiklenmeyen kural sıfır ihlal sayılır; sayısı ayrıca yazılır.
+4. **Raporlama:** şema-türevi kabuller ayrı raporlanır ve keşif sayılmaz. B2 paydası 244 kalır. Şema-türevi olup DNA'da bulunan kurallar ayrı sütunda yazılır. Kapı kararı önkayıttaki gibi ve ayrıca şema-türevi bulunanlar hariç hesaplanır.
+5. **Koşu:** B1 aynı tohumlarla baştan koşar (yeni çıkış klasörü). (c) yönü yalnız tanı olarak bir kez koşar: 1. boş koşunun tohumlarıyla, boş dünyada her olgu bağımsız olarak 1/2 olasılıkla cinsiyet ikiziyle değişir (tohum `cinsiyet|<k>|<dünya etiketi>`); sonuç kapıya girmez, ayrı satırda raporlanır.
+6. **Sonra:** B1 bu tanımla önkayıt aralığına girerse K-043 geçerlidir (B2a ve B2b otomatik); girmezse dur.
+7. **B2 raporu:** çok eşleşen kural sınırı (çekirdek turda bir kural için en çok 8 sonuç) ayrı kaynak olarak yazılır; uyum nedeniyle BİLMİYORUM olan aday sayısı verilir.
+8. Ayrıntılar: V-067. Değişen ve yeni dosyalar:
+
+   | Dosya | sha256 |
+   |---|---|
+   | `config_h2.json` | `407fbcc9e441ed42ca3c2f993a3bb9fc09bbadb4f9a8830f9c31de6cca0ed7ac` |
+   | `degerlendirme/h2_sematurevi.py` | `852d842202fc22eae19abff54684686b2ccc54284dc56b286f15eeb07cb9868d` |
+   | `degerlendirme/h2_b1.py` | `f820bffc42542be515d9e3fda02bb8408ab48895bbc69270651f32ca233744e7` |
+   | `degerlendirme/h2_b2.py` | `48ce417c7825fcdc4f3c7c6f88de5551c22eb36e249fde27d7eeb2034b6bf3d2` |
+   | `degerlendirme/h2_tur.py` | `297989a1dc40a2a9ef77e2c4bf6956aeb0df4df14c0f6d0202de539a3460cde9` |
+   | `degerlendirme/h2_rapor.py` | `43963c9add282215c74d9515b1f214634d6111ce015740b6ce38e05c1519784e` |
+

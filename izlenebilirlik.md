@@ -95,3 +95,4 @@
 | sistem.md §11, §13, §18 (A3 ve Z12 aktarım ölçümü, B3 onay şartı; ÖK-005 taslağı §4.4, V-066) | `degerlendirme/h2_aktarim.py` | `testler/test_b3_z12.py` |
 | sistem.md §13, §18 (H2 rapor metinleri: ek §3, B1 raporu, Kapı 2 ham raporu; yasak iddialar; V-065) | `degerlendirme/h2_rapor.py` | `testler/test_b1_rapor.py` |
 | KODLAMA_PROMPTU §6 (Mutasyon sınaması, H2 B1–B3; V-065) | `araclar/mutasyon_b1.py` | `testler/test_b1_gecit.py` |
+| sistem.md §13 (şema-türevi kural testi, cinsiyet ikizi ve (c) tanısı; K-044, V-067) | `degerlendirme/h2_sematurevi.py` | `testler/test_b1_sematurevi.py` |

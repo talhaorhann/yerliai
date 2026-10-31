@@ -9,6 +9,9 @@ aralığında; K ve tur başına aday B1 sonucundan okunur (ÖK-005 eki §3 ile 
 - B2b (tek atış): bellek boş; aynı arama; her tur sonunda makas (kontrol havuzu); tetiklenirse arama donar. Sonra final
   havuzunda bir kez ölçüm: hedef sınıfları, kabul sınıfları, bilmiyorum (kabul kümesi ve hedef kümesi), kapı kararı ve
   A3 aktarımı (aile başına kapanış geri bulması; A3 ikinci üreticidir).
+- K-044: kabul edilenler ve bulunan hedefler "şema-türevi" testinden geçer (21 taze boş dünyanın hepsinde sıfır ihlal);
+  şema-türevi bulunan hedefler ayrı sütunda yazılır ve keşif sayılmaz: kapı kararı ayrıca şema-türevi bulunanlar
+  hariç (payda 244) hesaplanır. Tur hükümlerinin neden dağılımı (ör. çok eşleşen kuralda uyum) ayrı kaynak olarak yazılır.
 Hedef kurallar yalnız B2a tohumlarında ve ölçümde kullanılır; arama sırası ve kalibrasyona girmez.
 Kullanım: python3 -m degerlendirme.h2_b2 <m0_adaylar.jsonl> <B1 çıkış klasörü> <çıkış klasörü> <B2a|B2b> [süreç sayısı]
 """
@@ -22,7 +25,7 @@ from cekirdek.altyapi.ayar import ayar_yukle
 from cekirdek.altyapi.kanonik import kanonik_json
 from cekirdek.dna import dna_yukle
 from degerlendirme import h2_b1, h2_bagla, h2_butce, h2_gecit as G, h2_kirmizi as KR, h2_olcum as O, h2_onkayit
-from degerlendirme import h2_tur, kural
+from degerlendirme import h2_sematurevi as ST, h2_tur, kural
 
 B2A, B2B = "B2a", "B2b"  # ÖK-005 taslağı §5: taze dünya etiketleri
 DNA_YOLU = Path("veri") / "dna" / "akrabalik_dna_v8.json"  # K-038
@@ -72,6 +75,14 @@ class B2:
                                   self.kok / "degerlendirme" / "veri" / "tanimlar_v1.schema.json", self.ortam.sema)
         return [(d.aile, kural.Indeks(d.olgular)) for _, d in h2_tur.havuz_kayitlari(self.h2, tanimlar, havuz_adi)]
 
+    def _st_dunyalar(self):
+        if not hasattr(self, "_st"):
+            from degerlendirme.dunya import tanimlar_yukle
+            tanimlar = tanimlar_yukle(self.kok / "degerlendirme" / "veri" / "tanimlar_v1.json",
+                                      self.kok / "degerlendirme" / "veri" / "tanimlar_v1.schema.json", self.ortam.sema)
+            self._st = ST.dunyalar(self.h2, tanimlar, self.ortam.sema)
+        return self._st
+
     def hedefler(self):
         """Hedef kurallar (DNA v8): yalnız B2a tohumları ve ölçüm için."""
         hucreler = dna_yukle(self.kok / DNA_YOLU, self.kok / DNA_BICIMI, self.ortam.sema)
@@ -83,7 +94,7 @@ class B2:
         defter = h2_butce.SorguDefteri(klasor / "sorgu_defteri.jsonl", self.h2, self.tur_basina)
         kos = self._kosucu(klasor, defter)
         kuyruk = h2_tur.TembelKuyruk(self.m0)
-        turlar, kapsam, donma = [], {}, None
+        turlar, kapsam, donma, nedenler = [], {}, None, {}
         try:
             for tur in range(1, self.h2.deger("sorgu_tur_siniri") + 1):
                 if not kuyruk:
@@ -92,6 +103,8 @@ class B2:
                 for kim, h in oz["hukumler"].items():
                     if h[0] == G.KABUL:
                         kapsam[kim] = h[1].split(",")
+                    tur_ = h[0] if h[0] == G.KABUL else f"{h[0]}/{h[1]}"
+                    nedenler[tur_] = nedenler.get(tur_, 0) + 1
                 kayit = {"tur": tur, "sorgulanan": len(oz["sorgulanan"]), "kabul": len(oz["kabul"]),
                          "tabu_uyutulan": len(oz["tabu_uyutulan"]),
                          "hukum": {h: sum(v[0] == h for v in oz["hukumler"].values())
@@ -105,7 +118,7 @@ class B2:
                 turlar.append(kayit)
         finally:
             kos.kapat()
-        return {"turlar": turlar, "donma": donma, "kalan_sira": bool(kuyruk), "kapsam": kapsam}
+        return {"turlar": turlar, "donma": donma, "kalan_sira": bool(kuyruk), "kapsam": kapsam, "nedenler": nedenler}
 
     def _makas(self, basamak, klasor):
         kontrol = self._dunyalar(KONTROL)
@@ -148,7 +161,7 @@ class B2:
         bellek = h2_tur.Bellek()
         a = self.arama(B2B, bellek, klasor, self._makas(B2B, klasor))
         olcum = self.olcum(bellek, a["kapsam"])
-        return {"arama": {k: v for k, v in a.items() if k != "kapsam"}, **olcum}
+        return {"arama": {k: v for k, v in a.items() if k != "kapsam"}, "kesif": self.h2.deger("kesif_damgasi"), **olcum}
 
     def olcum(self, bellek, kapsamlar):
         """Final havuzunda bir kez (ÖK-005 taslağı §8)."""
@@ -166,7 +179,17 @@ class B2:
         okunur = {k for k, d in hedef.items() if h2_bagla.semadan_okunabilir_mi(_kayit(d), self.ortam.sema)}
         ornekli = {k for k, s in hs.items() if s != O.ORNEKSIZ}
         bulunan = {k for k, s in hs.items() if s in (O.OZDES, O.GENEL, O.KAPANIS)}
-        sonuc = {"karar": karar, "hedef_siniflari": hs, "kabul_siniflari": ks,
+        st_dunya = self._st_dunyalar()  # K-044
+        kabul_st = {k for k, kk in bellek.kabul.items() if ST.sema_turevi_mi(kk, st_dunya)}
+        bulunan_st = {k for k in bulunan if ST.sema_turevi_mi(hedef[k], st_dunya)}
+        hs_haric = {k: ("sema_turevi" if k in bulunan_st else v) for k, v in hs.items()}
+        karar_haric = O.b2_karari(hs_haric, hedef, ks, b_kume, b_hedef, self.h2, self.sabit.wilson_z)
+        sonuc = {"karar": karar, "karar_sema_turevi_haric": karar_haric, "hedef_siniflari": hs, "kabul_siniflari": ks,
+                 "sema_turevi": {"kabul_sema_turevi": len(kabul_st), "kabul": len(bellek.kabul),
+                                 "bulunan_sema_turevi": len(bulunan_st), "bulunan": len(bulunan),
+                                 "bulunan_sinif": {c: [sum(1 for k in bulunan if hs[k] == c),
+                                                       sum(1 for k in bulunan_st if hs[k] == c)]
+                                                   for c in (O.OZDES, O.GENEL, O.KAPANIS)}},
                  "bilmiyorum": {"kabul_kumesi": {a: v for a, v in b_kume.items() if a != "dunyalar"},
                                 "hedef": {a: v for a, v in b_hedef.items() if a != "dunyalar"}},
                  "a3_aktarim": {"kabul_kumesi": O.aileye_gore(b_kume["dunyalar"], [a for a, _ in final]),

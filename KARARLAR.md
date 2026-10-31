@@ -297,3 +297,20 @@ Biçim: kimlik, tarih, karar, gerekçe, etkisi.
   - Her büyük adımda bir sayfalık sade Türkçe durum raporu yazılır.
 - **Sınır (raporlara yazılır):** gizli ailelerin yazarı danışmandır ve danışman da kodlayıcıyla aynı model ailesindendir.
 - **Onaylayan:** kullanıcı.
+
+## K-044 (2026-10-31): B1 onarım turu 1 — "şema-türevi" kabuller boş-dünya tetiğinden çıkar
+- **Bağlam:** B1 önkayıt aralığı dışında kaldı; yalnız boş-dünya tetiği (2 boş koşuda 190 ve 187 ters-dayanaklı kural kabul edildi). Seçenek (b) seçildi; (a) ve (c) kapı olarak reddedildi.
+- **Tanım (mekanik):** bir kural "şema-türevi"dir, eğer tetik testinde kullanılmamış, birbirinden bağımsız en az 20 taze boş dünyanın hepsinde sıfır ihlal verir. Tohumlar önkayıt kuralıyla türetilir, sonuca bakarak seçilmez. Boş-dünya tetiği yalnız şema-türevi olmayan kabulleri sayar.
+- **Raporlama:**
+  - Şema-türevi kabuller ayrı raporlanır ve "keşif" sayılmaz.
+  - B2 paydası 244 kalır.
+  - Şema-türevi olup DNA'da bulunan kurallar ayrı sütunda yazılır.
+  - Şema-türevi sınıfı sonuçtan sonra elle genişletilemez.
+- **Önkayıt:** ÖK-005 eki §4 olarak yazılır. Sonuca "keşif" damgası vurulur. İki onarım turundan biri harcanmıştır.
+- **Koşu:**
+  - B1 aynı tohumlarla baştan koşar.
+  - (c) yönü (boş dünyada cinsiyeti de karıştırmak) yalnız tanı olarak bir kez koşar. Sonuç kapıya girmez, ayrı satırda raporlanır.
+- **Soru:** raporda 179 gizli sahte yazıyor, dosyada 180 var. Sınanmayan kuralın yalnız sayısı ve neden türü yazılır; içerik ve aile yazılmaz.
+- **Sonra:** B1 yeni tanımla aralığa girerse K-043 geçerlidir (B2a ve B2b otomatik); girmezse dur ve raporla.
+- **B2 raporu:** çok eşleşen kural sınırı (çekirdek turda en çok 8 sonuç yazar) ayrı bir kaynak olarak açıkça yazılır.
+- **Onaylayan:** kullanıcı.

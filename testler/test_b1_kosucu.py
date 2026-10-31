@@ -9,7 +9,7 @@ from pathlib import Path
 
 from cekirdek.altyapi.atomik import atomik_yaz
 from cekirdek.altyapi.kanonik import kanonik_json
-from degerlendirme import h2_b1, h2_gecit as G, h2_kirmizi as KR, h2_tur
+from degerlendirme import h2_b1, h2_gecit as G, h2_kirmizi as KR, h2_tur, kural
 from testler import test_b1_gecit as tg
 from testler.test_b1_kirmizi import KucukAyar, U1
 from testler.test_b1_tur import SABIT, ZINDLE_YOLU, kayit, taze_fn
@@ -32,7 +32,10 @@ class B1Testi(tg.Ortak):
         b.ortam, b.taze_fn, b.sabit = self.ortam, taze_fn, SABIT
         b._kosucu = lambda klasor, kurulum=None, defter=None, obiter_sirala=False: h2_tur.Kosucu(
             klasor, self.ortam, taze_fn, None, defter, [], obiter_sirala)
-        b._bos_m0 = lambda k: ([{"aday": kayit(c)} for c in (tg.SIMETRIK, tg.DOGRU)], 10, {})
+        b._bos_m0 = lambda k, cinsiyet=False: ([{"aday": kayit(c)} for c in (tg.SIMETRIK, tg.DOGRU)], 10, {})
+        vonksuz = tg.dunya("F1", 30, 77)
+        vonksuz = kural.Indeks([o for o in vonksuz.olgular if o[1] != tg.V])  # DOGRU burada ihlal verir
+        b._st_dunyalar = lambda: [("st|1", vonksuz)]
         gor = [kayit(c) for c in (tg.YANLIS, tg.SIMETRIK)]
         for g in gor:
             g["kaynak"] = {"tur": KR.GORUNUR, "aile": "G1", "tohum": 1, "ust": []}
@@ -95,6 +98,7 @@ class B1Testi(tg.Ortak):
         self.assertEqual(kr["gizli"]["1"]["kural"], 2)
         self.assertEqual((kr["gizli"]["1"]["etkin"], kr["gizli"]["2"]["etkin"]), (1, 1))
         self.assertEqual(kr["gizli"]["1"]["etkin_olmayan_kabul"], 1)  # DOGRU: geliştirmede yanlış vermez, sahte sayılmaz
+        self.assertEqual(kr["etkin_olmayan_gizli"], {"sayi": 1, "hukum": {"KABUL": 1}})  # aile yazılmaz
         self.assertEqual(kr["kacak"], 0)
         self.assertEqual(kr["sahte_toplam"], 3)
         self.assertFalse(kr["alt_sinir_gecti"])  # 3/3 ile tek yanlı alt sınır %98'in altında
@@ -115,7 +119,26 @@ class B1Testi(tg.Ortak):
         atomik_yaz(b.cikis / "talep.json", kanonik_json({"C": 1}))
         bos = b.evre("bos_kosular", b.bos_kosular)
         self.assertEqual((bos["kabullu_kosu"], bos["yapilan"], bos["tetiklendi"]), (2, 2, True))  # DOGRU kabul edilir
-        self.assertTrue(all(k["kabul"] == 1 for k in bos["kosular"]))
+        self.assertTrue(all(k["kabul"] == 1 and k["sema_turevi_kabul"] == 0 for k in bos["kosular"]))
+
+    def test_sema_turevi_kabul_tetige_sayilmaz(self):
+        """K-044: taze boş dünyaların hepsinde sıfır ihlal veren kabul şema-türevidir; tetik onu saymaz."""
+        b = self.b1
+        b._st_dunyalar = lambda: [(e, idx) for e, _, idx in self.ortam.gelistirme]  # DOGRU burada ihlalsiz
+        b.evre("kalibrasyon_olcum", b.kalibrasyon_olcum)
+        atomik_yaz(b.cikis / "talep.json", kanonik_json({"C": 1}))
+        bos = b.evre("bos_kosular", b.bos_kosular)
+        self.assertEqual((bos["kabullu_kosu"], bos["yapilan"], bos["tetiklendi"]), (0, 3, False))
+        self.assertTrue(all(k["kabul"] == 0 and k["sema_turevi_kabul"] == 1 for k in bos["kosular"]))
+
+    def test_cinsiyet_tanisi_kapiya_girmez(self):
+        b = self.b1
+        b.evre("kalibrasyon_olcum", b.kalibrasyon_olcum)
+        atomik_yaz(b.cikis / "talep.json", kanonik_json({"C": 1}))
+        t = b.evre("tani_cinsiyet", b.tani_cinsiyet)
+        self.assertEqual((t["kabul_toplam"], t["sayilan"], t["sema_turevi"], t["okunur"]), (1, 1, 0, 0))
+        self.assertTrue(t["yalniz_tani"])
+        self.assertFalse((b.cikis / "bos_kosular.json").exists())  # tanı tetik sayımına ve sonuca girmez
 
 
 if __name__ == "__main__":

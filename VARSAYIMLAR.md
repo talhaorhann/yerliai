@@ -816,3 +816,17 @@ Durum: ONAYSIZ / ONAYLI (onaylı olan `KARARLAR.md`'ye taşınır).
   7. **B3 onayı:** Z12 koşusu yalnız KARARLAR.md'de "B3" geçen ve "Onaylayan: kullanıcı" yazan bir kararla başlar (K-043: B3'e onaysız geçilmez).
 - **Doğrulama:** `testler/test_b3_z12.py`, `testler/test_b2_kosucu.py`.
 - **Felsefi:** hayır. **Durum:** KODLAYICI KARARI (2026-10-26).
+
+## V-067: K-044 "şema-türevi" testi ve (c) tanısının uygulama ayrıntıları
+- **Bölüm:** sistem.md §13; K-044 (ÖK-005 eki §4).
+- **Uygulanan:** `degerlendirme/h2_sematurevi.py`; `h2_b1.py` (boş tetik, tanı evresi, gizli etkin olmayanın hükmü), `h2_b2.py` (şema-türevi sütunu, neden dağılımı), `h2_tur.py` (cinsiyet kipi), `h2_rapor.py`.
+- **Kodlayıcının küçük kararları:**
+  1. **Dünya sayısı:** her aileden 7, toplam 21 taze boş dünya (≥20, aileler dengeli). Etiketler `sematurevi|<aile>|<i>` (taban dünya) ve `bos|sematurevi|<aile>|<i>` (boş dönüşüm). Bu etiketler tetik testinde ve havuzlarda kullanılmaz; dünya özetleri havuz özetleriyle kesişmez (test).
+  2. **İhlal:** kapalı dünyaya göre yanlış tahmin (tahmin edilen çift dünyada o ilişkiyle gözlenmemiş). Hiç tetiklenmeyen kural da sıfır ihlal verir (tanım gereği); sayısı ayrıca yazılır.
+  3. **Tetik:** yalnız ne şemadan okunabilir ne şema-türevi olan kabuller sayılır; koşu böyle ilk kabulde durur. Şema-türevi ve okunur kabuller koşu başına ayrı sayılır.
+  4. **Cinsiyet ikizi (yalnız (c) tanısı):** tanımın son belirli cinsiyet adımının tipi çevrilince elde edilen ilişki (tanım dosyasında 7 çift). Karıştırma: boş dünyadaki her olgu, ikizi varsa, bağımsız olarak 1/2 olasılıkla ikiziyle değişir; tohum `cinsiyet|<k>|<dünya etiketi>`. Tanı 1. boş koşunun tohumlarıyla bir kez koşar; sonucu kapıya ve B1 sonucuna girmez.
+  5. **B2:** kabul edilen kuralların ve bulunan hedeflerin her biri aynı 21 dünyayla sınanır. Kapı kararı önkayıttaki gibi hesaplanır ve ayrıca şema-türevi bulunanlar hariç (payda 244) hesaplanır; ikisi de yazılır.
+  6. **Gizli etkin olmayan kural:** yalnız sayısı ve geçitteki hükmün türü yazılır (aile yok).
+  7. **Keşif damgası:** `config_h2.json` `kesif_damgasi` (K-044); B1 sonucu ve B2b sonucu bu alanı taşır, raporlar damgayı yazar.
+- **Doğrulama:** `testler/test_b1_sematurevi.py`, `test_b1_kosucu.py`, `test_b2_kosucu.py`, `test_b1_rapor.py`.
+- **Felsefi:** hayır (tanım kullanıcının, K-044). **Durum:** KODLAYICI KARARI (2026-10-31).

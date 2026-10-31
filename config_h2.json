@@ -358,6 +358,17 @@
         "en_kucuk_aile": 45
       },
       "kaynak": "K-043"
+    },
+    "sema_turevi": {
+      "deger": {
+        "aile_basina": 7,
+        "en_az": 20
+      },
+      "kaynak": "K-044"
+    },
+    "kesif_damgasi": {
+      "deger": true,
+      "kaynak": "K-044"
     }
   },
   "bayraklar": {

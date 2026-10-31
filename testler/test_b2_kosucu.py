@@ -35,6 +35,7 @@ class B2Testi(tg.Ortak):
         dunya = {"final": [(a, idx) for _, a, _, idx in type(self).taze], "kontrol": [(a, idx) for _, a, _, idx in
                                                                                       taze_fn("B2b", 9)]}
         b._dunyalar = lambda ad: dunya[ad]
+        b._st_dunyalar = lambda: [(e, idx) for e, _, idx in ortam.gelistirme]  # DOGRU ve ZINDLE_YOLU burada ihlalsiz
 
     def tearDown(self):
         self._d.cleanup()
@@ -61,6 +62,12 @@ class B2Testi(tg.Ortak):
         self.assertEqual(s["karar"]["bulunan"], 2)
         self.assertEqual(s["ikincil_paydalar"]["okunur_haric"], [2, 2])  # h3 şemadan okunur sınıfta
         self.assertTrue((Path(self._d.name) / "b2b_olcum.json").exists())
+        st = s["sema_turevi"]  # K-044: ayrı sütun; payda 244 (burada 3) kalır
+        self.assertEqual((st["kabul_sema_turevi"], st["bulunan_sema_turevi"]), (s["kabul_sayisi"], 2))
+        self.assertEqual(s["karar_sema_turevi_haric"]["bulunan"], 0)
+        self.assertEqual(s["karar"]["bulunan"], 2)
+        nedenler = s["arama"]["nedenler"]
+        self.assertEqual(sum(nedenler.values()), sum(sum(t["hukum"].values()) for t in s["arama"]["turlar"]))
         self.assertEqual(self.b2.olcum(h2_tur.Bellek(), {})["karar"], s["karar"])  # ölçüm bir kez: dosyadan döner
 
     def test_b1_basarisizsa_b2_baslamaz(self):

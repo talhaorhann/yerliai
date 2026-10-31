@@ -15,8 +15,11 @@ Evreler (her biri `<çıkış>/<evre>.json`'a yazılır; koşu kesilirse kaldı�
    kimlik ve içerik yazılmaz, ölçüm dosyaları geçici klasörde kalır ve silinir).
 7. p_yildiz: boş aday akışında ilk sahte kabul.
 8. bos_kosular: boş dünyada arama (M0 + 12 tur, seçilen K); şemadan okunabilir sınıf sayılmadığı için sıraya girmez;
-   bir koşuda okunabilir olmayan ilk kabulde o koşu durur; tetik sayısına ulaşılınca bütün koşular durur.
+   tetik yalnız şemadan okunabilir ve şema-türevi (K-044: 21 taze boş dünyanın hepsinde sıfır ihlal) olmayan
+   kabulleri sayar; bir koşuda böyle ilk kabulde o koşu durur; tetik sayısına ulaşılınca bütün koşular durur.
 9. sonuc: B1'in önkayıttaki başarı aralığında olup olmadığı (kaçak 0, alt sınır ≥ %98, boş tetik yok, K seçildi).
+10. tani_cinsiyet (K-044, yalnız tanı): bir boş koşu, boş dünyalarda cinsiyet olgu başına karıştırılarak; sonuç
+   kapıya ve sonuca girmez, ayrı satırda raporlanır.
 Kullanım: python3 -m degerlendirme.h2_b1 <m0_adaylar.jsonl> <çıkış klasörü> [süreç sayısı] [evre]
 """
 import hashlib
@@ -32,7 +35,7 @@ from cekirdek.altyapi.atomik import atomik_yaz
 from cekirdek.altyapi.ayar import ayar_yukle
 from cekirdek.altyapi.kanonik import kanonik_json
 from degerlendirme import h2_bagla, h2_butce, h2_gecit as G, h2_kalibrasyon as KAL, h2_kirmizi as KR
-from degerlendirme import h2_onkayit, h2_tur, istatistik, kural
+from degerlendirme import h2_onkayit, h2_sematurevi as ST, h2_tur, istatistik, kural
 from kesif import aday, m0, sablon
 
 BASAMAK = "B1"  # ÖK-005 taslağı §5: taze dünya etiketi
@@ -41,7 +44,7 @@ TALEP_PARCA = 256  # V-065: C sayımında paralel parça (sonucu değiştirmez)
 VARSAYILAN_IS_SAYISI = 4  # V-057: makinedeki çekirdek sayısı
 KALIBRASYON, KIRMIZI_GORUNUR, BOS_AKIS, KIRMIZI_GIZLI = "kalibrasyon", "kirmizi_gorunur", "bos_akis", "kirmizi_gizli"
 EVRELER = ("talep", "kirmizi_gorunur", "bos_adaylar", "kalibrasyon_olcum", "k", "kirmizi", "p_yildiz", "bos_kosular",
-           "sonuc")
+           "sonuc", "tani_cinsiyet")
 
 
 class B1Hatasi(RuntimeError):
@@ -115,6 +118,15 @@ class B1:
             return h2_tur.Kosucu(klasor, ortam, taze_fn, None, defter, self._yasak(), obiter_sirala)
         return h2_tur.Kosucu.paralel(klasor, kurulum, self.is_sayisi, defter, self._yasak(), obiter_sirala)
 
+    def _st_dunyalar(self):
+        """K-044: şema-türevi testinin 21 taze boş dünyası (bir kez kurulur)."""
+        if not hasattr(self, "_st"):
+            from degerlendirme.dunya import tanimlar_yukle
+            tanimlar = tanimlar_yukle(self.kok / "degerlendirme" / "veri" / "tanimlar_v1.json",
+                                      self.kok / "degerlendirme" / "veri" / "tanimlar_v1.schema.json", self.ortam.sema)
+            self._st = ST.dunyalar(self.h2, tanimlar, self.ortam.sema)
+        return self._st
+
     def _m0_kayitlari(self, n):
         return [self.m0[i] for i in range(min(n, len(self.m0)))]
 
@@ -171,15 +183,16 @@ class B1:
         sahte = [k["kimlik"] for k in akis if KR._gelistirmede_yanlis(kural.Kural.kayittan(k), self.ortam.gelistirme) > 0]
         return {"m0_aday": len(adaylar), "akis": len(akis), "sahte": sahte, "m0_sure_s": sure, "m0_ozet": oz}
 
-    def _bos_m0(self, k):
+    def _bos_m0(self, k, cinsiyet=False):
         """Boş geliştirme havuzunda M0 (dosyaya yazılır; varsa okunur). Dönüş: (adaylar, süre, özet)."""
         klasor = self.cikis / "bos"
-        yol, ozet_yolu = klasor / f"k{k:03d}_m0.jsonl", klasor / f"k{k:03d}_m0_ozet.json"
+        on = "c" if cinsiyet else "k"
+        yol, ozet_yolu = klasor / f"{on}{k:03d}_m0.jsonl", klasor / f"{on}{k:03d}_m0_ozet.json"
         if not ozet_yolu.exists():
             import torch
             torch.set_num_threads(M0_IS_PARCACIGI)
             bas = time.time()
-            ortam, _ = h2_tur.ortam_kur(h2_tur.Kurulum(str(self.kok), bos=k))
+            ortam, _ = h2_tur.ortam_kur(h2_tur.Kurulum(str(self.kok), bos=k, cinsiyet=cinsiyet))
             sonuc = m0.m0([d for _, d, _ in ortam.gelistirme], tuple(ortam.sema.adlar), self.h2)
             klasor.mkdir(parents=True, exist_ok=True)
             atomik_yaz(yol, sonuc.cikti)
@@ -259,12 +272,13 @@ class B1:
             s["kacak"] += kim in sahte and hukum[kim] == G.KABUL
             s["sahte_olmayan_kabul"] += kim not in sahte and hukum[kim] == G.KABUL
         gizli_ozet = self._gizli(gizli_yolu, esik)
+        etkin_olmayan = self._gizli_etkin_olmayan
         n = sum(s["sahte"] for s in gorunur_ozet.values()) + sum(s["etkin"] for s in gizli_ozet.values())
         kacak = sum(s["kacak"] for s in gorunur_ozet.values()) + sum(s["kacak"] for s in gizli_ozet.values())
         r = self.h2.deger("kirmizi_alt_sinir")
         alt = istatistik.clopper_pearson(n - kacak, n, 1 - 2 * (1 - r["guven"]))[0] if n else 0.0  # K-041: tek yanlı %95
-        return {"gorunur": gorunur_ozet, "gizli": gizli_ozet, "sahte_toplam": n, "kacak": kacak, "alt_sinir": alt,
-                "alt_sinir_gecti": alt >= r["oran"]}
+        return {"gorunur": gorunur_ozet, "gizli": gizli_ozet, "etkin_olmayan_gizli": etkin_olmayan, "sahte_toplam": n,
+                "kacak": kacak, "alt_sinir": alt, "alt_sinir_gecti": alt >= r["oran"]}
 
     def _gizli(self, gizli_yolu, esik):
         """Gizli aileler: yalnız sayılar döner; ölçümler geçici klasörde kalır ve silinir."""
@@ -284,9 +298,17 @@ class B1:
                 _, olc, _ = self._turlar(kos, [t for _, _, t in takma], son + 1, esik)
             finally:
                 kos.kapat()
-            hukum = {t["kimlik"]: G.hukum(olc[t["kimlik"]], esik, self.sabit)[0] for _, _, t in takma}
+            hukum_neden = {t["kimlik"]: G.hukum(olc[t["kimlik"]], esik, self.sabit) for _, _, t in takma}
+            hukum = {k: h for k, (h, _) in hukum_neden.items()}
         finally:
             shutil.rmtree(gecici, ignore_errors=True)
+        etkin_olmayan = {}
+        for _, etkin_mi, t in takma:  # K-044 madde 5: yalnız sayı ve neden türü; aile yazılmaz
+            if not etkin_mi:
+                h, neden = hukum_neden[t["kimlik"]]
+                tur_ = h if h == G.KABUL else f"{h}/{neden}"
+                etkin_olmayan[tur_] = etkin_olmayan.get(tur_, 0) + 1
+        self._gizli_etkin_olmayan = {"sayi": sum(etkin_olmayan.values()), "hukum": etkin_olmayan}
         ozet = {}
         for no, etkin_mi, t in takma:
             s = ozet.setdefault(no, {**sayim[no], "etkin": 0, "kacak": 0, "etkin_olmayan_kabul": 0})
@@ -310,27 +332,36 @@ class B1:
 
     # ---- 8. boş koşular ----
 
-    def _bos_kosu(self, k, esik, tur_basina):
-        adaylar, m0_sure, _ = self._bos_m0(k)
+    def _bos_kosu(self, k, esik, tur_basina, cinsiyet=False):
+        adaylar, m0_sure, _ = self._bos_m0(k, cinsiyet=cinsiyet)
         bas = time.time()
         sema = self.ortam.sema
         kuyruk = [a["aday"] for a in adaylar if not _sema_okunur(a["aday"], sema)]
-        klasor = self.cikis / "bos" / f"k{k:03d}"
+        klasor = self.cikis / "bos" / f"{'c' if cinsiyet else 'k'}{k:03d}"
         defter = h2_butce.SorguDefteri(klasor / "sorgu_defteri.jsonl", self.h2, tur_basina)
-        kos = self._kosucu(klasor, kurulum=h2_tur.Kurulum(str(self.kok), bos=k), defter=defter, obiter_sirala=True)
-        bellek, kabul, okunur, tur = h2_tur.Bellek(), [], 0, 1
+        kos = self._kosucu(klasor, kurulum=h2_tur.Kurulum(str(self.kok), bos=k, cinsiyet=cinsiyet), defter=defter,
+                           obiter_sirala=True)
+        bellek, kabul, okunur, st, st_bos, tur = h2_tur.Bellek(), [], 0, 0, 0, 1
         sira_boyu = len(kuyruk)
         try:
             while kuyruk and tur <= self.h2.deger("sorgu_tur_siniri") and not kabul:
                 oz, _ = kos.tur_kos(kuyruk, h2_tur.TurIsi(BASAMAK, tur, tur_basina, esik), bellek)
                 hepsi = [kim for kim, h in oz["hukumler"].items() if h[0] == G.KABUL]
-                kabul = okunur_disi(hepsi, bellek, sema)
-                okunur += len(hepsi) - len(kabul)
+                disi = okunur_disi(hepsi, bellek, sema)
+                okunur += len(hepsi) - len(disi)
+                for kim in disi:  # K-044: şema-türevi kabul tetiğe sayılmaz
+                    i = ST.ihlal(bellek.kabul.get(kim) or bellek.uyuyan[kim], self._st_dunyalar())
+                    if i["ihlal"] == 0:
+                        st += 1
+                        st_bos += i["tahmin"] == 0
+                    else:
+                        kabul.append(kim)
                 tur += 1
         finally:
             kos.kapat()
         return {"k": k, "m0_aday": len(adaylar), "okunur_disi": sira_boyu, "tur": tur - 1, "kabul": kabul,
-                "okunur_kabul": okunur, "sure_s": round(m0_sure + time.time() - bas)}
+                "okunur_kabul": okunur, "sema_turevi_kabul": st, "sema_turevi_tetiklenmeyen": st_bos,
+                "sure_s": round(m0_sure + time.time() - bas)}
 
     def bos_kosular(self):
         esik = self._esik()
@@ -350,8 +381,20 @@ class B1:
                 break
         return {"kosu_sayisi": sayi, "tetik": tetik, "yapilan": len(sonuclar), "kabullu_kosu": kabullu,
                 "tetiklendi": kabullu >= tetik, "ilk_kosu_s": sonuclar[0]["sure_s"],
-                "kosular": [{"k": x["k"], "kabul": len(x["kabul"]), "sure_s": x["sure_s"], "tur": x["tur"]}
+                "kosular": [{"k": x["k"], "kabul": len(x["kabul"]), "okunur_kabul": x["okunur_kabul"],
+                             "sema_turevi_kabul": x["sema_turevi_kabul"], "sure_s": x["sure_s"], "tur": x["tur"]}
                             for x in sonuclar]}
+
+    # ---- 10. (c) tanısı ----
+
+    def tani_cinsiyet(self):
+        """K-044: yalnız tanı; bir boş koşu (1. koşunun tohumları), cinsiyet olgu başına karıştırılarak."""
+        esik = self._esik()
+        tur_basina = self.evre("p_yildiz", self.p_yildiz)["tur_basina_aday"]
+        s = self._bos_kosu(1, esik, tur_basina, cinsiyet=True)
+        return {"yalniz_tani": True, "kabul_toplam": len(s["kabul"]) + s["okunur_kabul"] + s["sema_turevi_kabul"],
+                "okunur": s["okunur_kabul"], "sema_turevi": s["sema_turevi_kabul"], "sayilan": len(s["kabul"]),
+                "m0_aday": s["m0_aday"], "tur": s["tur"], "sure_s": s["sure_s"]}
 
     # ---- 9. sonuç ----
 
@@ -363,7 +406,8 @@ class B1:
         c = self.evre("talep", self.talep)
         sartlar = {"k_secildi": k["secilen"] is not None, "kacak_0": kr["kacak"] == 0,
                    "alt_sinir": kr["alt_sinir_gecti"], "bos_tetik_yok": not bos["tetiklendi"]}
-        return {"basari_araliginda": all(sartlar.values()), "sartlar": sartlar, "K": k["secilen"], "C": c["C"],
+        return {"basari_araliginda": all(sartlar.values()), "sartlar": sartlar, "kesif": self.h2.deger("kesif_damgasi"),
+                "K": k["secilen"], "C": c["C"],
                 "P*": p["P*"], "P*_sansurlu": p["sansurlu"], "tur_basina_aday": p["tur_basina_aday"]}
 
 
@@ -377,7 +421,8 @@ def main(arg):
     b1 = B1(kok, m0_yolu, cikis, is_sayisi)
     islevler = {"talep": b1.talep, "kirmizi_gorunur": b1.kirmizi_gorunur, "bos_adaylar": b1.bos_adaylar,
                 "kalibrasyon_olcum": b1.kalibrasyon_olcum, "k": b1.k, "kirmizi": lambda: b1.kirmizi(gizli),
-                "p_yildiz": b1.p_yildiz, "bos_kosular": b1.bos_kosular, "sonuc": lambda: b1.sonuc(gizli)}
+                "p_yildiz": b1.p_yildiz, "bos_kosular": b1.bos_kosular, "sonuc": lambda: b1.sonuc(gizli),
+                "tani_cinsiyet": b1.tani_cinsiyet}
     for ad in EVRELER[:EVRELER.index(son) + 1]:
         bas = time.time()
         s = b1.evre(ad, islevler[ad])
