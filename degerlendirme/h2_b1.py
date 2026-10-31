@@ -205,9 +205,9 @@ class B1:
 
     def _olcumler(self):
         self.evre("kalibrasyon_olcum", self.kalibrasyon_olcum)
-        d = {}
+        d = {"ilk": {}, "gorunur": {}, "bos": {}}  # bir grup boş olabilir (ör. akışta sahte yok)
         for s in self._jsonl_oku("kalibrasyon_olcumleri.jsonl"):
-            d.setdefault(s["grup"], {})[s["kimlik"]] = s["olcum"]
+            d[s["grup"]][s["kimlik"]] = s["olcum"]
         return d
 
     # ---- 5. K ----

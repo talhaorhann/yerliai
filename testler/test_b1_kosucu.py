@@ -65,6 +65,17 @@ class B1Testi(tg.Ortak):
         self.assertEqual((p["P*"], p["sansurlu"]), (4, True))
         self.assertNotIn(dogru, b._olcumler()["bos"])
 
+    def test_akista_sahte_yoksa(self):
+        """B1'deki durum: boş aday akışında hiç sahte yok; K seçilir, P* sansürlüdür."""
+        b = self.b1
+        atomik_yaz(b.cikis / "bos_adaylar.json", kanonik_json({"sahte": [], "akis": 3, "m0_sure_s": 10}))
+        o = b.evre("kalibrasyon_olcum", b.kalibrasyon_olcum)
+        self.assertEqual(o["bos"], 0)
+        k = b.evre("k", b.k)
+        self.assertEqual(k["sahte_sayisi"], 1)  # yalnız görünür YANLIS
+        p = b.evre("p_yildiz", b.p_yildiz)
+        self.assertEqual((p["P*"], p["sansurlu"]), (4, True))
+
     def test_kirmizi_gizli_yalniz_sayilar(self):
         b = self.b1
         adaylar = []

@@ -505,3 +505,12 @@ Bu ek ÖK-004 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
    |---|---|
    | `degerlendirme/h2_b1.py` | `39ee2f09da54c82425c043e30e2b8b5baa294e4b137cd5297079b5a544acf30f` |
 
+
+### ÖK-005 eki §2b: boş ölçüm grubu düzeltmesi (2026-10-31)
+
+- Akışta hiç sahte aday olmayınca kalibrasyon ölçümleri "bos" grubunu oluşturmuyordu (hata, K seçiminden önce durdu). Gruplar baştan kurulur; test önce. Hiçbir hüküm etkilenmedi.
+
+   | Dosya | sha256 |
+   |---|---|
+   | `degerlendirme/h2_b1.py` | `5a48d48d2f3eb2035b123b2bd686117529f291c1faa83432d7cf5d87d6a12dc4` |
+
