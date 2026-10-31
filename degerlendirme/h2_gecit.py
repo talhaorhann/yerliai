@@ -16,7 +16,8 @@ denetçi kanalına (koşu dosyalarına) yazılır. Ölçüm ilk düşen aşamada
        çelişkisi (kapalı dünya); müdahale b·c (K-037), en az `mudahale_en_az_kanit` ölçüm. Uyum: her bölümde çekirdek
        (doğru, yanlış) = sembolik. Olguları çekirdek havuzuna sığmayan bölüm (V-031) ölçülemez: uyum yok. π-ikizi: geliştirme bölümlerinde (dünya başına bir, en çok `pi_bolum_sayisi`)
        çekirdek sayıları ve müdahale hükmü π'li kopyayla aynı.
-Sembolik doğru: maskelenen (A, r, B) (yol-kesme maskesiyle) çift kısıtlı kapanışla yeniden türetiliyor mu (V-065).
+Sembolik doğru (ÖK-005 taslağı §13.2, tanık): maskelenen (A, r, B) için gövdenin, maske (yol-kesme maskesi) çıkarılmış
+olgular üzerinde X → A, Y → B eşleşmesi var mı (tek adım; kuralın kendi türettiği olgu kullanılmaz, V-065).
 """
 import dataclasses
 import random
@@ -200,7 +201,7 @@ def sembolik_bolum(k, bolum, ortam):
     dogru = 0
     for f in sorted((o for o in bolum.olgular if o[1] == r), key=repr):
         a, _, b = f
-        dogru += f in kural.cift_kapanisi([k], idx, a, b, ortam.sabit.kapanis_tur_siniri, _maske(k, ortam.sema, idx.olgu, f))
+        dogru += k.turetir_mi(idx, a, b, haric=_maske(k, ortam.sema, idx.olgu, f))  # §13.2: tek adım
     geri = {v: w for w, v in bolum.esleme.items()}
     return {"dogru": dogru, "yanlis": yanlis, "tahmin": [[geri[a], geri[b]] for a, b in tah]}
 

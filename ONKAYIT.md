@@ -514,3 +514,16 @@ Bu ek ÖK-004 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
    |---|---|
    | `degerlendirme/h2_b1.py` | `5a48d48d2f3eb2035b123b2bd686117529f291c1faa83432d7cf5d87d6a12dc4` |
 
+
+### ÖK-005 eki §2c: sembolik tanık sayımı §13.2 ile uyumlu hâle getirildi (2026-10-31, V-065 madde 2)
+
+- **Hata:** aşama 5'in sembolik "doğru" sayımı, maskelenen olguyu kuralın kendi türettiği ters olgu üzerinden ikinci adımda da sayıyordu. §13.2'deki tanık tanımı tek adımlıktır (gövdenin maskeli olgular çıkarılmış olgular üzerindeki eşleşmesi). Hata, çekirdekle sembolik sayımın uyumunu bozuyordu.
+- **Nasıl görüldü:** B1 kalibrasyonunda M0'ın ilk 200 adayından çekirdek adımına ulaşan 6 adayın 6'sı "uyum" şartında düştü; 81 ızgara noktasının hepsinde KABUL 0'dı, K başlangıç değerinde kalmıştı.
+- **Düzeltme:** sembolik doğru tek adımdır (test önce). Kapanış yalnız küme ölçülerinde (B2 sınıfları, bilmiyorum, makas) kalır.
+- **Yeniden ölçüm:** kalibrasyona bağlı bütün ara sonuçlar silindi; aşama 1–4 önbelleği (tanımdan etkilenmez) korundu. Aynı B1 taze dünyaları (aynı tohumlar) ve aynı aday akışlarıyla yeniden hesaplanır; eşik, aile ve kural değişmedi.
+- **Kalan ve önkayıta göre olağan durum:** çekirdek her turda hücre başına en çok 8 yazar (mühürlü H1 değeri) ve ilk turda sığmayan eşleşmeleri sonraki turlarda yeniden denemez; çok eşleşmeli kurallarda maskeli olgu türetilemeyebilir. Bu adaylar §4 madde 11 gereği BİLMİYORUM olur; sayısı raporlanır.
+
+   | Dosya | sha256 |
+   |---|---|
+   | `degerlendirme/h2_gecit.py` | `3517546c74616ed635dd3207b9d10e72df9ab6ad303a9922877303b24e151b6e` |
+

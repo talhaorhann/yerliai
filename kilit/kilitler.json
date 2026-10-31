@@ -1,7 +1,7 @@
 {
   "algoritma": "sha256",
   "dosyalar": {
-    "ONKAYIT.md": "ddc4a4f19aecbbf010480e96044542f37801bd29d532e617c1c7e8076d21907c",
+    "ONKAYIT.md": "54e1e0e12b83f642ede95892f1d1c9fd6a3be6d639359f86894758be08743595",
     "ONKAYIT_H2_TASLAK.md": "38833917d2b75a3bac89e7520edff8f79ce07c86b2da26bb1785b2ee84d397ea",
     "config.json": "feae40960a4f24f24121bdf74cea782c384593fd2f31f87b0115ebc0ee32890f",
     "config_h2.json": "82a66030e75003d0a907dd862fee03d0c1fe522393b7385c8d09e091ceae67cc",
@@ -60,7 +60,7 @@
     "testler/test_b0_sayac.py": "6c904f718c89a7e2c2168067ae2c210c38fd2dcb9fb76cdce01fd0c7bc916b86",
     "testler/test_b1_bagla.py": "0b15f592ee76feff995330429db6142fd76166de77ad4d793e8d0111ddee12c0",
     "testler/test_b1_bolum.py": "d41dbc921e19163e6b30b3d91ba52c74f71feb4f9ef5473fd6bf8d5c8b546174",
-    "testler/test_b1_gecit.py": "440076361744bd48a0d6f7a511e29c23ad3c43e53be64237d2154bcb5375259f",
+    "testler/test_b1_gecit.py": "5b645f1ed734d4cb75cba2e5ff98ba1f0a544e9312f48d6fb57eb27334d53b13",
     "testler/test_b1_istatistik.py": "c552702b184bb775f78663a00b7ead1c2015d79899346145628cef44bf54f84f",
     "testler/test_b1_kalibrasyon.py": "54fbc9048ab057aad147bd145c47d1d567a6d6c79ed0b583aa519fd1eb57893a",
     "testler/test_b1_kirmizi.py": "4728a08e300d3d6a6bb9dbe59bee9164655ac86eb0199b21df6808c14c52f871",

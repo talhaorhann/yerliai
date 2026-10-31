@@ -167,6 +167,16 @@ class TazeTesti(Ortak):
         self.assertGreater(s["dogru"], 0)
         self.assertEqual(s["yanlis"], 0)
 
+    def test_sembolik_dogru_tek_adim(self):
+        """ÖK-005 taslağı §13.2: tanık, gövdenin maskeli olgular çıkarılmış olgular üzerindeki eşleşmesidir (tek adım).
+        Kuralın kendi türettiği ters olgu üzerinden ikinci adımda bulunan olgu sayılmaz."""
+        from degerlendirme import h2_bolum
+        r = k([(F, "W", "X"), (B, "W", "Z"), (B, "Y", "Z")], (F, "X", "Y"))
+        self.assertFalse(r.ters_dayanakli)
+        olg = ((1, B, 9), (2, B, 9), (4, B, 9), (1, F, 2), (2, F, 1), (4, F, 1))
+        bolum = h2_bolum.Bolum("e", olg, {i: i for i in (1, 2, 4, 9)}, h2_bolum.bolum_ozeti(olg))
+        self.assertEqual(G.sembolik_bolum(r, bolum, self.ortam)["dogru"], 1)  # yalnız (1, F, 2); kapanışla 3 olurdu
+
     def test_gelistirme_wilson_ayni_bicim(self):
         secilen = G.gelistirme_dunyalari(self.ortam)
         self.assertEqual([s[1] for s in secilen], ["F1", "F1", "F2", "F2", "F3", "F3"])
