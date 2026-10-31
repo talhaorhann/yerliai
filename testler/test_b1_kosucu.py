@@ -100,6 +100,15 @@ class B1Testi(tg.Ortak):
         self.assertFalse(kr["alt_sinir_gecti"])  # 3/3 ile tek yanlı alt sınır %98'in altında
         self.assertFalse(any(p.name.startswith("h2_gizli_") for p in Path(tempfile.gettempdir()).iterdir()))
 
+    def test_okunur_sinif_tetige_sayilmaz(self):
+        """ÖK-005 taslağı §4 madde 20: obiterle sıraya girmiş şemadan okunabilir kabul tetik sayımına girmez."""
+        bellek = h2_tur.Bellek()
+        bellek.kabul_et("a", tg.SIMETRIK)  # tek halkalı, simetriği okuyan: şemadan okunabilir
+        bellek.kabul_et("b", tg.DOGRU)
+        bellek.uyuyan["c"] = tg.SIMETRIK
+        self.assertEqual(h2_b1.okunur_disi(["a", "b", "c"], bellek, self.ortam.sema), ["b"])
+        self.assertEqual(h2_b1.okunur_disi(["a"], bellek, self.ortam.sema), [])
+
     def test_bos_kosular_tetik(self):
         b = self.b1
         b.evre("kalibrasyon_olcum", b.kalibrasyon_olcum)

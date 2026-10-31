@@ -527,3 +527,13 @@ Bu ek ÖK-004 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
    |---|---|
    | `degerlendirme/h2_gecit.py` | `3517546c74616ed635dd3207b9d10e72df9ab6ad303a9922877303b24e151b6e` |
 
+
+### ÖK-005 eki §2d: boş-dünya tetiğinde şemadan okunabilir sınıf (2026-10-31)
+
+- Eksiklik: boş koşuda sıra şemadan okunabilir adaylardan süzülüyordu, ama obiterin indirgenmiş kuralı sıraya sonradan girebildiği için okunabilir bir kabul tetik sayımına karışabiliyordu. Kabuller artık ayrıca denetlenir (§4 madde 20); okunur kabul sayısı ayrı yazılır. Test önce.
+- Boş koşu 1'in sonucu değişmez: 197 kabulün 190'ı okunur sınıf dışındadır. Koşu 1 önbellekten yeniden sayılır; süresi ilk ölçümdür (2283 sn).
+
+   | Dosya | sha256 |
+   |---|---|
+   | `degerlendirme/h2_b1.py` | `2bcc0cbd5878ba993fd27612419201be7f596ad66f8a86fb1fe2812a78af2e81` |
+

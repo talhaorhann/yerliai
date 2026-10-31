@@ -60,6 +60,20 @@ def _sema_okunur(kayit, sema):
     return h2_bagla.semadan_okunabilir_mi(kayit, sema)
 
 
+def okunur_disi(kimlikler, bellek, sema):
+    """ÖK-005 taslağı §4 madde 20: tetikte şemadan okunabilir sınıf sayılmaz. Sıra süzülse de obiterin indirgenmişi
+    sıraya sonradan girebilir; bu yüzden kabul edilen (ya da tabuyla uyutulan) kural burada ayrıca denetlenir."""
+    sonuc = []
+    for kim in kimlikler:
+        k = bellek.kabul.get(kim) or bellek.uyuyan[kim]
+        r, x, y = k.bas
+        kayit = {"halkalar": [{"gen": g, "sol": s, "sag": a} for g, s, a in k.halkalar],
+                 "sonuc": {"gen": r, "sol": x, "sag": y}}
+        if not _sema_okunur(kayit, sema):
+            sonuc.append(kim)
+    return sonuc
+
+
 class B1:
     def __init__(self, kok, m0_yolu, cikis, is_sayisi, onkayit=True):
         self.kok, self.cikis, self.is_sayisi = Path(kok), Path(cikis), is_sayisi
@@ -304,16 +318,19 @@ class B1:
         klasor = self.cikis / "bos" / f"k{k:03d}"
         defter = h2_butce.SorguDefteri(klasor / "sorgu_defteri.jsonl", self.h2, tur_basina)
         kos = self._kosucu(klasor, kurulum=h2_tur.Kurulum(str(self.kok), bos=k), defter=defter, obiter_sirala=True)
-        bellek, kabul, tur = h2_tur.Bellek(), [], 1
+        bellek, kabul, okunur, tur = h2_tur.Bellek(), [], 0, 1
+        sira_boyu = len(kuyruk)
         try:
             while kuyruk and tur <= self.h2.deger("sorgu_tur_siniri") and not kabul:
                 oz, _ = kos.tur_kos(kuyruk, h2_tur.TurIsi(BASAMAK, tur, tur_basina, esik), bellek)
-                kabul = [kim for kim, h in oz["hukumler"].items() if h[0] == G.KABUL]
+                hepsi = [kim for kim, h in oz["hukumler"].items() if h[0] == G.KABUL]
+                kabul = okunur_disi(hepsi, bellek, sema)
+                okunur += len(hepsi) - len(kabul)
                 tur += 1
         finally:
             kos.kapat()
-        return {"k": k, "m0_aday": len(adaylar), "okunur_disi": len(kuyruk), "tur": tur - 1, "kabul": kabul,
-                "sure_s": round(m0_sure + time.time() - bas)}
+        return {"k": k, "m0_aday": len(adaylar), "okunur_disi": sira_boyu, "tur": tur - 1, "kabul": kabul,
+                "okunur_kabul": okunur, "sure_s": round(m0_sure + time.time() - bas)}
 
     def bos_kosular(self):
         esik = self._esik()
