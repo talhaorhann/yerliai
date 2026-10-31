@@ -97,6 +97,14 @@ class TurTesti(tg.Ortak):
             h2_tur.TembelKuyruk(kayitlar), h2_tur.TurIsi("B1", 1, 5, ESIK), h2_tur.Bellek())
         self.assertEqual(oz1, oz2)
 
+    def test_kaldigi_yerden_obiterle_ayni_sonuc(self):
+        """Önbellekteki adaylar "bu aramada görüldü" sayılmaz: obiterin indirgenmişleri ikinci koşuda da sıraya girer."""
+        kuyruk = [kayit(k) for k in (tg.FAZLA, tg.SIMETRIK)]
+        oz1, _ = self.kosucu().tur_kos(copy.deepcopy(kuyruk), h2_tur.TurIsi("B1", 1, 5, ESIK), h2_tur.Bellek())
+        self.assertIn(kayit(tg.DOGRU)["kimlik"], oz1["sorgulanan"])  # FAZLA'nın indirgenmişi
+        oz2, _ = self.kosucu().tur_kos(copy.deepcopy(kuyruk), h2_tur.TurIsi("B1", 1, 5, ESIK), h2_tur.Bellek())
+        self.assertEqual(oz1, oz2)
+
     def test_kalibrasyon_kipi(self):
         dogru = kayit(tg.DOGRU)
         oz, olc = self.kosucu().tur_kos([dogru], h2_tur.TurIsi("B1", 1, 5, None), h2_tur.Bellek())

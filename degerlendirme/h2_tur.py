@@ -327,6 +327,7 @@ class Kosucu:
         self.yasak = set(yasak_ozetler)
         self.obiter_sirala = obiter_sirala
         self.on = Kayitci(self.klasor / ON)
+        self.gorulen = set()  # bu aramada sıradan geçen ya da sıraya giren adaylar (önbellek değil)
         _yerlestir(ortam, taze_fn)
 
     @classmethod
@@ -357,7 +358,7 @@ class Kosucu:
     def on_eleme(self, kuyruk, is_, bellek):
         """Sıradan adayları aşama 1–4 ve yedeklilikten geçirir; sorgulanacakları (en çok aday_siniri) döner."""
         sabit = self.ortam.sabit
-        gorulen = (kuyruk.kimlikler() if isinstance(kuyruk, TembelKuyruk) else {k["kimlik"] for k in kuyruk}) | set(self.on.veri)
+        self.gorulen |= kuyruk.kimlikler() if isinstance(kuyruk, TembelKuyruk) else {k["kimlik"] for k in kuyruk}
         hukumler, sorgulanacak = {}, []
         while kuyruk and len(sorgulanacak) < is_.aday_siniri:
             parca = {k["kimlik"] for k in kuyruk[:ON_PARCA]}
@@ -369,8 +370,8 @@ class Kosucu:
                 if h:
                     hukumler[kayit["kimlik"]] = list(h)
                     if h[1] == "obiter" and self.obiter_sirala:
-                        yeni = [y for y in (obiter_kaydi(kayit, oz) for oz in on["obiter"]) if y["kimlik"] not in gorulen]
-                        gorulen |= {y["kimlik"] for y in yeni}
+                        yeni = [y for y in (obiter_kaydi(kayit, oz) for oz in on["obiter"]) if y["kimlik"] not in self.gorulen]
+                        self.gorulen |= {y["kimlik"] for y in yeni}
                         kuyruk[0:0] = yeni
                     continue
                 k = kural.Kural.kayittan(kayit)

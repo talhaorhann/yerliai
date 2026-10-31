@@ -537,3 +537,12 @@ Bu ek ÖK-004 §5'teki sırayla doldurulur. Kapı koşusu için gereken özetler
    |---|---|
    | `degerlendirme/h2_b1.py` | `2bcc0cbd5878ba993fd27612419201be7f596ad66f8a86fb1fe2812a78af2e81` |
 
+
+### ÖK-005 eki §2e: kaldığı yerden devamda "görülen aday" kümesi (2026-10-31)
+
+- Hata: yeniden başlatılan koşuda önbellekteki bütün adaylar "bu aramada görülmüş" sayılıyordu; obiterin indirgenmiş kuralları ikinci koşuda sıraya girmiyor, tur farklı adaylarla doluyordu. Sorgu defteri bunu "turda aday sınırı doldu" diye durdurdu (boş koşu 1'in önbellekten yeniden sayımında). Görülen küme artık koşucunun kendi durumudur. Test önce. Hiçbir hüküm değişmedi; B2 henüz başlamadı.
+
+   | Dosya | sha256 |
+   |---|---|
+   | `degerlendirme/h2_tur.py` | `afb47255da21fdee241c40028b26a6c330528d634af60dba29b2d916367b6647` |
+
